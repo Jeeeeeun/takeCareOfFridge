@@ -22,7 +22,7 @@
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
 			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
-		<property name="username" value="C##food"></property>
+		<property name="username" value="c##food"></property>
 		<property name="password" value="food"></property>
 	</bean>
 	<!-- hikariCP DataSource -->

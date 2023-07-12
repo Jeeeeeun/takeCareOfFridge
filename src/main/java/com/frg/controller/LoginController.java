@@ -2,7 +2,11 @@ package com.frg.controller;
 
 import org.springframework.stereotype.Controller;
 
-@Controller
-public class LoginController {
+import lombok.extern.log4j.Log4j;
 
+@Controller
+@Log4j
+public class LoginController {
+	//@Setter(onMethod_= @Autowired)
+	
 }
