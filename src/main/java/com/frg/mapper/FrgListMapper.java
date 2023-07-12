@@ -1,5 +1,7 @@
 package com.frg.mapper;
 
-public interface FrgListMapper {
+import com.frg.domain.FrgListDTO;
 
+public interface FrgListMapper {
+	int insertFrgList(FrgListDTO dto);
 }
