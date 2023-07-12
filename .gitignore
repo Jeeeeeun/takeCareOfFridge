@@ -1,6 +1,7 @@
 # Compiled class files
 /target/
 /build/
+/bin/
 
 # IDE files
 .classpath
