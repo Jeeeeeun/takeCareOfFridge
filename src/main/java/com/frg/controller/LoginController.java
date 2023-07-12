@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class LoginController {
 
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	LoginService service;
 	
 	@RequestMapping(value="/login",method = RequestMethod.GET)

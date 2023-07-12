@@ -5,35 +5,50 @@
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
 	<insert id="insertInnerAuto">
-		INSERT INTO inner (user_index, frg_index, in_name, in_count, in_expireDate_auto, in_expireDate_custom, in_company, in_type, in_state)
-		SELECT (SELECT user_index FROM Users WHERE user_id =#{user_id})),
-		(SELECT frg_index FROM frgList WHERE frg_name = #{frg_name})),
-		api_name,
-		#{in_count},
-		api_expireDate,
-		#{in_expireDate_custom},
-		api_company,
-		api_type,
-		#{in_state} 
+		INSERT INTO inner (
+			frg_index,
+			in_name,
+			in_count,
+			in_expireDate_auto,
+			in_expireDate_custom,
+			in_company,
+			in_type,
+			in_state
+		)
+		SELECT
+		  (SELECT frg_index FROM FrgList WHERE frg_name =#{frg_name}),
+		  api_name,
+		  #{in_count},
+		  api_expireDate,
+		  #{in_expireDate_custom},
+		  api_company,
+		  api_type,
+		  #{in_state}
 		FROM foodAPI
-		WHERE api_fno = #{api_fno} 
+		WHERE api_fno = 200606144542
 	</insert>
 
 	<insert id="insertInnerCustom">
-		INSERT INTO Inner (user_index, frg_index, in_name, in_count, in_expireDate_custom, in_type, in_state)
-		VALUES ((SELECT user_index FROM Users WHERE user_id = #{user_id}),
-        (SELECT frg_index FROM frgList WHERE frg_name = #{frg_name}),
-        #{in_name},
-        #{in_count},
-        #{in_expireDate_custom},
-        #{in_type},
-        #{in_state}
-        )
+		INSERT INTO Inner (
+		    frg_index,
+		    in_name,
+		    in_count,
+		    in_expireDate_custom,
+		    in_type,
+		    in_state
+		)
+		VALUES (
+		    (SELECT frg_index FROM FrgList WHERE frg_name = #{frg_name} AND ROWNUM = 1),
+		    #{in_name},
+		    #{in_count},
+		    #{in_expireDate_custom},
+		    #{in_type},
+		    #{in_state}
+		);
 	</insert>
 	
-	<select id="selectFrgName" resultType="String">
-		SELECT distinct frg_name FROM frgList WHERE user_index IN
-        (SELECT user_index FROM Users WHERE user_id = #{user_id})
-	</select>
+	<!-- <select id="selectFrgName" resultType="String">
+		SELECT distinct frg_name FROM frgList WHERE user_index IN (SELECT user_index FROM Users WHERE user_id = #{user_id})
+	</select> -->
 
 </mapper>
