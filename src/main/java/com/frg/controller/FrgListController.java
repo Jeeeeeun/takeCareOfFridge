@@ -12,7 +12,7 @@ import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/frgList/*")
+@RequestMapping("/frg/*")
 @AllArgsConstructor
 @Log4j
 public class FrgListController {
@@ -20,9 +20,10 @@ public class FrgListController {
 	@NonNull
 	private FrgListService service;
 	
-	@GetMapping("/add")
-	public FrgListDTO registerFrgList() {
+	@GetMapping("/frgAdd")
+	
+	public String registerFrgList() {
 		
-		return null;
+		return "/frg/frgAdd"; // frgAdd_form // frgShow
 	}
 }
