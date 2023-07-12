@@ -1,6 +1,6 @@
 package com.frg.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class FrgListServiceTest {
 
-	@Setter(onMethod_ = @Autowired)
+	@Setter(onMethod_=@Autowired)
 	private FrgListService service;
 	
 	@Test
