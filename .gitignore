@@ -3,11 +3,11 @@
 /build/
 
 # IDE files
-/.classpath/
-/.project/
-/.settings/
-/.vscode/
-/.idea/
+.classpath
+.project
+.settings
+.vscode
+.idea
 *.iml
 
 # Dependency directory
