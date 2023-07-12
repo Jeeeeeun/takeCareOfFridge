@@ -1,7 +1,5 @@
 package com.frg.domain;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,5 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class FrgListDTO {
-
+	private String user_id;
+	//private int user_index;
+	private int frg_index;
+	private String frg_name;
+	private String frg_shape;
+	private String frg_Astate;
+	private String frg_Bstate;
 }
