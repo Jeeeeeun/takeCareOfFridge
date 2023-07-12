@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frg.mapper.InnerFoodMapper">
+
+	<insert id="insertInnerAuto">
+		INSERT INTO inner (user_index, frg_index, in_name, in_count, in_expireDate_auto, in_expireDate_custom, in_company, in_type, in_state)
+		SELECT (SELECT user_index FROM Users WHERE user_id =#{user_id})),
+		(SELECT frg_index FROM frgList WHERE frg_name = #{frg_name})),
+		api_name,
+		#{in_count},
+		api_expireDate,
+		#{in_expireDate_custom},
+		api_company,
+		api_type,
+		#{in_state} 
+		FROM foodAPI
+		WHERE api_fno = #{api_fno} 
+	</insert>
+
+	<insert id="insertInnerCustom">
+		INSERT INTO Inner (user_index, frg_index, in_name, in_count, in_expireDate_custom, in_type, in_state)
+		VALUES ((SELECT user_index FROM Users WHERE user_id = #{user_id}),
+        (SELECT frg_index FROM frgList WHERE frg_name = #{frg_name}),
+        #{in_name},
+        #{in_count},
+        #{in_expireDate_custom},
+        #{in_type},
+        #{in_state}
+        )
+	</insert>
+	
+	<select id="selectFrgName" resultType="String">
+		SELECT distinct frg_name FROM frgList WHERE user_index IN
+        (SELECT user_index FROM Users WHERE user_id = #{user_id})
+	</select>
+
+</mapper>

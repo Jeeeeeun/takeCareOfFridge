@@ -1,0 +1,40 @@
+# Compiled class files
+/target/
+/build/
+
+# IDE files
+.classpath
+.project
+.settings
+.vscode
+.springBeans
+.idea
+*.iml
+
+# Dependency directory
+/lib/
+/lib_managed/
+
+# Package files
+*.jar
+*.war
+*.ear
+*.db
+
+# Log files
+*.log
+
+# Local configuration files
+application-local.properties
+application-local.yml
+*.local.properties
+*.local.yml
+
+# macOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+#sql file
+foodDB.sql
