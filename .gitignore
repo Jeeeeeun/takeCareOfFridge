@@ -1,13 +1,15 @@
 # Compiled class files
 /target/
 /build/
+/bin/
 
 # IDE files
-/.classpath/
-/.project/
-/.settings/
-/.vscode/
-/.idea/
+.classpath
+.project
+.settings
+.vscode
+.springBeans
+.idea
 *.iml
 
 # Dependency directory
