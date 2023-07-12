@@ -1,5 +1,7 @@
 package com.frg.service;
 
-public interface FrgListService {
+import com.frg.domain.FrgListDTO;
 
+public interface FrgListService {
+	int registerFrgList(FrgListDTO dto);
 }
