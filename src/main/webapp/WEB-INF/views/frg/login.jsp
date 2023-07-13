@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Page</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <script>
     var msg = '<%=request.getParameter("msg")%>
 	';
@@ -48,6 +51,8 @@
 </script>
 </head>
 <body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<div class="navBar">
 		<a href="<%=request.getContextPath()%>/frg/index"><button
 				class="home"></button></a>

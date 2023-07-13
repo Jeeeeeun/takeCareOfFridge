@@ -1,4 +1,4 @@
-package com.frg.mapper;
+  package com.frg.mapper;
 
 import static org.junit.Assert.assertEquals;
 
