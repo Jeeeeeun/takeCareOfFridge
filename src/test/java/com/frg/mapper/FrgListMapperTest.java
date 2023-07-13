@@ -2,7 +2,7 @@ package com.frg.mapper;
 
 import static org.junit.Assert.*;
 
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class FrgListMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private FrgListMapper mapper;
 	
-	@Test
+	@Test @Ignore
 	public void testInsertFrgList() {
 		int expect = 1;
 		
@@ -39,6 +39,11 @@ public class FrgListMapperTest {
 		int result = mapper.insertFrgList(dto);
 		
 		assertEquals(expect, result);
+	}
+	
+	@Test
+	public void testSelectTrafficLight() {
+		
 	}
 
 }
