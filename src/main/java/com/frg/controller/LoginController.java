@@ -52,7 +52,7 @@ public class LoginController {
 			if (loginClass != 0) {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
 				log.info("frgListShow");
-				return "redirect:/frg/login";
+				return "redirect:/frg/frgShow";
 			} else {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
 				log.info("frgListAdd");
