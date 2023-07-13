@@ -76,14 +76,14 @@
 			</div>
 		</div>
 	</div>
-	<form action="${ pageContext.servletContext.contextPath }/innerFoodAdd"
+	<form action="${ pageContext.servletContext.contextPath }/frg/innerAdd"
 		method="post" class="settingBoxContainer">
 		<div class="formBackground" id="settingBoxWrapper">
 			<div class="settingBox">
 				<div class="formBack formFridge">
 					<label for="Fridge" class="labelName">냉장고</label>
 					<div class="formRight">
-						<select id="Fridge" style="color: #604C3F;">
+						<select id="frgNameLists" style="color: #604C3F;">
 							<option value="0">선택하세요</option>
 						</select>
 					</div>
