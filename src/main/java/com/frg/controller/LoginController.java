@@ -1,5 +1,7 @@
 package com.frg.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +62,12 @@ public class LoginController {
 			log.info("실패");			
 			return "/frg/login";
 		}
+	}
+	
+	@GetMapping("/getUserId")
+	public String getUserId(HttpServletRequest request, HttpServletRequest response) throws UnsupportedEncodingException {
+		String userId = SessionUtil.getSessionUserId(request);
+		response.setCharacterEncoding("UTF-8");
+		return "/frg/frgShow";
 	}
 }

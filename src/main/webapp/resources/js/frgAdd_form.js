@@ -233,7 +233,7 @@ function plusBtnClicked() {
 
 /* SESS_ID 데려오려는 함수 */ 
 async function getUserId() {
-	const response = await fetch(contextPath + '/getUserId');
+	const response = await fetch(contextPath + '/frg/getUserId');
 
 	if (response.ok) {
 		return await response.text();
@@ -274,12 +274,14 @@ async function submitBtnClicked() {
 
 	$.ajax({
 		type: 'POST',
-		url: `${window.contextPath}/frgListAdd`, // 이 주소가 FrgListAdd 서블릿
-		contentType: 'application/json; charset=utf-8',
+		url: `${contextPath}/frg/frgAdd_form`, // 이 주소가 FrgListAdd 서블릿
+		//contentType: 'application/json',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
 		data: jsonData,
+		dataType: "json",
 		success: function(response) { // 성공적으로 처리됐을 때 작업 수행
 			alert('냉장고 등록이 완료되었습니다.');
-			window.location.href = "/frgListShow";
+			window.location.href = "${contextPath}/frg/frgShow";
 		},
 		error: function(err) { // 오류가 발생했을 때 작업 수행
 			alert('냉장고 등록에 실패했습니다.');

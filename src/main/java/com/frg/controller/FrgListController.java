@@ -68,8 +68,11 @@ public class FrgListController {
 		// 하나 이상의 냉장고 등록 실패
 		else {
 			return ResponseEntity.badRequest().body(responses);
-		}
-		
-		
+		}	
+	}
+	
+	@GetMapping("/frgShow")
+	public String frgShowPage() {
+		return "/frg/frgShow";
 	}
 }

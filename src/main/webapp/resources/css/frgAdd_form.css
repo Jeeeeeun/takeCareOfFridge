@@ -1,0 +1,189 @@
+@charset "UTF-8";
+.settingBox {
+    margin-top: 3%;
+    display: grid;
+    grid-template-columns: 1fr 2.4fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;     /* 수평 가운데 정렬 */
+    align-items: center;     /* 수직 가운데 정렬 */
+    gap: 0.5rem;
+    position: relative;
+    width: 60vw;
+    height: 55vh;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'MV Boli';
+    font-size:x-large;
+    font-weight: 600;
+    color: #604C3F;
+}
+
+.setting-titleBox {
+    display: flex;
+    align-items: center;
+    background: #F4EEE6;
+    border: 1px solid transparent;
+    border-radius: 12px 0 0 12px;
+    height: 100%;
+    justify-content: center;
+}
+
+.setting-itemBox {
+    background: #F4EEE6;
+    border: 1px solid transparent;
+    border-radius: 0 12px 12px 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:flex-end;
+}
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 3px solid #D6C2B4;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    position: relative;
+    top: -12rem;
+    margin-bottom: 0.3rem;
+}
+
+input[type="radio"]:checked {
+    background-color: #604C3F;
+}
+
+#ho, #ve, #si { /* 냉장고 모양 이미지들 */
+    width: 75%;
+    height: 200px;
+    margin: 0 0.3rem;
+}
+
+.selected-fridge { /* 냉장고 정보 섹션의 왼쪽 공간 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 70%;
+    border: 0.3px dashed #604C3F;
+    margin: 6% 5%;
+}
+
+.fridge-info { /* 냉장고 정보 섹션의 오른쪽 공간 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 5% 5% 1%;
+    width: 70%;
+    height: 75%;
+}
+
+.fridgeInfoBox { /* 냉장고 이름, 보관 상태 선택하는 어두운 박스 */
+    background: #D6C2B4;
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5% 2%;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    z-index: 2;
+}
+
+.fridgeInfoLabelName { /* 이름 라벨 */
+    font-weight: bold;
+    font-size: medium;
+    width: 20%;
+    margin: 3% 0;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5%;
+}
+
+.fridgeInfoLabelState { /* A, B 라벨 */
+    font-weight: bold;
+    font-size: medium;
+    width: 20%;
+    margin: 3% 0;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5%;
+    display: none;
+}
+
+.fridgeInfoInput { /* 냉장고 이름 적는 input */
+    background: #F4EEE6;
+    border: 0.3px dashed #604C3F;
+    width: 60%;
+    height: 15%;
+    margin: 2% 0;
+    border-radius: 0.8rem;
+    -webkit-border-radius: 0.8rem;
+}
+
+.stateSelectBtn { /* 냉장, 냉동 버튼 */
+    background-color: #F4EEE6;
+    border: 0.3px dashed #604C3F;
+    border-radius: 0.8rem;
+    -webkit-border-radius: 0.8rem;
+    margin-left: 2%;
+    margin-top: 2%;
+    padding: 0.3rem 1rem;
+    color: #B5B5B5;
+    display: none;
+}
+
+.stateSelectBtn.selected { /* 냉장, 냉동 버튼 선택됐을 때 */
+    color: #604C3F;
+    font-weight: 700;
+}
+
+.settingBoxContainer {
+    max-height: 3000px;
+    overflow-y: auto;
+    width: 100vw;
+}
+
+.horizontalLine { /* 화면 하단 가로줄 */
+    border: 1.5px solid #D6C2B4;
+    position: relative;
+    width: 60vw;
+    margin-top: 1.5%;
+    display: flex;
+    justify-content: center;     /* 수평 가운데 정렬 */
+    align-items: center;     /* 수직 가운데 정렬 */
+}
+
+.btns { /* 가로줄 아래 + 버튼, 완료 버튼 묶음 */
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 수평 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin: 0 auto;
+    width: 20vw;
+    height: 6vh;
+}
+
+.btn { /* 개별적인 + 버튼, 완료 버튼 */
+    background: #F4EEE6;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 48%;
+    height: 60%;
+    border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    font-family: 'MV Boli';
+    font-size: large;
+    font-weight: 600;
+    color: #604C3F;
+    border: 1px solid #D6C2B4;
+}
