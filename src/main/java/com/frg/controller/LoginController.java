@@ -3,13 +3,16 @@ package com.frg.controller;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frg.domain.UserDTO;
 import com.frg.service.LoginService;
@@ -65,9 +68,9 @@ public class LoginController {
 	}
 	
 	@GetMapping("/getUserId")
-	public String getUserId(HttpServletRequest request, HttpServletRequest response) throws UnsupportedEncodingException {
-		String userId = SessionUtil.getSessionUserId(request);
-		response.setCharacterEncoding("UTF-8");
-		return "/frg/frgShow";
+	@ResponseBody
+	public ResponseEntity<String> getUserId(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	    String userId = SessionUtil.getSessionUserId(request);
+	    return ResponseEntity.ok().body(userId);
 	}
 }

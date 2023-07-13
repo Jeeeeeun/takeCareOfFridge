@@ -9,7 +9,6 @@ import com.frg.service.FrgListService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor

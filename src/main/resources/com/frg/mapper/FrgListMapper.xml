@@ -19,7 +19,7 @@
 		, #{ frg_Bstate }
 		)
 	</insert>
-
+	
 	<select id="selectTrafficLight"
 		resultType="com.frg.domain.TrafficDTO">
   	<![CDATA[

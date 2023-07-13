@@ -3,6 +3,7 @@ package com.frg.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,7 @@ public class FrgListController {
 	public ResponseEntity<List<ResponseDTO>> registerFrgList(@RequestBody List<FrgListDTO> list) {
 		log.info("냉장고 등록");
 		log.info("frgAdd");
+		log.info(list);
 		
 		List<ResponseDTO> responses = new ArrayList<>();
 		
@@ -55,7 +57,7 @@ public class FrgListController {
 		boolean success = true;
 		
 		for (ResponseDTO resDto : responses) {
-			if (resDto.getAffectedRow() != 1) {
+			if (resDto.getAffectedRow() <= 0) {
 				success = false;
 				break;
 			}
@@ -67,7 +69,7 @@ public class FrgListController {
 		}
 		// 하나 이상의 냉장고 등록 실패
 		else {
-			return ResponseEntity.badRequest().body(responses);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responses);
 		}	
 	}
 	
