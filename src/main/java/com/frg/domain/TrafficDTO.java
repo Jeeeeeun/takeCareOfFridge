@@ -8,5 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class TrafficDTO {
-
+	private String user_id;
+	private int redLight;
+	private int yellowLight;
+	private int greenLight;
 }
