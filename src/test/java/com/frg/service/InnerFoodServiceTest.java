@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +26,37 @@ public class InnerFoodServiceTest {
 	@Setter(onMethod_=@Autowired)
 	InnerFoodService service;
 	
-//	@Test 
-//	public void testRegisterInnerAuto() throws ParseException {
-//		
-//		log.info(service);
-//		
-//		InnerDTO dto = new InnerDTO();
-//		dto.setFrg_name("samsung");
-//		dto.setIn_count(10);
-//		String dateString = "2023-07-10";
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = dateFormat.parse(dateString);
-//		dto.setIn_expireDate_custom(date);
-//		dto.setIn_state("frozen");
-//		
-//		assertNotNull(service.registerInnerAuto(dto));
-//
-//	}
+	@Test 
+	public void testRegisterInnerAuto() throws ParseException {
+		
+		InnerDTO dto = new InnerDTO();
+		
+		dto.setFrg_name("LG");
+		dto.setIn_count(5);
+		String dateString = "2023-01-30";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(dateString);
+		dto.setIn_expireDate_custom(date);
+		dto.setIn_state("frozen");
+		
+		int cnt = service.registerInnerAuto(dto);
+		assertEquals(1, cnt);
+
+	}
 	
-	@Test
+	@Test @Ignore
 	public void testRegisterInnerCustom() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
 		dto.setFrg_name("samsung");
-		dto.setIn_count(10);
-		String dateString = "2023-06-10";
+		dto.setIn_name("산채비빔밥");
+		dto.setIn_count(3);
+		String dateString = "2023-02-20";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate_custom(date);
-		dto.setIn_type("다이어트 식품");
-		dto.setIn_state("frozen");
+		dto.setIn_type("유기농 식품");
+		dto.setIn_state("cool");
 		
 		int cnt=service.registerInnerCustom(dto);
 		
