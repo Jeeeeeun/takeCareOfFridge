@@ -25,7 +25,7 @@
 		  api_type,
 		  #{in_state}
 		FROM foodAPI
-		WHERE api_fno = 200606144542
+		WHERE api_fno = 2009039717826
 	</insert>
 
 	<insert id="insertInnerCustom">
@@ -44,7 +44,7 @@
 		    #{in_expireDate_custom},
 		    #{in_type},
 		    #{in_state}
-		);
+		)
 	</insert>
 	
 	<!-- <select id="selectFrgName" resultType="String">
