@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frg.mapper.TrafficMapper">
+	<select id="selectTrafficLight"
+		resultType="com.frg.domain.TrafficDTO">
+  	<![CDATA[
+  		SELECT
+  			COUNT(CASE WHEN i."D_DAY" > t.dangerous THEN 1 END) AS red,
+  			COUNT(CASE WHEN i."D_DAY" <= t.dangerous AND i."D_DAY" > t.warning THEN 1 END) AS yellow,
+  			COUNT(CASE WHEN i."D_DAY" <= t.warning THEN 1 END) AS green
+		FROM Inner_View i
+			INNER JOIN traffic t ON i.user_index = t.user_index
+			INNER JOIN users u ON u.user_index = t.user_index
+		WHERE u.user_id = #{user_id}
+  	]]>
+	</select>
+</mapper>
