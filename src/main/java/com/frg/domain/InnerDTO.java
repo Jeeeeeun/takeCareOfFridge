@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 public class InnerDTO {
 	
+	private String user_id;
 	private String frg_name;
 	private int in_index;
 	private int frg_index;

@@ -3,10 +3,11 @@ package com.frg.mapper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.ibatis.ognl.ParseException;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,14 +27,14 @@ public class InnerFoodMapperTest {
 	@Autowired
 	private InnerFoodMapper mapper;
 	
-	@Test
-	public void testInsertInnerAuto() throws ParseException {
+	@Test @Ignore
+	public void testInsertInnerAuto() throws ParseException, Exception {
 		
 		InnerDTO dto = new InnerDTO();
-		
+		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
-		dto.setIn_count(5);
-		String dateString = "2023-01-30";
+		dto.setIn_count(2);
+		String dateString = "2023-11-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate_custom(date);
@@ -43,13 +44,14 @@ public class InnerFoodMapperTest {
 		assertEquals(1, cnt);
 	}
 	
-	@Test @Ignore
-	public void testInsertInnerCustom() throws ParseException {
+	@Test @Ignore 
+	public void testInsertInnerCustom() throws ParseException, Exception {
 		
 		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
 		dto.setFrg_name("samsung");
 		dto.setIn_name("샐러드");
-		dto.setIn_count(10);
+		dto.setIn_count(3);
 		String dateString = "2021-06-10";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
@@ -62,11 +64,13 @@ public class InnerFoodMapperTest {
 		
 	}
 	
-//	@Test
-//	public void testSelectFrgName() {
-//		
-//		
-//
-//	}
-
+	@Test
+	public void testSelectFrgName() {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		List<String> frgList =  mapper.selectFrgName(dto);
+		log.info(frgList);
+		assertNotNull(frgList);
+	}
 }

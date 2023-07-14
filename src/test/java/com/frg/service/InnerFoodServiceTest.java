@@ -20,19 +20,18 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
-@Log4j
 public class InnerFoodServiceTest {
 
 	@Setter(onMethod_=@Autowired)
 	InnerFoodService service;
 	
-	@Test 
+	@Test  
 	public void testRegisterInnerAuto() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
-		
+		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
-		dto.setIn_count(5);
+		dto.setIn_count(30);
 		String dateString = "2023-01-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
@@ -44,10 +43,11 @@ public class InnerFoodServiceTest {
 
 	}
 	
-	@Test @Ignore
+	@Test @Ignore 
 	public void testRegisterInnerCustom() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
 		dto.setFrg_name("samsung");
 		dto.setIn_name("산채비빔밥");
 		dto.setIn_count(3);
@@ -59,7 +59,6 @@ public class InnerFoodServiceTest {
 		dto.setIn_state("cool");
 		
 		int cnt=service.registerInnerCustom(dto);
-		
 		assertEquals(1, cnt);
 
 	}
