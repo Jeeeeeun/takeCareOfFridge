@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class TrafficDTO {
 	private String user_id;
-	private int redLight;
-	private int yellowLight;
-	private int greenLight;
+	private int red;
+	private int yellow;
+	private int green;
 }
