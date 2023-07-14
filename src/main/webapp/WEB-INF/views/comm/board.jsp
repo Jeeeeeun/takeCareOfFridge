@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.frg.util.SessionUtil"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>frgShow Page</title>
+<title>board Page</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
 <!-- Bootstrap Icons-->
