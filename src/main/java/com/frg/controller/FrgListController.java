@@ -3,6 +3,9 @@ package com.frg.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,21 +37,26 @@ public class FrgListController {
 	private FrgListService service;
 
 	@GetMapping("/frgAdd")
-	public String frgAddPage(Model model, @RequestParam("user_id") String user_id, TrafficDTO trfDto) {
+	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto) {
 		log.info("frgAdd");
 		
-		trfDto.setUser_id(user_id);
+	    String userId = (String) session.getAttribute("SESS_ID");
+		
+		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		
 		model.addAttribute("trafficLight", trafficLight);
 		
 		return "/frg/frgAdd";
 	}
 
 	@GetMapping("/frgAdd_form")
-	public String frgAddFormPage(Model model, @RequestParam("user_id") String user_id, TrafficDTO trfDto) {
+	public String frgAddFormPage(HttpSession session, Model model, TrafficDTO trfDto) {
 		log.info("frgAdd_form");
 
-		trfDto.setUser_id(user_id);
+	    String userId = (String) session.getAttribute("SESS_ID");
+		
+		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = service.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 
@@ -89,11 +97,12 @@ public class FrgListController {
 	}
 
 	@GetMapping("/frgShow")
-	public String frgShowPage(Model model, @RequestParam("user_id") String user_id, TrafficDTO trfDto) {
-		
+	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto) {
 		log.info("frgShow");
 
-		trfDto.setUser_id(user_id);
+	    String userId = (String) session.getAttribute("SESS_ID");
+		
+		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = service.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 		

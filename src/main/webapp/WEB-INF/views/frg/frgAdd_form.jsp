@@ -50,7 +50,7 @@
 			id="mainNav">
 			<div class="container px-4 px-lg-5">
 				<a class="navbar-brand"
-					href="<%=request.getContextPath()%>/frg/index">TakeCareOfFridge</a>
+					href="${ pageContext.servletContext.contextPath }/frg/index">TakeCareOfFridge</a>
 				<button class="navbar-toggler navbar-toggler-right" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
 					aria-controls="navbarResponsive" aria-expanded="false"
@@ -64,13 +64,13 @@
 					%>
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgShow">MyFridge</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/comm/board">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/comm/board">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/myPage"><i
+							href="${ pageContext.servletContext.contextPath }/frg/myPage"><i
 								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 					<%
@@ -78,13 +78,13 @@
 					%>
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd">MyFridge</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd"><i
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"><i
 								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 					<%

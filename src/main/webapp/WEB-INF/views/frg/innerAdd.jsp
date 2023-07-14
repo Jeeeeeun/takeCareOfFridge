@@ -31,7 +31,6 @@
 <script
 	src="${pageContext.servletContext.contextPath}/js/InnerFoodAdd.js">
 </script>
-
 <body>
 	<form
 		action="${pageContext.servletContext.contextPath}/frg/innerAdd/Auto"

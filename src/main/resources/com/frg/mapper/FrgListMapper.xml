@@ -12,11 +12,24 @@
 		, frg_Bstate
 		)
 		VALUES (
-		(SELECT user_index FROM users WHERE user_id = #{ user_id })
+		(SELECT user_index FROM users WHERE
+		user_id = #{ user_id })
 		, #{ frg_name }
 		, #{ frg_shape }
-		, #{ frg_Astate }
+		, #{ frg_Astate
+		}
 		, #{ frg_Bstate }
 		)
 	</insert>
+
+	<select id="">
+		SELECT f.frg_index, f.user_index, f.frg_name, f.frg_shape, f.frg_Astate, f.frg_Bstate
+		FROM FrgList f
+		JOIN Users u ON f.user_index = u.user_index
+		WHERE f.user_index = (
+			SELECT u.user_index
+			FROM Users u
+			WHERE u.user_id = #{user_id}
+		)
+	</select>
 </mapper>

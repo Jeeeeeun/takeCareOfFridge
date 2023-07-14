@@ -30,7 +30,6 @@
 <link href="../resources/css/styles.css" rel="stylesheet" />
 </head>
 <body>
-<header class="masthead">
-signUP
+	<header class="masthead"> signUP </header>
 </body>
 </html>
