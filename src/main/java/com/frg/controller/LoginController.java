@@ -52,11 +52,11 @@ public class LoginController {
 			if (loginClass != 0) {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
 				log.info("frgListShow");
-				return "redirect:/frg/frgShow";
+				return "redirect:/frg/frgShow?user_id=" + dto.getUser_id();
 			} else {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
 				log.info("frgListAdd");
-				return "redirect:/frg/frgAdd";
+				return "redirect:/frg/frgAdd?user_id=" + dto.getUser_id();
 			}
 		} else {
 			// 로그인 실패

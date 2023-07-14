@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -92,6 +93,9 @@
 				</div>
 			</div>
 		</nav>
+		<p id="red">${trafficLight[0].red}</p>
+		<p id="yellow">${trafficLight[0].yellow}</p>
+		<p id="green">${trafficLight[0].green}</p>
 		<form
 			action="${ pageContext.servletContext.contextPath }/frg/frgAdd_form"
 			method="post" class="settingBoxContainer"
@@ -148,5 +152,6 @@
 				<button type="submit" class="btn">완료</button>
 			</div>
 		</form>
+	</header>
 </body>
 </html>

@@ -35,8 +35,6 @@
 </head>
 <body id="page-top">
 	<header class="masthead">
-		<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form"><i
-			class="fa-solid fa-plus"></i></a>
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3"
 			id="mainNav">
@@ -69,5 +67,13 @@
 				</div>
 			</div>
 		</nav>
+		<p id="red">${trafficLight[0].red}</p>
+		<p id="yellow">${trafficLight[0].yellow}</p>
+		<p id="green">${trafficLight[0].green}</p>
+		<a
+			href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form?user_id=${SESS_ID}">
+			<i class="fa-solid fa-plus"></i>
+		</a>
+	</header>
 </body>
 </html>
