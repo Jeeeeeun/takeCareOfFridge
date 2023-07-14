@@ -19,7 +19,6 @@ import com.frg.service.LoginService;
 import com.frg.util.SHAEncodeUtil;
 import com.frg.util.SessionUtil;
 
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -52,11 +51,11 @@ public class LoginController {
 			if (loginClass != 0) {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
 				log.info("frgListShow");
-				return "redirect:/frg/frgShow?user_id=" + dto.getUser_id();
+				return "redirect:/frg/frgShow";
 			} else {
 				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
 				log.info("frgListAdd");
-				return "redirect:/frg/frgAdd?user_id=" + dto.getUser_id();
+				return "redirect:/frg/frgAdd";
 			}
 		} else {
 			// 로그인 실패

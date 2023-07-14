@@ -40,7 +40,7 @@
 			id="mainNav">
 			<div class="container px-4 px-lg-5">
 				<a class="navbar-brand"
-					href="<%=request.getContextPath()%>/frg/index">TakeCareOfFridge</a>
+					href="${ pageContext.servletContext.contextPath }/frg/index">TakeCareOfFridge</a>
 				<button class="navbar-toggler navbar-toggler-right" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
 					aria-controls="navbarResponsive" aria-expanded="false"
@@ -50,13 +50,13 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd">MyFridge</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/frg/frgAdd"><i
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"><i
 								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 					<script>
@@ -71,7 +71,7 @@
 		<p id="yellow">${trafficLight[0].yellow}</p>
 		<p id="green">${trafficLight[0].green}</p>
 		<a
-			href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form?user_id=${SESS_ID}">
+			href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
 			<i class="fa-solid fa-plus"></i>
 		</a>
 	</header>

@@ -264,7 +264,7 @@ async function submitBtnClicked(e) {
     success: function (response) {
       // 성공적으로 처리됐을 때 작업 수행
       alert("냉장고 등록이 완료되었습니다.");
-      window.location.href = `${contextPath}/frg/frgShow?user_id=${SESS_ID}`;
+      window.location.href = `${contextPath}/frg/frgShow`;
     },
     error: function (err) {
       // 오류가 발생했을 때 작업 수행

@@ -63,15 +63,16 @@
 						href="<%=request.getContextPath()%>/frg/myPage"><i
 							class="fa-solid fa-circle-user"></i></a></li>
 				</ul>
-		<div class="descriptionAndTraffic">
-			<p class="title" style="margin-right: 16.5%;">냉장고 정보를 등록하세요</p>
-			<div class="trafficLight">
-				<p id="red">${empty request.getAttribute("countRed") ? 0 : request.getAttribute("countRed")}</p>
-				<p id="yellow">${empty request.getAttribute("countYellow") ? 0 : request.getAttribute("countYellow")}</p>
-				<p id="green">${empty request.getAttribute("countGreen") ? 0 : request.getAttribute("countGreen")}</p>
+				<div class="descriptionAndTraffic">
+					<p class="title" style="margin-right: 16.5%;">냉장고 정보를 등록하세요</p>
+					<div class="trafficLight">
+						<p id="red">${empty request.getAttribute("countRed") ? 0 : request.getAttribute("countRed")}</p>
+						<p id="yellow">${empty request.getAttribute("countYellow") ? 0 : request.getAttribute("countYellow")}</p>
+						<p id="green">${empty request.getAttribute("countGreen") ? 0 : request.getAttribute("countGreen")}</p>
+					</div>
+				</div>
 			</div>
-		</div>
-		</div>
+		</nav>
 		<form
 			action="${ pageContext.servletContext.contextPath }/frg/innerAdd"
 			method="post" class="settingBoxContainer">
@@ -158,8 +159,8 @@
 					</div>
 				</div>
 			</div>
-
 		</form>
+	</header>
 </body>
 
 </html>
