@@ -23,40 +23,56 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class FrgListServiceTest {
 
-	@Setter(onMethod_=@Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private FrgListService service;
-	
-	@Test @Ignore
+
+	@Test
+	@Ignore
 	public void testRegisterFrgList() {
-		
+
 		FrgListDTO frgDto = new FrgListDTO();
-		
+
 		frgDto.setUser_id("smith01");
 		frgDto.setFrg_name("SAMSUNG");
 		frgDto.setFrg_shape("V");
 		frgDto.setFrg_Astate("cool");
 		frgDto.setFrg_Bstate("frozen");
-		
+
 		ResponseDTO response = service.registerFrgList(frgDto);
-		
+
 		log.info("입력값 - " + frgDto);
 		log.info("응답" + response);
-		
+
 		assertNotNull(response);
 	}
-	
+
 	@Test
+	@Ignore
 	public void testGetTrafficLight() {
-		
+
 		TrafficDTO trfDto = new TrafficDTO();
-		
+
 		trfDto.setUser_id("smith01");
-		
+
 		List<Integer> trfResult = service.getTrafficLight(trfDto);
-		
+
 		log.info("신호등 결과 - " + trfResult);
-		
+
 		assertNotNull(trfResult);
+	}
+
+	@Test
+	public void testGetFrgList() {
+		
+		FrgListDTO frgDto = new FrgListDTO();
+
+		frgDto.setUser_id("smith01");
+		
+		List<FrgListDTO> frgList = service.getFrgList(frgDto);
+		
+		log.info("냉장고 목록 - " + frgList);
+		
+		assertNotNull(frgList);
 	}
 
 }
