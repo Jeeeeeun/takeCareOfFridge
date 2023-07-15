@@ -2,10 +2,13 @@ package com.frg.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.frg.domain.InnerDTO;
 import com.frg.service.InnerFoodService;
-import com.frg.util.SessionUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -29,15 +31,16 @@ public class InnerFoodController {
 	@NonNull
 	private InnerFoodService service;
 	
-	// createInnerVO에서 필요한 인스턴스들
-	private static final int registerFoodAuto = 0;
-	private static final int registerFoodCustom = 1;
-	
 	//innerFoodAdd
-	// localhost:8080/controller/frg/innerAdd
-	@GetMapping(value = "/innerAdd")
-	public void moveToInnerAdd(){
-		log.info("innerFoodAdd");
+	//localhost:8080/controller/frg/innerAdd
+	@GetMapping(value = "/innerAdd", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<String>> moveToInnerAdd(HttpSession session, Model model){
+		String user_id= (String)session.getAttribute("SESS_ID");
+		InnerDTO dto=new InnerDTO();
+		dto.setUser_id(user_id);
+		List<String> frgNames= service.selectFrgName(dto);
+		log.info("frgNames "+frgNames);
+		return ResponseEntity.ok(frgNames);
 	}
 	
 	@GetMapping(value="/innerCtrl")
@@ -48,12 +51,9 @@ public class InnerFoodController {
 	//식품등록-auto인 경우
 	@PostMapping(value = "/innerAdd/Auto")
 	public String registerInnerFoodAuto(HttpServletRequest request, Model model) throws Exception {
-		HttpSession session = request.getSession();
-		Boolean userSession = SessionUtil.getSessionAuth(request);
-		String userId = SessionUtil.getSessionUserId(request);
-		String userRole = SessionUtil.getSessionUserRole(request);
 		
 		InnerDTO dto= new InnerDTO();
+		dto.setUser_id(request.getParameter("user_id"));
 		dto.setFrg_name(request.getParameter("frg_name"));
 		dto.setIn_name(request.getParameter("in_name"));
 		String dateFormat = "yyyy-MM-dd";
@@ -73,12 +73,9 @@ public class InnerFoodController {
 	//식품 등록-custom인 경우
 	@PostMapping(value = "/innerAdd/Custom")
 	public String registerInnerFoodCustom(HttpServletRequest request, Model model) throws Exception {
-		HttpSession session = request.getSession();
-		Boolean userSession = SessionUtil.getSessionAuth(request);
-		String userId = SessionUtil.getSessionUserId(request);
-		String userRole = SessionUtil.getSessionUserRole(request);
 		
 		InnerDTO dto= new InnerDTO();
+		dto.setUser_id(request.getParameter("user_id"));
 		dto.setFrg_name(request.getParameter("frg_name"));
 		dto.setIn_name(request.getParameter("in_name"));
 		String dateFormat = "yyyy-MM-dd";

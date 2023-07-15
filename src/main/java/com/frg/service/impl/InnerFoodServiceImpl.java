@@ -1,5 +1,7 @@
 package com.frg.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.frg.domain.InnerDTO;
@@ -24,6 +26,11 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	@Override
 	public int registerInnerCustom(InnerDTO dto) {
 		return mapper.insertInnerCustom(dto);
+	}
+
+	@Override
+	public List<String> selectFrgName(InnerDTO dto) {
+		return mapper.selectFrgName(dto);
 	}
 
 }

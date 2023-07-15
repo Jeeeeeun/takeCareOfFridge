@@ -16,7 +16,7 @@
 			in_state
 		)
 		SELECT
-		  (SELECT frg_index FROM FrgList WHERE frg_name =#{frg_name}),
+		  (SELECT frg_index FROM FrgList f, Users u WHERE u.user_id=#{user_id} AND f.frg_name =#{frg_name}),
 		  api_name,
 		  #{in_count},
 		  api_expireDate,
@@ -38,7 +38,7 @@
 		    in_state
 		)
 		VALUES (
-		    (SELECT frg_index FROM FrgList WHERE frg_name = #{frg_name} AND ROWNUM = 1),
+		    (SELECT frg_index FROM FrgList f, Users u WHERE u.user_id=#{user_id} AND f.frg_name = #{frg_name}),
 		    #{in_name},
 		    #{in_count},
 		    #{in_expireDate_custom},
@@ -47,8 +47,8 @@
 		)
 	</insert>
 	
-	<!-- <select id="selectFrgName" resultType="String">
-		SELECT distinct frg_name FROM frgList WHERE user_index IN (SELECT user_index FROM Users WHERE user_id = #{user_id})
-	</select> -->
+	<select id="selectFrgName" resultType="string">
+		select f.frg_name from frgList f, users u where u.user_id=#{user_id}
+	</select>
 
 </mapper>
