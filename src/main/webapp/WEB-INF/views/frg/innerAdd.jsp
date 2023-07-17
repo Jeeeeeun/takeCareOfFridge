@@ -108,6 +108,9 @@
 				</div>
 			</div>
 		</nav>
+		<p id="red">${trafficLight[0].red}</p>
+		<p id="yellow">${trafficLight[0].yellow}</p>
+		<p id="green">${trafficLight[0].green}</p>
 		<form
 			action="${pageContext.servletContext.contextPath}/frg/innerAdd/Auto"
 			method="post" id="actionForm">
