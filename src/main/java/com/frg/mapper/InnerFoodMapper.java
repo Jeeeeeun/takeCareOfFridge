@@ -9,5 +9,8 @@ public interface InnerFoodMapper {
 	int insertInnerAuto(InnerDTO dto);
 	int insertInnerCustom(InnerDTO dto);
 	List<String> selectFrgName(InnerDTO dto);
+	
+	List<String> selectAllInnerView(InnerDTO dto);
+	List<String> selectPartInnerView(InnerDTO dto);
 
 }

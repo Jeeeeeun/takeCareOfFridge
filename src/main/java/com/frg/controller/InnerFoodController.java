@@ -44,10 +44,6 @@ public class InnerFoodController {
 		return "/innerAdd";
 	}
 	
-	@GetMapping(value="/innerCtrl")
-	public void moveToInnerCtrl() {
-	}
-	
 	//식품등록-auto인 경우
 	@PostMapping(value = "/innerAdd/Auto")
 	public String registerInnerFoodAuto(HttpServletRequest request, Model model) throws Exception {
@@ -88,6 +84,12 @@ public class InnerFoodController {
 		
 		service.registerInnerCustom(dto);
 
+		return "/frg/innerCtrl";
+	}
+	
+	
+	@GetMapping(value="/innerCtrl")
+	public String moveToInnerCtrl(HttpSession session,Model model) {
 		return "/frg/innerCtrl";
 	}
 	
