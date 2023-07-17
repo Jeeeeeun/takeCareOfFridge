@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -37,8 +38,10 @@
 		method="post">
 
 		<!-- 냉장고 목록 -->
-		<label> <select name="frgList" id="">
-				<option value=""></option>
+		<label> <select name="frgNames" id="">
+				<c:forEach var="name" items="${frgNames}">
+				<option>${name}</option>				
+				</c:forEach>
 		</select>
 		</label>
 
