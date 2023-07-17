@@ -40,24 +40,25 @@
 <script
 	src="${pageContext.servletContext.contextPath }/js/innerFoodCtrl.js"></script>
 <script type="text/javascript">
-window.onload = function () {
-    loadInnerViewData();
-};
-	function addBtnClicked(){
+	window.onload = function() {
+		loadInnerViewData();
+	};
+	function addBtnClicked() {
 		window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
-
-    function loadInnerViewData() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "${pageContext.request.contextPath}/yourServiceEndpoint", true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                // 데이터를 사용하여 동적으로 화면을 업데이트하는 코드 작성
-                // 예: 특정 HTML 요소에 데이터를 추가하는 등의 작업
-            }
-        };
-        xhr.send();
-    }
+	}
+	function loadInnerViewData() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET",
+				"${pageContext.request.contextPath}/yourServiceEndpoint", true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var data = JSON.parse(xhr.responseText);
+				// 데이터를 사용하여 동적으로 화면을 업데이트하는 코드 작성
+				// 예: 특정 HTML 요소에 데이터를 추가하는 등의 작업
+			}
+		};
+		xhr.send();
+	}
 </script>
 </head>
 <body id="page-top">
