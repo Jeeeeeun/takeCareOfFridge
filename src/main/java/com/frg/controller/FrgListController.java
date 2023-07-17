@@ -21,6 +21,7 @@ import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.FrgListService;
+import com.frg.service.TrafficService;
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +35,10 @@ import lombok.extern.log4j.Log4j;
 public class FrgListController {
 
 	@NonNull
-	private FrgListService service;
+	private FrgListService frgService;
+	
+	@NonNull
+	private TrafficService trfService;
 
 	@GetMapping("/frgAdd")
 	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto) {
@@ -43,7 +47,7 @@ public class FrgListController {
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		
 		model.addAttribute("trafficLight", trafficLight);
 		
@@ -57,7 +61,7 @@ public class FrgListController {
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 
 		return "/frg/frgAdd_form";
@@ -73,7 +77,7 @@ public class FrgListController {
 		List<ResponseDTO> responses = new ArrayList<>();
 
 		for (FrgListDTO frgDto : list) {
-			ResponseDTO response = service.registerFrgList(frgDto);
+			ResponseDTO response = frgService.registerFrgList(frgDto);
 			responses.add(response);
 		}
 
@@ -103,11 +107,11 @@ public class FrgListController {
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 		
 		frgDto.setUser_id(userId);
-		List<FrgListDTO> frgList = service.getFrgList(frgDto);
+		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
 		
 		// Gson 사용하여 frgList를 JSON 형태로 변환
 	    Gson gson = new Gson();

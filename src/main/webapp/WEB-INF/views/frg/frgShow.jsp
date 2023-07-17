@@ -37,9 +37,8 @@
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript">
-	const contextPath = '${pageContext.servletContext.contextPath}';
-	const frgListJson = <c:out value="${frgListJson}"/>;
-    const frgLists = JSON.parse(frgListJson);
+	window.contextPath = '${pageContext.servletContext.contextPath}';
+	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/frgShow.js"></script>
@@ -92,7 +91,10 @@
 					href="${ pageContext.servletContext.contextPath }/frg/innerCtrl">
 					<img id="frg_shape">
 				</a>
-				<div id="frg_state"></div>
+				<div id="frg_state">
+					<p id="frg_Astate"></p>
+					<p id="frg_Bstate"></p>
+				</div>
 				<div class="ctrlInfos">
 					<button id="prev" onclick="prevFrg()">
 						<i class="fa-solid fa-caret-left"></i>
