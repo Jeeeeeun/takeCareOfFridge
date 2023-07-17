@@ -3,7 +3,6 @@ package com.frg.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -15,13 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.FrgListService;
+import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -97,7 +97,7 @@ public class FrgListController {
 	}
 
 	@GetMapping("/frgShow")
-	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto) {
+	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
 		log.info("frgShow");
 
 	    String userId = (String) session.getAttribute("SESS_ID");
@@ -105,6 +105,18 @@ public class FrgListController {
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = service.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
+		
+		frgDto.setUser_id(userId);
+		List<FrgListDTO> frgList = service.getFrgList(frgDto);
+		
+		// Gson 사용하여 frgList를 JSON 형태로 변환
+	    Gson gson = new Gson();
+	    String frgListJson = gson.toJson(frgList);
+
+
+	    
+	    // 변환된 JSON 데이터를 model에 추가
+	    model.addAttribute("frgListJson", frgListJson);
 		
 		return "/frg/frgShow";
 	}
