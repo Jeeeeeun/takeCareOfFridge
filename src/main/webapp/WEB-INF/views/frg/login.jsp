@@ -28,45 +28,12 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/js/login.js"></script>
 <script>
-    var msg = '<%=request.getParameter("msg")%>
-	';
-
-	window.onload = function() {
-		showMsg();
-	}
-
-	function showMsg() {
-		if (msg != null && msg != 'null' && msg != '') {
-			alert(msg);
-		}
-	}
-
-	function verifyField() {
-		let element = document.getElementById("user_id");
-		let msg = '아이디를 입력하세요.';
-		if (!isValid(element, msg)) {
-			return false;
-		}
-		element = document.getElementById("user_pw");
-		msg = "비밀번호를 입력하세요.";
-		if (!isValid(element, msg)) {
-			return false;
-		}
-
-		return true;
-	}
-
-	function isValid(element, msg) {
-		let result = false;
-		if (element.value == '') {
-			alert(msg);
-			element.focus();
-			result = false;
-		} else {
-			result = true;
-		}
-		return result;
+    var errorMsg = '<%=request.getAttribute("errorMsg")%>';
+	if (errorMsg !== 'null') {
+		alert(errorMsg);
 	}
 </script>
 </head>
@@ -112,7 +79,7 @@
 								name="user_pw" class="inputBox" placeholder="PW">
 							<div class="box-submit">
 								<input type="submit" class="loginBtn" value="로그인하기"
-									onclick="return verifyField();">
+									onclick="return login();">
 							</div>
 						</form>
 					</div>

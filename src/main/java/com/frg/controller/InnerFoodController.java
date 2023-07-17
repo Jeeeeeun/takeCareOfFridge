@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frg.domain.InnerDTO;
 import com.frg.service.InnerFoodService;
@@ -33,19 +34,18 @@ public class InnerFoodController {
 	
 	//innerFoodAdd
 	//localhost:8080/controller/frg/innerAdd
-	@GetMapping(value = "/innerAdd", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<String>> moveToInnerAdd(HttpSession session, Model model){
+	@GetMapping(value = "/innerAdd")
+	public String moveToInnerAdd(HttpSession session, Model model){
 		String user_id= (String)session.getAttribute("SESS_ID");
 		InnerDTO dto=new InnerDTO();
 		dto.setUser_id(user_id);
 		List<String> frgNames= service.selectFrgName(dto);
-		log.info("frgNames "+frgNames);
-		return ResponseEntity.ok(frgNames);
+		model.addAttribute("frgNames", frgNames);
+		return "/innerAdd";
 	}
 	
 	@GetMapping(value="/innerCtrl")
 	public void moveToInnerCtrl() {
-		log.info("moveToInnerCtrl");
 	}
 	
 	//식품등록-auto인 경우
