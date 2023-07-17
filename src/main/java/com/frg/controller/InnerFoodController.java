@@ -87,6 +87,8 @@ public class InnerFoodController {
 	
 	
 	@GetMapping(value="/innerCtrl")
-	public void moveToInnerCtrl() {
+	public String moveToInnerCtrl(HttpSession session,Model model) {
+		return "/frg/innerCtrl";
 	}
+	
 }

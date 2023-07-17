@@ -75,8 +75,9 @@
 							action="${ pageContext.servletContext.contextPath }/frg/login"
 							method="post">
 							<input type="text" id="user_id" name="user_id" class="inputBox"
-								placeholder="ID"> <input type="password" id="user_pw"
-								name="user_pw" class="inputBox" placeholder="PW">
+								placeholder="ID" style="margin-bottom: 20px;"><br>
+							<input type="password" id="user_pw" name="user_pw"
+								class="inputBox" placeholder="PW" style="margin-bottom: 20px;">
 							<div class="box-submit">
 								<input type="submit" class="loginBtn" value="로그인하기"
 									onclick="return login();">

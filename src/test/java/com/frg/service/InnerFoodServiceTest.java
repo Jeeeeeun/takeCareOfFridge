@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -61,6 +62,32 @@ public class InnerFoodServiceTest {
 		int cnt=service.registerInnerCustom(dto);
 		assertEquals(1, cnt);
 
+	}
+	
+	@Test @Ignore
+	public void testSelectAllInnerView() throws ParseException {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_name("fridge1");
+		
+	    List<String> result = service.selectAllInnerView(dto); 
+	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    System.out.println(dto);
+	}
+	
+	
+	@Test @Ignore
+	public void testSelectPartInnerView() throws ParseException {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_name("fridge1");
+		dto.setIn_state("frozen");
+		
+	    List<String> result = service.selectAllInnerView(dto); 
+	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    System.out.println(dto);
 	}
 
 }
