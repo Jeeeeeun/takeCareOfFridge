@@ -95,15 +95,14 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
-							onclick="noFrg();">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/comm/board">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
-							onclick="noFrg();"><i class="fa-solid fa-circle-user"></i></a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/myPage"><i
+								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 				</div>
 			</div>
