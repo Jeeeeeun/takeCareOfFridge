@@ -38,7 +38,7 @@
 
 <title>식품 정보 조회</title>
 <script
-	src="${pageContext.servletContext.contextPath }/js/innerFoodCtrl.js"></script>
+	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
 		loadInnerViewData();
