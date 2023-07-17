@@ -3,7 +3,6 @@ package com.frg.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -15,13 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.FrgListService;
+import com.frg.service.TrafficService;
+import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -34,7 +35,10 @@ import lombok.extern.log4j.Log4j;
 public class FrgListController {
 
 	@NonNull
-	private FrgListService service;
+	private FrgListService frgService;
+	
+	@NonNull
+	private TrafficService trfService;
 
 	@GetMapping("/frgAdd")
 	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto) {
@@ -43,7 +47,7 @@ public class FrgListController {
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		
 		model.addAttribute("trafficLight", trafficLight);
 		
@@ -57,7 +61,7 @@ public class FrgListController {
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 
 		return "/frg/frgAdd_form";
@@ -73,7 +77,7 @@ public class FrgListController {
 		List<ResponseDTO> responses = new ArrayList<>();
 
 		for (FrgListDTO frgDto : list) {
-			ResponseDTO response = service.registerFrgList(frgDto);
+			ResponseDTO response = frgService.registerFrgList(frgDto);
 			responses.add(response);
 		}
 
@@ -97,14 +101,26 @@ public class FrgListController {
 	}
 
 	@GetMapping("/frgShow")
-	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto) {
+	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
 		log.info("frgShow");
 
 	    String userId = (String) session.getAttribute("SESS_ID");
 		
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = service.getTrafficLight(trfDto);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
+		
+		frgDto.setUser_id(userId);
+		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
+		
+		// Gson 사용하여 frgList를 JSON 형태로 변환
+	    Gson gson = new Gson();
+	    String frgListJson = gson.toJson(frgList);
+
+
+	    
+	    // 변환된 JSON 데이터를 model에 추가
+	    model.addAttribute("frgListJson", frgListJson);
 		
 		return "/frg/frgShow";
 	}

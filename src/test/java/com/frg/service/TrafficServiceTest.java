@@ -1,16 +1,17 @@
 package com.frg.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.frg.domain.FrgListDTO;
+import com.frg.domain.TrafficDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -18,23 +19,22 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class MyPageServiceTest {
-
+public class TrafficServiceTest {
+	
 	@Setter(onMethod_ = @Autowired)
-	private MyPageService service;
+	private TrafficService service;
 	
 	@Test
-	public void testGetFrgList() {
-		
-		FrgListDTO frgDto = new FrgListDTO();
+	public void testGetTrafficLight() {
 
-		frgDto.setUser_id("smith01");
-		
-		List<FrgListDTO> frgList = service.getFrgList(frgDto);
-		
-		log.info("냉장고 목록 - " + frgList);
-		
-		assertNotNull(frgList);
+		TrafficDTO trfDto = new TrafficDTO();
+
+		trfDto.setUser_id("smith01");
+
+		List<Integer> trfResult = service.getTrafficLight(trfDto);
+
+		log.info("신호등 결과 - " + trfResult);
+
+		assertNotNull(trfResult);
 	}
-
 }
