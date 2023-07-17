@@ -47,21 +47,6 @@ public class FrgListServiceTest {
 	}
 
 	@Test
-	@Ignore
-	public void testGetTrafficLight() {
-
-		TrafficDTO trfDto = new TrafficDTO();
-
-		trfDto.setUser_id("smith01");
-
-		List<Integer> trfResult = service.getTrafficLight(trfDto);
-
-		log.info("신호등 결과 - " + trfResult);
-
-		assertNotNull(trfResult);
-	}
-
-	@Test
 	public void testGetFrgList() {
 		
 		FrgListDTO frgDto = new FrgListDTO();

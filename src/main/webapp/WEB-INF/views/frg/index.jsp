@@ -34,7 +34,7 @@
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script
-	src="${ pageContext.servletContext.contextPath }/resources/js/index.js"></script>
+	src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
 </head>
 <body id="page-top">
 	<!-- Navigation-->
@@ -85,7 +85,7 @@
 				%>
 				<ul class="navbar-nav ms-auto my-2 my-lg-0">
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/frg/frgAdd" onclick="noFrg();">MyFridge</a></li>
+						href="<%=request.getContextPath()%>/frg/frgAdd">MyFridge</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/frg/frgAdd" onclick="noFrg();">Community</a></li>
 					<li class="nav-item"><a class="nav-link"

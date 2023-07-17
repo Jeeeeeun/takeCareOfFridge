@@ -19,17 +19,14 @@ import lombok.RequiredArgsConstructor;
 public class FrgListServiceImpl implements FrgListService {
 
 	@NonNull
-	private FrgListMapper frgMapper;
-
-	@NonNull
-	private TrafficMapper trfMapper;
+	private FrgListMapper mapper;
 	
 	@Override
 	public ResponseDTO registerFrgList(FrgListDTO dto) {
 		
 		ResponseDTO response = new ResponseDTO();
 		
-		int affectedRow = frgMapper.insertFrgList(dto);
+		int affectedRow = mapper.insertFrgList(dto);
 		response.setAffectedRow(affectedRow);
 		
 		String resMsg = null;
@@ -45,20 +42,16 @@ public class FrgListServiceImpl implements FrgListService {
 		return response;
 	}
 
-	@Override
-	public List<Integer> getTrafficLight(TrafficDTO trfDto) {
-		
-		List<Integer> trfList = trfMapper.selectTrafficLight(trfDto);
-		
-		return trfList;
-	}
+
 
 	@Override
 	public List<FrgListDTO> getFrgList(FrgListDTO dto) {
 		
-		List<FrgListDTO> frgList = frgMapper.selectFrgList(dto);
+		List<FrgListDTO> frgList = mapper.selectFrgList(dto);
 		
 		return frgList;
 	}
+
+	
 
 }

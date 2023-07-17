@@ -9,7 +9,5 @@ import com.frg.domain.TrafficDTO;
 public interface FrgListService {
 	ResponseDTO registerFrgList(FrgListDTO dto);
 	
-	List<Integer> getTrafficLight(TrafficDTO dto);
-	
 	List<FrgListDTO> getFrgList(FrgListDTO dto);
 }

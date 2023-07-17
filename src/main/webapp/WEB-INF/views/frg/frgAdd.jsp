@@ -32,6 +32,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
 </head>
 <body id="page-top">
 	<header class="masthead">
@@ -52,26 +54,20 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"><i
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();"><i
 								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
-					<script>
-						function showAlert() {
-							alert("냉장고 생성을 먼저 하세요!");
-						}
-					</script>
 				</div>
 			</div>
 		</nav>
 		<p id="red">${trafficLight[0].red}</p>
 		<p id="yellow">${trafficLight[0].yellow}</p>
 		<p id="green">${trafficLight[0].green}</p>
-		<a
-			href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
+		<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
 			<i class="fa-solid fa-plus"></i>
 		</a>
 	</header>
