@@ -51,7 +51,7 @@
 		select f.frg_name from frgList f, users u where u.user_id=#{user_id}
 	</select>
 	
-	<select id="selectFoodAPI" resultType="list">
+	<select id="selectFoodAPI" resultType="string">
 		SELECT * FROM foodAPI where api_name=#{api_name}
 	</select>
 

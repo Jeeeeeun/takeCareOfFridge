@@ -33,7 +33,7 @@ var frgNameIdx = 0;
 
 // 식품 등록 버튼을 누르면 innerFoodAdd로 이동
 function addBtnClicked() {
-	window.location.href = `${window.contextPath}/frgListAdd`;
+	window.location.href = `${window.contextPath}/frg/innerAdd`;
 }
 
 // 수정 버튼을 누르면 수정 버튼, 삭제 버튼 숨김 + 수정완료 버튼 숨김 해제
