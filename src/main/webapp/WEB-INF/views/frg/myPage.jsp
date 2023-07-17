@@ -35,6 +35,10 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
+<script type="text/javascript">
+	window.contextPath = '${pageContext.servletContext.contextPath}';
+	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
+</script>
 </head>
 <body>
 	<header class="masthead">
@@ -118,27 +122,31 @@
 				<div class="fridgeStateTitleBox">현재 나의 냉장고 상태</div>
 				<div class="fridgeTrafficBox">
 					<div class="myRedLight">
-						<span class="foodCount">0</span>
+						<span class="foodCount">${trafficLight[0].red}</span>
 					</div>
 					<div class="myYellowLight">
-						<span class="foodCount">0</span>
+						<span class="foodCount">${trafficLight[0].yellow}</span>
 					</div>
 					<div class="myGreenLight">
-						<span class="foodCount">0</span>
+						<span class="foodCount">${trafficLight[0].green}</span>
 					</div>
 				</div>
 				<div class="standardLine1"></div>
 				<div class="dangerous-standard">
-					<span>0</span>일 남음
+					<span>${ trfStandard[0].dangerous_standard }</span>
 				</div>
 				<div class="standardLine2"></div>
 				<div class="warning-standard">
-					<span>10</span>일 남음
+					<span>${ trfStandard[0].warning_standard }</span>
 				</div>
 				<span><i class="fa-solid fa-pen-to-square standardChange"></i></span>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
-				<div class="fridgeShapeBox"></div>
+				<div class="fridgeShapeBox">
+					<img id="frg_shape">
+				</div>
+				<div>
+				</div>
 				<span><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 			</div>
 		</div>
