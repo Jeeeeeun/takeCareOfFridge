@@ -89,11 +89,9 @@ window.onload = function () {
 		<div class="descriptionAndTraffic">
 			<p class="title">식품을 조회하세요</p>
 			<div class="trafficLight">
-				<p id="red">${empty request.getAttribute("countRed") ? 0 : request.getAttribute("countRed")}</p>
-				<p id="yellow">${empty request.getAttribute("countYellow") ? 0 :
-						request.getAttribute("countYellow")}</p>
-				<p id="green">${empty request.getAttribute("countGreen") ? 0 :
-						request.getAttribute("countGreen")}</p>
+				<p id="red">${trafficLight[0].red}</p>
+				<p id="yellow">${trafficLight[0].yellow}</p>
+				<p id="green">${trafficLight[0].green}</p>
 			</div>
 		</div>
 		<div id="contents">
