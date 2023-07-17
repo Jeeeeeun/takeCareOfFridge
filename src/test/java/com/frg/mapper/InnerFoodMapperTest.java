@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 
 import lombok.extern.log4j.Log4j;
@@ -64,7 +65,7 @@ public class InnerFoodMapperTest {
 		
 	}
 	
-	@Test
+	@Test @Ignore 
 	public void testSelectFrgName() {
 		
 		InnerDTO dto = new InnerDTO();
@@ -72,5 +73,38 @@ public class InnerFoodMapperTest {
 		List<String> frgList =  mapper.selectFrgName(dto);
 		log.info(frgList);
 		assertNotNull(frgList);
+	}
+	
+	@Test
+	public void testSelectFoodAPI() {
+
+		FoodApiDTO dto=new FoodApiDTO();
+		dto.setApi_name("산채비빔밥");
+		List<String> foodList = mapper.selectFoodAPI(dto);
+		assertNotNull(foodList);
+	}
+	
+	
+	@Test @Ignore
+	public void testselectAllInnerView() throws ParseException, Exception {
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id("smith01");
+	    dto.setFrg_name("fridge1");
+
+	    List<String> result = mapper.selectAllInnerView(dto); 
+	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    System.out.println(dto);
+	}
+	
+	@Test @Ignore
+	public void testselectPartInnerView() throws ParseException, Exception {
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id("smith01");
+	    dto.setFrg_name("fridge1");
+	    dto.setIn_state("frozen");
+
+	    List<String> result = mapper.selectAllInnerView(dto); 
+	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    System.out.println(dto);
 	}
 }

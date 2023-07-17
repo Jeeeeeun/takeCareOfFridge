@@ -32,5 +32,14 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	public List<String> selectFrgName(InnerDTO dto) {
 		return mapper.selectFrgName(dto);
 	}
+	
+	@Override
+	public List<String> selectAllInnerView(InnerDTO dto){
+		return mapper.selectAllInnerView(dto);
+	}
 
+	@Override
+	public List<String> selectPartInnerView(InnerDTO dto){
+		return mapper.selectPartInnerView(dto);
+	}
 }
