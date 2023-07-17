@@ -47,6 +47,9 @@ public class InnerFoodController {
 
 		trfDto.setUser_id(user_id);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		
+		model.addAttribute("trafficLight", trafficLight);
+		
 		return "/frg/innerAdd";
 	}
 
