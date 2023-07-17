@@ -60,9 +60,9 @@ public class LoginController {
 		} else {
 			// 로그인 실패
 			// 로그인 ;
-			model.addAttribute("errorMessage", "로그인 실패했습니다!");
-			log.info("실패");			
-			return "/frg/login";
+			model.addAttribute("errorMsg", "로그인 실패했습니다!");
+	        log.info("실패");            
+	        return "/frg/login";
 		}
 	}
 	

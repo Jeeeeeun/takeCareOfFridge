@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>signUp</title>
+<title>SignUP Page</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
 <!-- Bootstrap Icons-->
@@ -29,7 +29,61 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
 </head>
-<body>
-	<header class="masthead"> signUP </header>
+<body id="page-top">
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3"
+		id="mainNav">
+		<div class="container px-4 px-lg-5">
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/frg/index">TakeCareOfFridge</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto my-2 my-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/frg/login">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Masthead-->
+	<header class="masthead">
+		<div class="container px-4 px-lg-5 h-100">
+			<div
+				class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+				<div class="col-lg-8 align-self-end">
+					<h1 class="text-white font-weight-bold">TAKE CARE OF FRIDGE</h1>
+					<hr class="divider" />
+				</div>
+				<div class="registerBox">
+					<hr class="horizonLine">
+					<form id="registerForm"
+						action="<%=request.getContextPath()%>/signUp" method="post">
+						<input type="text" class="inputBox box1" id="user_name"
+							name="user_name" placeholder="NAME" required> <input
+							type="text" class="inputBox box2" id="user_id" name="user_id"
+							placeholder="ID" required>
+						<button class="duplicateBtn" id="checkId" type="button">중복확인</button>
+						<div class="idErrorMsg hidden" id="idErrorMsg">
+							<span></span>
+						</div>
+						<input type="email" class="inputBox box3" id="user_email"
+							name="user_email" placeholder="EMAIL" required> <input
+							type="password" class="inputBox box4" id="user_pw" name="user_pw"
+							placeholder="PW" required> <input type="password"
+							class="inputBox box5" id="verifyPwd" placeholder="PW CHECK"
+							required> <span class="pwdAlert" id="pwdAlert"
+							style="margin-left: 10px"></span>
+
+						<button type="submit" class="signUpBtn" id="submitButton" disabled>회원가입하기</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</header>
 </body>
 </html>
