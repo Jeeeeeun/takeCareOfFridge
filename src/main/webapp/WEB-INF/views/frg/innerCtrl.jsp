@@ -47,6 +47,10 @@
 	var oneFoodDetail = '${oneFoodDetail}';
 	var listAll = '${listAll}';
 	var frgNameJson = '${frgNameJson}';
+	
+	function addBtnClicked(){
+		window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
+	}
 </script>
 </head>
 <body id="page-top">
