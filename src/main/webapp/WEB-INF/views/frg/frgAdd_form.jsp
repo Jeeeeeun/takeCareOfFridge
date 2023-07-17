@@ -43,6 +43,8 @@
 	crossorigin="anonymous"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/frgAdd_form.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
 </head>
 <body id="page-top">
 	<header class="masthead">
@@ -80,12 +82,13 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form"
+							onclick="noFrg();">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"><i
-								class="fa-solid fa-circle-user"></i></a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form"
+							onclick="noFrg();"><i class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 					<%
 					}
