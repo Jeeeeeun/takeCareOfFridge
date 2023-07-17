@@ -53,4 +53,12 @@ public class FrgListServiceImpl implements FrgListService {
 		return trfList;
 	}
 
+	@Override
+	public List<FrgListDTO> getFrgList(FrgListDTO dto) {
+		
+		List<FrgListDTO> frgList = frgMapper.selectFrgList(dto);
+		
+		return frgList;
+	}
+
 }

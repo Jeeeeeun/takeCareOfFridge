@@ -2,6 +2,8 @@ package com.frg.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +46,15 @@ public class FrgListMapperTest {
 	@Test
 	public void testSelectTrafficLight() {
 		
+		FrgListDTO dto = new FrgListDTO();
+		
+		dto.setUser_id("smith01");
+		
+		List<FrgListDTO> frgList = mapper.selectFrgList(dto);
+		
+		log.info("냉장고 목록 - " + frgList);
+		
+		assertNotNull(frgList);
 	}
 
 }
