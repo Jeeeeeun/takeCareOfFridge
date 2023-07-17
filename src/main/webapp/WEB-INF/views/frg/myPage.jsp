@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.frg.util.SessionUtil"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,6 +41,8 @@
 	window.contextPath = '${pageContext.servletContext.contextPath}';
 	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
 </script>
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
 </head>
 <body>
 	<header class="masthead">
