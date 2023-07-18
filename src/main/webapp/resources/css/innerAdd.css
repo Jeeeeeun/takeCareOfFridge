@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+/* form의 배경 */
+#formBackground
+{
+width:300px;
+height: 350px;
+background-image: url(../img/formback.svg);
+background-repeat: no-repeat;
+position : absolute ;
+left : 360px;
+top : 300px;
+border-radius : 12px;
+-moz-border-radius : 12px;
+-webkit-border-radius : 12px;
+}
+.formBackground-child
+{
+width:600px;
+height: 700px;
+background-image: url(../img/formback.svg);
+background-repeat: no-repeat;
+position : absolute ;
+left : 0px;
+top : 700px;
+border-radius : 12px;
+-moz-border-radius : 12px;
+-webkit-border-radius : 12px;
+}
+/*  form 중 div 한 줄 */
+.formBack{
+    display: flex;
+    align-items: center;
+    width: 40vw;
+    height:4vh;
+    margin-top: 5px;
+    margin-left: 10px;
+    /* border-bottom: 2px solid rgb(255, 255, 255); */
+}
+
+.formDue{
+    height:14vh;
+    align-items: center;
+}
+
+.formPbox p{
+    font-size: 12px;
+    color: rgb(200, 81, 81);
+}
+
+/* form의 요소 이름 (냉장고, 보관 위치, 식품명 ...) */
+.labelName{
+    font-weight: bold;
+    color: #604C3F;
+    position: absolute;
+    left: 40px;
+}
+
+/* form의 input */
+.formRight{
+    position: absolute;
+    left: 15vw;
+}
+
+/* 냉장고, 식품명, 유통/소비기한, 식품유형, 수량, 제조사명 */
+.formRight > #fridge,
+.formRight > input[type="search"],
+.formRight > input[type="text"],
+.formDueBox > input[type="text"],
+.formDueBox > input[type="date"],
+.formRight > input[type="number"]
+ {
+    border-radius : 6px;
+    -webkit-border-radius : 6px;
+    border: 0px;
+    padding: 5px;
+    width: 330px;
+}
+
+/* formFridge 냉장고*/
+
+
+/* formState 보관위치*/
+
+
+input [type="radio"]{
+    appearance: none;
+    -webkit-appearance: none;
+    border: 3px solid #D6C2B4;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    position: relative;
+    top: -12rem;
+    margin-bottom: 0.3rem;
+}
+
+input[type="radio"]:checked {
+    background-color: #604C3F;
+}
+
+/* formName 식품명*/
+.formName{
+	height:8vh;
+    align-items: center;
+}
+
+
+.formSubmit{
+    background-color:#D6C2B4;
+    border: 0px;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+/* formDue 유통/소비기한*/
+.formDueBox{  
+    align-items: center;
+}
+
+.formDue>.formRight{
+    position: relative;
+    left: 182px;
+    bottom: 3px;
+}
+
+/* formType 식품 유형 */
+
+
+/* formCount 수량*/
+
+
+/* formFrom 제조사명*/
+
+
+/* footer */
+.plusAndEnd{
+    position: absolute;
+    display: inline-block;
+    top: 52vh;
+    left: 1vw;
+}
+
+
+.horizontalLine2 {
+    background: #D6C2B4;
+    position: relative;
+    width: 45vw;
+    height: 1px;
+    margin-top: 1.5%;
+    display: flex;
+    justify-content: center;     /* 수평 가운데 정렬 */
+    align-items: center;     /* 수직 가운데 정렬 */
+}
+
+.btns {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 수평 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin: 0 auto;
+    width: 20vw;
+    height: 6vh;
+}
+
+.btn {
+    background: #F4EEE6;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 48%;
+    height: 60%;
+    border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    font-family: 'MV Boli';
+    font-size: large;
+    font-weight: 600;
+    color: #604C3F;
+    border: 1px solid #D6C2B4;
+}
