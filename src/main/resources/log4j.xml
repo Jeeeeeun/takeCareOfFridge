@@ -21,7 +21,7 @@
 	</logger>
 	<appender name="LOGFILE-DAILY"
 		class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="C:/sts-3/logs/test-daily.log" />
+		<param name="file" value="C:/sts3/logs/test-daily.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">

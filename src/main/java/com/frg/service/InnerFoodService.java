@@ -10,7 +10,7 @@ public interface InnerFoodService {
 	int registerInnerAuto(InnerDTO dto);
 	int registerInnerCustom(InnerDTO dto); 
 	List<String> selectFrgName(InnerDTO dto);
-	List<String> selectFoodAPI(String apiName);
+	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 
 	List<InnerDTO> selectAllInnerView(InnerDTO dto);
 	List<InnerDTO> selectPartInnerView(InnerDTO dto);
