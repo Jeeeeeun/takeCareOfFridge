@@ -7,12 +7,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.frg.domain.InnerDTO;
 import com.frg.domain.TrafficDTO;
@@ -40,6 +42,9 @@ public class InnerFoodController {
 	@GetMapping(value = "/innerAdd")
 	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) {
 		String user_id = (String) session.getAttribute("SESS_ID");
+		System.out.println("SESS_ID: " + user_id);
+		String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
+		System.out.println("SESS_FRG_NAME: " + userFRG);
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);
 		List<String> frgNames = inService.selectFrgName(dto);
@@ -47,9 +52,9 @@ public class InnerFoodController {
 
 		trfDto.setUser_id(user_id);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-		
+
 		model.addAttribute("trafficLight", trafficLight);
-		
+
 		return "/frg/innerAdd";
 	}
 
@@ -96,16 +101,29 @@ public class InnerFoodController {
 		return "/frg/innerCtrl";
 	}
 
-	@GetMapping(value = "/innerCtrl")
-	public String moveToInnerCtrl(HttpSession session, Model model, TrafficDTO trfDto) {
-
-		String userId = (String) session.getAttribute("SESS_ID");
-
-		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-		model.addAttribute("trafficLight", trafficLight);
-
-		return "/frg/innerCtrl";
+	@PostMapping("/setFrgNameSession")
+	public ResponseEntity<String> setFrgNameSession(@RequestParam("frgName") String frgName, HttpSession session) {
+		session.setAttribute("SESS_FRG_NAME", frgName);
+		return ResponseEntity.ok("Success");
 	}
+
+	 @GetMapping("/innerCtrl")
+	    public String moveToInnerCtrl(HttpSession session, Model model, TrafficDTO trfDto) {
+	        String user_id = (String) session.getAttribute("SESS_ID");
+	        String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
+	        
+	        // InnerDTO에 사용자 정보 설정
+	        InnerDTO dto = new InnerDTO();
+	        dto.setUser_id(user_id);
+	        dto.setFrg_name(userFRG);
+
+	        // 서비스를 통해 데이터를 받아옴
+	        List<InnerDTO> dataList =inService.selectPartInnerView(dto);
+
+	        // 받아온 데이터를 Model에 추가
+	        model.addAttribute("dataList", dataList);
+
+	        return "/frg/innerCtrl";
+	    }
 
 }

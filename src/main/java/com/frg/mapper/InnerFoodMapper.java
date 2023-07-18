@@ -12,7 +12,7 @@ public interface InnerFoodMapper {
 	List<String> selectFrgName(InnerDTO dto);
 	List<String> selectFoodAPI(FoodApiDTO dto);
 
-	List<String> selectAllInnerView(InnerDTO dto);
-	List<String> selectPartInnerView(InnerDTO dto);
+	List<InnerDTO> selectAllInnerView(InnerDTO dto);
+	List<InnerDTO> selectPartInnerView(InnerDTO dto);
 
 }

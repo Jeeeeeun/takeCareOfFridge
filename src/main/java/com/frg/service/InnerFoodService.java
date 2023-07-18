@@ -10,6 +10,6 @@ public interface InnerFoodService {
 	int registerInnerCustom(InnerDTO dto); 
 	List<String> selectFrgName(InnerDTO dto);
 
-	List<String> selectAllInnerView(InnerDTO dto);
-	List<String> selectPartInnerView(InnerDTO dto);
+	List<InnerDTO> selectAllInnerView(InnerDTO dto);
+	List<InnerDTO> selectPartInnerView(InnerDTO dto);
 }

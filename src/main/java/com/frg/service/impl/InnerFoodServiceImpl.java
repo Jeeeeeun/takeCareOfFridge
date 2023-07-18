@@ -34,12 +34,12 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	}
 	
 	@Override
-	public List<String> selectAllInnerView(InnerDTO dto){
+	public List<InnerDTO> selectAllInnerView(InnerDTO dto){
 		return mapper.selectAllInnerView(dto);
 	}
 
 	@Override
-	public List<String> selectPartInnerView(InnerDTO dto){
+	public List<InnerDTO> selectPartInnerView(InnerDTO dto){
 		return mapper.selectPartInnerView(dto);
 	}
 }
