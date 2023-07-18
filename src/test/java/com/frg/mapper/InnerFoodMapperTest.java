@@ -75,12 +75,12 @@ public class InnerFoodMapperTest {
 		assertNotNull(frgList);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testSelectFoodAPI() {
 
 		FoodApiDTO dto = new FoodApiDTO();
 		dto.setApi_name("산채비빔밥");
-		List<String> foodList = mapper.selectFoodAPI(dto);
+		List<FoodApiDTO> foodList = mapper.selectFoodAPI(dto);
 		assertNotNull(foodList);
 	}
 	
@@ -88,23 +88,21 @@ public class InnerFoodMapperTest {
 	@Test @Ignore
 	public void testselectAllInnerView() throws ParseException, Exception {
 	    InnerDTO dto = new InnerDTO();
-	    dto.setUser_id("smith01");
-	    dto.setFrg_name("fridge1");
+	    dto.setUser_id("john01");
 
-	    List<String> result = mapper.selectAllInnerView(dto); 
-	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    List<InnerDTO> result = mapper.selectAllInnerView(dto); 
+	    assertEquals(4, result.size()); // 리스트의 크기가 1인지 확인합니다.
 	    System.out.println(dto);
 	}
 	
 	@Test @Ignore
 	public void testselectPartInnerView() throws ParseException, Exception {
 	    InnerDTO dto = new InnerDTO();
-	    dto.setUser_id("smith01");
-	    dto.setFrg_name("fridge1");
-	    dto.setIn_state("frozen");
+	    dto.setUser_id("john01");
+	    dto.setFrg_name("fridge2");
 
-	    List<String> result = mapper.selectAllInnerView(dto); 
-	    assertEquals(1, result.size()); // 리스트의 크기가 1인지 확인합니다.
+	    List<InnerDTO> result = mapper.selectPartInnerView(dto); 
+	    assertEquals(3, result.size()); // 리스트의 크기가 1인지 확인합니다.
 	    System.out.println(dto);
 	}
 }

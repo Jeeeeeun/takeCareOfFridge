@@ -12,6 +12,6 @@ public interface InnerFoodService {
 	List<String> selectFrgName(InnerDTO dto);
 	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 
-	List<String> selectAllInnerView(InnerDTO dto);
-	List<String> selectPartInnerView(InnerDTO dto);
+	List<InnerDTO> selectAllInnerView(InnerDTO dto);
+	List<InnerDTO> selectPartInnerView(InnerDTO dto);
 }

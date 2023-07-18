@@ -42,6 +42,18 @@
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/frgShow.js"></script>
+<script type="text/javascript">
+    function setFrgNameSession() {
+        const frgName = document.getElementById("frg_name").innerText;
+        const encodedFrgName = encodeURIComponent(frgName);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "${pageContext.servletContext.contextPath}/frg/setFrgNameSession?frgName=" + encodedFrgName, true);
+        xhr.send();
+        
+        // innerCtrl 페이지로 이동합니다.
+        location.href = "${pageContext.servletContext.contextPath}/frg/innerCtrl";
+    }
+</script>
 </head>
 <body id="page-top">
 	<header class="masthead">
@@ -59,26 +71,19 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
-						<li class="nav-item">
-							<a class="nav-link"	href="${ pageContext.servletContext.contextPath }/frg/frgShow">
-								MyFridge
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link"	href="${ pageContext.servletContext.contextPath }/comm/board">
-								Community
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link"	href="${ pageContext.servletContext.contextPath }/frg/logout">
-								Logout
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link"	href="${ pageContext.servletContext.contextPath }/frg/myPage">
+						<li class="nav-item"><a class="nav-link"
+							href="${ pageContext.servletContext.contextPath }/frg/frgShow">
+								MyFridge </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ pageContext.servletContext.contextPath }/comm/board">
+								Community </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ pageContext.servletContext.contextPath }/frg/logout">
+								Logout </a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${ pageContext.servletContext.contextPath }/frg/myPage">
 								<i class="fa-solid fa-circle-user"></i>
-							</a>
-						</li>
+						</a></li>
 					</ul>
 				</div>
 			</div>
@@ -86,28 +91,30 @@
 		<p id="red">${trafficLight[0].red}</p>
 		<p id="yellow">${trafficLight[0].yellow}</p>
 		<p id="green">${trafficLight[0].green}</p>
-			<div id="showFridge">
-				<a class="goToFoodCtrl"
-					href="${ pageContext.servletContext.contextPath }/frg/innerCtrl">
-					<img id="frg_shape">
-				</a>
-				<div id="frg_state">
-					<p id="frg_Astate"></p>
-					<p id="frg_Bstate"></p>
-				</div>
-				<div class="ctrlInfos">
-					<button id="prev" onclick="prevFrg()">
-						<i class="fa-solid fa-caret-left"></i>
-					</button>
-					<p id="frg_name"></p>
-					<button id="next" onclick="nextFrg()">
-						<i class="fa-solid fa-caret-right"></i>
-					</button>
-		</div>
-		<a class="plusFrgBtn"
-			href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
-			<i class="fa-solid fa-plus"></i>&nbsp;냉장고 더 만들기
-		</a>
+		<div id="showFridge">
+			<!-- onclick 이벤트에서 frg_name 값을 가져오도록 설정 -->
+			<a class="goToFoodCtrl"
+				href="${pageContext.servletContext.contextPath}/frg/innerCtrl"
+				onclick="setFrgNameSession()"> <img id="frg_shape">
+			</a>
+			<div id="frg_state">
+				<p id="frg_Astate"></p>
+				<p id="frg_Bstate"></p>
+			</div>
+			<div class="ctrlInfos">
+				<button id="prev" onclick="prevFrg()">
+					<i class="fa-solid fa-caret-left"></i>
+				</button>
+				<!-- 냉장고 이름 표시 부분 -->
+				<p id="frg_name">${frgName}</p>
+				<button id="next" onclick="nextFrg()">
+					<i class="fa-solid fa-caret-right"></i>
+				</button>
+			</div>
+			<a class="plusFrgBtn"
+				href="${pageContext.servletContext.contextPath}/frg/frgAdd_form">
+				<i class="fa-solid fa-plus"></i>&nbsp;냉장고 더 만들기
+			</a>
 		</div>
 	</header>
 </body>

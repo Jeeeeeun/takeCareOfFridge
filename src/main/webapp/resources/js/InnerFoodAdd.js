@@ -32,6 +32,8 @@ function searchFoodAPI() {
 		      </tr>
 		    `);
  	  });
+ 	  
+ 	  
 
     },
     error: function(data, err) {

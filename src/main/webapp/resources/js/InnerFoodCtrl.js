@@ -74,3 +74,25 @@ function updateBtnClicked() {
 
 
 // 수정완료 버튼을 누르면 상세보기 내용, 왼쪽 식품 개요 내용까지 반영
+
+function addDataToTable(data) {
+    const tableBody = document.querySelector("#foodTable tbody");
+    tableBody.innerHTML = ""; // 기존 데이터 초기화
+
+    data.forEach(item => {
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+        const expireDateCell = document.createElement("td");
+        const dDayCell = document.createElement("td");
+
+        nameCell.textContent = item.in_name;
+        expireDateCell.textContent = item.in_expireDate_custom;
+        dDayCell.textContent = item.D_DAY;
+
+        row.appendChild(nameCell);
+        row.appendChild(expireDateCell);
+        row.appendChild(dDayCell);
+
+        tableBody.appendChild(row);
+    });
+}
