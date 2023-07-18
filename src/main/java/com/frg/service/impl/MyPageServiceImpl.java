@@ -14,16 +14,5 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
-	
-	@NonNull
-	private FrgListMapper frgMapper;
-	
-	@Override
-	public List<FrgListDTO> getFrgList(FrgListDTO dto) {
-		
-		List<FrgListDTO> frgList = frgMapper.selectFrgList(dto);
-		
-		return frgList;
-	}
 
 }

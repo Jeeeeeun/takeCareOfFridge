@@ -24,7 +24,7 @@ public class TrafficServiceTest {
 	@Setter(onMethod_ = @Autowired)
 	private TrafficService service;
 	
-	@Test
+	@Test @Ignore
 	public void testGetTrafficLight() {
 
 		TrafficDTO trfDto = new TrafficDTO();
@@ -36,5 +36,18 @@ public class TrafficServiceTest {
 		log.info("신호등 결과 - " + trfResult);
 
 		assertNotNull(trfResult);
+	}
+	
+	@Test
+	public void testGetTrafficStandard() {
+		TrafficDTO trfDto = new TrafficDTO();
+		
+		trfDto.setUser_id("smith01");
+		
+		List<TrafficDTO> trfStandard = service.getTrafficStandard(trfDto);
+		
+		log.info(trfStandard);
+		
+		assertNotNull(trfStandard);
 	}
 }

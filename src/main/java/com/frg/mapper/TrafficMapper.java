@@ -6,4 +6,6 @@ import com.frg.domain.TrafficDTO;
 
 public interface TrafficMapper {
 	List<Integer> selectTrafficLight(TrafficDTO dto);
+	
+	List<TrafficDTO> selectTrafficStandard(TrafficDTO dto);
 }

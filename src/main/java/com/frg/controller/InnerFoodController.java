@@ -13,32 +13,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.TrafficDTO;
 import com.frg.service.InnerFoodService;
+import com.frg.service.TrafficService;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/frg/*")
 @AllArgsConstructor
-@Log4j
 public class InnerFoodController {
-	
+
 	@NonNull
-	private InnerFoodService service;
-	
-	//innerFoodAdd
-	//localhost:8080/controller/frg/innerAdd
+	private InnerFoodService inService;
+
+	@NonNull
+	private TrafficService trfService;
+
+	// innerFoodAdd
+	// localhost:8080/controller/frg/innerAdd
 	@GetMapping(value = "/innerAdd")
-	public String moveToInnerAdd(HttpSession session, Model model){
-		String user_id= (String)session.getAttribute("SESS_ID");
-		InnerDTO innerDto=new InnerDTO();
-		innerDto.setUser_id(user_id);
-		List<String> frgNames= service.selectFrgName(innerDto);
+	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) {
+		String user_id = (String) session.getAttribute("SESS_ID");
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id(user_id);
+		List<String> frgNames = inService.selectFrgName(dto);
 		model.addAttribute("frgNames", frgNames);
+		trfDto.setUser_id(user_id);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		model.addAttribute("trafficLight", trafficLight);
 		return "/frg/innerAdd";
 	}
 	
@@ -46,16 +51,17 @@ public class InnerFoodController {
 	@RequestMapping(value= "/innerAdd/search", method = RequestMethod.POST)
 	public String iterateFoodApi(HttpServletRequest request, Model model) {
 		String searchKeyword = request.getParameter("searchKeyword");
-		List<String> foodList = service.selectFoodAPI(searchKeyword);
+		List<String> foodList = inService.selectFoodAPI(searchKeyword);
 		model.addAttribute(foodList);
 		return "/frg/innerAdd";
 	}
 	
-	//식품등록-auto인 경우
+
+	// 식품등록-auto인 경우
 	@RequestMapping(value = "/frg/innerAdd/Auto", method = RequestMethod.POST)
 	public String registerInnerFoodAuto(HttpServletRequest request, Model model) throws Exception {
-		
-		InnerDTO dto= new InnerDTO();
+
+		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(request.getParameter("user_id"));
 		dto.setFrg_name(request.getParameter("frg_name"));
 		dto.setIn_name(request.getParameter("in_name"));
@@ -67,17 +73,17 @@ public class InnerFoodController {
 		dto.setIn_state(request.getParameter("in_state"));
 		dto.setApi_fno(request.getParameter("api_fno"));
 		dto.setIn_company(request.getParameter("in_company"));
-		
-		service.registerInnerAuto(dto);
+
+		inService.registerInnerAuto(dto);
 
 		return "/frg/innerCtrl";
 	}
-	
-	//식품 등록-custom인 경우
+
+	// 식품 등록-custom인 경우
 	@RequestMapping(value = "/frg/innerAdd/Custom", method = RequestMethod.POST)
 	public String registerInnerFoodCustom(HttpServletRequest request, Model model) throws Exception {
-		
-		InnerDTO dto= new InnerDTO();
+
+		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(request.getParameter("user_id"));
 		dto.setFrg_name(request.getParameter("frg_name"));
 		dto.setIn_name(request.getParameter("in_name"));
@@ -88,16 +94,22 @@ public class InnerFoodController {
 		dto.setIn_type(request.getParameter("in_type"));
 		dto.setIn_state(request.getParameter("in_state"));
 		dto.setApi_fno(request.getParameter("api_fno"));
-		
-		service.registerInnerCustom(dto);
+
+		inService.registerInnerCustom(dto);
 
 		return "/frg/innerCtrl";
 	}
-	
-	
-	@GetMapping(value="/innerCtrl")
-	public String moveToInnerCtrl(HttpSession session,Model model) {
+
+	@GetMapping(value = "/innerCtrl")
+	public String moveToInnerCtrl(HttpSession session, Model model, TrafficDTO trfDto) {
+
+		String userId = (String) session.getAttribute("SESS_ID");
+
+		trfDto.setUser_id(userId);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		model.addAttribute("trafficLight", trafficLight);
+
 		return "/frg/innerCtrl";
 	}
-	
+
 }

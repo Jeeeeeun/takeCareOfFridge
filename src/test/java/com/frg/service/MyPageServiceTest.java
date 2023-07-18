@@ -23,18 +23,6 @@ public class MyPageServiceTest {
 	@Setter(onMethod_ = @Autowired)
 	private MyPageService service;
 	
-	@Test
-	public void testGetFrgList() {
-		
-		FrgListDTO frgDto = new FrgListDTO();
-
-		frgDto.setUser_id("smith01");
-		
-		List<FrgListDTO> frgList = service.getFrgList(frgDto);
-		
-		log.info("냉장고 목록 - " + frgList);
-		
-		assertNotNull(frgList);
-	}
+	
 
 }

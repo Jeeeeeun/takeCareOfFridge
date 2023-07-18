@@ -27,6 +27,14 @@ public class TrafficServiceImpl implements TrafficService {
 		return trfList;
 	}
 
+	@Override
+	public List<TrafficDTO> getTrafficStandard(TrafficDTO dto) {
+		
+		List<TrafficDTO> trfStandard = mapper.selectTrafficStandard(dto);
+
+		return trfStandard;
+	}
+
 	
 
 }
