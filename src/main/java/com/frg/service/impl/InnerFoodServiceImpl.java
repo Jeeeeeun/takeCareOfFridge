@@ -42,4 +42,10 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	public List<InnerDTO> selectPartInnerView(InnerDTO dto){
 		return mapper.selectPartInnerView(dto);
 	}
+
+	@Override
+	public List<String> selectFoodAPI(String apiName) {
+		// TODO Auto-generated method stub
+		return mapper.selectFoodAPI(apiName);
+	}
 }

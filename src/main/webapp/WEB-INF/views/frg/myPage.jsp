@@ -149,8 +149,10 @@
 				<div class="fridgeShapeBox">
 					<img id="frg_shape">
 				</div>
-				<div>
+				<div id="myFrgNameBox">
+				<div class="frgNameBoxCenterLine"></div>
 				</div>
+				
 				<span><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 			</div>
 		</div>

@@ -23,12 +23,10 @@ import com.frg.service.TrafficService;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/frg/*")
 @AllArgsConstructor
-@Log4j
 public class InnerFoodController {
 
 	@NonNull
@@ -49,14 +47,22 @@ public class InnerFoodController {
 		dto.setUser_id(user_id);
 		List<String> frgNames = inService.selectFrgName(dto);
 		model.addAttribute("frgNames", frgNames);
-
 		trfDto.setUser_id(user_id);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 
 		model.addAttribute("trafficLight", trafficLight);
-
 		return "/frg/innerAdd";
 	}
+	
+	//foodApi 조회하기
+	@RequestMapping(value= "/innerAdd/search", method = RequestMethod.POST)
+	public String iterateFoodApi(HttpServletRequest request, Model model) {
+		String searchKeyword = request.getParameter("searchKeyword");
+		List<String> foodList = inService.selectFoodAPI(searchKeyword);
+		model.addAttribute(foodList);
+		return "/frg/innerAdd";
+	}
+	
 
 	// 식품등록-auto인 경우
 	@RequestMapping(value = "/frg/innerAdd/Auto", method = RequestMethod.POST)
