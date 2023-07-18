@@ -146,40 +146,47 @@
 				<span><i class="fa-solid fa-pen-to-square standardChange"></i></span>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
+				<div id="fridgeInfoContentBox">
+					<div id="frgInfoLeft">
+						<div class="fridgeShapeBox" style="height: 90%; width: 90%;">
+							<img class="frg_shape" />
+						</div>
+						<div id="frgNameAndBtns">
+							<button id="prev" onclick="prevFrg()">
+								<i class="fa-solid fa-caret-left"></i>
+							</button>
+							<p class="frg_name"></p>
+							<button id="next" onclick="nextFrg()">
+								<i class="fa-solid fa-caret-right"></i>
+							</button>
+						</div>
+					</div>
+					<div id="frgInfoRight">
+						<div class="fridgeName">
+							냉장고 이름
+							<div class="fridgeNameVerticalLine"></div>
+							<input type="text" class="frg_name" disabled/>
+						</div>
+						<div class="frg_shape">
+							<input type="radio" name="frg_shape" id="hRadio" value="H" disabled/> <label for="hRadio">가로형</label>
+							<input type="radio" name="frg_shape" id="vRadio" value="V" disabled/> <label for="vRadio">세로형</label>
+							<input type="radio" name="frg_shape" id="sRadio" value="S" disabled/> <label for="sRadio">단일형</label>
+						</div>
+						<div id="myFrgAstate">
+							<div id="fridgeAtitleBox">A칸 상태</div>
+							<button id="frgAfrozenBtn" value="frozen">냉동</button>
+							<button id="frgAcoolBtn" value="cool">냉장</button>
+						</div>
+						<div id="myFrgBstate">
+							<div id="fridgeBtitleBox">B칸 상태</div>
+							<button id="frgBfrozenBtn" value="frozen">냉동</button>
+							<button id="frgBcoolBtn" value="cool">냉장</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-				<div class="fridgeShapeBox">
-					<img class="frg_shape" />
-				</div>
-				<div id="frgNameAndBtns">
-					<button id="prev" onclick="prevFrg()">
-						<i class="fa-solid fa-caret-left"></i>
-					</button>
-					<p class="frg_name"></p>
-					<button id="next" onclick="nextFrg()">
-						<i class="fa-solid fa-caret-right"></i>
-					</button>
-				</div>
-			</div>
-			<div class="fridgeName">
-				<div class="fridgeNameVerticalLine"></div>
-				<input type="text" class="frg_name" />
-			</div>
-			<div class="frg_shape">
-				<input type="radio" id="hRadio" value="H" /> <label for="hRadio">가로형</label>
-				<input type="radio" id="vRadio" value="V" /> <label for="vRadio">세로형</label>
-				<input type="radio" id="sRadio" value="S" /> <label for="sRadio">단일형</label>
-			</div>
-			<div id="myFrgAstate">
-				<div id="fridgeAtitleBox">A칸 상태</div>
-				<button id="frgAfrozenBtn" value="frozen">냉동</button>
-				<button id="frgAcoolBtn" value="cool">냉장</button>
-			</div>
-			<div id="myFrgBstate">
-				<div id="fridgeBtitleBox">B칸 상태</div>
-				<button id="frgBfrozenBtn" value="frozen">냉동</button>
-				<button id="frgBcoolBtn" value="cool">냉장</button>
-			</div>
-			<span><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
+			<span style="width: 20px;"><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 		</div>
 	</header>
 </body>

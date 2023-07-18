@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@charset "utf-8";
 
 /* 가입 정보 확인 스타일 시작 */
 
@@ -17,7 +16,6 @@
   color: white;
   text-align: center;
   font-weight: 700;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -591,14 +589,33 @@
   text-indent: 20px;
 }
 
+#fridgeInfoContentBox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: 35%;
+  top: -14%;
+}
+
+#frgInfoLeft,
+#frgInfoRight {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+  flex-grow: 1;
+  flex-basis: 90%;
+  left: 10%;
+  padding: 5px;
+}
+
 .fridgeShapeBox {
   /* 냉장고 정보 - 냉장고 모양 그림 담고있는 박스 */
   background: #ffffff;
   position: relative;
-  left: -20%;
-  top: -18%;
-  width: 45%;
-  height: 35%;
+  left: 5%;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -625,18 +642,17 @@
   display: flex;
   flex-direction: row;
   width: 45%;
-  top: -15%;
+  left: 30%;
   position: relative;
 }
 
 .fridgeName {
   /* 냉장고 정보 - 냉장고 이름 담고 있는 박스 */
   background: #ffffff;
-  position: absolute;
-  left: 200px;
-  top: 438px;
-  width: 121px;
-  height: 12px;
+  position: relative;
+  top: 20%;
+  width: 90%;
+  height: 20%;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -644,12 +660,10 @@
 
 .fridgeNameVerticalLine {
   /* 냉장고 이름 담은 박스 세로 구분선 */
-  border-style: Solid;
+  border-style: solid;
   border-color: #9fa0a0;
-  border-width: 0px;
-  position: absolute;
-  left: 610px;
-  top: 443px;
+  border-width: 1px;
+  position: relative;
   width: 0px;
   height: 4px;
 }
@@ -673,7 +687,7 @@
   -webkit-border-radius: 5px;
 }
 
-#EfrgAfrozenBtn {
+#frgAfrozenBtn {
   border-top: none;
   border-right: none;
   border-left: none;

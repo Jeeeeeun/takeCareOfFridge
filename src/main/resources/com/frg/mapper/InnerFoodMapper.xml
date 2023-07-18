@@ -77,18 +77,6 @@
 		AND i.frg_index IN (SELECT f.frg_index FROM frgList f WHERE f.frg_name =
 		#{frg_name})
 	</select>
-
-	
-	<select id="selectPartInnerView" resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_name,
-		i.in_expireDate_custom, i."D_DAY"
-		FROM Users u
-		INNER JOIN Inner_View i ON u.user_index = i.user_index
-		WHERE i.in_state = #{i.in_state}
-		AND u.user_id = #{user_id}
-		AND i.frg_index = (SELECT f.frg_index FROM frgList f WHERE f.frg_name =
-		#{frg_name})
-	</select>
 	
 	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
 		SELECT * FROM foodAPI WHERE api_name=#{api_name}
