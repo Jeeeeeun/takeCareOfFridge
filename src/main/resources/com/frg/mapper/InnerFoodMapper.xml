@@ -16,7 +16,8 @@
 		in_state
 		)
 		SELECT
-		(SELECT frg_index FROM FrgList f, Users u WHERE u.user_id=#{user_id} AND
+		(SELECT frg_index FROM FrgList f, Users u WHERE
+		u.user_id=#{user_id} AND
 		f.frg_name =#{frg_name}),
 		api_name,
 		#{in_count},
@@ -39,8 +40,10 @@
 		in_state
 		)
 		VALUES (
-		(SELECT frg_index FROM FrgList f, Users u WHERE u.user_id=#{user_id} AND
-		f.frg_name = #{frg_name}),
+		(SELECT frg_index FROM
+		FrgList f, Users u WHERE u.user_id=#{user_id} AND
+		f.frg_name =
+		#{frg_name}),
 		#{in_name},
 		#{in_count},
 		#{in_expireDate_custom},
@@ -54,15 +57,27 @@
 		frgList f, users u where u.user_id=#{user_id}
 	</select>
 
-	<select id="selectAllInnerView" resultType="com.frg.domain.InnerDTO">
+	<select id="selectAllInnerView"
+		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
-		i.in_expireDate_custom, i."D_DAY"
+		i.in_expireDate_custom, i.D_DAY
+		FROM
+		Users u
+		INNER JOIN Inner_View i ON u.user_index = i.user_index
+		WHERE
+		u.user_id = #{user_id}
+	</select>
+
+	<select id="selectPartInnerView"
+		resultType="com.frg.domain.InnerDTO">
+		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY
 		FROM Users u
 		INNER JOIN Inner_View i ON u.user_index = i.user_index
 		WHERE u.user_id = #{user_id}
-		AND i.frg_index = (SELECT f.frg_index FROM frgList f WHERE f.frg_name =
+		AND i.frg_index IN (SELECT f.frg_index FROM frgList f WHERE f.frg_name =
 		#{frg_name})
 	</select>
+
 	
 	<select id="selectPartInnerView" resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
@@ -75,7 +90,7 @@
 		#{frg_name})
 	</select>
 	
-	<select id="selectFoodAPI" resultType="string">
+	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
 		SELECT * FROM foodAPI where api_name=#{api_name}
 	</select>
 

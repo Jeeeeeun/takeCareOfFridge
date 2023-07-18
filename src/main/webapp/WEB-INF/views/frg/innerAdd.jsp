@@ -59,24 +59,9 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%-- <script
+<script
 	src="${pageContext.servletContext.contextPath}/js/InnerFoodAdd.js">
-</script> --%>
-<script>
-
-/* searchFoodAPI(); */
-
-
-/* changeFormAction(); */
-
-
-/* addFood(); */
-
-
-/* addFinish(); */
-
-
-</script>
+</script> 
 
 <body id="page-top">
 	<header class="masthead">
@@ -114,42 +99,55 @@
 			action="${pageContext.servletContext.contextPath}/frg/innerAdd/Auto"
 			method="post" id="actionForm">
 
-			<div id="addForm">
-				<!-- 냉장고 목록 -->
-				<label> <select name="frgList" id="">
-						<option value="">선택하세요</option>
-						<c:forEach var="name" items="${frgNames}">
-							<option value="">${name}</option>
-						</c:forEach>
-				</select>
-				</label> <br>
-				<!-- 보관 위치 -->
-				<input type="checkbox" />냉동 <input type="checkbox" />냉장 <br>
-				<!-- 식품명 -->
-				<label> <input type="search" autofocus />
-					<button type="submit" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
-					<br> <input type="checkbox" id="registerFood"
-					onclick="changeFormAction();" />직접 입력하기
-				</label> <br>
-				<!-- 유통/소비기한 -->
-				<label> <input type="text" id="dueDate"
-					placeholder="유통/소비기한"> <br> <input type="date">직접입력하기
-				</label> <br>
-				<!-- 식품유형 -->
-				<label> <input type="text" placeholder="식품 유형 안내">
-				</label> <br>
-				<!-- 수량 -->
-				<label> <input type="number" placeholder="식품 수량 등록">
-				</label> <br>
-				<!-- 제조사명 -->
-				<label> <input type="text" placeholder="제조사명 안내"
-					id="company">
-				</label> <br>
-				<!-- 추가, 완료 버튼 -->
-				<button type="submit" onclick="addFood();">추가</button>
-				<button type="submit" onclick="addFinish();">완료</button>
-			</div>
-		</form>
+        <div id="addForm">
+            <!-- 냉장고 목록 -->
+            <label>
+                <select name="frgList" id="">
+                <option value="">선택하세요</option>
+                <c:forEach var="name" items="${frgNames}">
+                    <option value="">${name}</option>                
+                </c:forEach>
+                </select>
+            </label>
+            <br>
+            <!-- 보관 위치 -->
+            <input type="checkbox" />냉동
+            <input type="checkbox" />냉장
+            <br>
+            <!-- 식품명 -->
+            <label>
+                <input type="search"  id="searchInput" autofocus />
+                <button type="submit" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
+                <br>
+                <input type="checkbox" id="registerFood" onclick="changeFormAction();" />직접 입력하기
+            </label>
+            <br>
+            <!-- 유통/소비기한 -->
+            <label>
+                <input type="text" id="dueDate" placeholder="유통/소비기한">
+                <br>
+                <input type="date">직접입력하기
+            </label>
+            <br>
+            <!-- 식품유형 -->
+            <label>
+                <input type="text" placeholder="식품 유형 안내">
+            </label>
+            <br>
+            <!-- 수량 -->
+            <label>
+                <input type="number" placeholder="식품 수량 등록">
+            </label>
+            <br>
+            <!-- 제조사명 -->
+            <label>
+                <input type="text" placeholder="제조사명 안내" id="company">
+            </label>
+            <br>
+            <!-- 추가, 완료 버튼 -->
+            <button type="submit" onclick="addFood();">추가</button>
+            <button type="submit" onclick="addFinish();">완료</button>
+        </div>
 </body>
 
 </html>

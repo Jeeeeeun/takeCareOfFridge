@@ -2,7 +2,6 @@ package com.frg.mapper;
 
 import java.util.List;
 
-import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 
 public interface InnerFoodMapper {
@@ -10,9 +9,9 @@ public interface InnerFoodMapper {
 	int insertInnerAuto(InnerDTO dto);
 	int insertInnerCustom(InnerDTO dto);
 	List<String> selectFrgName(InnerDTO dto);
-	List<String> selectFoodAPI(FoodApiDTO dto);
+	List<String> selectFoodAPI(String apiName);
 
-	List<String> selectAllInnerView(InnerDTO dto);
-	List<String> selectPartInnerView(InnerDTO dto);
+	List<InnerDTO> selectAllInnerView(InnerDTO dto);
+	List<InnerDTO> selectPartInnerView(InnerDTO dto);
 
 }
