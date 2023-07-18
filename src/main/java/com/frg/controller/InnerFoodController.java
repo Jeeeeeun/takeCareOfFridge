@@ -113,18 +113,33 @@ public class InnerFoodController {
 	}
 
 	@PostMapping("/setFrgNameSession")
-	public ResponseEntity<String> setFrgNameSession(@RequestParam("frgName") String frgName, HttpSession session) {
-		session.setAttribute("SESS_FRG_NAME", frgName);
-		return ResponseEntity.ok("Success");
+	@ResponseBody
+	public List<InnerDTO> setFrgNameSession(@RequestParam("frgName") String frgName, HttpSession session) {
+	    session.setAttribute("SESS_FRG_NAME", frgName);
+	    String userId = (String) session.getAttribute("SESS_ID");
+	    // 냉장고 이름에 해당하는 데이터를 조회하여 반환
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id(userId);
+	    dto.setFrg_name(frgName);
+	    List<InnerDTO> dataList = inService.selectPartInnerView(dto);
+	    return dataList;
 	}
 
 	 @GetMapping("/innerCtrl")
 	    public String moveToInnerCtrl(HttpSession session, Model model, TrafficDTO trfDto) {
-	        String user_id = (String) session.getAttribute("SESS_ID");
-	        String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
-	        
-	        // InnerDTO에 사용자 정보 설정
-	        InnerDTO dto = new InnerDTO();
+			String user_id = (String) session.getAttribute("SESS_ID");
+			System.out.println("SESS_ID: " + user_id);
+			String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
+			System.out.println("SESS_FRG_NAME: " + userFRG);
+			InnerDTO dto = new InnerDTO();
+			dto.setUser_id(user_id);
+			List<String> frgNames = inService.selectFrgName(dto);
+			model.addAttribute("frgNames", frgNames);
+			trfDto.setUser_id(user_id);
+			List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+
+			model.addAttribute("trafficLight", trafficLight);
+			
 	        dto.setUser_id(user_id);
 	        dto.setFrg_name(userFRG);
 
@@ -133,6 +148,7 @@ public class InnerFoodController {
 
 	        // 받아온 데이터를 Model에 추가
 	        model.addAttribute("dataList", dataList);
+	        model.addAttribute("frgNames", frgNames);
 
 	        return "/frg/innerCtrl";
 	    }

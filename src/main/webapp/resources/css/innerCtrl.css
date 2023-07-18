@@ -278,10 +278,8 @@
 	left: 5%;
 }
 
-input.detailInputBox[type="text"],
-input.detailInputBox[type="date"],
-input.detailInputBox[type="number"],
-select.detailInputBox {
+input.detailInputBox[type="text"], input.detailInputBox[type="date"],
+	input.detailInputBox[type="number"], select.detailInputBox {
 	/* 각 항목 입력란 */
 	border: 0.5px dashed #604C3F;
 	position: absolute;

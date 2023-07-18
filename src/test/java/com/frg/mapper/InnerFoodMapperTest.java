@@ -65,11 +65,11 @@ public class InnerFoodMapperTest {
 		
 	}
 	
-	@Test @Ignore 
+	@Test
 	public void testSelectFrgName() {
 		
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
+		dto.setUser_id("john01");
 		List<String> frgList =  mapper.selectFrgName(dto);
 		log.info(frgList);
 		assertNotNull(frgList);
