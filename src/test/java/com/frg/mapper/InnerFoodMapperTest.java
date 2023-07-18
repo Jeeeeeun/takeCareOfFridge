@@ -78,7 +78,7 @@ public class InnerFoodMapperTest {
 	@Test
 	public void testSelectFoodAPI() {
 
-		FoodApiDTO dto=new FoodApiDTO();
+		FoodApiDTO dto = new FoodApiDTO();
 		dto.setApi_name("산채비빔밥");
 		List<String> foodList = mapper.selectFoodAPI(dto);
 		assertNotNull(foodList);
