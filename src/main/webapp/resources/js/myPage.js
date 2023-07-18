@@ -7,6 +7,9 @@ var currentIndex = 0;
 function updateFrg(i) {
   var frgName = document.getElementsByClassName("frg_name");
   var frgShape = document.getElementsByClassName("frg_shape");
+  var hRadio = document.getElementById("hRadio");
+  var vRadio = document.getElementById("vRadio");
+  var sRadio = document.getElementById("sRadio");
   var frgAstate = document.getElementById("myFrgAstate");
   var frgBstate = document.getElementById("myFrgBstate");
   var aFrozenBtn = document.getElementById("frgAfrozenBtn");
@@ -22,6 +25,12 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
+      hRadio.selected = "true";
+      vRadio.selected = "false";
+      sRadio.selected = "false";
+      hRadio.disabled = "true";
+      vRadio.disabled = "true";
+      sRadio.disabled = "true";
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-500%";
       frgAstate.style.left = "82%";
@@ -35,6 +44,12 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
+      hRadio.selected = "false";
+      vRadio.selected = "true";
+      sRadio.selected = "false";
+      hRadio.disabled = "true";
+      vRadio.disabled = "true";
+      sRadio.disabled = "true";
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-500%";
       frgAstate.style.left = "34%";
@@ -48,6 +63,12 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
+      hRadio.selected = "false";
+      vRadio.selected = "false";
+      sRadio.selected = "true";
+      hRadio.disabled = "true";
+      vRadio.disabled = "true";
+      sRadio.disabled = "true";
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-540%";
       frgAstate.style.left = "85%";
@@ -60,14 +81,14 @@ function updateFrg(i) {
     case "cool":
       aFrozenBtn.selected = "true";
       aCoolBtn.selected = "false";
-      frgAfrozenBtn.classList.add("frgSelected");
-      frgAcoolBtn.classList.remove("frgSelected");
+      aFrozenBtn.classList.add("frgSelected");
+      aCoolBtn.classList.remove("frgSelected");
       break;
     case "frozen":
       aFrozenBtn.selected = "false";
       aCoolBtn.selected = "true";
-      frgAfrozenBtn.classList.remove("frgSelected");
-      frgAcoolBtn.classList.add("frgSelected");
+      aFrozenBtn.classList.remove("frgSelected");
+      aCoolBtn.classList.add("frgSelected");
       break;
   }
 
@@ -76,14 +97,14 @@ function updateFrg(i) {
     case "frozen":
       bFrozenBtn.selected = "true";
       bCoolBtn.selected = "false";
-      frgBfrozenBtn.classList.add("frgSelected");
-      frgBcoolBtn.classList.remove("frgSelected");
+      bFrozenBtn.classList.add("frgSelected");
+      bCoolBtn.classList.remove("frgSelected");
       break;
     case "cool":
       bFrozenBtn.selected = "false";
       bCoolBtn.selected = "true";
-      frgBfrozenBtn.classList.remove("frgSelected");
-      frgBcoolBtn.classList.add("frgSelected");
+      bFrozenBtn.classList.remove("frgSelected");
+      bCoolBtn.classList.add("frgSelected");
       break;
   }
 }

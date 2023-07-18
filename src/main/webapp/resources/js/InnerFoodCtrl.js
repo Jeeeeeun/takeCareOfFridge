@@ -84,15 +84,36 @@ function addDataToTable(data) {
         const nameCell = document.createElement("td");
         const expireDateCell = document.createElement("td");
         const dDayCell = document.createElement("td");
+        const stateCell = document.createElement("td");
 
         nameCell.textContent = item.in_name;
         expireDateCell.textContent = item.in_expireDate_custom;
         dDayCell.textContent = item.D_DAY;
+        stateCell.textContent = item.in_state;
 
         row.appendChild(nameCell);
         row.appendChild(expireDateCell);
         row.appendChild(dDayCell);
+        row.appendChild(stateCell);
 
         tableBody.appendChild(row);
     });
 }
+
+document.getElementById('formOption').addEventListener('change', function() {
+    const selectedFrg = this.value; // 선택한 냉장고 이름
+
+    // AJAX 요청
+    fetch(`${window.contextPath}/frg/setFrgNameSession?frgName=${selectedFrg}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 데이터를 받아와서 테이블에 출력
+        addDataToTable(data);
+    })
+    .catch(error => console.error('Error:', error));
+});

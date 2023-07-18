@@ -53,28 +53,34 @@
 	</insert>
 
 	<select id="selectFrgName" resultType="string">
-		select f.frg_name from
-		frgList f, users u where u.user_id=#{user_id}
+		SELECT f.frg_name
+		FROM FrgList f
+		INNER JOIN users u ON f.user_index = u.user_index
+		WHERE u.user_id = #{user_id}
 	</select>
 
 	<select id="selectAllInnerView"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
-		i.in_expireDate_custom, i.D_DAY
+		i.in_expireDate_custom, i.D_DAY, i.in_state
 		FROM
 		Users u
 		INNER JOIN Inner_View i ON u.user_index = i.user_index
 		WHERE
-		u.user_id = #{user_id}
+		u.user_id =
+		#{user_id}
 	</select>
 
 	<select id="selectPartInnerView"
 		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY
-		FROM Users u
+		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY, i.in_state
+		FROM Users
+		u
 		INNER JOIN Inner_View i ON u.user_index = i.user_index
-		WHERE u.user_id = #{user_id}
-		AND i.frg_index IN (SELECT f.frg_index FROM frgList f WHERE f.frg_name =
+		WHERE u.user_id
+		= #{user_id}
+		AND i.frg_index IN (SELECT f.frg_index FROM frgList f
+		WHERE f.frg_name =
 		#{frg_name})
 	</select>
 
