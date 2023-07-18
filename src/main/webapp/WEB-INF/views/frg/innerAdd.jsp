@@ -30,24 +30,9 @@
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%-- <script
+<script
 	src="${pageContext.servletContext.contextPath}/js/InnerFoodAdd.js">
-</script> --%>
-<script>
-
-/* searchFoodAPI(); */
-
-
-/* changeFormAction(); */
-
-
-/* addFood(); */
-
-
-/* addFinish(); */
-
-
-</script>
+</script> 
 
 <body>
     <form action="${pageContext.servletContext.contextPath}/frg/innerAdd/Auto" method="post" id="actionForm">
@@ -69,7 +54,7 @@
             <br>
             <!-- 식품명 -->
             <label>
-                <input type="search" autofocus />
+                <input type="search"  id="searchInput" autofocus />
                 <button type="submit" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
                 <br>
                 <input type="checkbox" id="registerFood" onclick="changeFormAction();" />직접 입력하기
@@ -100,6 +85,23 @@
             <!-- 추가, 완료 버튼 -->
             <button type="submit" onclick="addFood();">추가</button>
             <button type="submit" onclick="addFinish();">완료</button>
+        </div>
+        
+        <div>
+        	<tr>
+        		<th>식품명</th>
+        		<th>제조사</th>
+        		<th>유통/소비기한</th>
+        		<th>제품유형</th>
+        	</tr>
+        	<c:forEach var="" items="${ }">
+        		<tr>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        			<td></td>
+        		</tr>
+        	</c:forEach>
         </div>
     </form>
 </body>

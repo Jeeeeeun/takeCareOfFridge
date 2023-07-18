@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.mapper.InnerFoodMapper;
 import com.frg.service.InnerFoodService;
@@ -41,5 +42,10 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	@Override
 	public List<String> selectPartInnerView(InnerDTO dto){
 		return mapper.selectPartInnerView(dto);
+	}
+
+	@Override
+	public List<String> selectFoodAPI(FoodApiDTO dto) {
+		return mapper.selectFoodAPI(dto);
 	}
 }

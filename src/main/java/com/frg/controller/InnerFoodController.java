@@ -10,10 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.service.InnerFoodService;
 
@@ -35,10 +35,19 @@ public class InnerFoodController {
 	@GetMapping(value = "/innerAdd")
 	public String moveToInnerAdd(HttpSession session, Model model){
 		String user_id= (String)session.getAttribute("SESS_ID");
-		InnerDTO dto=new InnerDTO();
-		dto.setUser_id(user_id);
-		List<String> frgNames= service.selectFrgName(dto);
+		InnerDTO innerDto=new InnerDTO();
+		innerDto.setUser_id(user_id);
+		List<String> frgNames= service.selectFrgName(innerDto);
 		model.addAttribute("frgNames", frgNames);
+		return "/frg/innerAdd";
+	}
+	
+	//foodApi 조회하기
+	@RequestMapping(value= "/innerAdd/search", method = RequestMethod.POST)
+	public String iterateFoodApi(HttpServletRequest request, Model model) {
+		String searchKeyword = request.getParameter("searchKeyword");
+		List<String> foodList = service.selectFoodAPI(searchKeyword);
+		model.addAttribute(foodList);
 		return "/frg/innerAdd";
 	}
 	

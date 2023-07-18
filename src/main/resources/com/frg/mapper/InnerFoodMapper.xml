@@ -75,7 +75,7 @@
 		#{frg_name})
 	</select>
 	
-	<select id="selectFoodAPI" resultType="string">
+	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
 		SELECT * FROM foodAPI where api_name=#{api_name}
 	</select>
 
