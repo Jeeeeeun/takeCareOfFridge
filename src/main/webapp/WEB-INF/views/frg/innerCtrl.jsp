@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,7 +41,27 @@
 <title>식품 정보 조회</title>
 <script
 	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js"></script>
-
+<script type="text/javascript">
+	function addBtnClicked() {
+		window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
+	}
+</script>
+<script>
+	function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
+		console.log("Clicked data:");
+		console.log("제품명: " + in_name);
+		console.log("유통기한: " + in_expireDate_custom);
+		console.log("D-day: " + d_DAY);
+		console.log("보관위치: " + in_state);
+	}
+</script>
+<style>
+/* 셀렉터:hover { 스타일; } */
+.foodTable tbody tr:hover {
+	background-color: #e0e0e0; /* 배경색 변경 */
+	cursor: pointer; /* 커서 모양 변경 */
+}
+</style>
 </head>
 <body id="page-top">
 	<header class="masthead">
@@ -69,7 +90,6 @@
 			</div>
 		</nav>
 		<div class="descriptionAndTraffic">
-			<p class="title">식품을 조회하세요</p>
 			<div class="trafficLight">
 				<p id="red">${trafficLight[0].red}</p>
 				<p id="yellow">${trafficLight[0].yellow}</p>
@@ -79,10 +99,13 @@
 		<div id="contents">
 			<div class="currentStateBox">
 				<div style="display: flex; flex-direction: column;">
-					<label for="currentFrg" class="dropBoxLabel">현재 냉장고</label> <select
-						name="" id="currentFrg" class="currentFrgDropBox">
-						<option value="">선택하세요.</option>
+					<label> <select name="frgList" id="formOption">
+							<option value=""></option>
+							<c:forEach var="name" items="${frgNames}">
+								<option value="">${name}</option>
+							</c:forEach>
 					</select>
+					</label>
 				</div>
 				<div class="centerLine"></div>
 				<div class="stateBtns">
@@ -92,28 +115,40 @@
 				</div>
 			</div>
 			<div class="wholeFoodListBox">
-				<table id="foodTable" class="foodTable">
-					<thead>
-						<tr>
-							<th>제품명</th>
-							<th>유통기한</th>
-							<th>D-day</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="item" items="${dataList}">
+				<div class="tableContainer"
+					style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
+					<table id="foodTable" class="foodTable">
+						<thead>
 							<tr>
-								<td>${item.in_name}</td>
-								<td>${item.in_expireDate_custom}</td>
-								<td>${item.d_DAY}</td>
+								<th
+									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">제품명</th>
+								<th
+									style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
+								<th
+									style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">D-day</th>
+								<th
+									style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">보관상태</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<button class="ctrlBtn" id="addBtn" onclick="addBtnClicked()">식품
-					등록</button>
+						</thead>
+						<tbody>
+							<c:forEach var="item" items="${dataList}">
+								<tr
+									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate_custom}', '${item.d_DAY}', '${item.in_state}')">
+									<td style="text-align: center;">${item.in_name}</td>
+									<td style="text-align: center;"><fmt:formatDate
+											value="${item.in_expireDate_custom}" pattern="yyyy년 MM월 dd일" />
+									</td>
+									<td style="text-align: center;">${item.d_DAY}</td>
+									<td style="text-align: center;">${item.in_state}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
+		<button class="ctrlBtn" id="addBtn" onclick="addBtnClicked()">식품
+			등록</button>
 		<div>
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
