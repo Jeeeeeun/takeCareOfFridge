@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.InnerFoodService;
@@ -23,10 +25,12 @@ import com.frg.service.TrafficService;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/frg/*")
 @AllArgsConstructor
+@Log4j
 public class InnerFoodController {
 
 	@NonNull
@@ -55,17 +59,18 @@ public class InnerFoodController {
 	}
 	
 	//foodApi 조회하기
-	@RequestMapping(value= "/innerAdd/search", method = RequestMethod.POST)
-	public String iterateFoodApi(HttpServletRequest request, Model model) {
-		String searchKeyword = request.getParameter("searchKeyword");
-		List<String> foodList = inService.selectFoodAPI(searchKeyword);
-		model.addAttribute(foodList);
-		return "/frg/innerAdd";
+	//@RequestMapping(value= "/search", method = RequestMethod.GET)
+	@PostMapping("innerAdd/search")
+	@ResponseBody
+	public List<FoodApiDTO> iterateFoodApi(@RequestParam("searchApi") String searchApi, Model model) {
+		FoodApiDTO foodDto=new FoodApiDTO();
+		foodDto.setApi_name(searchApi);
+		List<FoodApiDTO> foodList = inService.selectFoodAPI(foodDto);
+		return foodList;
 	}
-	
 
 	// 식품등록-auto인 경우
-	@RequestMapping(value = "/frg/innerAdd/Auto", method = RequestMethod.POST)
+	@RequestMapping(value = "/innerAdd/Auto", method = RequestMethod.POST)
 	public String registerInnerFoodAuto(HttpServletRequest request, Model model) throws Exception {
 
 		InnerDTO dto = new InnerDTO();

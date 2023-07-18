@@ -8,9 +8,9 @@ import com.frg.domain.InnerDTO;
 public interface InnerFoodService {
 	
 	int registerInnerAuto(InnerDTO dto);
-	int registerInnerCustom(FoodApiDTO dto); 
+	int registerInnerCustom(InnerDTO dto); 
 	List<String> selectFrgName(InnerDTO dto);
-	List<String> selectFoodAPI(FoodApiDTO dto);
+	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 
 	List<InnerDTO> selectAllInnerView(InnerDTO dto);
 	List<InnerDTO> selectPartInnerView(InnerDTO dto);

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.frg.util.SessionUtil"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -146,15 +146,40 @@
 				<span><i class="fa-solid fa-pen-to-square standardChange"></i></span>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
+
 				<div class="fridgeShapeBox">
-					<img id="frg_shape">
+					<img class="frg_shape" />
 				</div>
-				<div id="myFrgNameBox">
-				<div class="frgNameBoxCenterLine"></div>
+				<div id="frgNameAndBtns">
+					<button id="prev" onclick="prevFrg()">
+						<i class="fa-solid fa-caret-left"></i>
+					</button>
+					<p class="frg_name"></p>
+					<button id="next" onclick="nextFrg()">
+						<i class="fa-solid fa-caret-right"></i>
+					</button>
 				</div>
-				
-				<span><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 			</div>
+			<div class="fridgeName">
+				<div class="fridgeNameVerticalLine"></div>
+				<input type="text" class="frg_name" />
+			</div>
+			<div class="frg_shape">
+				<input type="radio" id="hRadio" value="H" /> <label for="hRadio">가로형</label>
+				<input type="radio" id="vRadio" value="V" /> <label for="vRadio">세로형</label>
+				<input type="radio" id="sRadio" value="S" /> <label for="sRadio">단일형</label>
+			</div>
+			<div id="myFrgAstate">
+				<div id="fridgeAtitleBox">A칸 상태</div>
+				<button id="frgAfrozenBtn" value="frozen">냉동</button>
+				<button id="frgAcoolBtn" value="cool">냉장</button>
+			</div>
+			<div id="myFrgBstate">
+				<div id="fridgeBtitleBox">B칸 상태</div>
+				<button id="frgBfrozenBtn" value="frozen">냉동</button>
+				<button id="frgBcoolBtn" value="cool">냉장</button>
+			</div>
+			<span><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 		</div>
 	</header>
 </body>

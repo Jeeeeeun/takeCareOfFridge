@@ -44,19 +44,33 @@ public class InnerFoodServiceTest {
 		assertEquals(1, cnt);
 
 	}
-
 	
-	@Test
-	public void testSelectFoodAPI() {
+	@Test @Ignore 
+	public void testRegisterInnerCustom() throws ParseException {
 		
-		FoodApiDTO dto= new FoodApiDTO();
-		dto.setApi_name("산채비빔밥");
-		List<String> foodList= service.selectFoodAPI(dto);
-		assertNotNull(foodList);
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_name("samsung");
+		dto.setIn_name("산채비빔밥");
+		dto.setIn_count(3);
+		String dateString = "2023-02-20";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(dateString);
+		dto.setIn_expireDate_custom(date);
+		dto.setIn_type("유기농 식품");
+		dto.setIn_state("cool");
 		
 		int cnt=service.registerInnerCustom(dto);
 		assertEquals(1, cnt);
 
+	}
+	
+	@Test
+	public void testSelectFoodAPI() {
+		FoodApiDTO dto = new FoodApiDTO();
+		dto.setApi_name("산채비빔밥");
+		List<FoodApiDTO> foodList = service.selectFoodAPI(dto);
+		assertNotNull(foodList);
 	}
 	
 	@Test @Ignore
