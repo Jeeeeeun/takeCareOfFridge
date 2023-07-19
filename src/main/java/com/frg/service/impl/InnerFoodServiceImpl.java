@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.UserDTO;
 import com.frg.mapper.InnerFoodMapper;
 import com.frg.service.InnerFoodService;
 
@@ -30,8 +31,8 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	}
 
 	@Override
-	public List<String> selectFrgName(InnerDTO dto) {
-		return mapper.selectFrgName(dto);
+	public List<String> selectFrgName(UserDTO user_id) {
+		return mapper.selectFrgName(user_id);
 	}
 	
 	@Override

@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.UserDTO;
 
 import lombok.Setter;
 
@@ -65,7 +66,15 @@ public class InnerFoodServiceTest {
 
 	}
 	
-	@Test
+	@Test @Ignore
+	public void testSelectFrgName() {
+		UserDTO dto = new UserDTO();
+		dto.setUser_id("test12");
+		List<String> nameList= service.selectFrgName(dto);
+		assertNotNull(nameList);
+	}
+	
+	@Test 
 	public void testSelectFoodAPI() {
 		FoodApiDTO dto = new FoodApiDTO();
 		dto.setApi_name("산채비빔밥");
