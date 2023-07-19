@@ -25,12 +25,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.selected = "true";
-      vRadio.selected = "false";
-      sRadio.selected = "false";
-      hRadio.disabled = "true";
-      vRadio.disabled = "true";
-      sRadio.disabled = "true";
+      hRadio.checked = true;
+      vRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-500%";
       frgAstate.style.left = "82%";
@@ -44,12 +41,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.selected = "false";
-      vRadio.selected = "true";
-      sRadio.selected = "false";
-      hRadio.disabled = "true";
-      vRadio.disabled = "true";
-      sRadio.disabled = "true";
+      hRadio.checked = false;
+      vRadio.checked = true;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-500%";
       frgAstate.style.left = "34%";
@@ -57,18 +51,16 @@ function updateFrg(i) {
       frgBstate.style.position = "relative";
       frgBstate.style.top = "-540%";
       frgBstate.style.left = "85%";
+
       frgBstate.style.fontWeight = "bold";
       break;
     case "S":
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.selected = "false";
-      vRadio.selected = "false";
-      sRadio.selected = "true";
-      hRadio.disabled = "true";
-      vRadio.disabled = "true";
-      sRadio.disabled = "true";
+      hRadio.checked = false;
+      vRadio.checked = false;
+      sRadio.checked = true;
       frgAstate.style.position = "relative";
       frgAstate.style.top = "-540%";
       frgAstate.style.left = "85%";
@@ -81,14 +73,14 @@ function updateFrg(i) {
     case "cool":
       aFrozenBtn.selected = "true";
       aCoolBtn.selected = "false";
-      aFrozenBtn.classList.add("frgSelected");
-      aCoolBtn.classList.remove("frgSelected");
+      aFrozenBtn.className = "frgSelected";
+      aCoolBtn.className = "frgSelected";
       break;
     case "frozen":
       aFrozenBtn.selected = "false";
       aCoolBtn.selected = "true";
-      aFrozenBtn.classList.remove("frgSelected");
-      aCoolBtn.classList.add("frgSelected");
+      aFrozenBtn.className = "frgSelected";
+      aCoolBtn.className = "frgSelected";
       break;
   }
 
@@ -97,14 +89,14 @@ function updateFrg(i) {
     case "frozen":
       bFrozenBtn.selected = "true";
       bCoolBtn.selected = "false";
-      bFrozenBtn.classList.add("frgSelected");
-      bCoolBtn.classList.remove("frgSelected");
+      bFrozenBtn.className = "frgSelected";
+      bCoolBtn.className = "frgSelected";
       break;
     case "cool":
       bFrozenBtn.selected = "false";
       bCoolBtn.selected = "true";
-      bFrozenBtn.classList.remove("frgSelected");
-      bCoolBtn.classList.add("frgSelected");
+      bFrozenBtn.className = "frgSelected";
+      bCoolBtn.className = "frgSelected";
       break;
   }
 }

@@ -199,7 +199,7 @@ function stateBtnClicked(clickedBtn, idNum) {
       correspondingA.classList.add("selected");
     }
   }
-}
+};
 
 /* SESS_ID 데려오려는 함수 */
 async function getUserId() {
