@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.domain.TrafficDTO;
+import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
 import com.frg.service.TrafficService;
 
@@ -39,22 +41,28 @@ public class InnerFoodController {
 	@NonNull
 	private TrafficService trfService;
 
-	// innerFoodAdd
-	// localhost:8080/controller/frg/innerAdd
+	//innerFoodAdd
+	//localhost:8080/controller/frg/innerAdd
 	@GetMapping(value = "/innerAdd")
-	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) {
+	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
+		
 		String user_id = (String) session.getAttribute("SESS_ID");
 		System.out.println("SESS_ID: " + user_id);
 		String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
 		System.out.println("SESS_FRG_NAME: " + userFRG);
-		InnerDTO dto = new InnerDTO();
+		
+		UserDTO dto = new UserDTO();
 		dto.setUser_id(user_id);
+		
 		List<String> frgNames = inService.selectFrgName(dto);
-		model.addAttribute("frgNames", frgNames);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String frgNamesJson = objectMapper.writeValueAsString(frgNames);
+		model.addAttribute("frgNamesJson", frgNamesJson);
+		
 		trfDto.setUser_id(user_id);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-
 		model.addAttribute("trafficLight", trafficLight);
+		
 		return "/frg/innerAdd";
 	}
 	
@@ -79,6 +87,7 @@ public class InnerFoodController {
 		dto.setIn_name(request.getParameter("in_name"));
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+		log.info("request.getParameter(\"in_expireDate_custom의 출력결과\n"+request.getParameter("in_expireDate_custom"));
 		dto.setIn_expireDate_custom((Date) formatter.parse(request.getParameter("in_expireDate_custom")));
 		dto.setIn_expireDate_auto(request.getParameter("in_expireDate_auto"));
 		dto.setIn_type(request.getParameter("in_type"));
@@ -87,8 +96,9 @@ public class InnerFoodController {
 		dto.setIn_company(request.getParameter("in_company"));
 
 		inService.registerInnerAuto(dto);
+		log.info(inService.registerInnerAuto(dto));
 
-		return "/frg/innerCtrl";
+		return "/frg/innerAdd";
 	}
 
 	// 식품 등록-custom인 경우
@@ -109,7 +119,7 @@ public class InnerFoodController {
 
 		inService.registerInnerCustom(dto);
 
-		return "/frg/innerCtrl";
+		return "/frg/innerAdd";
 	}
 
 	@PostMapping("/setFrgNameSession")
@@ -131,20 +141,21 @@ public class InnerFoodController {
 			System.out.println("SESS_ID: " + user_id);
 			String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
 			System.out.println("SESS_FRG_NAME: " + userFRG);
-			InnerDTO dto = new InnerDTO();
-			dto.setUser_id(user_id);
-			List<String> frgNames = inService.selectFrgName(dto);
+			UserDTO userDto = new UserDTO();
+			userDto.setUser_id(user_id);
+			List<String> frgNames = inService.selectFrgName(userDto);
 			model.addAttribute("frgNames", frgNames);
 			trfDto.setUser_id(user_id);
 			List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 
 			model.addAttribute("trafficLight", trafficLight);
 			
-	        dto.setUser_id(user_id);
-	        dto.setFrg_name(userFRG);
+			InnerDTO innerDto = new InnerDTO();
+			innerDto.setUser_id(user_id);
+			innerDto.setFrg_name(userFRG);
 
 	        // 서비스를 통해 데이터를 받아옴
-	        List<InnerDTO> dataList =inService.selectPartInnerView(dto);
+	        List<InnerDTO> dataList =inService.selectPartInnerView(innerDto);
 
 	        // 받아온 데이터를 Model에 추가
 	        model.addAttribute("dataList", dataList);

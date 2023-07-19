@@ -1,19 +1,129 @@
 @charset "UTF-8";
 
 /* form의 배경 */
-#formBackground
+.settingBoxWrapper{
+	width: 100%;
+	height: 60vh;
+	background-color:rgb(200, 81, 81);
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+}
+
+.settingBox {
+    position: relative;
+    width: 550px;
+    height: 447px;
+    background-color: darkgray;
+    padding: 20px;
+}
+
+.addSettingBox{
+	max-height: 446px; 
+	overflow-y: scroll; 
+}
+
+.box1>label,
+.box2,
+.box3>label,
+.box4>label,
+.box5>label,
+.box6>label,
+.box7>label{
+	display: flex;
+	margin-bottom: 5px;
+	align-items: center;
+}
+
+.box1>label>p,
+.box2>p,
+.box3>label>p,
+.box4>label>p,
+.box5>label>p,
+.box6>label>p,
+.box7>label>p{
+	float: left;
+	width: 150px;
+	margin: 10px 10px;
+}
+
+#frgOption,
+#searchInput,
+#dueDateAuto,
+#dueDateCustom,
+#foodType,
+#foodCount,
+#foodCompany{
+	width: 250px;
+	height: 30px;
+}
+
+
+.tableBox{
+	width:600px;
+	height:447px;
+	background-color:gray; 
+	display:inline;
+	align-items:center;
+}
+
+.tableBox>.searchFood{
+	display: flex;
+	justify-content: center;
+    margin: 40px 0px 0px;
+}
+
+#showFoodTable{
+	width: 600px;
+	height: 260px;
+	background-color: darkgray;
+	margin:auto;
+	text-align:center;
+	position: relative;
+    bottom: -50px;
+    font-size: small;
+    max-height: 300px; 
+	overflow-y: scroll; 
+}
+
+.box2>label{
+	margin-right:30px;
+}
+
+.box3>label>box3-1,
+.box4>label>box4-1
 {
-width:300px;
-height: 350px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+.settingBtn {
+    position: relative;
+    width: 30%;
+    height: 30%;
+    background-color: black;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+
+.formBackground
+{
+width: 500px;
+height: 500px;
 background-image: url(../img/formback.svg);
 background-repeat: no-repeat;
 position : absolute ;
-left : 360px;
+left : 300px;
 top : 300px;
 border-radius : 12px;
 -moz-border-radius : 12px;
 -webkit-border-radius : 12px;
 }
+
 .formBackground-child
 {
 width:600px;
