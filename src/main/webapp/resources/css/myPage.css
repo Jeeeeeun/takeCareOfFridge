@@ -1,786 +1,915 @@
 @charset "UTF-8";
 
 /* 가입 정보 확인 스타일 시작 */
-
 .myPageTitleBox1 {
-  /* 가입 정보 확인 */
-  background: #d6c2b4;
-  position: absolute;
-  left: 2%;
-  top: 10%;
-  width: 30%;
-  height: 8%;
-  border-radius: 0.75rem;
-  -moz-border-radius: 0.75rem;
-  -webkit-border-radius: 0.75rem;
-  color: white;
-  text-align: center;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	/* 가입 정보 확인 */
+	background: #d6c2b4;
+	position: absolute;
+	left: 2%;
+	top: 10%;
+	width: 30%;
+	height: 8%;
+	border-radius: 0.75rem;
+	-moz-border-radius: 0.75rem;
+	-webkit-border-radius: 0.75rem;
+	color: white;
+	text-align: center;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .myPageContentBox1 {
-  /* 가입 정보 확인 내용 박스 */
-  background: #f4eee6;
-  position: absolute;
-  left: 2%;
-  top: 20%;
-  width: 30%;
-  height: 75%;
-  border-radius: 0.75rem;
-  -moz-border-radius: 0.75rem;
-  -webkit-border-radius: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	/* 가입 정보 확인 내용 박스 */
+	background: #f4eee6;
+	position: absolute;
+	left: 2%;
+	top: 20%;
+	width: 30%;
+	height: 75%;
+	border-radius: 0.75rem;
+	-moz-border-radius: 0.75rem;
+	-webkit-border-radius: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .myNameBox {
-  /* 이름 박스 */
-  background: #ffffff;
-  position: absolute;
-  left: auto;
-  top: 2%;
-  width: 90%;
-  height: 10%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  z-index: 1;
-  color: #604c3f;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-left: 3%;
-  margin: 3% 0;
-  font-family: "MV Boli";
-  font-size: 0.8rem;
+	/* 이름 박스 */
+	background: #ffffff;
+	position: absolute;
+	left: auto;
+	top: 2%;
+	width: 90%;
+	height: 10%;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	z-index: 1;
+	color: #604c3f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 3%;
+	margin: 3% 0;
+	font-family: "MV Boli";
+	font-size: 0.8rem;
 }
 
 .nameBoxCenterLine {
-  /* 이름 박스 세로 구분선 */
-  border-style: Solid;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: absolute;
-  left: 28%;
-  top: auto;
-  width: 0px;
-  height: 60%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
+	/* 이름 박스 세로 구분선 */
+	border-style: Solid;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: absolute;
+	left: 28%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
 
 .myIDBox {
-  /* 아이디 박스 */
-  background: #ffffff;
-  position: absolute;
-  left: auto;
-  top: 15%;
-  width: 90%;
-  height: 10%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  z-index: 1;
-  color: #604c3f;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-left: 3%;
-  margin: 3% 0;
-  font-family: "MV Boli";
-  font-size: 0.8rem;
+	/* 아이디 박스 */
+	background: #ffffff;
+	position: absolute;
+	left: auto;
+	top: 15%;
+	width: 90%;
+	height: 10%;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	z-index: 1;
+	color: #604c3f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 3%;
+	margin: 3% 0;
+	font-family: "MV Boli";
+	font-size: 0.8rem;
 }
 
 .idBoxCenterLine {
-  /* 아이디 박스 세로 구분선 */
-  border-style: Solid;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: absolute;
-  left: 28%;
-  top: auto;
-  width: 0px;
-  height: 60%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
+	/* 아이디 박스 세로 구분선 */
+	border-style: Solid;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: absolute;
+	left: 28%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
 
 .myEmailBox {
-  /* 이메일 박스 */
-  background: #ffffff;
-  position: absolute;
-  left: auto;
-  top: 28%;
-  width: 90%;
-  height: 10%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  z-index: 1;
-  color: #604c3f;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-left: 3%;
-  margin: 3% 0;
-  font-family: "MV Boli";
-  font-size: 0.8rem;
+	/* 이메일 박스 */
+	background: #ffffff;
+	position: absolute;
+	left: auto;
+	top: 28%;
+	width: 90%;
+	height: 10%;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	z-index: 1;
+	color: #604c3f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 3%;
+	margin: 3% 0;
+	font-family: "MV Boli";
+	font-size: 0.8rem;
 }
 
 .emailBoxCenterLine {
-  /* 이메일 박스 세로 구분선 */
-  border-style: Solid;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: absolute;
-  left: 28%;
-  top: auto;
-  width: 0px;
-  height: 60%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
+	/* 이메일 박스 세로 구분선 */
+	border-style: Solid;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: absolute;
+	left: 28%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
 
 .myPwBox {
-  /* 비밀번호 박스 */
-  background: #ffffff;
-  position: absolute;
-  left: auto;
-  top: 41%;
-  width: 90%;
-  height: 10%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  z-index: 1;
-  color: #604c3f;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-left: 3%;
-  margin: 3% 0;
-  font-family: "MV Boli";
-  font-size: 0.8rem;
+	/* 비밀번호 박스 */
+	background: #ffffff;
+	position: absolute;
+	left: auto;
+	top: 41%;
+	width: 90%;
+	height: 10%;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	z-index: 1;
+	color: #604c3f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 3%;
+	margin: 3% 0;
+	font-family: "MV Boli";
+	font-size: 0.8rem;
 }
 
 .pwBoxCenterLine {
-  /* 비밀번호 박스 세로 구분선 */
-  border-style: Solid;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: absolute;
-  left: 28%;
-  top: auto;
-  width: 0px;
-  height: 60%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
+	/* 비밀번호 박스 세로 구분선 */
+	border-style: Solid;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: absolute;
+	left: 28%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
 
 .myPwCheckBox {
-  /* 비밀번호 재입력 박스 */
-  background: #ffffff;
-  position: absolute;
-  left: auto;
-  top: 54%;
-  width: 90%;
-  height: 10%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  z-index: 1;
-  color: #604c3f;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-left: 3%;
-  margin: 3% 0;
-  font-family: "MV Boli";
-  font-size: 0.8rem;
+	/* 비밀번호 재입력 박스 */
+	background: #ffffff;
+	position: absolute;
+	left: auto;
+	top: 54%;
+	width: 90%;
+	height: 10%;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	z-index: 1;
+	color: #604c3f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 3%;
+	margin: 3% 0;
+	font-family: "MV Boli";
+	font-size: 0.8rem;
 }
 
 .pwCheckBoxCenterLine {
-  /* 비밀번호 재입력 박스 세로 구분선 */
-  border-style: Solid;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: absolute;
-  left: 28%;
-  top: auto;
-  width: 0px;
-  height: 60%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
+	/* 비밀번호 재입력 박스 세로 구분선 */
+	border-style: Solid;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: absolute;
+	left: 28%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
 
 .myPageContentBox1 input:disabled {
-  border: 0.5px dashed #eee;
-  /* border 스타일 넣은 이유: 이 위치에 input 요소가 있음을 보여주기 위해서 임시로 만듦.
+	border: 0.5px dashed #eee;
+	/* border 스타일 넣은 이유: 이 위치에 input 요소가 있음을 보여주기 위해서 임시로 만듦.
 	실제로 로직이랑 연결하고 나서는 border: none;으로 바꾸기 */
-  background-color: transparent;
-  position: absolute;
-  left: 35%;
-  width: 60%;
-  height: 60%;
+	background-color: transparent;
+	position: absolute;
+	left: 35%;
+	width: 60%;
+	height: 60%;
 }
 
 .modifyMyInfoBtn {
-  /* 내 정보 수정 버튼 */
-  background: #ffffff;
-  position: absolute;
-  left: 40%;
-  bottom: 8%;
-  width: 20%;
-  height: 8%;
-  border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  color: #604c3f;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	/* 내 정보 수정 버튼 */
+	background: #ffffff;
+	position: absolute;
+	left: 40%;
+	bottom: 8%;
+	width: 20%;
+	height: 8%;
+	border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	color: #604c3f;
+	font-size: 0.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* 가입 정보 확인 스타일 끝 */
 
 /* 나의 게시글 보기 스타일 시작 */
-
 .myPageTitleBox2 {
-  /* 나의 게시글 보기 */
-  background: #d6c2b4;
-  position: absolute;
-  left: 35%;
-  top: 10%;
-  width: 30%;
-  height: 8%;
-  border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	/* 나의 게시글 보기 */
+	background: #d6c2b4;
+	position: absolute;
+	left: 35%;
+	top: 10%;
+	width: 30%;
+	height: 8%;
+	border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	color: white;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: flex;
 }
 
 .myPageContentBox2 {
-  /* 나의 게시글 보기 내용 박스 */
-  background: #f4eee6;
-  position: absolute;
-  left: 35%;
-  top: 20%;
-  width: 30%;
-  height: 75%;
-  border-radius: 0.75rem;
-  -moz-border-radius: 0.75rem;
-  -webkit-border-radius: 0.75rem;
+	/* 나의 게시글 보기 내용 박스 */
+	background: #f4eee6;
+	position: absolute;
+	left: 35%;
+	top: 20%;
+	width: 30%;
+	height: 75%;
+	border-radius: 0.75rem;
+	-moz-border-radius: 0.75rem;
+	-webkit-border-radius: 0.75rem;
 }
 
 .myPageContentBox2 .count {
-  /* 게시글 수, 댓글 수 표기 span */
-  margin: 4% 2% 2% 10%;
-  color: #604c3f;
-  font-size: 0.8rem;
-  font-family: "MV Boli";
-  display: flex;
+	/* 게시글 수, 댓글 수 표기 span */
+	margin: 3% 2% 1% 10%;
+	color: #604c3f;
+	font-size: 0.8rem;
+	font-family: "MV Boli";
+	display: flex;
 }
 
 .myPostTitleBox {
-  /* 내가 쓴 게시글 제목 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  top: 1%;
-  width: 90%;
-  height: 7%;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 3% auto;
-  color: #604c3f;
-  font-family: "MV Boli";
-  text-indent: 20px;
+	/* 내가 쓴 게시글 제목 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	top: 1%;
+	width: 90%;
+	height: 7%;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 3% auto;
+	color: #604c3f;
+	font-family: "MV Boli";
+	font-weight: bold;
+	text-indent: 20px;
 }
 
 .myPostListBox {
-  /* 내가 쓴 게시글 목록 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  width: 90%;
-  height: 31%;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 1.5% auto;
+	/* 내가 쓴 게시글 목록 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	width: 90%;
+	height: 31%;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 1.5% auto;
 }
 
 .boardCenterLine {
-  /* 나의 게시글 보기 가운데 가로 구분선 */
-  border-style: dashed;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: relative;
-  left: auto;
-  top: 1.5%;
-  width: 90%;
-  height: 0;
+	/* 나의 게시글 보기 가운데 가로 구분선 */
+	border-style: dashed;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: relative;
+	left: auto;
+	margin: 0 auto;
+	top: 1%;
+	width: 90%;
+	height: 0;
+	top: 1%;
 }
 
 .myCommentTitleBox {
-  /* 내가 쓴 댓글 제목 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  top: 2%;
-  width: 90%;
-  height: 7%;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 3% auto;
-  color: #604c3f;
-  font-family: "MV Boli";
-  text-indent: 20px;
+	/* 내가 쓴 댓글 제목 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	top: 1.5%;
+	width: 90%;
+	height: 7%;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 3% auto;
+	color: #604c3f;
+	font-family: "MV Boli";
+	font-weight: bold;
+	text-indent: 20px;
 }
 
 .myCommentListBox {
-  /* 내가 쓴 댓글 목록 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  width: 90%;
-  height: 31%;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 1.5% auto;
+	/* 내가 쓴 댓글 목록 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	width: 90%;
+	height: 31%;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 1.5% auto;
 }
 
 /* 나의 게시글 보기 스타일 끝 */
 
 /* 나의 냉장고 보기 스타일 시작 */
-
 .myPageTitleBox3 {
-  /* 나의 냉장고 보기 제목 박스 */
-  background: #d6c2b4;
-  position: absolute;
-  left: 68%;
-  top: 10%;
-  width: 30%;
-  height: 8%;
-  border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	/* 나의 냉장고 보기 제목 박스 */
+	background: #d6c2b4;
+	position: absolute;
+	left: 68%;
+	top: 10%;
+	width: 30%;
+	height: 8%;
+	border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	color: white;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .myPageContentBox3 {
-  /* 나의 냉장고 보기 내용 박스 */
-  background: #f4eee6;
-  position: absolute;
-  left: 68%;
-  top: 20%;
-  width: 30%;
-  height: 75%;
-  border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -webkit-border-radius: 1rem;
+	/* 나의 냉장고 보기 내용 박스 */
+	background: #f4eee6;
+	position: absolute;
+	left: 68%;
+	top: 20%;
+	width: 30%;
+	height: 75%;
+	border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-webkit-border-radius: 1rem;
 }
 
 .fridgeStateTitleBox {
-  /* 현재 나의 냉장고 상태 제목 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  top: 2%;
-  width: 90%;
-  height: 6%;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 3% auto;
-  color: #604c3f;
-  font-family: "MV Boli";
-  text-indent: 20px;
+	/* 현재 나의 냉장고 상태 제목 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	top: 2%;
+	width: 90%;
+	height: 6%;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 3% auto;
+	color: #604c3f;
+	font-family: "MV Boli";
+	font-weight: bold;
+	text-indent: 20px;
 }
 
 .fridgeTrafficBox {
-  /* 현재 나의 냉장고 상태 신호등 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  top: 3%;
-  width: 90%;
-  height: 10%;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 2% auto;
+	/* 현재 나의 냉장고 상태 신호등 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	top: 3%;
+	width: 90%;
+	height: 10%;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 2% auto;
 }
 
 .myRedLight {
-  /* 현재 나의 냉장고 상태 빨간 신호등 */
-  background: #e60012;
-  position: relative;
-  /* left: 25%;
-	top: 50%;
-	transform: translate(-25%, -50%); */
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  margin-left: 10%;
+	/* 현재 나의 냉장고 상태 빨간 신호등 */
+	background: #e60012;
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	margin-left: 10%;
 }
 
 .myYellowLight {
-  /* 현재 나의 냉장고 상태 노란 신호등 */
-  background: #eb6100;
-  position: relative;
-  /* left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%); */
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
+	/* 현재 나의 냉장고 상태 노란 신호등 */
+	background: #eb6100;
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
 }
 
 .myGreenLight {
-  /* 현재 나의 냉장고 상태 초록 신호등 */
-  background: #009a3e;
-  position: relative;
-  /* left: 75%;
-	top: 50%;
-	transform: translate(-75%, -50%); */
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  margin-right: 10%;
+	/* 현재 나의 냉장고 상태 초록 신호등 */
+	background: #009a3e;
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	margin-right: 10%;
 }
 
 .foodCount {
-  /* 신호등 안 식품 숫자 */
-  color: white;
-  display: flex;
-  align-items: center;
-  font-weight: 900;
+	/* 신호등 안 식품 숫자 */
+	color: white;
+	display: flex;
+	align-items: center;
+	font-weight: 900;
+}
+
+#standardLine {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	position: relative;
+	height: 20%;
+	width: 29%;
+	margin: 0 auto;
 }
 
 .standardLine1 {
-  /* 위험 기준 세로선 */
-  border-style: dashed;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: relative;
-  display: inline-block;
-  width: 0;
-  height: 15%;
-  margin: 0 15% 0 35%;
+	/* 위험 기준 세로선 */
+	border-style: dashed;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: relative;
+	width: 0;
+	height: 90%;
 }
 
 .standardLine2 {
-  /* 경고 기준 세로선 */
-  border-style: dashed;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: relative;
-  display: inline-block;
-  width: 0;
-  height: 15%;
-  margin: 0 35% 0 12%;
-  transform: translate(9500%, -105%);
+	/* 경고 기준 세로선 */
+	border-style: dashed;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: relative;
+	width: 0;
+	height: 90%;
+}
+
+#standardDate {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	position: relative;
+	height: auto;
+	width: 60%;
+	z-index: 2;
+	margin: 0 10% 0 30%;
+	top: -13%;
 }
 
 .dangerous-standard {
-  /* 위험 기준 날짜 표시 - 0일 남음 */
-  background-color: #f4eee6;
-  display: inline-block;
-  position: relative;
-  z-index: 2;
-  transform: translate(-150%, -140%);
-  color: #604c3f;
-  font-family: "MV Boli";
+	/* 위험 기준 날짜 표시 - 0일 남음 */
+	background-color: #f4eee6;
+	position: relative;
+	color: #604c3f;
+	font-family: "MV Boli";
 }
 
 .warning-standard {
-  /* 경고 기준 날짜 표시 - 10일 남음 */
-  background-color: #f4eee6;
-  display: inline-block;
-  position: relative;
-  z-index: 2;
-  transform: translate(50%, -510%);
-  color: #604c3f;
-  font-family: "MV Boli";
-}
-
-.standardChange {
-  color: #604c3f;
-  position: relative;
-  transform: translate(440%, -820%);
-  display: none;
+	/* 경고 기준 날짜 표시 - 10일 남음 */
+	background-color: #f4eee6;
+	position: relative;
+	color: #604c3f;
+	font-family: "MV Boli";
 }
 
 .myFridgeHorizonLine1 {
-  /* 현재 나의 냉장고 상태 - 신호등 기준 사이 가로 구분선 */
-  border-style: dashed;
-  border-color: #c9bc9c;
-  border-width: 1px;
-  position: relative;
-  left: auto;
-  top: 3%;
-  width: 90%;
-  height: 0px;
-  transform: translateY(-5000%);
+	/* 현재 나의 냉장고 상태 - 신호등 기준 사이 가로 구분선 */
+	border-style: dashed;
+	border-color: #c9bc9c;
+	border-width: 1px;
+	position: relative;
+	left: auto;
+	top: -2%;
+	margin: 0 auto;
+	width: 90%;
+	height: 0px;
+}
+
+#standardChange, #frgInfoChange, #frgInfoDiscard {
+	/* 신호등 기준 수정 아이콘, 냉장고 정보 수정 아이콘, 냉장고 정보 삭제 아이콘 */
+	background-color: transparent;
+	border: 1px solid transparent;
+	color: #604c3f;
 }
 
 .fridgeInfoTitleBox {
-  /* 냉장고 정보 제목 박스 */
-  background: #ffffff;
-  position: relative;
-  left: auto;
-  top: -13%;
-  width: 90%;
-  height: 6%;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin: 3% auto;
-  color: #604c3f;
-  font-family: "MV Boli";
-  text-indent: 20px;
+	/* 냉장고 정보 제목 박스 */
+	background: #ffffff;
+	position: relative;
+	left: auto;
+	width: 90%;
+	height: 6%;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin: 3% auto;
+	color: #604c3f;
+	font-family: "MV Boli";
+	font-weight: bold;
+	text-indent: 20px;
+}
+
+#frgInfoChangeBtns {
+	/* 냉장고 정보 수정 아이콘 */
+	top: -8%;
+	color: #604c3f;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	z-index: 2;
+	width: auto;
+	margin-left: 65%;
+}
+
+#frgInfoChangeBtns span {
+	margin: 0 8%;
 }
 
 #fridgeInfoContentBox {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  width: 100%;
-  height: 35%;
-  top: -14%;
+	top: -5%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	position: relative;
+	width: 95%;
+	height: 35%;
+	margin: 0% auto 3%;
 }
 
-#frgInfoLeft,
+#frgInfoLeft {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	height: 100%;
+	float: left;
+	box-sizing: border-box;
+	flex-grow: 1;
+	flex-basis: 60%;
+	padding: 5px;
+	color: #604c3f;
+}
+
 #frgInfoRight {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  float: left;
-  box-sizing: border-box;
-  flex-grow: 1;
-  flex-basis: 90%;
-  left: 10%;
-  padding: 5px;
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	height: 100%;
+	float: left;
+	box-sizing: border-box;
+	flex-grow: 1;
+	flex-basis: 90%;
+	left: 10%;
+	padding: 5px;
+	color: #604c3f;
 }
 
 .fridgeShapeBox {
-  /* 냉장고 정보 - 냉장고 모양 그림 담고있는 박스 */
-  background: #ffffff;
-  position: relative;
-  left: 5%;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 3% auto;
+	/* 냉장고 정보 - 냉장고 모양 그림 담고있는 박스 */
+	background: #ffffff;
+	position: relative;
+	height: 90%;
+	width: 90%;
+	left: auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 3% auto;
+	width: 90%;
 }
 
 #frg_shape {
-  height: 80%;
-  width: auto;
+	height: 80%;
+	width: auto;
 }
 
-#prev,
-#next {
-  background-color: transparent;
-  border: 1px solid transparent;
-  color: #604c3f;
-  font-size: 80%;
+#prev, #next {
+	background-color: transparent;
+	border: 1px solid transparent;
+	color: #604c3f;
 }
 
 #frgNameAndBtns {
-  display: flex;
-  flex-direction: row;
-  width: 45%;
-  left: 30%;
-  position: relative;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	width: 45%;
+	margin: 1% auto;
+	position: relative;
+}
+
+#frgNameAndBtns>.frg_name {
+	margin: 0;
+	font-size: 90%;
 }
 
 .fridgeName {
-  /* 냉장고 정보 - 냉장고 이름 담고 있는 박스 */
-  background: #ffffff;
-  position: relative;
-  top: 20%;
-  width: 90%;
-  height: 20%;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+	/* 냉장고 정보 - 냉장고 이름 담고 있는 박스 */
+	height: 20%;
+	padding: 1%;
+	background: #ffffff;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+	text-indent: 7px;
+	font-weight: bold;
+	font-size: 90%;
+	background: #ffffff;
 }
 
 .fridgeNameVerticalLine {
-  /* 냉장고 이름 담은 박스 세로 구분선 */
-  border-style: solid;
-  border-color: #9fa0a0;
-  border-width: 1px;
-  position: relative;
-  width: 0px;
-  height: 4px;
+	/* 냉장고 이름 담은 박스 세로 구분선 */
+	border-style: solid;
+	border-color: #9fa0a0;
+	border-width: 1px;
+	position: absolute;
+	left: 40%;
+	top: auto;
+	width: 0px;
+	height: 60%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+}
+
+.fridgeName>.frg_name {
+	position: absolute;
+	left: 43%;
+	width: 55%;
+	height: 60%;
+	display: flex;
+	align-items: center;
+	font-size: 90%;
+	width: 55%;
+	border: none;
+	background-color: transparent;
+}
+
+.fridgeName>.frg_name:disabled {
+	background-color: transparent;
+	border: none;
+}
+
+#frgInfoRight>.frg_shape {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	margin: 2% 0;
+	padding: 1%;
+	font-size: 90%;
+	background: #ffffff;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	text-indent: 7px;
+	position: relative;
+}
+
+.radio_group {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.radio_group input, .radio_group label {
+	margin: 0 0.3%;
+}
+
+input[type="radio"] {
+	appearance: none;
+    -webkit-appearance: none;
+    border: 3px solid #D6C2B4;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+}
+
+input[type="radio"]:checked {
+    background-color: #604C3F;
 }
 
 #myFrgAstate {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-.fridgeAtitleBox {
-  /* A칸 위치 */
-  background: #ffffff;
-  position: absolute;
-  left: 570px;
-  top: 455px;
-  width: 32px;
-  height: 11px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-
-#frgAfrozenBtn {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 3px solid transparent;
-  background-color: transparent;
-  position: relative;
-  left: 200px;
-  top: -220px;
-  width: 60px;
-  height: 30px;
-}
-
-#frgAcoolBtn {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 3px solid transparent;
-  background-color: transparent;
-  position: relative;
-  left: 220px;
-  top: -220px;
-  width: 60px;
-  height: 30px;
-}
-
-#frgBfrozenBtn {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 3px solid transparent;
-  background-color: transparent;
-  position: relative;
-  left: 200px;
-  top: -190px;
-  width: 60px;
-  height: 30px;
-}
-
-#frgBcoolBtn {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 3px solid transparent;
-  background-color: transparent;
-  position: relative;
-  left: 220px;
-  top: -190px;
-  width: 60px;
-  height: 30px;
-}
-
-.frgSelected {
-  border-bottom: 3px solid #604c3f;
-}
-
-.frgNotSelected {
-  border-bottom: 3px solid #9fa0a0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	position: relative;
+	width: 100%;
+	margin: 2% 0;
+	padding: 1%;
+	font-size: 90%;
+	background: #ffffff;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	text-indent: 7px;
+	font-weight: bold;
 }
 
 #myFrgBstate {
-  display: flex;
-  flex-direction: row;
-  position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	position: relative;
+	width: 100%;
+	margin: 2% 0;
+	padding: 1%;
+	font-size: 90%;
+	background: #ffffff;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	text-indent: 7px;
+	font-weight: bold;
+}
+
+.fridgeAtitleBox {
+	/* A칸 위치 */
+	background: #ffffff;
+	position: absolute;
+	width: 32px;
+	height: 11px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .fridgeBtitleBox {
-  /* B칸 위치 */
-  background: #ffffff;
-  position: absolute;
-  left: 570px;
-  top: 472px;
-  width: 32px;
-  height: 11px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+	/* B칸 위치 */
+	background: #ffffff;
+	position: absolute;
+	width: 32px;
+	height: 11px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
 }
 
-.myFridgeHorizonLine3 {
-  /* 냉장고 정보 - 수정하기 버튼 사이 가로 구분선 */
-  border-style: Solid;
-  border-color: #ffffff;
-  border-width: 1px;
-  position: absolute;
-  left: 478px;
-  top: 520px;
-  width: 213px;
-  height: 0px;
+#frgAfrozenBtn {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background-color: transparent;
+	position: relative;
+	width: 60px;
+	height: 30px;
 }
 
-.fridgeChange {
-  color: #604c3f;
-  position: relative;
-  transform: translate(2120%, -1850%);
-  display: none;
+#frgAcoolBtn {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background-color: transparent;
+	position: relative;
+	width: 60px;
+	height: 30px;
+}
+
+#frgBfrozenBtn {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background-color: transparent;
+	position: relative;
+	width: 60px;
+	height: 30px;
+}
+
+#frgBcoolBtn {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background-color: transparent;
+	position: relative;
+	width: 60px;
+	height: 30px;
+}
+
+.frgSelected {
+	border-bottom: 3px solid #604c3f;
+	font-weight: bolder;
+	color: #604c3f;
+}
+
+.frgNotSelected {
+	border-bottom: 2px solid #9fa0a0;
+}
+
+#frgInfoCorrectionEndBtn {
+	background: #F4EEE6;
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+    height: 60%;
+    border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    font-family: 'MV Boli';
+    font-weight: 600;
+    color: #604C3F;
+    border: 1px solid #D6C2B4;
+    padding: 1%;
+    margin: 2% auto;
 }

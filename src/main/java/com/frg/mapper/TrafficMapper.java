@@ -8,4 +8,6 @@ public interface TrafficMapper {
 	List<Integer> selectTrafficLight(TrafficDTO dto);
 	
 	List<TrafficDTO> selectTrafficStandard(TrafficDTO dto);
+	
+	int updateTrafficStandard(TrafficDTO dto);
 }

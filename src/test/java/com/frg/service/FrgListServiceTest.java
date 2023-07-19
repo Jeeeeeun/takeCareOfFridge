@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
-import com.frg.domain.TrafficDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

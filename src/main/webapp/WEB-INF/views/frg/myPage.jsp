@@ -135,20 +135,35 @@
 						<span class="foodCount">${trafficLight[0].green}</span>
 					</div>
 				</div>
-				<div class="standardLine1"></div>
-				<div class="dangerous-standard">
-					<span>${ trfStandard[0].dangerous_standard }</span>
+				<div id="standardLine">
+					<div class="standardLine1"></div>
+					<div class="standardLine2"></div>
 				</div>
-				<div class="standardLine2"></div>
-				<div class="warning-standard">
-					<span>${ trfStandard[0].warning_standard }</span>
-				</div>
-				<span><i class="fa-solid fa-pen-to-square standardChange"></i></span>
+				<form action="${ pageContext.servletContext.contextPath }/frg/trfStandardChange" method="post" id="standardDate">
+					<div class="dangerous-standard">
+						<span>${ trfStandard[0].dangerous_standard }</span>
+					</div>
+					<div class="warning-standard">
+						<span>${ trfStandard[0].warning_standard }</span>
+					</div>
+					<button type="button" id="standardChange">
+						<i class="fa-solid fa-pen-to-square" onclick="trfStandardBtnClicked()"></i>
+					</button>
+					<!-- 수정 완료 버튼 만들어야 함 -->
+				</form>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
+				<div id="frgInfoChangeBtns">
+					<button type="button" id="frgInfoChange">
+						<i class="fa-solid fa-pen-to-square" onclick="frgInfoChangeBtnClicked()"></i>
+					</button>
+					<button type="button" id="frgInfoChange" onclick="frgDiscardBtnClicked()">
+						<i class="fa-solid fa-trash"></i>
+					</button>
+				</div>
 				<div id="fridgeInfoContentBox">
 					<div id="frgInfoLeft">
-						<div class="fridgeShapeBox" style="height: 90%; width: 90%;">
+						<div class="fridgeShapeBox">
 							<img class="frg_shape" />
 						</div>
 						<div id="frgNameAndBtns">
@@ -161,32 +176,39 @@
 							</button>
 						</div>
 					</div>
-					<div id="frgInfoRight">
+					<form action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange" method="post" id="frgInfoRight">
 						<div class="fridgeName">
 							냉장고 이름
 							<div class="fridgeNameVerticalLine"></div>
-							<input type="text" class="frg_name" disabled/>
+							<input type="text" class="frg_name" disabled />
 						</div>
 						<div class="frg_shape">
-							<input type="radio" name="frg_shape" id="hRadio" value="H" disabled/> <label for="hRadio">가로형</label>
-							<input type="radio" name="frg_shape" id="vRadio" value="V" disabled/> <label for="vRadio">세로형</label>
-							<input type="radio" name="frg_shape" id="sRadio" value="S" disabled/> <label for="sRadio">단일형</label>
+							<b>냉장고 모양</b>
+							<div class="radio_group">
+								<input type="radio" name="frg_shape" id="hRadio" value="H"
+									disabled /> <label for="hRadio">가로형</label> <input
+									type="radio" name="frg_shape" id="vRadio" value="V" disabled />
+								<label for="vRadio">세로형</label> <input type="radio"
+									name="frg_shape" id="sRadio" value="S" disabled /> <label
+									for="sRadio">단일형</label>
+							</div>
 						</div>
 						<div id="myFrgAstate">
 							<div id="fridgeAtitleBox">A칸 상태</div>
-							<button id="frgAfrozenBtn" value="frozen">냉동</button>
-							<button id="frgAcoolBtn" value="cool">냉장</button>
+							<button type="button" id="frgAfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgAcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
 						<div id="myFrgBstate">
 							<div id="fridgeBtitleBox">B칸 상태</div>
-							<button id="frgBfrozenBtn" value="frozen">냉동</button>
-							<button id="frgBcoolBtn" value="cool">냉장</button>
+							<button type="button" id="frgBfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgBcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
-					</div>
+						<div>
+							<button type="button" id="frgInfoCorrectionEndBtn" onclick="frgCorrectionEnd()">수정 완료</button>
+						</div>
+					</form>
 				</div>
 			</div>
-
-			<span style="width: 20px;"><i class="fa-solid fa-pen-to-square fridgeChange"></i></span>
 		</div>
 	</header>
 </body>

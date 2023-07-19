@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
-import com.frg.domain.TrafficDTO;
 import com.frg.mapper.FrgListMapper;
-import com.frg.mapper.TrafficMapper;
 import com.frg.service.FrgListService;
 
 import lombok.NonNull;

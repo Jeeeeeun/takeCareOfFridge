@@ -32,5 +32,14 @@
         WHERE u.user_id = #{user_id}
     ]]>
 	</select>
-
+	
+	<update id="updateTrafficStandard">
+		UPDATE traffic
+		SET dangerous = #{dangerous}, warning = #{warning}
+		WHERE user_index = (
+		    SELECT user_index
+		    FROM users
+		    WHERE user_id = #{user_id}
+		)
+	</update>
 </mapper>
