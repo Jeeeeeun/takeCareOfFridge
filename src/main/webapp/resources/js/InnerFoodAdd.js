@@ -167,13 +167,12 @@ function createNewSettingBox() {
 					<!-- 냉장고 목록 -->
 					<div class="box1">
 						<label>
-							<p>냉장고 선택하기</p>
-						    <select name="frgList" id="frgOption">
-						        <option value="">냉장고를 선택하세요</option>
+							<p>냉장고 선택</p>
+						    <select name="frgList" id="frgOption${frgOptionCounter}">
+						        <option value="">냉장고 선택</option>
 						    </select>
 						</label>
 					</div>
-					
 					<!-- 보관 위치 -->
 					<div class="box2">
 						<p>보관 위치</p>
@@ -190,13 +189,12 @@ function createNewSettingBox() {
 						<label> 
 							<p>식품명</p>
 							<div class="box3-1">
-								<div class="box3-2">							
-									<input type="search" id="searchInput" autofocus />
-									<button type="button" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
-								</div>
-								 <div class="box3-2">							 
-									<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
-								 </div>							
+								 <div class="box3-2">							
+									<input type="text" id="foodNameInput" placeholder="식품 이름 입력" autofocus />
+							</div>
+							 <div class="box3-2">							 
+								<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
+							 </div>							
 							</div>
 						</label>
 					</div>
@@ -206,7 +204,7 @@ function createNewSettingBox() {
 						<label> 
 							<p>유통/소비기한</p>
 							<div class="box4-1">
-								<input type="text" id="dueDateAuto" placeholder="유통/소비기한"> <br> 
+								<input type="text" id="dueDateAuto" placeholder="유통/소비기한 안내"> 
 								<input type="date" id="dueDateCustom" >							
 							</div>
 						</label> 
@@ -235,24 +233,31 @@ function createNewSettingBox() {
 							<input type="text" id="foodCompany" placeholder="제조사명 안내" >
 						</label> 
 					</div>
-				</div> 
+				</div>
 	  `;
 
 	addSettingBox.appendChild(settingBoxElement);
 	
-	const frgOption = settingBoxElement.querySelector("#frgOption");
+	const frgOptionId = settingBoxElement.querySelector(`#frgOption${frgOptionCounter}`);
+	
+	frgOptionId.style.width="300px";
+	frgOptionId.style.height= "30px";
+	frgOptionId.style.backgroundColor="beige";
+	frgOptionId.style.border="0px";
 	
     frgNames.forEach((name) => {
     	if (name !== "") {
 	        const option = document.createElement("option");
 	        option.value = name;
 	        option.textContent = name;
-	        document.getElementById(`frgOption${frgOptionCounter}`).appendChild(option);
-        }
-    });
-    
-     frgOptionCounter++; // 카운터를 증가시켜 다음 요소에 대한 고유한 ID를 생성합니다.
-}
+	        frgOptionId.appendChild(option);
+     	}
+	});
+	
+    // 카운터를 증가시켜 다음 요소에 대한 고유한 ID 생성
+    frgOptionCounter++; 
+
+};
 
 /* addFinish(); */
 

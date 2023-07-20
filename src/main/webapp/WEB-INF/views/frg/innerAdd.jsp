@@ -108,9 +108,9 @@
 					<!-- 냉장고 목록 -->
 					<div class="box1">
 						<label>
-							<p>냉장고 선택하기</p>
+							<p>냉장고 선택</p>
 						    <select name="frgList" id="frgOption">
-						        <option value="">냉장고를 선택하세요</option>
+						        <option value="">냉장고 선택</option>
 						    </select>
 						</label>
 					</div>
@@ -149,18 +149,12 @@
 						<label> 
 							<p>식품명</p>
 							<div class="box3-1">
-								<!-- 
-								<div class="box3-2">							
-									<input type="search" id="searchInput" autofocus />
-									<button type="button" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
-								</div>
-								 -->
 								 <div class="box3-2">							
-									<input type="text" id="foodNameInput" autofocus />
-								</div>
-								 <div class="box3-2">							 
-									<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
-								 </div>							
+									<input type="text" id="foodNameInput" placeholder="식품 이름 입력" autofocus />
+							</div>
+							 <div class="box3-2">							 
+								<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
+							 </div>							
 							</div>
 						</label>
 					</div>
@@ -170,7 +164,7 @@
 						<label> 
 							<p>유통/소비기한</p>
 							<div class="box4-1">
-								<input type="text" id="dueDateAuto" placeholder="유통/소비기한"> <br> 
+								<input type="text" id="dueDateAuto" placeholder="유통/소비기한 안내"> 
 								<input type="date" id="dueDateCustom" >							
 							</div>
 						</label> 
@@ -204,11 +198,14 @@
 				</div> <!-- addSettingBox 끝 -->
 				<!-- 직접입력하기를 할 경우 생겨날 table -->
 				<div class="tableBox">
-					<div class="searchFood">							
-						<input type="search" id="searchInput"  placeholder="식품명을 검색하세요." autofocus />
-						<button type="button" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
+					<div class="searchFood">
+						<p>공공 API를 이용하여 식품을 조회해보세요</p>
+						<div class="searchFood-1">
+							<input type="search" id="searchInput"  placeholder="식품명을 검색하세요." autofocus />
+							<button type="button" id="searchSubmit" onclick="searchFoodAPI();">검색하기</button>
+						</div>							
 					</div>
-					<table style="border: 2px solid #ffc107;" id="showFoodTable">
+					<table id="showFoodTable">
 						<thead>
 							<tr>
 								<th>&nbsp;</th>
@@ -225,8 +222,10 @@
 			
 			<!-- 추가, 완료 버튼 -->
 			<div class="settingBtn"> 
+			  <div class="settingBtn-1">
 				<button type="button" onclick="createNewSettingBox();">추가</button>
 				<button type="submit" onclick="addFinish();">완료</button>
+			  </div>
 			</div>
 		</form>
 		</header>

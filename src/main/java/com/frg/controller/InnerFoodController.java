@@ -55,8 +55,11 @@ public class InnerFoodController {
 		dto.setUser_id(user_id);
 		
 		List<String> frgNames = inService.selectFrgName(dto);
+		// ObjectMapper는 Jackson 라이브러리에서 제공하는 클래스로, Java 객체와 JSON 데이터를 상호 변환하는 역할을 담당
 		ObjectMapper objectMapper = new ObjectMapper();
+		// frgNames 리스트를 JSON 형식의 문자열로 변환
 		String frgNamesJson = objectMapper.writeValueAsString(frgNames);
+		log.info("frgNamesJson : "+frgNamesJson);
 		model.addAttribute("frgNamesJson", frgNamesJson);
 		
 		trfDto.setUser_id(user_id);
