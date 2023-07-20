@@ -137,10 +137,10 @@
 					<div class="box2">
 						<p>보관 위치</p>
 						<label>
-							<input type="radio" name="state" id="foodStateFrozen"/>냉동 
+							<input type="radio" name="frgState" id="foodStateFrozen"/>냉동 
 						</label>
 						<label>
-							<input type="radio" name="state" id="foodStateCool"/>냉장 <br>
+							<input type="radio" name="frgState" id="foodStateCool"/>냉장 <br>
 						</label>
 					</div>
 					
@@ -150,10 +150,10 @@
 							<p>식품명</p>
 							<div class="box3-1">
 								 <div class="box3-2">							
-									<input type="text" id="foodNameInput" placeholder="식품 이름 입력" autofocus />
+									<input type="text" name="" id="foodNameInput" placeholder="식품 이름 입력" autofocus />
 							</div>
 							 <div class="box3-2">							 
-								<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
+								<input type="checkbox"  id="checkCustom" onclick="checkCustomOrNot();" />직접 입력하기
 							 </div>							
 							</div>
 						</label>

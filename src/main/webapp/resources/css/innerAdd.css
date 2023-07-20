@@ -76,6 +76,13 @@
 	margin-right:10px;
 }
 
+#dueDateAuto.placeholder::placeholder,
+#foodType.placeholder::placeholder,
+#foodCompany.placeholder::placeholder,
+#foodNameInput.placeholder::placeholder{
+	font-size=0.5rem;
+}
+
 .tableBox{
 	width:600px;
 	height:447px;

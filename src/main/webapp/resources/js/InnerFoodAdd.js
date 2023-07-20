@@ -60,8 +60,8 @@ function searchFoodAPI() {
           console.log(apiType);
 
           // 변수에 할당된 값으로 각각의 input 태그의 value 값 설정
-		  document.getElementById('searchInput').value = apiName;
-		  document.getElementById('searchInput').disabled = true;
+		  document.getElementById('foodNameInput').value = apiName;
+		  document.getElementById('foodNameInput').disabled = true;
 			
 		  document.getElementById('foodCompany').value = apiCompany;
 		  document.getElementById('foodCompany').disabled = true;
@@ -87,72 +87,6 @@ function searchFoodAPI() {
     }
 
   });
-}
-
-
-/* checkCustomOrNot(); */
-function checkCustomOrNot() {
-  // input 태그 가져오기
-  // "식품명 검색" input
-  let searchInput = document.querySelector("#searchInput");
-  // "식품명 검색하기" btn
-  let searchSubmit = document.querySelector("#searchSubmit");
-  // "직접 입력하기" search 버튼
-  let registerFood = document.querySelector("#registerFood");
-  // "유통/소비기한" input (auto)
-  let dueDateAuto = document.querySelector("#dueDateAuto");
-  // "유통/소비기한" input (custom)
-  let dueDateCustom = document.querySelector("#dueDateCustom");
-  // "식품 유형" input
-  let foodType = document.querySelector("#foodType");
-  // "제조사명" input
-  let foodCompany = document.querySelector("#foodCompany");
-  // "table" 
-  let table=document.getElementById("showTable");
-
-  // "직접 입력하기"를 체크하면 아래 코드를 실행해줘.
-  if (registerFood.checked == true) {
-    // 1. input tag 관리
-    //searchInput, dueDateAuto, foodType, foodCompany의 value를 초기화 해야 함
-    searchInput.value='';
-    dueDateAuto.value='';
-    foodType.value='';
-    foodCompany.value='';  
-    // searchInput의 type을 text로 변경
-    searchInput.type = "text";
-    // searchInput에 autofocus를 매겨줘.
-    searchInput.autofocus = true;
-    // searchSubmit 버튼을 없애줘.
-    searchSubmit.style.display = "none";
-    // dueDateAuto을 없애줘.
-    dueDateAuto.style.display = "none";
-    // dueDateCustom을 나타나게 해줘.
-    dueDateCustom.style.display = "block";
-    // foodType의 readonly를 해제
-    foodType.readOnly = false;
-    // foodType의 placeholder를 '식품유형을 입력하세요'로 변경
-    foodType.placeholder = "식품유형을 입력하세요";
-    // foodCompany 없애줘.
-    foodCompany.style.display = "none";
-    //2. table이 생성되어있다면 table 숨기기
-    table.style.display="none";
-    
-  } else {
-    // searchInput의 type을 search로 변경
-    searchInput.type = "search";
-    // searchInput에 autofocus를 매겨줘.
-    searchInput.autofocus = true;
-    // searchSubmit 버튼 다시 생기게 해줘.
-    searchSubmit.style.display = "inline-block";
-    // dueDateAuto을 다시 생기게 해줘.
-    dueDateAuto.style.display = "block";
-    // foodType의 readonly를 다시 만들어줘.
-    foodType.readOnly = true;
-    // foodType의 placeholder를 '식품 검색이 완료되면, 식품 유형이 보일거에요'로 변경
-    foodType.placeholder = "식품 검색이 완료되면, 식품 유형이 보일거에요";
-    // foodCompany 다시 만들어줘.
-    foodCompany.style.display = "block";
-  }
 }
 
 let frgOptionCounter = 1; // 냉장고 옵션의 카운터 변수
@@ -193,7 +127,7 @@ function createNewSettingBox() {
 									<input type="text" id="foodNameInput" placeholder="식품 이름 입력" autofocus />
 							</div>
 							 <div class="box3-2">							 
-								<input type="checkbox" id="registerFood" onclick="checkCustomOrNot();" />직접 입력하기
+								<input type="checkbox" id="checkCustom" onclick="checkCustomOrNot();" />직접 입력하기
 							 </div>							
 							</div>
 						</label>
@@ -245,19 +179,73 @@ function createNewSettingBox() {
 	frgOptionId.style.backgroundColor="beige";
 	frgOptionId.style.border="0px";
 	
-    frgNames.forEach((name) => {
-    	if (name !== "") {
-	        const option = document.createElement("option");
-	        option.value = name;
-	        option.textContent = name;
-	        frgOptionId.appendChild(option);
-     	}
+    frgNames.forEach(function(name) {
+	  if (name !== "") {
+	    const option = document.createElement("option");
+	    option.value = name;
+	    option.textContent = name;
+	    frgOptionId.appendChild(option);
+	  }
 	});
-	
+
     // 카운터를 증가시켜 다음 요소에 대한 고유한 ID 생성
     frgOptionCounter++; 
 
 };
+
+
+/* checkCustomOrNot(); */
+function checkCustomOrNot(){
+
+	let foodNameInput = document.querySelector("#foodNameInput");
+	let checkCustom = document.querySelector("#checkCustom");	
+	let dueDateAuto = document.querySelector("#dueDateAuto");
+	let foodType = document.querySelector("#foodType");
+	let foodCount = document.querySelector("#foodCount");
+	let foodCompany = document.querySelector("#foodCompany");
+	let searchInput =document.querySelector("#searchInput");
+	let searchSubmit = document.querySelector("#searchSubmit");
+	
+	//직접 입력하기를 누른 경우의 수
+	//1. 식품명에 아무것도 안 씀 + 직접입력하기 누름
+	if(foodNameInput.value === "" && checkCustom.checked==true){
+	
+		foodNameInput.disabled=true;
+		dueDateAuto.disabled=true;
+		foodCompany.disabled=true;
+		
+		foodNameInput.placeholder="식품명을 검색할 수 없어요";
+		dueDateAuto.placeholder="하단에서 유통/소비기한을 입력하세요";
+		foodCompany.placeholder="제조사는 입력할 수 없어요";
+		foodType.placeholder="식품 유형을 입력하세요";
+		
+		foodNameInput.style.backgroundColor="lightgray";
+		dueDateAuto.style.backgroundColor="lightgray";
+		foodCompany.style.backgroundColor="lightgray";
+		
+	} else if(foodNameInput.value === searchInput.value && checkCustom.checked){
+		//2. 식품명에 '검색한 식품명'이 들어가있음 + 직접 입력하기 누름 (변심 또는 실수)
+		let customFinalCheck=confirm("직접 입력하기로 변경하시겠습니까?\n변경 후에는 현재 검색한 내역과 등록한 값이 초기화됩니다.");	
+		if(customFinalCheck==true){ //변경 확정
+			//초기화 해야 하는 것들
+			
+		}else{ //변경 취소
+			checkCustom.checked==false;
+		}	
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* addFinish(); */
 
