@@ -18,7 +18,7 @@
 		, #{ frg_shape }
 		, #{ frg_Astate
 		}
-		, #{ frg_Bstate }
+		, #{ frg_Bstate, jdbcType=VARCHAR }
 		)
 	</insert>
 

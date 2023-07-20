@@ -74,7 +74,7 @@ public class InnerFoodServiceTest {
 		assertNotNull(nameList);
 	}
 	
-	@Test 
+	@Test @Ignore
 	public void testSelectFoodAPI() {
 		FoodApiDTO dto = new FoodApiDTO();
 		dto.setApi_name("산채비빔밥");

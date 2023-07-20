@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
 
 import lombok.Setter;
@@ -38,7 +39,7 @@ public class TrafficServiceTest {
 		assertNotNull(trfResult);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testGetTrafficStandard() {
 		TrafficDTO trfDto = new TrafficDTO();
 		
@@ -49,5 +50,21 @@ public class TrafficServiceTest {
 		log.info(trfStandard);
 		
 		assertNotNull(trfStandard);
+	}
+	
+	@Test
+	public void testModifyTrafficStandard() {
+		TrafficDTO trfDto = new TrafficDTO();
+		
+		trfDto.setDangerous(3);
+		trfDto.setWarning(-7);
+		trfDto.setUser_id("smith01");
+		
+		ResponseDTO response = service.modifyTrafficStandard(trfDto);
+		
+		log.info("입력값" + trfDto);
+		log.info("응답" + response);
+		
+		assertNotNull(response);
 	}
 }

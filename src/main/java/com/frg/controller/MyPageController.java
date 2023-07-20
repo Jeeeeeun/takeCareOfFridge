@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.FrgListService;
-import com.frg.service.LoginService;
-import com.frg.service.MyPageService;
 import com.frg.service.TrafficService;
 import com.google.gson.Gson;
 
@@ -55,7 +54,19 @@ public class MyPageController {
 	    // 변환된 JSON 데이터를 model에 추가
 	    model.addAttribute("frgListJson", frgListJson);
 	    
-	    
 		return "/frg/myPage";
+	}
+	
+	@PostMapping(value="/frgInfoChange")
+	public String modifyFrgList() {
+		// 냉장고 정보 수정 된 거 받아와서 DB에 반영하기
+		return "";
+	}
+	
+	@PostMapping(value="/trfStandardChange")
+	public String modifyTrfStandard() {
+		// 신호등 기준 수정된 거 받아와서 DB에 반영하기
+		
+		return "";
 	}
 }
