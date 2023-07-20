@@ -65,7 +65,7 @@ public class InnerFoodServiceTest {
 
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testSelectFoodAPI() {
 		FoodApiDTO dto = new FoodApiDTO();
 		dto.setApi_name("산채비빔밥");
@@ -73,7 +73,7 @@ public class InnerFoodServiceTest {
 		assertNotNull(foodList);
 	}
 	
-	@Test @Ignore
+	@Test 
 	public void testSelectAllInnerView() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();

@@ -49,11 +49,11 @@ public class LoginController {
 
 			int loginClass = service.getClassUser(dto);
 			if (loginClass != 0) {
-				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y","");
+				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
 				log.info("frgListShow");
 				return "redirect:/frg/frgShow";
 			} else {
-				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N","");
+				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
 				log.info("frgListAdd");
 				return "redirect:/frg/frgAdd";
 			}

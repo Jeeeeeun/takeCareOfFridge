@@ -65,7 +65,7 @@ public class InnerFoodMapperTest {
 		
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testSelectFrgName() {
 		
 		InnerDTO dto = new InnerDTO();

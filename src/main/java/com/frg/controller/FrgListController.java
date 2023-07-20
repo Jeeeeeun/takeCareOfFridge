@@ -1,9 +1,9 @@
 package com.frg.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.service.FrgListService;
 import com.frg.service.TrafficService;
-import com.frg.util.SessionUtil;
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -38,21 +38,21 @@ public class FrgListController {
 
 	@NonNull
 	private FrgListService frgService;
-	
+
 	@NonNull
 	private TrafficService trfService;
 
 	@GetMapping("/frgAdd")
 	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto) {
 		log.info("frgAdd");
-		
-	    String userId = (String) session.getAttribute("SESS_ID");
-		
+
+		String userId = (String) session.getAttribute("SESS_ID");
+
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-		
+
 		model.addAttribute("trafficLight", trafficLight);
-		
+
 		return "/frg/frgAdd";
 	}
 
@@ -60,8 +60,8 @@ public class FrgListController {
 	public String frgAddFormPage(HttpSession session, Model model, TrafficDTO trfDto) {
 		log.info("frgAdd_form");
 
-	    String userId = (String) session.getAttribute("SESS_ID");
-		
+		String userId = (String) session.getAttribute("SESS_ID");
+
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
@@ -107,40 +107,23 @@ public class FrgListController {
 		log.info("frgShow");
 		System.out.println(session);
 
-	    String userId = (String) session.getAttribute("SESS_ID");
-	    System.out.println("SESS_ID: " + userId);
-	    
-	    String userFRG = (String) session.getAttribute("SESS_FRG_NAME");
-	    System.out.println("SESS_FRG_NAME: " + userFRG);
-	    
+		String userId = (String) session.getAttribute("SESS_ID");
+		System.out.println("SESS_ID: " + userId);
+
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
-		
+
 		frgDto.setUser_id(userId);
 		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
-		
+
 		// Gson 사용하여 frgList를 JSON 형태로 변환
-	    Gson gson = new Gson();
-	    String frgListJson = gson.toJson(frgList);
+		Gson gson = new Gson();
+		String frgListJson = gson.toJson(frgList);
 
+		// 변환된 JSON 데이터를 model에 추가
+		model.addAttribute("frgListJson", frgListJson);
 
-	    
-	    // 변환된 JSON 데이터를 model에 추가
-	    model.addAttribute("frgListJson", frgListJson);
-		
 		return "/frg/frgShow";
-	}
-	
-	@PostMapping(value = "/frgShow")
-	public String postFrgSession(HttpServletRequest request, Model model) {
-	    // 세션 값 가져오기
-	    String frgName = SessionUtil.getSessionUserFrgName(request);
-
-	    // Model에 세션 값 추가
-	    model.addAttribute("frgName", frgName);
-
-	    // 다른 페이지로 이동
-	    return "/frg/innerCtrl";
 	}
 }

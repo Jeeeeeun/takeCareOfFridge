@@ -41,12 +41,28 @@
 <title>식품 정보 조회</title>
 <script
 	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js"></script>
+
 <script type="text/javascript">
 	function addBtnClicked() {
 		window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
 	}
-</script>
-<script>
+
+	function changeFrg(frgName, url) {
+		location.href = url + "?frgName=" + frgName;
+	}
+
+	function stateOk(id) {
+		if (id === "all") {
+			console.log("전체");
+		} else if (id === "cool") {
+			console.log("냉장");
+		} else if (id === "frozen") {
+			console.log("냉동");
+		} else {
+			console.log("알 수 없는 상태");
+		}
+	}
+
 	function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
 		console.log("Clicked data:");
 		console.log("제품명: " + in_name);
@@ -99,19 +115,22 @@
 		<div id="contents">
 			<div class="currentStateBox">
 				<div style="display: flex; flex-direction: column;">
-					<label> <select name="frgList" id="formOption">
-							<option value=""></option>
-							<c:forEach var="name" items="${frgNames}">
-								<option value="">${name}</option>
-							</c:forEach>
+					<label>냉장고 선택:</label> <select name="frgList" id="frgSelect"
+						onchange="changeFrg(this.value,'${pageContext.servletContext.contextPath}/frg/innerCtrl');">
+						<option value="all">전체</option>
+						<c:forEach var="name" items="${frgNames}">
+							<option value="${name}"
+								<c:if test="${ frgName eq name }">selected</c:if>>
+								${name}</option>
+						</c:forEach>
 					</select>
-					</label>
 				</div>
 				<div class="centerLine"></div>
-				<div class="stateBtns">
-					<button class="stateBtn selected" name="show_in_state">전체</button>
-					<button class="stateBtn" name="show_in_state">냉장</button>
-					<button class="stateBtn" name="show_in_state">냉동</button>
+				<div class="stateBtns" id="stateIn">
+					<button id="all" name="show_in_state" onclick="stateOk(this.id);">전체</button>
+					<button id="cool" name="show_in_state" onclick="stateOk(this.id);">냉장</button>
+					<button id="frozen" name="show_in_state"
+						onclick="stateOk(this.id);">냉동</button>
 				</div>
 			</div>
 			<div class="wholeFoodListBox">
@@ -211,6 +230,7 @@
 				</form>
 			</div>
 		</div>
+	</header>
 </body>
 
 </html>

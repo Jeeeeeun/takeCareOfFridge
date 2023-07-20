@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.frg.util.SessionUtil"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,6 +35,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
 	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
@@ -43,16 +43,12 @@
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/frgShow.js"></script>
 <script type="text/javascript">
-    function setFrgNameSession() {
-        const frgName = document.getElementById("frg_name").innerText;
-        const encodedFrgName = encodeURIComponent(frgName);
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "${pageContext.servletContext.contextPath}/frg/setFrgNameSession?frgName=" + encodedFrgName, true);
-        xhr.send();
-        
-        // innerCtrl 페이지로 이동합니다.
-        location.href = "${pageContext.servletContext.contextPath}/frg/innerCtrl";
-    }
+	function showFrgNameOnImageClick(url) {
+		const frgNameElement = document.getElementById("frg_name");
+		const frgName = frgNameElement.textContent;
+		
+		location.href = url +'?frgName=' + frgName;
+	}
 </script>
 </head>
 <body id="page-top">
@@ -91,12 +87,13 @@
 		<p id="red">${trafficLight[0].red}</p>
 		<p id="yellow">${trafficLight[0].yellow}</p>
 		<p id="green">${trafficLight[0].green}</p>
+
 		<div id="showFridge">
-			<!-- onclick 이벤트에서 frg_name 값을 가져오도록 설정 -->
-			<a class="goToFoodCtrl"
-				href="${pageContext.servletContext.contextPath}/frg/innerCtrl"
-				onclick="setFrgNameSession()"> <img id="frg_shape">
+			<a class="goToFoodCtrl" href="javascript:void(0)"
+				onclick="showFrgNameOnImageClick('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
+				<img id="frg_shape">
 			</a>
+			<!-- onclick="showFrgNameOnImageClick('${pageContext.servletContext.contextPath}/frg/frgShow', '${frgName}');" -->
 			<div id="frg_state">
 				<p id="frg_Astate"></p>
 				<p id="frg_Bstate"></p>
