@@ -136,6 +136,13 @@ function radioClicked(e, label, idNum) {
     fridgeInfoLabelStates[1].style.display = "none";
     stateSelectBtns[2].style.display = "none";
     stateSelectBtns[3].style.display = "none";
+    
+    // frg_Bstate 버튼 중 선택된 것 선택 취소
+    const selectedBstateBtn = settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
+    if (selectedBstateBtn) {
+      selectedBstateBtn.classList.remove('selected');
+    }
+    
   } else {
     // 가로형 냉장고(H) 또는 세로형 냉장고(V) 선택 시, A, B 섹션 모두 보임
     fridgeInfoLabelStates[0].style.display = "inline-block";
@@ -199,7 +206,7 @@ function stateBtnClicked(clickedBtn, idNum) {
       correspondingA.classList.add("selected");
     }
   }
-}
+};
 
 /* SESS_ID 데려오려는 함수 */
 async function getUserId() {
@@ -222,7 +229,8 @@ async function extractDataFromSettingBox(settingBox, idNum) {
   const frgName = settingBox.querySelector(`input[name="frg_name_${idNum}"]`);
 
   const frgAstate = settingBox.querySelector(`button[name="frg_Astate_${idNum}"].selected`);
-  const frgBstate = settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
+  // frgShape의 값이 'S'이면 frg_Bstate는 null로 설정됨
+  const frgBstate = (frgShape && frgShape.value === "S") ? null : settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
 
   const userId = await getUserId();
 

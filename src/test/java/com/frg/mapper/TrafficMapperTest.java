@@ -37,7 +37,7 @@ public class TrafficMapperTest {
 		assertNotNull(trfResult);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testSelectTrafficStandard() {
 		TrafficDTO dto = new TrafficDTO();
 		
@@ -50,4 +50,19 @@ public class TrafficMapperTest {
 		assertNotNull(trfStandard);
 	}
 
+	@Test
+	public void testUpdateTrafficStandard() {
+		
+		int expect = 1;
+		
+		TrafficDTO dto = new TrafficDTO();
+		
+		dto.setDangerous(5);
+		dto.setWarning(-20);
+		dto.setUser_id("smith01");
+		
+		int result = mapper.updateTrafficStandard(dto);
+		
+		assertEquals(expect, result);
+	}
 }

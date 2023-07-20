@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.UserDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -68,18 +69,18 @@ public class InnerFoodMapperTest {
 	@Test @Ignore
 	public void testSelectFrgName() {
 		
-		InnerDTO dto = new InnerDTO();
+		UserDTO dto = new UserDTO();
 		dto.setUser_id("john01");
 		List<String> frgList =  mapper.selectFrgName(dto);
 		log.info(frgList);
 		assertNotNull(frgList);
 	}
 	
-	@Test @Ignore
+	@Test 
 	public void testSelectFoodAPI() {
 
 		FoodApiDTO dto = new FoodApiDTO();
-		dto.setApi_name("산채비빔밥");
+		dto.setApi_name("오삼불고기");
 		List<FoodApiDTO> foodList = mapper.selectFoodAPI(dto);
 		assertNotNull(foodList);
 	}
