@@ -1,5 +1,5 @@
 var currentIndex = 0;
-var frgName, frgShape, hRadio, vRadio, sRadio, frgAstate, frgBstate, aFrozenBtn, aCoolBtn, bFrozenBtn, bCoolBtn, frgInfoChangeBtn, frgCorrectionEndBtn;
+var frgName, frgShape, hRadio, vRadio, sRadio, frgAstate, frgBstate, aFrozenBtn, aCoolBtn, bFrozenBtn, bCoolBtn, frgInfoChangeBtn, frgCorrectionEndBtn, dangerousStandard, warningStandard, dangerousSpan, warningSpan;
 
 window.onload = function () {
 	// DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
@@ -16,9 +16,28 @@ window.onload = function () {
 	bCoolBtn = document.getElementById("frgBcoolBtn");
 	frgInfoChangeBtn = document.getElementById("frgInfoChange");
 	frgCorrectionEndBtn = document.getElementById("frgInfoCorrectionEndBtn");
+	trfChangeBtn = document.getElementById("standardChange");
+	standardWrapper = document.getElementById("standards-wrapper");
+	dangerousStandard = document.getElementById("dangerousStandard");
+	warningStandard = document.getElementById("warningStandard");
+	dangerousSpan = document.getElementById("dangerousSpan");
+	warningSpan = document.getElementById("warningSpan");
 
 	updateFrg(currentIndex);
+	trfStandardShow();
 };
+
+/* SESS_ID 데려오려는 함수 */
+function getUserId() {
+  return fetch(contextPath + "/frg/getUserId")
+    .then(function (response) {
+      if (response.ok) {
+        return response.text();
+      } else {
+        throw new Error("사용자 ID를 가져올 수 없었습니다.");
+      }
+    });
+}
 
 // 처음 렌더링 될 때, 또는 냉장고 정보 바꾸는 화살표 prev(◀)든 next(▶)든 눌리면 실행될 함수
 function updateFrg(i) {
@@ -104,14 +123,14 @@ function updateFrg(i) {
 function prevFrg() {
 	// 이전 냉장고 보는 화살표 버튼 누르면
 	
-	// 지금 냉장고가 맨 처름 냉장고 아니지? 맨 처음 거 아니면 아래 로직 실행해줘.
+	// 지금 냉장고가 맨 처음 냉장고 아니지? 맨 처음 거 아니면 아래 로직 실행해줘.
 	if (currentIndex > 0) {
 
 		// 앞 일련번호로 냉장고 정보 바꿔줘
 		currentIndex--;
 		updateFrg(currentIndex);
 		
-		// 모든 냉장고 정보 수정될 수 있게 read-only 해제 돼있으면 
+		// 모든 냉장고 정보 수정될 수 있게 read-only 해제 돼 있으면 
  		if (!(frgName[1].disabled && hRadio.disabled && vRadio.disabled && sRadio.disabled && aFrozenBtn.disabled && aCoolBtn.disabled && bFrozenBtn.disabled && bCoolBtn.disabled)) {
  		
  			// 해제된 정보들 칸 다시 read-only로 만들어줘.
@@ -164,17 +183,132 @@ function nextFrg() {
   }
 }
 
+// 신호등 기준 값 보여주기, 화면 처음 렌더링 될 때
+function trfStandardShow() {
+
+	let dangerStandard = trfStandard[0].dangerous_standard;
+	let warnStandard = trfStandard[0].warning_standard;
+	
+	if(dangerStandard >= 0) {
+		dangerousStandard.value = dangerStandard
+		dangerousSpan.textContent= "일 지남";
+	} else {
+		dangerStandard = Math.abs(dangerStandard);
+		dangerousStandard.value = dangerStandard;
+		dangerousSpan.textContent= "일 남음";
+	}
+	
+	if(warnStandard >= 0) {
+		warningStandard.value = warnStandard;
+		warningSpan.textContent = "일 지남";
+	} else {
+		warnStandard = Math.abs(warnStandard);
+		warningStandard.value = warnStandard;
+		warningSpan.textContent = "일 남음"
+	}
+}
+
 function trfStandardBtnClicked() {
 	// 신호등 기준 수정하기 버튼(펜 모양 아이콘) 클릭하면
 	
 		// 수정하기 버튼(펜 모양 아이콘) 숨기기
+		trfChangeBtn.style.display = "none";
 		
 		// 두 개의 세로 기준선 아래로 안내 문구 등장
 		// (작성하는 숫자는 D-Day 개념입니다. D-10은 유통기한 10일 남음 => -10 작성)
 		// (반드시 왼쪽(dangerous) 숫자가 오른쪽(warning) 숫자보다 큰 정수여야 합니다.)
+		const announcement = document.getElementById("announcement");
+		let mention = "작성 예시1) -10: 유통/소비기한 10일 남음\n작성 예시2) +5: 유통/소비기한 5일 지남\n★ 왼쪽 숫자(위험 판단 기준)가 오른쪽 숫자(경고 판단 기준)보다 커야 합니다."
+		const announce = document.createElement('pre'); // pre: 사전에 서식이 지정된(preformatted) 텍스트 태그를 말함. 
 		
-		// 기준 값이 나와있는 부분 innerText 초기화 + input 태그 비활성화 해제
+		announce.textContent = mention;
+		
+		announce.style.color = "red";
+		announce.style.fontSize = "60%";
+		announce.style.margin = 0;
+		announce.style.position = "absolute";
+		announce.style.top = "43%";
+		announce.style.margin = "0 3%";
+		
+		announcement.appendChild(announce);
+		
+		// input 태그들의 위치, 너비 일시적인 조정
+		standardWrapper.style.width = "80%";
+		standardWrapper.style.marginLeft = "10%";
+		
+		// 위험 기준 input 태그 조작
+		dangerousStandard.value = "";
+		dangerousStandard.disabled = false;
+		dangerousStandard.style.borderStyle = "dashed";
+		dangerousStandard.style.borderWidth = "1px";
+		dangerousStandard.style.borderColor = "#c9bc9c";
+		
+		// 위험 기준 input 태그 옆 "일 지남", "일 남음" 부분 글씨 일시적 삭제
+		dangerousSpan.textContent = "";
+		
+		// 경고 기준 input 태그 조작
+		warningStandard.value = "";
+		warningStandard.disabled = false;
+		warningStandard.style.borderStyle = "dashed";
+		warningStandard.style.borderWidth = "1px";
+		warningStandard.style.borderColor = "#c9bc9c";
+		
+		// 경고 기준 input 태그 옆 "일 지남", "일 남음" 부분 글씨 일시적 삭제
+		warningSpan.textContent = "";
+}
 
+function trfCorrectionEnd() {
+	// 신호등 내용 수정 완료 버튼 클릭하면
+	
+	// jsp에서 값 가져와서 data라는 변수의 JSON 형태로 저장
+	var data = {
+		"dangerous": parseInt(dangerousStandard.value, 10),
+		"warning": parseInt(warningStandard.value, 10)
+	}
+	// ajax로 값을 서버로 넘겨 수정 및 저장됨
+	$.ajax ({
+		type: "POST",
+		url: `${contextPath}/frg/trfStandardChange`, 
+		contentType: "application/json",
+		data: JSON.stringify(data),
+		dataType: "json",
+		success: function(response) {
+			alert('냉장고 식품 보관 관리 기준이 변경되었습니다.');
+			console.log(data);
+		},
+		error: function(err) {
+			alert('냉장고 식품 보관 관리 기준 변경에 실패했습니다.');
+			if (err.status === 404) {
+		    	alert("요청한 페이지를 찾을 수 없습니다.");
+		    } else if (err.status === 500) {
+		    	alert("서버 내부 오류가 발생했습니다.");
+		    } else {
+		    	alert("error - " + err);
+		    }
+		}
+	});
+	// 기준 input 칸 다시 read-only로
+	dangerousStandard.disabled = true;
+	warningStandard.disabled = true;
+	
+	// input 태그들 위치, 너비, 스타일 원상복귀
+	standardWrapper.style.width = "86%";
+	standardWrapper.style.marginLeft = "16%";
+	
+	dangerousStandard.style.borderStyle = "solid";
+	dangerousStandard.style.borderWidth = "0px";
+	dangerousStandard.style.borderColor = "transparent";
+	
+	warningStandard.style.borderStyle = "solid";
+	warningStandard.style.borderWidth = "0px";
+	warningStandard.style.borderColor = "transparent";
+	
+	// "일 지남", "일 남음" 부분 글씨 재등장
+	trfStandardShow();
+	
+	// 숨겨졌던 수정하기 버튼 등장
+	trfChangeBtn.style.display = "flex";
+	
 }
 
 function frgInfoChangeBtnClicked() {

@@ -18,18 +18,10 @@
 
 	<select id="selectTrafficStandard" resultType="com.frg.domain.TrafficDTO">
     <![CDATA[
-        SELECT
-            CASE
-                WHEN t.dangerous <= 0 THEN CONCAT(ABS(t.dangerous), '일 남음')
-                ELSE CONCAT(ABS(t.dangerous), '일 지남')
-            END AS dangerous_standard,
-            CASE
-                WHEN t.warning <= 0 THEN CONCAT(ABS(t.warning), '일 남음')
-                ELSE CONCAT(ABS(t.warning), '일 지남')
-            END AS warning_standard
-        FROM traffic t
-        INNER JOIN users u ON t.user_index = u.user_index
-        WHERE u.user_id = #{user_id}
+        SELECT t.dangerous AS dangerous_standard, t.warning AS warning_standard
+		FROM traffic t
+		JOIN users u ON t.user_index = u.user_index
+		WHERE u.user_id = #{user_id}
     ]]>
 	</select>
 	

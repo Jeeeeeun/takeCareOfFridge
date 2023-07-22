@@ -73,7 +73,7 @@ public class FrgListController {
 	@ResponseBody
 	public ResponseEntity<List<ResponseDTO>> registerFrgList(@RequestBody List<FrgListDTO> list) {
 		log.info("냉장고 등록");
-		log.info("frgAdd");
+		log.info("frgAdd_form");
 		log.info(list);
 
 		List<ResponseDTO> responses = new ArrayList<>();

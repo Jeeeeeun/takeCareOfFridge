@@ -6,43 +6,34 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>myPage</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon"
-	href="${ pageContext.servletContext.contextPath }/resources/img/vFrg.svg" />
+<link rel="icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/resources/img/vFrg.svg" />
 <!-- Bootstrap Icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Google fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
-	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
 <!-- SimpleLightbox plugin CSS-->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
-	rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
 	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
+	const trfStandard = <c:out value="${trfStandardJson}" escapeXml="false"/>;
 </script>
-<script
-	src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
 </head>
 <body>
 	<header class="masthead">
@@ -139,25 +130,36 @@
 					<div class="standardLine1"></div>
 					<div class="standardLine2"></div>
 				</div>
-				<form action="${ pageContext.servletContext.contextPath }/frg/trfStandardChange" method="post" id="standardDate">
-					<div class="dangerous-standard">
-						<span>${ trfStandard[0].dangerous_standard }</span>
+				<form
+					action="${pageContext.servletContext.contextPath}/frg/trfStandardChange"
+					method="post" id="standardDate">
+					<div id="standards-wrapper">
+						<div class="dangerous-standard">
+							<input type="number" id="dangerousStandard" disabled /><span id="dangerousSpan"></span>
+						</div>
+						<div class="warning-standard">
+							<input type="number" id="warningStandard" disabled /><span id="warningSpan"></span>
+						</div>
+						<button type="button" id="standardChange">
+							<i class="fa-solid fa-pen-to-square"
+								onclick="trfStandardBtnClicked()"></i>
+						</button>
 					</div>
-					<div class="warning-standard">
-						<span>${ trfStandard[0].warning_standard }</span>
+					<div>
+						<button type="button" id="trfCorrectionEndBtn"
+							onclick="trfCorrectionEnd()">수정 완료</button>
 					</div>
-					<button type="button" id="standardChange">
-						<i class="fa-solid fa-pen-to-square" onclick="trfStandardBtnClicked()"></i>
-					</button>
-					<!-- 수정 완료 버튼 만들어야 함 -->
 				</form>
+				<div id="announcement"></div>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
 				<div id="frgInfoChangeBtns">
 					<button type="button" id="frgInfoChange">
-						<i class="fa-solid fa-pen-to-square" onclick="frgInfoChangeBtnClicked()"></i>
+						<i class="fa-solid fa-pen-to-square"
+							onclick="frgInfoChangeBtnClicked()"></i>
 					</button>
-					<button type="button" id="frgInfoChange" onclick="frgDiscardBtnClicked()">
+					<button type="button" id="frgInfoChange"
+						onclick="frgDiscardBtnClicked()">
 						<i class="fa-solid fa-trash"></i>
 					</button>
 				</div>
@@ -176,7 +178,9 @@
 							</button>
 						</div>
 					</div>
-					<form action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange" method="post" id="frgInfoRight">
+					<form
+						action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange"
+						method="post" id="frgInfoRight">
 						<div class="fridgeName">
 							냉장고 이름
 							<div class="fridgeNameVerticalLine"></div>
@@ -195,16 +199,21 @@
 						</div>
 						<div id="myFrgAstate">
 							<div id="fridgeAtitleBox">A칸 상태</div>
-							<button type="button" id="frgAfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
-							<button type="button" id="frgAcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
+							<button type="button" id="frgAfrozenBtn" value="frozen"
+								onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgAcoolBtn" value="cool"
+								onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
 						<div id="myFrgBstate">
 							<div id="fridgeBtitleBox">B칸 상태</div>
-							<button type="button" id="frgBfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
-							<button type="button" id="frgBcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
+							<button type="button" id="frgBfrozenBtn" value="frozen"
+								onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgBcoolBtn" value="cool"
+								onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
 						<div>
-							<button type="button" id="frgInfoCorrectionEndBtn" onclick="frgCorrectionEnd()">수정 완료</button>
+							<button type="button" id="frgInfoCorrectionEndBtn"
+								onclick="frgCorrectionEnd()">수정 완료</button>
 						</div>
 					</form>
 				</div>
