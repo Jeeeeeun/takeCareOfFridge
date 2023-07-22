@@ -64,10 +64,25 @@ public class MyPageController {
 		return "/frg/myPage";
 	}
 	
-	@PostMapping(value="/frgInfoChange")
-	public String modifyFrgList() {
-		// 냉장고 정보 수정 된 거 받아와서 DB에 반영하기
-		return "";
+	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> modifyFrgList(@RequestBody FrgListDTO frgDto) {
+		ResponseDTO response = frgService.modifyFrgList(frgDto);
+		
+		boolean success = true;
+		
+		if (response.getAffectedRow() <= 0) {
+			success = false;
+		}
+		
+		// 냉장고 정보 수정 성공
+		if (success) {
+			return ResponseEntity.ok(response);
+		}
+		// 냉장고 정보 수정 실패
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 	}
 	
 	@PostMapping(value="/trfStandardChange", consumes = { MediaType.APPLICATION_JSON_VALUE })

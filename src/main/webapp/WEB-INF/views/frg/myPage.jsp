@@ -181,6 +181,7 @@
 					<form
 						action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange"
 						method="post" id="frgInfoRight">
+						<input type="hidden" id="frg_index" /> <!-- 서버로 값을 넘기기 위해 값을 가져오기는 하지만 화면에는 필요치 않아서 숨겨놓은 데이터 -->
 						<div class="fridgeName">
 							냉장고 이름
 							<div class="fridgeNameVerticalLine"></div>
@@ -189,12 +190,12 @@
 						<div class="frg_shape">
 							<b>냉장고 모양</b>
 							<div class="radio_group">
-								<input type="radio" name="frg_shape" id="hRadio" value="H"
-									disabled /> <label for="hRadio">가로형</label> <input
-									type="radio" name="frg_shape" id="vRadio" value="V" disabled />
-								<label for="vRadio">세로형</label> <input type="radio"
-									name="frg_shape" id="sRadio" value="S" disabled /> <label
-									for="sRadio">단일형</label>
+								<input type="radio" name="frg_shape" id="hRadio" value="H" onclick="radioBtnClicked(event)" disabled />
+								<label for="hRadio">가로형</label>
+								<input type="radio" name="frg_shape" id="vRadio" value="V" onclick="radioBtnClicked(event)" disabled />
+								<label for="vRadio">세로형</label>
+								<input type="radio" name="frg_shape" id="sRadio" value="S" onclick="radioBtnClicked(event)" disabled />
+								<label for="sRadio">단일형</label>
 							</div>
 						</div>
 						<div id="myFrgAstate">

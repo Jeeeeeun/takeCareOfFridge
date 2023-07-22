@@ -647,6 +647,8 @@
 	/* 신호등 기준 수정 아이콘, 냉장고 정보 수정 아이콘, 냉장고 정보 삭제 아이콘 */
 	background-color: transparent;
 	border: 1px solid transparent;
+	display: flex;
+	align-items: center;
 	color: #604c3f;
 	z-index: 3;
 }
@@ -679,7 +681,7 @@
 
 #frgInfoChangeBtns {
 	/* 냉장고 정보 수정 아이콘 */
-	top: -12%;
+	top: -11%;
 	color: #604c3f;
 	position: relative;
 	display: flex;
@@ -770,6 +772,7 @@
 }
 
 #frgNameAndBtns>.frg_name {
+	/* 냉장고 정보 - 냉장고 그림 밑 이름 */
 	margin: 0;
 	font-size: 90%;
 }
@@ -808,6 +811,7 @@
 }
 
 .fridgeName>.frg_name {
+	/* 냉장고 정보 - 오른쪽 냉장고 이름 input 칸 */
 	position: absolute;
 	left: 43%;
 	width: 55%;
@@ -821,9 +825,16 @@
 }
 
 .fridgeName>.frg_name:disabled {
+	/* 냉장고 정보 - 오른쪽 냉장고 이름 input 칸 비활성화 되어 있을 때 */
 	background-color: transparent;
 	border: none;
 }
+
+.fridgeName>.frg_name:focus {
+  outline: none;
+  border-bottom: 2px solid #604c3f;
+}
+
 
 #frgInfoRight>.frg_shape {
 	display: flex;
