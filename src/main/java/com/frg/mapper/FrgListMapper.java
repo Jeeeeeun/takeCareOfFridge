@@ -8,4 +8,8 @@ public interface FrgListMapper {
 	int insertFrgList(FrgListDTO dto);
 	
 	List<FrgListDTO> selectFrgList(FrgListDTO dto);
+	
+	int updateFrgList(FrgListDTO dto);
+	
+	int deleteFrgList(FrgListDTO dto);
 }

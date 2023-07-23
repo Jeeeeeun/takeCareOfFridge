@@ -50,3 +50,7 @@ sql/foodDB_Board.sql
 sql/foodDB_Files.sql
 sql/foodDB_Comments.sql
 sql/foodDB_foodDB_for test.sql
+
+# 기타
+META-INF/MANIFEST.MF
+build.properties

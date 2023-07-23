@@ -37,9 +37,13 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
-	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
+	let frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
+	const trfStandard = <c:out value="${trfStandardJson}" escapeXml="false"/>;
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
@@ -72,6 +76,20 @@
 				</div>
 			</div>
 		</nav>
+		<div id="customAlert" class="hidden">
+			<div class="alert-content">
+				<p id="alertContent">알림창!</p>
+			</div>
+		</div>
+		<div id="customConfirm" class="hidden">
+			<div class="confirm-content">
+				<p id="confirmContent">컨펌창!</p>
+				<div class="confirmBtns">
+					<button id="confirmYesBtn" class="btn btn-primary">Yes</button>
+					<button id="confirmNoBtn" class="btn btn-secondary">No</button>
+				</div>
+			</div>
+		</div>
 		<div>
 			<div class="myPageTitleBox1">가입 정보 확인</div>
 			<div class="myPageContentBox1">
@@ -139,25 +157,38 @@
 					<div class="standardLine1"></div>
 					<div class="standardLine2"></div>
 				</div>
-				<form action="${ pageContext.servletContext.contextPath }/frg/trfStandardChange" method="post" id="standardDate">
-					<div class="dangerous-standard">
-						<span>${ trfStandard[0].dangerous_standard }</span>
+				<form
+					action="${pageContext.servletContext.contextPath}/frg/trfStandardChange"
+					method="post" id="standardDate">
+					<div id="standards-wrapper">
+						<div class="dangerous-standard">
+							<input type="number" id="dangerousStandard" disabled /><span
+								id="dangerousSpan"></span>
+						</div>
+						<div class="warning-standard">
+							<input type="number" id="warningStandard" disabled /><span
+								id="warningSpan"></span>
+						</div>
+						<button type="button" id="standardChange">
+							<i class="fa-solid fa-pen-to-square"
+								onclick="trfStandardBtnClicked()"></i>
+						</button>
 					</div>
-					<div class="warning-standard">
-						<span>${ trfStandard[0].warning_standard }</span>
+					<div>
+						<button type="button" id="trfCorrectionEndBtn"
+							onclick="trfCorrectionEnd()">수정 완료</button>
 					</div>
-					<button type="button" id="standardChange">
-						<i class="fa-solid fa-pen-to-square" onclick="trfStandardBtnClicked()"></i>
-					</button>
-					<!-- 수정 완료 버튼 만들어야 함 -->
 				</form>
+				<div id="announcement"></div>
 				<hr class="myFridgeHorizonLine1">
 				<div class="fridgeInfoTitleBox">냉장고 정보</div>
 				<div id="frgInfoChangeBtns">
 					<button type="button" id="frgInfoChange">
-						<i class="fa-solid fa-pen-to-square" onclick="frgInfoChangeBtnClicked()"></i>
+						<i class="fa-solid fa-pen-to-square"
+							onclick="frgInfoChangeBtnClicked()"></i>
 					</button>
-					<button type="button" id="frgInfoChange" onclick="frgDiscardBtnClicked()">
+					<button type="button" id="frgInfoChange"
+						onclick="frgDiscardBtnClicked()">
 						<i class="fa-solid fa-trash"></i>
 					</button>
 				</div>
@@ -176,7 +207,11 @@
 							</button>
 						</div>
 					</div>
-					<form action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange" method="post" id="frgInfoRight">
+					<form
+						action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange"
+						method="post" id="frgInfoRight">
+						<input type="hidden" id="frg_index" />
+						<!-- 서버로 값을 넘기기 위해 값을 가져오기는 하지만 화면에는 필요치 않아서 숨겨놓은 데이터 -->
 						<div class="fridgeName">
 							냉장고 이름
 							<div class="fridgeNameVerticalLine"></div>
@@ -186,25 +221,32 @@
 							<b>냉장고 모양</b>
 							<div class="radio_group">
 								<input type="radio" name="frg_shape" id="hRadio" value="H"
-									disabled /> <label for="hRadio">가로형</label> <input
-									type="radio" name="frg_shape" id="vRadio" value="V" disabled />
+									onclick="radioBtnClicked(event)" disabled /> <label
+									for="hRadio">가로형</label> <input type="radio" name="frg_shape"
+									id="vRadio" value="V" onclick="radioBtnClicked(event)" disabled />
 								<label for="vRadio">세로형</label> <input type="radio"
-									name="frg_shape" id="sRadio" value="S" disabled /> <label
+									name="frg_shape" id="sRadio" value="S"
+									onclick="radioBtnClicked(event)" disabled /> <label
 									for="sRadio">단일형</label>
 							</div>
 						</div>
 						<div id="myFrgAstate">
 							<div id="fridgeAtitleBox">A칸 상태</div>
-							<button type="button" id="frgAfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
-							<button type="button" id="frgAcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
+							<button type="button" id="frgAfrozenBtn" value="frozen"
+								onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgAcoolBtn" value="cool"
+								onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
 						<div id="myFrgBstate">
 							<div id="fridgeBtitleBox">B칸 상태</div>
-							<button type="button" id="frgBfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>냉동</button>
-							<button type="button" id="frgBcoolBtn" value="cool" onclick="frgStateBtnClicked(event)" disabled>냉장</button>
+							<button type="button" id="frgBfrozenBtn" value="frozen"
+								onclick="frgStateBtnClicked(event)" disabled>냉동</button>
+							<button type="button" id="frgBcoolBtn" value="cool"
+								onclick="frgStateBtnClicked(event)" disabled>냉장</button>
 						</div>
 						<div>
-							<button type="button" id="frgInfoCorrectionEndBtn" onclick="frgCorrectionEnd()">수정 완료</button>
+							<button type="button" id="frgInfoCorrectionEndBtn"
+								onclick="frgCorrectionEnd()">수정 완료</button>
 						</div>
 					</form>
 				</div>

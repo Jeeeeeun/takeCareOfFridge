@@ -37,7 +37,7 @@ public class TrafficMapperTest {
 		assertNotNull(trfResult);
 	}
 	
-	@Test @Ignore
+	@Test
 	public void testSelectTrafficStandard() {
 		TrafficDTO dto = new TrafficDTO();
 		
@@ -50,7 +50,7 @@ public class TrafficMapperTest {
 		assertNotNull(trfStandard);
 	}
 
-	@Test
+	@Test @Ignore
 	public void testUpdateTrafficStandard() {
 		
 		int expect = 1;
