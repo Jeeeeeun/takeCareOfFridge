@@ -5,35 +5,87 @@
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
 	<insert id="insertInnerAuto">
-		INSERT INTO inner (user_index, frg_index, in_name, in_count, in_expireDate_auto, in_expireDate_custom, in_company, in_type, in_state)
-		SELECT (SELECT user_index FROM Users WHERE user_id =#{user_id})),
-		(SELECT frg_index FROM frgList WHERE frg_name = #{frg_name})),
+		INSERT INTO inner (
+		frg_index,
+		in_name,
+		in_count,
+		in_expireDate_auto,
+		in_expireDate_custom,
+		in_company,
+		in_type,
+		in_state
+		)
+		SELECT
+		(SELECT frg_index FROM FrgList f, Users u WHERE
+		u.user_id=#{user_id} AND
+		f.frg_name =#{frg_name}),
 		api_name,
 		#{in_count},
 		api_expireDate,
 		#{in_expireDate_custom},
 		api_company,
 		api_type,
-		#{in_state} 
+		#{in_state}
 		FROM foodAPI
-		WHERE api_fno = #{api_fno} 
+		WHERE api_fno = 2009039717826
 	</insert>
 
 	<insert id="insertInnerCustom">
-		INSERT INTO Inner (user_index, frg_index, in_name, in_count, in_expireDate_custom, in_type, in_state)
-		VALUES ((SELECT user_index FROM Users WHERE user_id = #{user_id}),
-        (SELECT frg_index FROM frgList WHERE frg_name = #{frg_name}),
-        #{in_name},
-        #{in_count},
-        #{in_expireDate_custom},
-        #{in_type},
-        #{in_state}
-        )
+		INSERT INTO Inner (
+		frg_index,
+		in_name,
+		in_count,
+		in_expireDate_custom,
+		in_type,
+		in_state
+		)
+		VALUES (
+		(SELECT frg_index FROM
+		FrgList f, Users u WHERE u.user_id=#{user_id} AND
+		f.frg_name =
+		#{frg_name}),
+		#{in_name},
+		#{in_count},
+		#{in_expireDate_custom},
+		#{in_type},
+		#{in_state}
+		)
 	</insert>
-	
-	<select id="selectFrgName" resultType="String">
-		SELECT distinct frg_name FROM frgList WHERE user_index IN
-        (SELECT user_index FROM Users WHERE user_id = #{user_id})
+
+	<select id="selectFrgName" resultType="string">
+		SELECT f.frg_name
+		FROM FrgList f
+		INNER JOIN users u ON f.user_index = u.user_index
+		WHERE u.user_id = #{user_id}
+	</select>
+
+	<select id="selectAllInnerView"
+		resultType="com.frg.domain.InnerDTO">
+		SELECT i.in_name,
+		i.in_expireDate_custom, i.D_DAY, i.in_state
+		FROM
+		Users u
+		INNER JOIN Inner_View i ON u.user_index = i.user_index
+		WHERE
+		u.user_id =
+		#{user_id}
+	</select>
+
+	<select id="selectPartInnerView"
+		resultType="com.frg.domain.InnerDTO">
+		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY, i.in_state
+		FROM Users
+		u
+		INNER JOIN Inner_View i ON u.user_index = i.user_index
+		WHERE u.user_id
+		= #{user_id}
+		AND i.frg_index IN (SELECT f.frg_index FROM frgList f
+		WHERE f.frg_name =
+		#{frg_name})
+	</select>
+
+	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
+		SELECT * FROM foodAPI WHERE api_name=#{api_name}
 	</select>
 
 </mapper>

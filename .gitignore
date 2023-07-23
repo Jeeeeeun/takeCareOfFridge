@@ -1,6 +1,7 @@
 # Compiled class files
 /target/
 /build/
+/bin/
 
 # IDE files
 .classpath
@@ -36,5 +37,16 @@ application-local.yml
 # Windows files
 Thumbs.db
 
-#sql file
+#sql files
+/sql/
 foodDB.sql
+sql/foodDB.sql
+sql/foodDB_FoodAPI.sql
+sql/foodDB_Users.sql
+sql/foodDB_FrgList.sql
+sql/foodDB_Inner.sql
+sql/foodDB_Traffic.sql
+sql/foodDB_Board.sql
+sql/foodDB_Files.sql
+sql/foodDB_Comments.sql
+sql/foodDB_foodDB_for test.sql

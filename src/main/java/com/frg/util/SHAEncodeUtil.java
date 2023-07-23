@@ -28,4 +28,7 @@ public class SHAEncodeUtil {
 		return encodingText;
 	}
 	
+	public static void main(String[] args) {
+		System.out.println(encodeSha("123"));
+	}
 }

@@ -1,14 +1,11 @@
 package com.frg.domain;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class InnerViewDTO {
-
+public class ResponseDTO {
+	private int affectedRow;
+	private String resMsg;
 }

@@ -23,6 +23,6 @@ public class InnerDTO {
 	private String in_type;
 	private String in_state;
 	private String api_fno;
-	private int d_day;
+	private int D_DAY;
 
 }

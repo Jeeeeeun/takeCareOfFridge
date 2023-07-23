@@ -9,7 +9,6 @@ import lombok.ToString;
 @ToString
 public class FrgListDTO {
 	private String user_id;
-	//private int user_index;
 	private int frg_index;
 	private String frg_name;
 	private String frg_shape;

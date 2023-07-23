@@ -2,21 +2,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.frg.mapper.FrgListMapper">
-  	<insert id="insertFrgList">
-  		INSERT INTO FrgList (
-  								user_index
-  								, frg_name
-  								, frg_shape
-  								, frg_Astate
-  								, frg_Bstate
-  							)
-  					VALUES (
-  								(SELECT user_index FROM users WHERE user_id = #{ user_id })
-  								, #{ frg_name }
-  								, #{ frg_shape }
-  								, #{ frg_Astate }
-  								, #{ frg_Bstate }
-  							)
-  	</insert>
-  </mapper>
+<mapper namespace="com.frg.mapper.FrgListMapper">
+	<insert id="insertFrgList">
+		INSERT INTO FrgList (
+		user_index
+		, frg_name
+		, frg_shape
+		, frg_Astate
+		, frg_Bstate
+		)
+		VALUES (
+		(SELECT user_index FROM users WHERE
+		user_id = #{ user_id })
+		, #{ frg_name }
+		, #{ frg_shape }
+		, #{ frg_Astate
+		}
+		, #{ frg_Bstate, jdbcType=VARCHAR }
+		)
+	</insert>
+
+	<select id="selectFrgList" resultType="com.frg.domain.FrgListDTO">
+		SELECT f.frg_name, f.frg_shape, f.frg_Astate, f.frg_Bstate
+		FROM FrgList f
+		JOIN Users u ON f.user_index = u.user_index
+		WHERE f.user_index = (
+		    SELECT u.user_index
+		    FROM Users u
+		    WHERE u.user_id = #{ user_id }
+		)
+	</select>
+</mapper>

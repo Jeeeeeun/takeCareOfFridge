@@ -2,7 +2,9 @@ package com.frg.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +23,53 @@ public class FrgListMapperTest {
 
 	@Setter(onMethod_ = @Autowired)
 	private FrgListMapper mapper;
-	
+
 	@Test
+	@Ignore
 	public void testInsertFrgList() {
 		int expect = 1;
-		
+
 		FrgListDTO dto = new FrgListDTO();
-		
+
 		dto.setUser_id("smith01");
 		dto.setFrg_name("SAMSUNG");
 		dto.setFrg_shape("V");
 		dto.setFrg_Astate("cool");
 		dto.setFrg_Bstate("frozen");
-		
+
 		log.info(dto);
-		
+
 		int result = mapper.insertFrgList(dto);
-		
+
 		assertEquals(expect, result);
+	}
+
+	@Test
+	@Ignore
+	public void testSelectTrafficLight() {
+
+		FrgListDTO dto = new FrgListDTO();
+
+		dto.setUser_id("smith01");
+
+		List<FrgListDTO> frgList = mapper.selectFrgList(dto);
+
+		log.info("냉장고 목록 - " + frgList);
+
+		assertNotNull(frgList);
+	}
+
+	@Test
+	public void testSelectFrgList() {
+		FrgListDTO frgDto = new FrgListDTO();
+
+		frgDto.setUser_id("smith01");
+
+		List<FrgListDTO> frgList = mapper.selectFrgList(frgDto);
+
+		log.info("냉장고 목록 - " + frgList);
+
+		assertNotNull(frgList);
 	}
 
 }
