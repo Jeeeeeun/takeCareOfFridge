@@ -85,8 +85,8 @@
 			<div class="confirm-content">
 				<p id="confirmContent">컨펌창!</p>
 				<div class="confirmBtns">
-					<button id="confirmYesBtn">Yes</button>
-					<button id="confirmNoBtn">No</button>
+					<button id="confirmYesBtn" class="btn btn-primary">Yes</button>
+					<button id="confirmNoBtn" class="btn btn-secondary">No</button>
 				</div>
 			</div>
 		</div>
