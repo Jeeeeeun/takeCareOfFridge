@@ -70,4 +70,26 @@ public class FrgListServiceImpl implements FrgListService {
 		return response;
 	}
 
+	@Override
+	public ResponseDTO removeFrgList(FrgListDTO dto) {
+		
+		ResponseDTO response = new ResponseDTO();
+		
+		int affectedRow = mapper.deleteFrgList(dto);
+		
+		response.setAffectedRow(affectedRow);
+		
+		String resMsg = null;
+		
+		if (affectedRow == 1) {
+			resMsg = "냉장고가 삭제되었습니다.";
+		} else {
+			resMsg = "냉장고 삭제에 실패했습니다.";
+		}
+		
+		response.setResMsg(resMsg);
+		
+		return response;
+	}
+
 }

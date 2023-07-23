@@ -11,4 +11,6 @@ public interface FrgListService {
 	List<FrgListDTO> getFrgList(FrgListDTO dto);
 
 	ResponseDTO modifyFrgList(FrgListDTO dto);
+	
+	ResponseDTO removeFrgList(FrgListDTO dto);
 }

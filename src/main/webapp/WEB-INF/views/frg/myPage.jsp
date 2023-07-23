@@ -6,34 +6,47 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>myPage</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/resources/img/vFrg.svg" />
+<link rel="icon" type="image/x-icon"
+	href="${ pageContext.servletContext.contextPath }/resources/img/vFrg.svg" />
 <!-- Bootstrap Icons-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
 <!-- Google fonts-->
-<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+	rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+	rel="stylesheet" type="text/css" />
 <!-- SimpleLightbox plugin CSS-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
+	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
+<link rel="stylesheet"
+	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
 	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
-	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
+	let frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
 	const trfStandard = <c:out value="${trfStandardJson}" escapeXml="false"/>;
 </script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
 </head>
 <body>
 	<header class="masthead">
@@ -63,6 +76,20 @@
 				</div>
 			</div>
 		</nav>
+		<div id="customAlert" class="hidden">
+			<div class="alert-content">
+				<p id="alertContent">알림창!</p>
+			</div>
+		</div>
+		<div id="customConfirm" class="hidden">
+			<div class="confirm-content">
+				<p id="confirmContent">컨펌창!</p>
+				<div class="confirmBtns">
+					<button id="confirmYesBtn">Yes</button>
+					<button id="confirmNoBtn">No</button>
+				</div>
+			</div>
+		</div>
 		<div>
 			<div class="myPageTitleBox1">가입 정보 확인</div>
 			<div class="myPageContentBox1">
@@ -135,10 +162,12 @@
 					method="post" id="standardDate">
 					<div id="standards-wrapper">
 						<div class="dangerous-standard">
-							<input type="number" id="dangerousStandard" disabled /><span id="dangerousSpan"></span>
+							<input type="number" id="dangerousStandard" disabled /><span
+								id="dangerousSpan"></span>
 						</div>
 						<div class="warning-standard">
-							<input type="number" id="warningStandard" disabled /><span id="warningSpan"></span>
+							<input type="number" id="warningStandard" disabled /><span
+								id="warningSpan"></span>
 						</div>
 						<button type="button" id="standardChange">
 							<i class="fa-solid fa-pen-to-square"
@@ -181,7 +210,8 @@
 					<form
 						action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange"
 						method="post" id="frgInfoRight">
-						<input type="hidden" id="frg_index" /> <!-- 서버로 값을 넘기기 위해 값을 가져오기는 하지만 화면에는 필요치 않아서 숨겨놓은 데이터 -->
+						<input type="hidden" id="frg_index" />
+						<!-- 서버로 값을 넘기기 위해 값을 가져오기는 하지만 화면에는 필요치 않아서 숨겨놓은 데이터 -->
 						<div class="fridgeName">
 							냉장고 이름
 							<div class="fridgeNameVerticalLine"></div>
@@ -190,12 +220,14 @@
 						<div class="frg_shape">
 							<b>냉장고 모양</b>
 							<div class="radio_group">
-								<input type="radio" name="frg_shape" id="hRadio" value="H" onclick="radioBtnClicked(event)" disabled />
-								<label for="hRadio">가로형</label>
-								<input type="radio" name="frg_shape" id="vRadio" value="V" onclick="radioBtnClicked(event)" disabled />
-								<label for="vRadio">세로형</label>
-								<input type="radio" name="frg_shape" id="sRadio" value="S" onclick="radioBtnClicked(event)" disabled />
-								<label for="sRadio">단일형</label>
+								<input type="radio" name="frg_shape" id="hRadio" value="H"
+									onclick="radioBtnClicked(event)" disabled /> <label
+									for="hRadio">가로형</label> <input type="radio" name="frg_shape"
+									id="vRadio" value="V" onclick="radioBtnClicked(event)" disabled />
+								<label for="vRadio">세로형</label> <input type="radio"
+									name="frg_shape" id="sRadio" value="S"
+									onclick="radioBtnClicked(event)" disabled /> <label
+									for="sRadio">단일형</label>
 							</div>
 						</div>
 						<div id="myFrgAstate">

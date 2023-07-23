@@ -67,6 +67,7 @@ public class MyPageController {
 	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<ResponseDTO> modifyFrgList(@RequestBody FrgListDTO frgDto) {
+		
 		ResponseDTO response = frgService.modifyFrgList(frgDto);
 		
 		boolean success = true;
@@ -85,10 +86,31 @@ public class MyPageController {
 		}
 	}
 	
+	@PostMapping("/removeFrgList")
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> removeFrgList(@RequestBody FrgListDTO frgDto) {
+		
+		ResponseDTO response = frgService.removeFrgList(frgDto);
+		
+		boolean success = true;
+
+		if (response.getAffectedRow() <= 0) {
+			success = false;
+		}
+		
+		// 냉장고 삭제 성공
+		if (success) {
+			return ResponseEntity.ok(response);
+		}
+		// 냉장고 삭제 실패
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+	
 	@PostMapping(value="/trfStandardChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<ResponseDTO> modifyTrfStandard(@RequestBody TrafficDTO trfDto) {
-		// 신호등 기준 수정된 거 받아와서 DB에 반영하기
 				
 		ResponseDTO response = trfService.modifyTrafficStandard(trfDto);
 		

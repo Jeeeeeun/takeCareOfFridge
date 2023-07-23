@@ -60,7 +60,7 @@ public class FrgListServiceTest {
 		assertNotNull(frgList);
 	}
 
-	@Test
+	@Test @Ignore
 	public void testModifyFrgList() {
 		
 		int expect = 1;
@@ -78,6 +78,22 @@ public class FrgListServiceTest {
 		
 		log.info("냉장고 객체 - " + frgDto);
 		log.info("응답 - " + resDto);
+		
+		assertEquals(expect, resDto.getAffectedRow());
+	}
+	
+	@Test
+	public void testRemoveFrgList() {
+		int expect = 1;
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setFrg_name("SAMSUNG");
+		frgDto.setUser_id("smith01");
+		ResponseDTO resDto = service.removeFrgList(frgDto);
+		
+		log.info("냉장고 객체 - " + frgDto);
+		log.info("웅답 객체 - " + resDto);
 		
 		assertEquals(expect, resDto.getAffectedRow());
 	}

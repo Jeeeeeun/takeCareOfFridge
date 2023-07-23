@@ -43,4 +43,18 @@
 		WHERE user_index = (SELECT user_index FROM Users WHERE user_id = #{user_id})
 		AND frg_index = #{frg_index}
 	</update>
+	
+	<delete id="deleteFrgList">
+		DELETE FROM FrgList
+		WHERE frg_index = (
+		    SELECT frg_index
+		    FROM FrgList
+		    WHERE frg_name = #{frg_name}
+		) 
+		AND user_index = (
+		    SELECT user_index
+		    FROM Users
+		    WHERE user_id = #{user_id}
+		)
+	</delete>
 </mapper>

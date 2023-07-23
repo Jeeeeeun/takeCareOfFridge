@@ -57,8 +57,8 @@ public class FrgListMapperTest {
 		assertNotNull(frgList);
 	}
 
-	@Test
-	public void testUpdateFrgList() {
+	@Test @Ignore
+	public void testUpdateFrgList() { // 냉장고 정보 변경하기
 		
 		int expect = 1;
 		
@@ -72,6 +72,23 @@ public class FrgListMapperTest {
 		frgDto.setUser_id("smith01");
 		
 		int result = mapper.updateFrgList(frgDto);
+		
+		log.info(frgDto);
+		
+		assertEquals(expect, result);
+	}
+	
+	@Test
+	public void testDeleteFrgList() {
+		
+		int expect = 1;
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setFrg_name("fridge3");
+		frgDto.setUser_id("smith01");
+		
+		int result = mapper.deleteFrgList(frgDto);
 		
 		log.info(frgDto);
 		

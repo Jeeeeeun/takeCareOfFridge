@@ -16,40 +16,56 @@ var frgIndex,
   frgCorrectionEndBtn,
   dangerousStandard,
   warningStandard,
+  dangerousValue,
+  warningValue,
   dangerousSpan,
   warningSpan,
   trfCorrectionEndBtn,
-  announcement;
+  announcement,
+  alertMsg,
+  alertContent,
+  alertWindow,
+  confirmMsg,
+  confirmContent,
+  confirmWindow;
 
 window.onload = function () {
   // DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
-  frgIndex = document.getElementById("frg_index");
-  frgName = document.getElementsByClassName("frg_name");
-  frgShape = document.getElementsByClassName("frg_shape");
-  hRadio = document.getElementById("hRadio");
-  vRadio = document.getElementById("vRadio");
-  sRadio = document.getElementById("sRadio");
-  frgAstate = document.getElementById("myFrgAstate");
-  frgBstate = document.getElementById("myFrgBstate");
-  aFrozenBtn = document.getElementById("frgAfrozenBtn");
-  aCoolBtn = document.getElementById("frgAcoolBtn");
-  bFrozenBtn = document.getElementById("frgBfrozenBtn");
-  bCoolBtn = document.getElementById("frgBcoolBtn");
-  frgInfoChangeBtn = document.getElementById("frgInfoChange");
-  frgCorrectionEndBtn = document.getElementById("frgInfoCorrectionEndBtn");
-  trfChangeBtn = document.getElementById("standardChange");
-  standardWrapper = document.getElementById("standards-wrapper");
-  dangerousStandard = document.getElementById("dangerousStandard");
-  warningStandard = document.getElementById("warningStandard");
-  dangerousSpan = document.getElementById("dangerousSpan");
-  warningSpan = document.getElementById("warningSpan");
-  trfCorrectionEndBtn = document.getElementById("trfCorrectionEndBtn");
-  announcement = document.getElementById("announcement");
+  frgIndex = document.querySelector("#frg_index");
+  frgName = document.querySelectorAll(".frg_name");
+  frgShape = document.querySelectorAll(".frg_shape");
+  hRadio = document.querySelector("#hRadio");
+  vRadio = document.querySelector("#vRadio");
+  sRadio = document.querySelector("#sRadio");
+  frgAstate = document.querySelector("#myFrgAstate");
+  frgBstate = document.querySelector("#myFrgBstate");
+  aFrozenBtn = document.querySelector("#frgAfrozenBtn");
+  aCoolBtn = document.querySelector("#frgAcoolBtn");
+  bFrozenBtn = document.querySelector("#frgBfrozenBtn");
+  bCoolBtn = document.querySelector("#frgBcoolBtn");
+  frgInfoChangeBtn = document.querySelector("#frgInfoChange");
+  frgCorrectionEndBtn = document.querySelector("#frgInfoCorrectionEndBtn");
+  trfChangeBtn = document.querySelector("#standardChange");
+  standardWrapper = document.querySelector("#standards-wrapper");
+  dangerousStandard = document.querySelector("#dangerousStandard");
+  warningStandard = document.querySelector("#warningStandard");
+  dangerousSpan = document.querySelector("#dangerousSpan");
+  warningSpan = document.querySelector("#warningSpan");
+  trfCorrectionEndBtn = document.querySelector("#trfCorrectionEndBtn");
+  announcement = document.querySelector("#announcement");
+  alertContent = document.querySelector("#alertContent");
+  alertWindow = document.querySelector("#customAlert");
+  confirmContent = document.querySelector("#confirmContent");
+  confirmWindow = document.querySelector("#customConfirm");
 
   updateFrg(currentIndex);
   checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
 
-  trfStandardShow();
+  // 첫 렌더링 시에는 값 지정
+  dangerousValue = trfStandard[0].dangerous_standard;
+  warningValue = trfStandard[0].warning_standard;
+
+  trfStandardShow(dangerousValue, warningValue);
 };
 
 // SESS_ID 데려오려는 함수
@@ -63,6 +79,49 @@ function getUserId() {
   });
 }
 
+// 알림창 띄우기
+function showAlert(alertMsg) {
+  alertContent.textContent = alertMsg;
+  alertWindow.classList.remove("hidden");
+  alertWindow.classList.add("show");
+
+  setTimeout(function () {
+    alertWindow.classList.remove("show");
+    alertWindow.classList.add("hidden");
+  }, 3000);
+}
+
+// 컨펌창 켜기
+function showConfirm(confirmMsg, yesClicked, noClicked) {
+  confirmContent.textContent = confirmMsg;
+  confirmWindow.classList.remove("hidden");
+  confirmWindow.classList.add("show");
+
+  confirmYesBtn.onclick = function () {
+    // Yes 눌리면 이뤄질 동작들
+    if (yesClicked) {
+      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
+    }
+    // 컨펌창 끄기
+    closeConfirm();
+  };
+
+  confirmNoBtn.onclick = function () {
+    // No 눌리면 이뤄질 동작들
+    if (noClicked) {
+      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
+    }
+    // 컨펌창 끄기
+    closeConfirm();
+  };
+}
+
+// 컨펌창 끄기
+function closeConfirm() {
+  confirmWindow.classList.remove("show");
+  confirmWindow.classList.add("hidden");
+}
+
 // 처음 렌더링 될 때, 또는 냉장고 정보 바꾸는 화살표 prev(◀)든 next(▶)든 눌리면 실행될 함수
 function updateFrg(i) {
   frgIndex.value = frgListJson[i].frg_index;
@@ -74,7 +133,7 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.setAttribute("checked", "checked"); // hRadio.checked = true;도 같은 효과를 내지만, 실제로 라디오버튼 요소에 checked 속성을 추가해주진 못함.
+      hRadio.setAttribute("checked", ""); // hRadio.checked = true;도 같은 효과를 내지만, 실제로 라디오버튼 요소에 checked 속성을 추가해주진 못함.
       vRadio.removeAttribute("checked");
       sRadio.removeAttribute("checked");
       frgAstate.style.position = "relative";
@@ -88,7 +147,7 @@ function updateFrg(i) {
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
       hRadio.removeAttribute("checked");
-      vRadio.setAttribute("checked", "checked");
+      vRadio.setAttribute("checked", "");
       sRadio.removeAttribute("checked");
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
@@ -102,7 +161,7 @@ function updateFrg(i) {
       frgShape[0].style.width = "auto";
       hRadio.removeAttribute("checked");
       vRadio.removeAttribute("checked");
-      sRadio.setAttribute("checked", "checked");
+      sRadio.setAttribute("checked", "");
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.display = "none";
@@ -287,7 +346,7 @@ function trfStandardBtnClicked() {
   standardWrapper.style.marginLeft = "10%";
 
   // 위험 기준 input 태그 조작
-  dangerousStandard.value = trfStandard[0].dangerous_standard;
+  dangerousStandard.value = dangerousValue;
   dangerousStandard.disabled = false;
   dangerousStandard.style.borderStyle = "dashed";
   dangerousStandard.style.borderWidth = "1px";
@@ -297,7 +356,7 @@ function trfStandardBtnClicked() {
   dangerousSpan.textContent = "";
 
   // 경고 기준 input 태그 조작
-  warningStandard.value = trfStandard[0].warning_standard;
+  warningStandard.value = warningValue;
   warningStandard.disabled = false;
   warningStandard.style.borderStyle = "dashed";
   warningStandard.style.borderWidth = "1px";
@@ -321,20 +380,21 @@ function trfCorrectionEnd() {
       };
 
       // 다시 렌더링을 위한 값 지정
-      dangerousStandard.value = updatedTrfData.dangerous;
-      warningStandard.value = updatedTrfData.warning;
+      dangerousValue = updatedTrfData.dangerous;
+      warningValue = updatedTrfData.warning;
 
       // 값 크기 비교 (유효하게 들어갈 수 있는지 검사)
       if (updatedTrfData.dangerous <= updatedTrfData.warning) {
-        alert(
-          "위험 판단 기준이 경고 판단 기준보다 숫자가 커야 합니다. 값을 다시 입력해 주세요."
-        );
+        alertMsg =
+          "위험 판단 기준이 경고 판단 기준보다 숫자가 커야 합니다.\n값을 다시 입력해 주세요.";
+        showAlert(alertMsg);
         return;
       } else if (
         dangerousStandard.value === "" ||
         warningStandard.value === ""
       ) {
-        alert("숫자가 입력되지 않은 곳이 있습니다. 다시 입력해 주세요.");
+        alertMsg = "숫자가 입력되지 않은 곳이 있습니다. 다시 입력해 주세요.";
+        showAlert(alertMsg);
         return;
       }
 
@@ -347,7 +407,7 @@ function trfCorrectionEnd() {
         dataType: "json",
         success: function (response) {
           // "일 지남", "일 남음" 부분 글씨와 함께 바뀐 데이터로 재등장
-          trfStandardShow(dangerousStandard.value, warningStandard.value);
+          trfStandardShow(dangerousValue, warningValue);
 
           // 안내 문구 삭제
           const announcePre = announcement.querySelector("pre"); // announcement란 id 가진 요소 안에 있는 <pre> 태그
@@ -361,17 +421,22 @@ function trfCorrectionEnd() {
 
           setTimeout(function () {
             // 시간차 두고 알림창 띄우기
-            alert("냉장고 속 식품 보관 관리 기준이 변경되었습니다.");
+            alertMsg = "냉장고 속 식품 보관 관리 기준이 변경되었습니다.";
+            showAlert(alertMsg);
           }, 100);
         },
         error: function (err) {
-          alert("냉장고 식품 보관 관리 기준 변경에 실패했습니다.");
+          alertMsg = "냉장고 식품 보관 관리 기준 변경에 실패했습니다.";
+          showAlert(alertMsg);
           if (err.status === 404) {
-            alert("요청한 페이지를 찾을 수 없습니다.");
+            alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+            showAlert(alertMsg);
           } else if (err.status === 500) {
-            alert("서버 내부 오류가 발생했습니다.");
+            alertMsg = "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
+            showAlert(alertMsg);
           } else {
-            alert("error - " + err);
+            alertMsg = "error가 발생했습니다. " + err;
+            showAlert(alertMsg);
           }
         },
       });
@@ -432,15 +497,6 @@ function frgInfoChangeBtnClicked() {
   frgCorrectionEndBtn.style.display = "flex";
 }
 
-function frgDiscardBtnClicked() {
-  // 냉장고 삭제 버튼 클릭되면
-  // 정말 삭제하겠냐고 묻는 알림창
-  // Y 클릭하면
-  // 진짜 지워줌
-  // N 클릭하면
-  // 원래 화면 유지
-}
-
 function radioBtnClicked(e) {
   // 냉장고 정보 수정할 때 라디오 버튼 눌리면
 
@@ -453,7 +509,7 @@ function radioBtnClicked(e) {
     checkedRadio.removeAttribute("checked");
 
     // 새로 선택된 라디오 버튼에 checked 속성을 추가해줘
-    clickedRadio.setAttribute("checked", "checked");
+    clickedRadio.setAttribute("checked", "");
 
     // 왼쪽 상자에 보이는 냉장고 모양 그림 바꿔줘
     switch (clickedRadio.value) {
@@ -539,7 +595,7 @@ function frgCorrectionEnd() {
   // SESS_ID를 가져오는 함수를 호출
   getUserId()
     .then(function (userId) {
-      // jsp에서 값 가져와서 data라는 변수의 JSON 형태로 저장
+      // jsp에서 값 가져와서 updatedFrgdata라는 변수의 JSON 형태로 저장
       const updatedFrgData = {
         user_id: userId,
         frg_index: frgIndex.value,
@@ -554,7 +610,10 @@ function frgCorrectionEnd() {
 
       // 혹시 frg_name 비어있지는 않은지 확인
       if (frgName[1] === null || frgName[1].value === "") {
-        alert("냉장고 이름을 올바르게 입력하세요.");
+        alertMsg = "냉장고 이름을 올바르게 입력하세요.";
+        showAlert(alertMsg);
+        frgName[1].focus();
+        return;
       }
 
       // 다시 렌더링해서 보여줄 데이터 지정
@@ -564,21 +623,21 @@ function frgCorrectionEnd() {
       switch (updatedFrgData.frg_shape) {
         case "H":
           frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
-          hRadio.setAttribute("checked", "checked");
+          hRadio.setAttribute("checked", "");
           vRadio.removeAttribute("checked");
           sRadio.removeAttribute("checked");
           break;
         case "V":
           frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
           hRadio.removeAttribute("checked");
-          vRadio.setAttribute("checked", "checked");
+          vRadio.setAttribute("checked", "");
           sRadio.removeAttribute("checked");
           break;
         case "S":
           frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
           hRadio.removeAttribute("checked");
           vRadio.removeAttribute("checked");
-          sRadio.setAttribute("checked", "checked");
+          sRadio.setAttribute("checked", "");
           frgBstate.style.display = "none";
           break;
       }
@@ -621,16 +680,21 @@ function frgCorrectionEnd() {
         data: JSON.stringify(updatedFrgData),
         dataType: "json",
         success: function (response) {
-          alert("냉장고 정보가 성공적으로 변경되었습니다.");
+          alertMsg = "냉장고 정보가 성공적으로 변경되었습니다.";
+          showAlert(alertMsg);
         },
         error: function (err) {
-          alert("냉장고 정보 변경에 실패했습니다.");
+          alertMsg = "냉장고 정보 변경에 실패했습니다.";
+          showAlert(alertMsg);
           if (err.status === 404) {
-            alert("요청한 페이지를 찾을 수 없습니다.");
+            alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+            showAlert(alertMsg);
           } else if (err.status === 500) {
-            alert("서버 내부 오류가 발생했습니다.");
+            alertMsg = "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
+            showAlert(alertMsg);
           } else {
-            alert("error - " + err);
+            alertMsg = "error가 발생했습니다. " + err;
+            showAlert(alertMsg);
           }
         },
       });
@@ -643,4 +707,79 @@ function frgCorrectionEnd() {
     .catch(function (error) {
       console.error("사용자 ID를 얻는 데 실패했습니다:", error);
     });
+}
+
+function frgDiscardBtnClicked() {
+  // 냉장고 삭제 버튼 클릭되면
+
+  // 정말 삭제하겠냐고 묻는 알림창
+  confirmMsg = "정말 삭제하시겠습니까?";
+  showConfirm(
+    confirmMsg,
+    function () {
+      // Y 클릭하면
+      // SESS_ID를 가져오는 함수를 호출
+      getUserId().then(function (userId) {
+        const deleteData = {
+          user_id: userId,
+          frg_name: frgName[1].value,
+        };
+
+        $.ajax({
+          type: "POST",
+          url: `${contextPath}/frg/removeFrgList`,
+          contentType: "application/json",
+          data: JSON.stringify(deleteData),
+          dataType: "json",
+          success: function () {
+            alertMsg = "냉장고가 성공적으로 삭제되었습니다.";
+            showAlert(alertMsg);
+
+            // 렌더링된 냉장고 목록에서 삭제된 냉장고를 지우고, 렌더링할 냉장고 개수(currentIndex)를 실제로도 줄여줌.
+            removeFrgFromList(deleteData.frg_name);
+
+            // 삭제된 냉장고가 현재 인덱스와 같거나 클 때만 이전 인덱스로 이동
+            if (frgListJson.length > 0 && currentIndex >= frgListJson.length) {
+              currentIndex--;
+            }
+
+            // 남은 냉장고가 있다면 바로 이전 순서의 냉장고를 보여줌.
+            if (frgListJson.length > 0) {
+              updateFrg(currentIndex);
+            } else { // 남은 냉장고가 하나도 없다면
+              alertMsg = "등록된 냉장고가 없습니다. 잠시 후 냉장고 등록 페이지로 이동합니다.";
+              showAlert(alertMsg);
+              // 3.5초 후 냉장고 추가 페이지로 이동
+              setTimeout(function () {
+                window.location.href = `${contextPath}/frg/frgAdd`;
+              }, 3500);
+            }
+          },
+          error: function (err) {
+            alertMsg = "냉장고 정보 삭제에 실패했습니다.";
+            showAlert(alertMsg);
+            if (err.status === 404) {
+              alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+              showAlert(alertMsg);
+            } else if (err.status === 500) {
+              alertMsg =
+                "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
+              showAlert(alertMsg);
+            } else {
+              alertMsg = "error가 발생했습니다. " + err;
+              showAlert(alertMsg);
+            }
+          },
+        });
+      });
+    },
+    function () {
+      // N 클릭하면
+      return;
+    }
+  );
+}
+
+function removeFrgFromList(frgName) {
+  frgListJson = frgListJson.filter((frgListJson) => frgListJson.frg_name !== frgName);
 }
