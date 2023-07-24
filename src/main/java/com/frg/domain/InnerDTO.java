@@ -12,6 +12,7 @@ import lombok.ToString;
 public class InnerDTO {
 	
 	private String user_id;
+	private String frgList;
 	private String frg_name;
 	private int in_index;
 	private int frg_index;

@@ -251,7 +251,7 @@ async function submitBtnClicked(e) {
 	const idNums = Array.from(settingBoxes).map((settingBox) => {
 		const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
 		const idNum = frgNameInput.name.split("_")[2];
-
+	
 		return parseInt(idNum);
 	})
 

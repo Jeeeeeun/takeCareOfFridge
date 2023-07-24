@@ -65,6 +65,32 @@ public class InnerFoodController {
 		
 		return "/frg/innerAdd";
 	}
+	
+	// 식품등록-auto인 경우
+	@RequestMapping(value = "/innerAdd", method = RequestMethod.POST)
+	public String registerInnerFoodAuto(HttpSession session, HttpServletRequest request, Model model) throws Exception {
+
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id(request.getParameter("session_id"));
+		dto.setFrgList(request.getParameter("frgList"));
+		dto.setIn_state(request.getParameter("frgState"));
+		dto.setIn_name(request.getParameter("foodName"));
+		String dateFormat = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+		log.info("request.getParameter(\"in_expireDate_custom의 출력결과\n"+request.getParameter("in_expireDate_custom"));
+		dto.setIn_expireDate_custom((Date) formatter.parse(request.getParameter("expireDateCustom")));
+		dto.setIn_expireDate_auto(request.getParameter("expireDateAuto"));
+		dto.setIn_type(request.getParameter("foodType"));
+		dto.setIn_count(Integer.parseInt(request.getParameter("foodCount")));
+		dto.setIn_company(request.getParameter("foodCompany"));
+
+		inService.registerInnerAuto(dto);
+		log.info(inService.registerInnerAuto(dto));
+
+		return "/frg/innerAdd";
+	}
+
+	
 
 	// foodApi 조회하기
 	// @RequestMapping(value= "/search", method = RequestMethod.GET)
@@ -77,50 +103,7 @@ public class InnerFoodController {
 		return foodList;
 	}
 
-	// 식품등록-auto인 경우
-	@RequestMapping(value = "/innerAdd/Auto", method = RequestMethod.POST)
-	public String registerInnerFoodAuto(HttpServletRequest request, Model model) throws Exception {
-
-		InnerDTO dto = new InnerDTO();
-		dto.setUser_id(request.getParameter("user_id"));
-		dto.setFrg_name(request.getParameter("frg_name"));
-		dto.setIn_name(request.getParameter("in_name"));
-		String dateFormat = "yyyy-MM-dd";
-		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-		log.info("request.getParameter(\"in_expireDate_custom의 출력결과\n"+request.getParameter("in_expireDate_custom"));
-		dto.setIn_expireDate_custom((Date) formatter.parse(request.getParameter("in_expireDate_custom")));
-		dto.setIn_expireDate_auto(request.getParameter("in_expireDate_auto"));
-		dto.setIn_type(request.getParameter("in_type"));
-		dto.setIn_state(request.getParameter("in_state"));
-		dto.setApi_fno(request.getParameter("api_fno"));
-		dto.setIn_company(request.getParameter("in_company"));
-
-		inService.registerInnerAuto(dto);
-		log.info(inService.registerInnerAuto(dto));
-
-		return "/frg/innerAdd";
-	}
-
-	// 식품 등록-custom인 경우
-	@RequestMapping(value = "/frg/innerAdd/Custom", method = RequestMethod.POST)
-	public String registerInnerFoodCustom(HttpServletRequest request, Model model) throws Exception {
-
-		InnerDTO dto = new InnerDTO();
-		dto.setUser_id(request.getParameter("user_id"));
-		dto.setFrg_name(request.getParameter("frg_name"));
-		dto.setIn_name(request.getParameter("in_name"));
-		String dateFormat = "yyyy-MM-dd";
-		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-		dto.setIn_expireDate_custom((Date) formatter.parse(request.getParameter("in_expireDate_custom")));
-		dto.setIn_expireDate_auto(request.getParameter("in_expireDate_auto"));
-		dto.setIn_type(request.getParameter("in_type"));
-		dto.setIn_state(request.getParameter("in_state"));
-		dto.setApi_fno(request.getParameter("api_fno"));
-
-		inService.registerInnerCustom(dto);
-
-		return "/frg/innerAdd";
-	}
+	
 	 
 	@GetMapping("/innerCtrl")
 	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
