@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
 import com.frg.domain.TrafficDTO;
+import com.frg.domain.UserDTO;
 import com.frg.service.FrgListService;
+import com.frg.service.MyPageService;
 import com.frg.service.TrafficService;
 import com.google.gson.Gson;
 
@@ -30,6 +32,9 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/frg/*")
 @Log4j
 public class MyPageController {
+	
+	@Setter(onMethod_ = @Autowired)
+	private MyPageService myService;
 
 	@Setter(onMethod_ = @Autowired)
 	private FrgListService frgService;
@@ -62,6 +67,29 @@ public class MyPageController {
 	    model.addAttribute("trfStandardJson", trfStandardJson);
 	    
 		return "/frg/myPage";
+	}
+	//사용자의 정보를 불러오는 곳
+	@GetMapping(value="/userInfo", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public UserDTO getUserinfo(HttpSession session) {
+		String userId = (String) session.getAttribute("SESS_ID");
+		
+		UserDTO user = new UserDTO();
+		user.setUser_id(userId);
+		
+		return myService.selectMyInfo(user);
+	}
+	//자동 로그아웃 됐을때
+	@GetMapping(value="/sessionExpire")
+	public String sessionExist(HttpSession session, Model model) {
+		String userId = (String) session.getAttribute("SESS_ID");
+		
+		if(userId == null) { //로그인 상태가 아니라면
+			
+			return "redirect:/frg/login"; //로그인 페이지로 반환(리다이렉트)
+			
+		}
+		return "/frg/myPage"; //로그인 상태라면 페이지 반환
 	}
 	
 	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })

@@ -68,6 +68,29 @@ window.onload = function () {
   trfStandardShow(dangerousValue, warningValue);
 };
 
+// 사용자 정보 가져오기
+function getUserInfo(){
+    $.ajax({
+        url: `${contextPath}/frg/userInfo`,
+        method: "GET",
+        dataType: "json",
+        success: function(data){
+                $('#name').val(data.user_name);
+                $('#id').val(data.user_id);
+                $('#email').val(data.user_email);
+                $('#pw').val(data.user_pw);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error: ", error);
+            alert("사용자 정보를 불러오는데 실패했습니다."); // 오류가 발생하면 메시지 표시
+        }
+    });
+}
+//사용자 정보 가져온 함수를 불러와서 페이지가 생성되면서 해당 정보를 가져옴
+$(document).ready(function() {
+    getUserInfo();
+});
+
 // SESS_ID 데려오려는 함수
 function getUserId() {
   return fetch(contextPath + "/frg/getUserId").then(function (response) {

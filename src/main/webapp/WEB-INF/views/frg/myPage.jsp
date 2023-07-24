@@ -38,8 +38,9 @@
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-	crossorigin="anonymous"></script>
+     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
+     crossorigin="anonymous">
+</script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
 	let frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
@@ -96,27 +97,27 @@
 				<div class="myNameBox">
 					<p>Name</p>
 					<div class="nameBoxCenterLine"></div>
-					<input type="text" disabled />
+					<input type="text" id="name" disabled />
 				</div>
 				<div class="myIDBox">
 					<p>ID</p>
 					<div class="idBoxCenterLine"></div>
-					<input type="text" disabled />
+					<input type="text" id="id" disabled />
 				</div>
 				<div class="myEmailBox">
 					<p>Email</p>
 					<div class="emailBoxCenterLine"></div>
-					<input type="text" disabled />
+					<input type="text" id="email" disabled />
 				</div>
 				<div class="myPwBox">
 					<p>PW</p>
 					<div class="pwBoxCenterLine"></div>
-					<input type="text" disabled />
+					<input type="password" id="pw" disabled />
 				</div>
 				<div class="myPwCheckBox">
 					<p>PW Check</p>
 					<div class="pwCheckBoxCenterLine"></div>
-					<input type="text" disabled />
+					<input type="password" id="pw Check" disabled />
 				</div>
 				<button class="modifyMyInfoBtn">수정하기</button>
 			</div>

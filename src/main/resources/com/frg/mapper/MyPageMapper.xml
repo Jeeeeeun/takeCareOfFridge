@@ -15,4 +15,10 @@
 		WHERE u.user_id = #{ user_id }
 		)
 	</select>
+	<!-- 내 정보 name , id , pw 불러 오는 쿼리문 -->
+	<select id="selectMyInfo" resultType="com.frg.domain.UserDTO">
+		SELECT *
+		FROM users
+		WHERE user_id = #{ user_id }
+	</select>
 </mapper>
