@@ -11,18 +11,18 @@ window.onload = function () {
 
     // 냉장고 이름 목록을 드롭박스에 추가
     var currFrg = document.getElementById('frgSelect'); // select 요소
-    
+
     var optionAll = document.createElement('option');
     optionAll.textContent = "전체";
     currFrg.appendChild(optionAll);
-    
+
     for (var i = 0; i < frgNameLists.length; i++) {
         var option = document.createElement('option');
         option.textContent = frgNameLists[i];
         console.log(frgNameLists[i]);
         currFrg.appendChild(option);
     }
-    
+
 
     // 데이터를 테이블에 추가하는 함수
     function addDataToTable(data) {
@@ -49,4 +49,5 @@ window.onload = function () {
             tableBody.appendChild(row);
         });
     }
+    
 }
