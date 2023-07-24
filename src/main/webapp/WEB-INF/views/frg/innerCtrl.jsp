@@ -144,13 +144,16 @@ document.addEventListener("DOMContentLoaded", function () {
 				</ul>
 			</div>
 		</nav>
-		<div class="descriptionAndTraffic">
-			<div class="trafficLight">
-				<p id="red">${trafficLight[0].red}</p>
-				<p id="yellow">${trafficLight[0].yellow}</p>
-				<p id="green">${trafficLight[0].green}</p>
+		<div class="d-flex flex-row position-relative mt-6">
+			<div id="trafficLight"
+				class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+				<p id="red"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
+				<p id="yellow"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].yellow}</p>
+				<p id="green"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 			</div>
-		</div>
 		<div id="contents">
 			<div class="currentStateBox">
 				<div style="display: flex; flex-direction: column;">
@@ -208,6 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					</table>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div>
 			<div class="detailInfoBox">
