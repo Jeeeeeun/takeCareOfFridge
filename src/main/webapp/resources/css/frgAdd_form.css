@@ -40,7 +40,7 @@
 	font-family: 'MV Boli';
 	font-size: x-large;
 	font-weight: 600;
-	color: #604C3F;
+	color: rgb(255, 255, 255);
 }
 
 .setting-titleBox {
@@ -71,12 +71,12 @@ input[type="radio"] {
 	height: 1.25rem;
 	border-radius: 50%;
 	position: relative;
-	top: -10rem;
+	top: -4rem;
 	margin-bottom: 0.3rem;
 }
 
 input[type="radio"]:checked {
-	background-color: #604C3F;
+	background-color: #f4623a;
 }
 
 .ho, .ve, .si { /* 냉장고 모양 이미지들 */
@@ -91,9 +91,9 @@ input[type="radio"]:checked {
 	justify-content: center;
 	align-items: center;
 	width: 25%;
-	height: 60%;
-	border: 0.3px dashed #604C3F;
-	margin: 10% 5%;
+	height: 65%;
+	border: 0.3px dashed rgb(255, 255, 255);
+	margin: 8% 5%;
 }
 
 .fridge-info { /* 냉장고 정보 섹션의 오른쪽 공간 */
@@ -102,70 +102,76 @@ input[type="radio"]:checked {
 	justify-content: center;
 	align-items: center;
 	margin: 5% 5% 5% 1%;
-	width: 70%;
-	height: 75%;
+	width: 75%;
+	height: 80%;
+	font-size: 1rem;
 }
 
 .fridgeInfoBox { /* 냉장고 이름, 보관 상태 선택하는 어두운 박스 */
-	background: #D6C2B4;
+	background: rgba(255, 255, 255, 0.3);
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	padding: 5% 2%;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	border-radius: 0.6rem;
+	-moz-border-radius: 0.6rem;
+	-webkit-border-radius: 0.6rem;
 	z-index: 2;
 }
 
 .fridgeInfoLabelName { /* 이름 라벨 */
 	font-weight: bold;
-	font-size: medium;
-	width: 20%;
-	margin: 3% 0;
+	font-size: large;
+	width: 25%;
+	margin: 2% 5% 2% 0;
 	display: inline-block;
 	text-align: right;
-	margin-right: 5%;
+	float: left;
 }
 
 .fridgeInfoLabelState { /* A, B 라벨 */
 	font-weight: bold;
-	font-size: medium;
-	width: 20%;
-	margin: 3% 0;
+	font-size: large;
+	width: 25%;
+	margin: 2% 5% 2% 0;
 	display: inline-block;
 	text-align: right;
-	margin-right: 5%;
 	display: none;
+	float: left;
 }
 
 .fridgeInfoInput { /* 냉장고 이름 적는 input */
-	background: #F4EEE6;
-	border: 0.3px dashed #604C3F;
-	width: 60%;
-	height: 15%;
+	background: rgba(255, 255, 255, 0.3);
+	border: 0.3px dashed rgb(255, 255, 255);
+	width: 52%;
+	height: 80%;
 	margin: 2% 0;
 	border-radius: 0.8rem;
 	-webkit-border-radius: 0.8rem;
 }
 
 .stateSelectBtn { /* 냉장, 냉동 버튼 */
-	background-color: #F4EEE6;
-	border: 0.3px dashed #604C3F;
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 0.3px dashed rgb(255, 255, 255);
 	border-radius: 0.8rem;
 	-webkit-border-radius: 0.8rem;
 	margin-left: 2%;
 	margin-top: 2%;
-	padding: 0.3rem 1rem;
-	color: #B5B5B5;
+	padding: 0.4rem 1.8rem;
+	color: #808080;
+	font-weight: 100;
 	display: none;
 }
 
 .stateSelectBtn.selected { /* 냉장, 냉동 버튼 선택됐을 때 */
-	color: #604C3F;
-	font-weight: 700;
+	color: #fff;
+	font-weight: 900;
 }
 
 .settingBoxContainer {
@@ -173,10 +179,10 @@ input[type="radio"]:checked {
 }
 
 .horizontalLine { /* 화면 하단 가로줄 */
-	border: 1.5px solid #D6C2B4;
+	border: 1.5px solid rgb(255, 255, 255);
 	position: relative;
 	width: 60vw;
-	margin-top: 1.5%;
+	margin: 1.5% auto;
 	display: flex;
 	justify-content: center; /* 수평 가운데 정렬 */
 	align-items: center; /* 수직 가운데 정렬 */
@@ -194,19 +200,19 @@ input[type="radio"]:checked {
 }
 
 .btn { /* 개별적인 + 버튼, 완료 버튼 */
-	background: #F4EEE6;
+	background: rgba(255, 255, 255, 0.3);
 	position: relative;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	width: 48%;
-	height: 60%;
+	height: 70%;
 	border-radius: 1rem;
 	-moz-border-radius: 1rem;
 	-webkit-border-radius: 1rem;
 	font-family: 'MV Boli';
 	font-size: large;
 	font-weight: 600;
-	color: #604C3F;
-	border: 1px solid #D6C2B4;
+	color: rgb(255, 255, 255);
+	border: 1px solid rgb(255, 255, 255);
 }
