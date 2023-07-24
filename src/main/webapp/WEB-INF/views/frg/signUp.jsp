@@ -28,6 +28,10 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+</script>
+<script src="${pageContext.servletContext.contextPath }/resources/js/signUp.js"></script>
 </head>
 <body id="page-top">
 	<!-- Navigation-->
@@ -63,27 +67,32 @@
 					<div class="loginTitle">SignUp</div>
 					<hr class="horizonLine">
 					<form id="registerForm"
-						action="<%=request.getContextPath()%>/signUp" method="post">
+						action="<%=request.getContextPath()%>/frg/signUp" method="post">
 						<input type="text" class="inputBox box1" id="user_name"
 							name="user_name" placeholder="NAME" required
-							style="margin-bottom: 20px;"><br> <input type="text"
+							style="margin-bottom: 20px;"><br> 
+						<input type="text"
 							class="inputBox box2" id="user_id" name="user_id"
-							placeholder="ID" required style="margin-bottom: 20px; margin-left:75px;">
+							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px;">
 						<button class="duplicateBtn" id="checkId" type="button">중복확인</button>
 						<div class="idErrorMsg hidden" id="idErrorMsg">
 							<span></span>
 						</div>
 						<input type="email" class="inputBox box3" id="user_email"
 							name="user_email" placeholder="EMAIL" required
-							style="margin-bottom: 20px;"> <br> <input
+							style="margin-bottom: 20px;"> <br> 
+						<input
 							type="password" class="inputBox box4" id="user_pw" name="user_pw"
 							placeholder="PW" required style="margin-bottom: 20px;"> <br>
 						<input type="password" class="inputBox box5" id="verifyPwd"
 							placeholder="PW CHECK" required style="margin-bottom: 20px;">
-						<br> <span class="pwdAlert" id="pwdAlert"
-							style="margin-left: 10px"></span>
+						<span class="pwdAlert" id="pwdAlert"
+							style="margin-left: 10px; position: absolute;"></span><br>
 
 						<button type="submit" class="signUpBtn" id="submitButton" disabled>회원가입하기</button>
+						<!-- 회원가입 버튼 이걸 추가해서 첫 버튼 비활성화 하기 disabled
+							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게 끔 만들기
+						 -->
 					</form>
 				</div>
 			</div>

@@ -3,4 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.frg.mapper.SignUpMapper">
+  	<!-- 회원가입 쿼리
+  		비회원이 회원가입을 위해 입력하는 것들의 관련한 쿼리문
+  	 -->
+  	<insert id="insertUser">
+  		INSERT INTO Users (user_name, user_id, user_pw, user_email) values (#{user_name} , #{user_id} , #{user_pw} , #{user_email})
+  	</insert>
+  	
+  	<!-- 회원가입 아이디 중복확인 관련 쿼리
+  		회원가입할때 동일 아이디의 데이터가 넘어가지 않게 검사하는 쿼리문
+  	 -->
+  	<select id="idExist" resultType="int" parameterType="String">
+  		select count(*) from users where user_id = #{id}
+  	</select>
+  	
   </mapper>

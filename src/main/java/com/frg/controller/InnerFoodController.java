@@ -67,7 +67,7 @@ public class InnerFoodController {
 	}
 	
 	// 식품등록-auto인 경우
-	@RequestMapping(value = "/innerAdd", method = RequestMethod.POST)
+	@PostMapping(value = "/innerAdd/Submit")
 	public String registerInnerFoodAuto(HttpSession session, HttpServletRequest request, Model model) throws Exception {
 
 		InnerDTO dto = new InnerDTO();

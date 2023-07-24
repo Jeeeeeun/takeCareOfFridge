@@ -39,7 +39,7 @@ public class TrafficServiceTest {
 		assertNotNull(trfResult);
 	}
 	
-	@Test @Ignore
+	@Test
 	public void testGetTrafficStandard() {
 		TrafficDTO trfDto = new TrafficDTO();
 		
@@ -52,7 +52,7 @@ public class TrafficServiceTest {
 		assertNotNull(trfStandard);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testModifyTrafficStandard() {
 		TrafficDTO trfDto = new TrafficDTO();
 		

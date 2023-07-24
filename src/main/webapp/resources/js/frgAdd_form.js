@@ -3,16 +3,16 @@ let idCounter = 0;
 
 // 화면 아래쪽 + 버튼 눌렀을 때 settingBox 추가 생성
 function plusBtnClicked() {
-	idCounter++;
-	createNewSettingBox(idCounter);
+  idCounter++;
+  createNewSettingBox(idCounter);
 }
 
 // 새 setting 박스 만들기
 function createNewSettingBox(idNum) {
-	const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
-  
-	const settingBoxElement = document.createElement("div");
-	settingBoxElement.innerHTML = `
+  const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
+
+  const settingBoxElement = document.createElement("div");
+  settingBoxElement.innerHTML = `
 	  <hr class="horizontalLine" style="border-style: dashed">
 	  <div class="settingBox">
 		  <div class="setting-titleBox">냉장고 모양</div>
@@ -53,40 +53,51 @@ function createNewSettingBox(idNum) {
 	  </div>
 	  `;
 
-	  settingBoxElement.querySelectorAll("input[type='radio']").forEach((radioBtn) => {
-		const radioId = radioBtn.getAttribute("id");
-		const newId = `${radioId}_${idNum}`;
-		const radioName = radioBtn.getAttribute("name");
-		const newName = `${radioName}_${idNum}`;
-		const labelFor = settingBoxElement.querySelector(`label[for="${radioId}"]`);
-		
-		radioBtn.setAttribute("id", newId);
-		radioBtn.setAttribute("name", newName);
-		labelFor.setAttribute("for", `${newId}`);
+  settingBoxElement
+    .querySelectorAll("input[type='radio']")
+    .forEach((radioBtn) => {
+      const radioId = radioBtn.getAttribute("id");
+      const newId = `${radioId}_${idNum}`;
+      const radioName = radioBtn.getAttribute("name");
+      const newName = `${radioName}_${idNum}`;
+      const labelFor = settingBoxElement.querySelector(
+        `label[for="${radioId}"]`
+      );
 
-		radioBtn.addEventListener('click', (e) => radioClicked(e, labelFor, idNum));
+      radioBtn.setAttribute("id", newId);
+      radioBtn.setAttribute("name", newName);
+      labelFor.setAttribute("for", `${newId}`);
 
-	});
+      radioBtn.addEventListener("click", (e) =>
+        radioClicked(e, labelFor, idNum)
+      );
+    });
 
-	const horizonRadio = settingBoxElement.querySelector(`#horizon_${idNum}`);
-	const horizonLabel = settingBoxElement.querySelector(`label[for="horizon_${idNum}"]`);
-	horizonRadio.onclick = function (event) {
-	  radioClicked(event, horizonLabel, idNum);
-	};
-  
-	const verticalRadio = settingBoxElement.querySelector(`#vertical_${idNum}`);
-	const verticalLabel = settingBoxElement.querySelector(`label[for="vertical_${idNum}"]`);
-	verticalRadio.onclick = function (event) {
-	  radioClicked(event, verticalLabel, idNum);
-	};
-  
-	const singleRadio = settingBoxElement.querySelector(`#single_${idNum}`);
-	const singleLabel = settingBoxElement.querySelector(`label[for="single_${idNum}"]`);
-	singleRadio.onclick = function (event) {
-	  radioClicked(event, singleLabel, idNum);
-	};
-  
-	settingBoxWrapper.appendChild(settingBoxElement);
+  const horizonRadio = settingBoxElement.querySelector(`#horizon_${idNum}`);
+  const horizonLabel = settingBoxElement.querySelector(
+    `label[for="horizon_${idNum}"]`
+  );
+  horizonRadio.onclick = function (event) {
+    radioClicked(event, horizonLabel, idNum);
+  };
+
+  const verticalRadio = settingBoxElement.querySelector(`#vertical_${idNum}`);
+  const verticalLabel = settingBoxElement.querySelector(
+    `label[for="vertical_${idNum}"]`
+  );
+  verticalRadio.onclick = function (event) {
+    radioClicked(event, verticalLabel, idNum);
+  };
+
+  const singleRadio = settingBoxElement.querySelector(`#single_${idNum}`);
+  const singleLabel = settingBoxElement.querySelector(
+    `label[for="single_${idNum}"]`
+  );
+  singleRadio.onclick = function (event) {
+    radioClicked(event, singleLabel, idNum);
+  };
+
+  settingBoxWrapper.appendChild(settingBoxElement);
 }
 
 // 냉장고 모양 라디오 버튼 클릭하면 아래쪽에 선택한 냉장고의 모양이 등장하게 처리
@@ -96,7 +107,9 @@ function radioClicked(e, label, idNum) {
   // 클릭된 라디오 버튼이 속한 settingBox 요소를 찾음
   const settingBox = e.target.closest(".settingBox");
 
-  const radios = settingBox.querySelectorAll(`input[name="frg_shape_${idNum}"]`);
+  const radios = settingBox.querySelectorAll(
+    `input[name="frg_shape_${idNum}"]`
+  );
   radios.forEach((radio) => (radio.checked = false));
 
   selectedRadio.checked = true;
@@ -123,7 +136,9 @@ function radioClicked(e, label, idNum) {
   selectedFridge.appendChild(selectedFrgImg);
 
   // 클릭된 라디오 버튼이 속한 settingBox 요소의 하위 A, B 라벨과 버튼 찾기
-  const fridgeInfoLabelStates = settingBox.querySelectorAll(".fridgeInfoLabelState");
+  const fridgeInfoLabelStates = settingBox.querySelectorAll(
+    ".fridgeInfoLabelState"
+  );
   const stateSelectBtns = settingBox.querySelectorAll(".stateSelectBtn");
 
   // 냉장고 종류(H, V, S)에 따라 A, B 섹션 레이블과 버튼의 display 속성 조작
@@ -136,13 +151,14 @@ function radioClicked(e, label, idNum) {
     fridgeInfoLabelStates[1].style.display = "none";
     stateSelectBtns[2].style.display = "none";
     stateSelectBtns[3].style.display = "none";
-    
+
     // frg_Bstate 버튼 중 선택된 것 선택 취소
-    const selectedBstateBtn = settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
+    const selectedBstateBtn = settingBox.querySelector(
+      `button[name="frg_Bstate_${idNum}"].selected`
+    );
     if (selectedBstateBtn) {
-      selectedBstateBtn.classList.remove('selected');
+      selectedBstateBtn.classList.remove("selected");
     }
-    
   } else {
     // 가로형 냉장고(H) 또는 세로형 냉장고(V) 선택 시, A, B 섹션 모두 보임
     fridgeInfoLabelStates[0].style.display = "inline-block";
@@ -206,84 +222,90 @@ function stateBtnClicked(clickedBtn, idNum) {
       correspondingA.classList.add("selected");
     }
   }
-};
-
-/* SESS_ID 데려오려는 함수 */
-async function getUserId() {
-  const response = await fetch(contextPath + "/frg/getUserId");
-
-  if (response.ok) {
-    return await response.text();
-  } else {
-    throw new Error("사용자 ID를 가져올 수 없었습니다.");
-  }
 }
 
-// settingBox마다 사용자가 입력한 값들을 json으로 처리
-async function extractDataFromSettingBox(settingBox, idNum) {
-  const frgShapeName = settingBox.querySelector('input[type="radio"]').name; // 라디오 버튼의 name 속성값 가져옴.
-  const frgShape = settingBox.querySelector(
-    `input[name="${frgShapeName}"]:checked`
-  );
+/* SESS_ID 데려오려는 함수 */
+function getUserId() {
+  return fetch(contextPath + "/frg/getUserId")
+    .then(function (response) {
+      if (response.ok) {
+        return response.text();
+      } else {
+        throw new Error("사용자 ID를 가져올 수 없었습니다.");
+      }
+    });
+}
 
-  const frgName = settingBox.querySelector(`input[name="frg_name_${idNum}"]`);
+function extractDataFromSettingBox(settingBox, idNum) {
+  return getUserId().then(function (userId) {
+    const frgShapeName = settingBox.querySelector('input[type="radio"]').name;
+    const frgShape = settingBox.querySelector(
+      `input[name="${frgShapeName}"]:checked`
+    );
 
-  const frgAstate = settingBox.querySelector(`button[name="frg_Astate_${idNum}"].selected`);
-  // frgShape의 값이 'S'이면 frg_Bstate는 null로 설정됨
-  const frgBstate = (frgShape && frgShape.value === "S") ? null : settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
+    const frgName = settingBox.querySelector(`input[name="frg_name_${idNum}"]`);
 
-  const userId = await getUserId();
+    const frgAstate = settingBox.querySelector(
+      `button[name="frg_Astate_${idNum}"].selected`
+    );
+    // frgShape의 값이 'S'이면 frg_Bstate는 null로 설정됨
+    const frgBstate =
+      frgShape && frgShape.value === "S"
+        ? null
+        : settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
 
-  return {
-    user_id: userId,
-    frg_shape: frgShape ? frgShape.value : null,
-    frg_name: frgName ? frgName.value : null,
-    frg_Astate: frgAstate ? frgAstate.value : null,
-    frg_Bstate: frgBstate ? frgBstate.value : null,
-  };
+    return {
+      user_id: userId,
+      frg_shape: frgShape ? frgShape.value : null,
+      frg_name: frgName ? frgName.value : null,
+      frg_Astate: frgAstate ? frgAstate.value : null,
+      frg_Bstate: frgBstate ? frgBstate.value : null,
+    };
+  });
 }
 
 // 완료 버튼 눌렀을 때 실행될 코드
-async function submitBtnClicked(e) {
-	e.preventDefault();
+function submitBtnClicked(e) {
+  e.preventDefault();
   const settingBoxes = document.querySelectorAll(".settingBox");
 
-	const idNums = Array.from(settingBoxes).map((settingBox) => {
-		const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
-		const idNum = frgNameInput.name.split("_")[2];
-	
-		return parseInt(idNum);
-	})
+  const idNums = Array.from(settingBoxes).map((settingBox) => {
+    const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
+    const idNum = frgNameInput.name.split("_")[2];
+
+    return parseInt(idNum);
+  });
 
   const settingBoxesDataPromises = idNums.map((idNum, index) => {
-	return extractDataFromSettingBox(settingBoxes[index], idNum);
+    return extractDataFromSettingBox(settingBoxes[index], idNum);
   });
 
   // Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
-  const settingBoxesData = await Promise.all(settingBoxesDataPromises);
-
-  $.ajax({
-    type: "POST",
-    url: `${contextPath}/frg/frgAdd_form`, // 이 주소가 FrgAdd 서블릿
-    //contentType: 'application/json',
-    contentType: "application/json; charset=UTF-8",
-	data: JSON.stringify(settingBoxesData),
-    dataType: "json",
-    success: function (response) {
-      // 성공적으로 처리됐을 때 작업 수행
-      alert("냉장고 등록이 완료되었습니다.");
-      window.location.href = `${contextPath}/frg/frgShow`;
-    },
-    error: function (err) {
-      // 오류가 발생했을 때 작업 수행
-      alert("냉장고 등록에 실패했습니다.");
-      if (err.status === 404) {
-        alert("요청한 페이지를 찾을 수 없습니다.");
-      } else if (err.status === 500) {
-        alert("서버 내부 오류가 발생했습니다.");
-      } else {
-		alert("error - " + err);
-	  }
-    },
-  });
+  Promise.all(settingBoxesDataPromises)
+    .then(function (settingBoxesData) {
+      $.ajax({
+        type: "POST",
+        url: `${contextPath}/frg/frgAdd_form`,
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify(settingBoxesData),
+        dataType: "json",
+        success: function (response) {
+          alert("냉장고 등록이 완료되었습니다.");
+          window.location.href = `${contextPath}/frg/frgShow`;
+        },
+        error: function (err) {
+          alert("냉장고 등록에 실패했습니다.");
+          if (err.status === 404) {
+            alert("요청한 페이지를 찾을 수 없습니다.");
+          } else if (err.status === 500) {
+            alert("서버 내부 오류가 발생했습니다.");
+          } else {
+            alert("error - " + err);
+          }
+        },
+      });
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }

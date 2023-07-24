@@ -26,7 +26,7 @@ public class FrgListMapperTest {
 
 	@Test
 	@Ignore
-	public void testInsertFrgList() {
+	public void testInsertFrgList() { // 냉장고 정보 삽입
 		int expect = 1;
 
 		FrgListDTO dto = new FrgListDTO();
@@ -44,23 +44,8 @@ public class FrgListMapperTest {
 		assertEquals(expect, result);
 	}
 
-	@Test
-	@Ignore
-	public void testSelectTrafficLight() {
-
-		FrgListDTO dto = new FrgListDTO();
-
-		dto.setUser_id("smith01");
-
-		List<FrgListDTO> frgList = mapper.selectFrgList(dto);
-
-		log.info("냉장고 목록 - " + frgList);
-
-		assertNotNull(frgList);
-	}
-
-	@Test
-	public void testSelectFrgList() {
+	@Test @Ignore
+	public void testSelectFrgList() { // 냉장고 정보 가져오기
 		FrgListDTO frgDto = new FrgListDTO();
 
 		frgDto.setUser_id("smith01");
@@ -72,4 +57,41 @@ public class FrgListMapperTest {
 		assertNotNull(frgList);
 	}
 
+	@Test @Ignore
+	public void testUpdateFrgList() { // 냉장고 정보 변경하기
+		
+		int expect = 1;
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setFrg_name("fridge1");
+		frgDto.setFrg_shape("H");
+		frgDto.setFrg_Astate("frozen");
+		frgDto.setFrg_Bstate("cool");
+		frgDto.setFrg_index(1);
+		frgDto.setUser_id("smith01");
+		
+		int result = mapper.updateFrgList(frgDto);
+		
+		log.info(frgDto);
+		
+		assertEquals(expect, result);
+	}
+	
+	@Test
+	public void testDeleteFrgList() {
+		
+		int expect = 1;
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setFrg_name("fridge3");
+		frgDto.setUser_id("smith01");
+		
+		int result = mapper.deleteFrgList(frgDto);
+		
+		log.info(frgDto);
+		
+		assertEquals(expect, result);
+	}
 }

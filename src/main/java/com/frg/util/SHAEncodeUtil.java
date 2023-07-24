@@ -4,6 +4,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Component;
+
+import lombok.Data;
+import lombok.extern.log4j.Log4j;
+
+@Component
+@Data
+@Log4j
 public class SHAEncodeUtil {
 	public static String encodeSha(String planeText) {
 		String encodingText = "";
@@ -23,6 +31,4 @@ public class SHAEncodeUtil {
 	public static void main(String[] args) {
 		System.out.println(encodeSha("123"));
 	}
-	
 }
-

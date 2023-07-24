@@ -42,6 +42,7 @@
 	</bean>
 
 	<!-- scan을 통해서 미리 객체를 생성한다 -->
+	<context:component-scan base-package="com.frg.util"></context:component-scan>
 	<!-- test Scan -->
 	<context:component-scan
 		base-package="com.frg.test"></context:component-scan>

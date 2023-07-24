@@ -379,43 +379,40 @@ function extractDataFromSettingBox() {
 //완료 버튼 눌렀을 때 일어나는 함수
 function addFinish(){
 
-	//e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
+	e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
 
 	const settingBoxes = document.querySelectorAll(".addSettingBox");//settingBox 모두 데려와
-
-	const idNums = Array.from(settingBoxes).map((settingBox) => {
-		const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
-		const idNum = frgNameInput.name.split("_")[2];
-	
-		return parseInt(idNum);
-	});
 
 	const settingBoxesDataPromises = idNums.map((idNum, index) => {
 		return extractDataFromSettingBox(settingBoxes[index], idNum);
 	});
 
     // Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
-  	const settingBoxesData = await Promise.all(settingBoxesDataPromises);
-
-	$.ajax({
-		type: "POST",
-		data: json.stringify(settingBoxesData),
-		dataType: "json",
-		success: function (response){
-		  alert("성공적으로 등록 완료");
-		  window.location.href =`${contextPath}/frg/innerAdd`;
-		},
-		error: function (err){
-		  alert("등록 실패");
-		  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
-		  if (err.status === 404) {
-	        alert("요청한 페이지를 찾을 수 없습니다.");
-	      } else if (err.status === 500) {
-	        alert("서버 내부 오류가 발생했습니다.");
-	      } else {
-			alert("error - " + err);
-		  }
-		}
-	});
-
+	Promise.all(settingBoxesDataPromises)
+		.then(function (settingBoxesData){
+			$.ajax({
+				type: "POST",
+				url: `${contextPath}/frg/innerAdd/Submit`,
+				data: JSON.stringify(settingBoxesData),
+				dataType: "json",
+				success: function (response){
+				  alert("성공적으로 등록 완료");
+				  window.location.href =`${contextPath}/frg/innerAdd`;
+				},
+				error: function (err){
+				  alert("등록 실패");
+				  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
+				  if (err.status === 404) {
+			        alert("요청한 페이지를 찾을 수 없습니다.");
+			      } else if (err.status === 500) {
+			        alert("서버 내부 오류가 발생했습니다.");
+			      } else {
+					alert("error - " + err);
+				  }
+				}
+			});
+		})
+		.catch(function (error) {
+	      console.error(error);
+	    });
 }
