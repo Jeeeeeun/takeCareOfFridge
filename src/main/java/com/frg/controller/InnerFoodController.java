@@ -41,28 +41,28 @@ public class InnerFoodController {
 	@NonNull
 	private TrafficService trfService;
 
-	//innerFoodAdd
-	//localhost:8080/controller/frg/innerAdd
+	// innerFoodAdd
+	// localhost:8080/controller/frg/innerAdd
 	@GetMapping(value = "/innerAdd")
 	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
-		
+
 		String user_id = (String) session.getAttribute("SESS_ID");
 		System.out.println("SESS_ID: " + user_id);
 		UserDTO dto = new UserDTO();
 		dto.setUser_id(user_id);
-		
+
 		List<String> frgNames = inService.selectFrgName(dto);
 		// ObjectMapper는 Jackson 라이브러리에서 제공하는 클래스로, Java 객체와 JSON 데이터를 상호 변환하는 역할을 담당
 		ObjectMapper objectMapper = new ObjectMapper();
 		// frgNames 리스트를 JSON 형식의 문자열로 변환
 		String frgNamesJson = objectMapper.writeValueAsString(frgNames);
-		log.info("frgNamesJson : "+frgNamesJson);
+		log.info("frgNamesJson : " + frgNamesJson);
 		model.addAttribute("frgNamesJson", frgNamesJson);
-		
+
 		trfDto.setUser_id(user_id);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
-		
+
 		return "/frg/innerAdd";
 	}
 
@@ -87,7 +87,7 @@ public class InnerFoodController {
 		dto.setIn_name(request.getParameter("in_name"));
 		String dateFormat = "yyyy-MM-dd";
 		SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-		log.info("request.getParameter(\"in_expireDate_custom의 출력결과\n"+request.getParameter("in_expireDate_custom"));
+		log.info("request.getParameter(\"in_expireDate_custom의 출력결과\n" + request.getParameter("in_expireDate_custom"));
 		dto.setIn_expireDate_custom((Date) formatter.parse(request.getParameter("in_expireDate_custom")));
 		dto.setIn_expireDate_auto(request.getParameter("in_expireDate_auto"));
 		dto.setIn_type(request.getParameter("in_type"));
@@ -121,36 +121,37 @@ public class InnerFoodController {
 
 		return "/frg/innerAdd";
 	}
-	 
+
 	@GetMapping("/innerCtrl")
 	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
-	        TrafficDTO trfDto) {
-	    String user_id = (String) session.getAttribute("SESS_ID");
-	    InnerDTO inDto = new InnerDTO();
-	    inDto.setUser_id(user_id);
-	    inDto.setFrg_name(frgName);
-	    System.out.println(frgName);
+			TrafficDTO trfDto) {
+		String user_id = (String) session.getAttribute("SESS_ID");
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id(user_id);
+		dto.setFrg_name(frgName);
+		System.out.println(frgName);
 
-	    // 서비스를 통해 데이터를 받아옴
-	    if(frgName.equals("all")) {
-	    	 List<InnerDTO> dataList = inService.selectAllInnerView(inDto);
-	    	 model.addAttribute("dataList", dataList); 
-	    } else {
-	    	List<InnerDTO> dataList = inService.selectPartInnerView(inDto);
-	    	 model.addAttribute("dataList", dataList); 
-	    }
+		// 서비스를 통해 데이터를 받아옴
+		if (frgName.equals("all")) {
+			List<InnerDTO> dataList = inService.selectAllInnerView(dto);
+			model.addAttribute("dataList", dataList);
+		} else {
+			List<InnerDTO> dataList = inService.selectPartInnerView(dto);
+			model.addAttribute("dataList", dataList);
+		}
 
-	    UserDTO userDto= new UserDTO();
-	    userDto.setUser_id(user_id);
-	    List<String> frgNames = inService.selectFrgName(userDto);
-	    // 받아온 데이터를 Model에 추가
-	    model.addAttribute("frgNames", frgNames);
-	    model.addAttribute("frgName", frgName);
+		UserDTO userDto = new UserDTO();
+		userDto.setUser_id(user_id);
+		List<String> frgNames = inService.selectFrgName(userDto);
+		// 받아온 데이터를 Model에 추가
+		model.addAttribute("frgNames", frgNames);
+		model.addAttribute("frgName", frgName);
 
-	    trfDto.setUser_id(user_id);
-	    List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-	    model.addAttribute("trafficLight", trafficLight);
+		trfDto.setUser_id(user_id);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		model.addAttribute("trafficLight", trafficLight);
 
-	    return "/frg/innerCtrl"; // JSP 페이지로 랜더링
+		return "/frg/innerCtrl"; // JSP 페이지로 랜더링
 	}
+
 }
