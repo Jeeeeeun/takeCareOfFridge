@@ -54,18 +54,22 @@
 
 	<select id="selectFrgName" resultType="string">
 		SELECT f.frg_name
-		FROM FrgList f
+		FROM
+		FrgList f
 		INNER JOIN users u ON f.user_index = u.user_index
-		WHERE u.user_id = #{user_id}
+		WHERE
+		u.user_id = #{user_id}
 	</select>
 
 	<select id="selectAllInnerView"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
-		i.in_expireDate_custom, i.D_DAY, i.in_state
+		i.in_expireDate_custom, i.D_DAY,
+		i.in_state
 		FROM
 		Users u
-		INNER JOIN Inner_View i ON u.user_index = i.user_index
+		INNER JOIN Inner_View i ON u.user_index =
+		i.user_index
 		WHERE
 		u.user_id =
 		#{user_id}
@@ -73,19 +77,46 @@
 
 	<select id="selectPartInnerView"
 		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY, i.in_state
+		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY,
+		i.in_state
 		FROM Users
 		u
-		INNER JOIN Inner_View i ON u.user_index = i.user_index
+		INNER JOIN Inner_View i ON u.user_index =
+		i.user_index
 		WHERE u.user_id
 		= #{user_id}
-		AND i.frg_index IN (SELECT f.frg_index FROM frgList f
+		AND i.frg_index IN (SELECT
+		f.frg_index FROM frgList f
 		WHERE f.frg_name =
 		#{frg_name})
 	</select>
 
-	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
+	<select id="selectFoodAPI"
+		resultType="com.frg.domain.FoodApiDTO">
 		SELECT * FROM foodAPI WHERE api_name=#{api_name}
 	</select>
 
+	<select id="selectInnerData"
+		resultType="com.frg.domain.InnerDTO">
+		SELECT i.in_count,i.in_company, i.in_type
+		FROM users u
+		JOIN
+		FrgList f ON
+		u.user_index =
+		f.user_index
+		JOIN
+		inner i ON f.frg_index =
+		i.frg_index
+		WHERE u.user_id =
+		#{user_id}
+		AND
+		f.frg_name = #{frg_name}
+		AND
+		i.in_index
+		in
+		(Select
+		i.in_index from inner i
+		where i.in_name =
+		#{in_name})
+	</select>
 </mapper>

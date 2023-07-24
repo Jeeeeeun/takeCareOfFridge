@@ -47,7 +47,11 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 
 	@Override
 	public List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name) {
-		// TODO Auto-generated method stub
 		return mapper.selectFoodAPI(api_name);
+	}
+	
+	@Override
+	public List<InnerDTO> selectInnerData(InnerDTO dto){
+		return mapper.selectInnerData(dto);
 	}
 }

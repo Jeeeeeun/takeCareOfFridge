@@ -46,7 +46,7 @@
 	border-style: dashed;
 	border-color: #C9CACA;
 	border-width: 1px;
-	left: 8%;
+	right: 1%;
 	position: relative;
 	width: 0px;
 	height: 31px;
@@ -56,13 +56,14 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: flex-start;
 }
 
 .stateBtn {
 	/* 보관 상태 버튼 - 선택 안 된 것 */
 	background-color: #FFFFFF;
 	position: relative;
-	width: 33%;
+	flex-basis: 25%; /* 변경된 버튼 너비 값 */
 	height: 35%;
 	padding: 0.2rem 0.5rem;
 	margin: 0 0.3rem;
@@ -75,7 +76,7 @@
 	/* 보관 상태 버튼 - 선택된 것 */
 	background-color: #D6C2B4;
 	position: relative;
-	width: 33%;
+	flex-basis: 33%; /* 버튼의 초기 너비 설정 */
 	height: 35%;
 	padding: 0.2rem 0.5rem;
 	margin: 0 0.3rem;
@@ -96,16 +97,6 @@
 	-webkit-border-radius: 12px;
 	display: flex;
 	justify-content: space-between;
-}
-
-#addBtn {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 8%;
-	top: 88%;
-	left: 35%;
 }
 
 .detailInfoBox { /* 상세 보기 박스 */

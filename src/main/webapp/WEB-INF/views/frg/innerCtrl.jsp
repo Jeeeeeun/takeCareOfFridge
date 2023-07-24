@@ -40,36 +40,75 @@
 
 <title>식품 정보 조회</title>
 <script
-	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js"></script>
-
+	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js">
+	</script>
+<script>
+window.contextPath = '${pageContext.servletContext.contextPath}';
+</script>
 <script type="text/javascript">
-	function addBtnClicked() {
-		window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
-	}
+function addBtnClicked() {
+    window.location.href = "${pageContext.servletContext.contextPath}/frg/innerAdd";
+}
 
-	function changeFrg(frgName, url) {
-		location.href = url + "?frgName=" + frgName;
-	}
+function changeFrg(frgName, url) {
+    location.href = url + "?frgName=" + frgName;
+}
+function filterDataByState(state) {
+    // 선택된 버튼을 표시하기 위해 모든 버튼에서 'selected' 클래스를 제거합니다
+    var buttons = document.querySelectorAll('.stateBtn');
+    buttons.forEach(function (button) {
+        button.classList.remove('selected');
+    });
 
-	function stateOk(id) {
-		if (id === "all") {
-			console.log("전체");
-		} else if (id === "cool") {
-			console.log("냉장");
-		} else if (id === "frozen") {
-			console.log("냉동");
-		} else {
-			console.log("알 수 없는 상태");
-		}
-	}
+    // 선택된 버튼에 'selected' 클래스를 추가합니다
+    var selectedButton = document.getElementById(state);
+    selectedButton.classList.add('selected');
+    const allRows = document.querySelectorAll("#foodTable tbody tr");
 
-	function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
-		console.log("Clicked data:");
-		console.log("제품명: " + in_name);
-		console.log("유통기한: " + in_expireDate_custom);
-		console.log("D-day: " + d_DAY);
-		console.log("보관위치: " + in_state);
-	}
+    if (state === "all") {
+        allRows.forEach(row => row.style.display = "table-row");
+    } else {
+        allRows.forEach(row => {
+            const in_state = row.querySelector("td:nth-child(4)").innerText;
+            if (in_state === state) {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+}
+
+function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
+    
+    document.getElementById('detailInfoItemBox_in_name').value = in_name;
+    document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
+    document.getElementById('detailInfoItemBox_in_expireDate_custom').value = in_expireDate_custom;
+
+    var coolRadio = document.getElementById('coolRadio');
+    var frozenRadio = document.getElementById('frozenRadio');
+
+    if (in_state === "cool") {
+        coolRadio.checked = true;
+        frozenRadio.checked = false;
+    } else if (in_state === "frozen") {
+        coolRadio.checked = false;
+        frozenRadio.checked = true;
+    }
+}
+
+document.getElementById("all").classList.toggle("selected", state === "all");
+document.getElementById("cool").classList.toggle("selected", state === "cool");
+document.getElementById("frozen").classList.toggle("selected", state === "frozen");
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
+    document.getElementById("all").classList.add("selected");
+
+    // 나머지 버튼들에는 selected 클래스 제거
+    document.getElementById("cool").classList.remove("selected");
+    document.getElementById("frozen").classList.remove("selected");
+});
 </script>
 <style>
 /* 셀렉터:hover { 스타일; } */
@@ -125,12 +164,16 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="centerLine"></div>
 				<div class="stateBtns" id="stateIn">
-					<button id="all" name="show_in_state" onclick="stateOk(this.id);">전체</button>
-					<button id="cool" name="show_in_state" onclick="stateOk(this.id);">냉장</button>
+					<button id="all" name="show_in_state"
+						onclick="filterDataByState('all');" class="stateBtn">전체</button>
+					<button id="cool" name="show_in_state"
+						onclick="filterDataByState('cool');" class="stateBtn">냉장</button>
 					<button id="frozen" name="show_in_state"
-						onclick="stateOk(this.id);">냉동</button>
+						onclick="filterDataByState('frozen');" class="stateBtn">냉동</button>
+				</div>
+				<div>
+					<button class="stateBtn" onclick="addBtnClicked()">식품 등록</button>
 				</div>
 			</div>
 			<div class="wholeFoodListBox">
@@ -152,7 +195,7 @@
 						<tbody>
 							<c:forEach var="item" items="${dataList}">
 								<tr
-									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate_custom}', '${item.d_DAY}', '${item.in_state}')">
+									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate_custom}', '${item.d_DAY}', '${item.in_state}')	;">
 									<td style="text-align: center;">${item.in_name}</td>
 									<td style="text-align: center;"><fmt:formatDate
 											value="${item.in_expireDate_custom}" pattern="yyyy년 MM월 dd일" />
@@ -166,65 +209,69 @@
 				</div>
 			</div>
 		</div>
-		<button class="ctrlBtn" id="addBtn" onclick="addBtnClicked()">식품
-			등록</button>
 		<div>
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
-				<form action="<%=request.getContextPath()%>/innerFoodCtrl"
-					method="post">
+				<form id="detailForm"
+					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post">
 					<div class="detailInfoItemBox">
-						<label for="frg">보관 냉장고</label> <select id="frg"
-							class="detailInputBox disabled">
-							<option value="">선택하세요.</option>
+						<label for="frg">보관 냉장고</label> <select name="frgList"
+							id="frgSelect" class="detailInputBox disabled" disabled>
+							<option value="${name}">${name}</option>
 						</select>
 					</div>
 					<div class="detailInfoItemBox">
-						<label for="">식품명</label> <input id="" type="text"
-							class="detailInputBox" disabled>
+						<label for="">식품명</label> <input id="detailInfoItemBox_in_name"
+							type="text" class="detailInputBox" disabled>
 					</div>
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
-						<label for="">보관 위치</label> <input name="in_state" type="radio"
-							class="detailInputBox" value="cool" style="width: 10%" disabled>냉장
-						<input name="in_state" type="radio" class="detailInputBox"
+						<label for="">보관 위치</label> <input name="in_state" id="coolRadio"
+							type="radio" class="detailInputBox" value="cool"
+							style="width: 10%" disabled>냉장 <input name="in_state"
+							id="frozenRadio" type="radio" class="detailInputBox"
 							value="frozen" style="width: 10%" disabled>냉동
 					</div>
 					<div class="detailInfoItemBox">
-						<label for="">제조사명</label> <input id="" type="text"
-							class="detailInputBox" disabled>
+						<label id="in_company" class="detailInputLabel">제조사명</label> <input
+							id="detailInfoItemBox_in_company" type="text"
+							class="detailInputBox" value="${innerData.in_company}" disabled>
 					</div>
 					<div class="detailInfoItemBox">
 						<label for="">유통/<br>소비기한
 						</label>
 						<div>
-							<input id="" type="text" class="detailInputBox"
-								style="height: 30%; top: -1%;" disabled> <input id=""
-								type="date" class="detailInputBox" style="height: 30%;" disabled>
+							<input id="detailInfoItemBox_expireDate" type="text"
+								class="detailInputBox" style="height: 30%;" disabled> <input
+								id="detailInfoItemBox_in_expireDate_custom" type="date"
+								class="detailInputBox" style="height: 30%;" disabled>
 						</div>
 					</div>
 					<div class="detailInfoItemBox">
-						<label for="">D-Day</label> <input id="" type="number"
-							class="detailInputBox" disabled>
+						<label for="">D-Day</label> <input id="detailInfoItemBox_d_DAY"
+							type="number" class="detailInputBox" disabled>
 					</div>
 					<div class="detailInfoItemBox">
-						<label for="">수량</label> <input id="" type="text"
-							class="detailInputBox" disabled>
+						<label id="in_count" class="detailInputLabel">수량</label> <input
+							id="detailInfoItemBox_in_count" type="text"
+							class="detailInputBox" value="${innerData.in_count}" disabled>
 					</div>
 					<div class="detailInfoItemBox">
-						<label for="">식품 유형</label> <input id="" type="text"
-							class="detailInputBox" disabled>
+						<label id="in_type" class="detailInputLabel">식품 유형</label><input
+							id="detailInfoItemBox_in_type" type="text" class="detailInputBox"
+							value="${innerData.in_type}" disabled>
 					</div>
-					<div style="position: relative; top: 560%;">
+					<div style="position: relative; top: 370%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="upBtn" onclick="updateBtnClicked()">수정</button>
-							<button class="ctrlBtn" id="delBtn">삭제</button>
+							<button class="ctrlBtn" id="updateBtn"
+								onclick="updateBtnClicked()">수정</button>
+							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
 							<button class="ctrlBtn" style="display: none; top: 10%;"
-								id="upEndBtn">수정 완료</button>
+								id="updateEndBtn" onclick="updateEndBtnClicked()">수정 완료</button>
 						</div>
 					</div>
 				</form>
