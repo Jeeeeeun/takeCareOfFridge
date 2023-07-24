@@ -15,4 +15,5 @@ public interface InnerFoodService {
 
 	List<InnerDTO> selectAllInnerView(InnerDTO dto);
 	List<InnerDTO> selectPartInnerView(InnerDTO dto);
+	List<InnerDTO> selectInnerData(InnerDTO dto);
 }
