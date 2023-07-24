@@ -14,26 +14,30 @@ function createNewSettingBox(idNum) {
   const settingBoxElement = document.createElement("div");
   settingBoxElement.innerHTML = `
 	  <hr class="horizontalLine" style="border-style: dashed">
-	  <div class="settingBox">
-		  <div class="setting-titleBox">냉장고 모양</div>
-		  <div class="setting-itemBox">
-			  <input type="radio" name="frg_shape" id="horizon" value="H" onclick="radioClicked(event, this.nextElementSibling, idNum)">
-			  <label for="horizon">
-				  <img id="ho_${idNum}" class="ho" alt="가로형 냉장고" src="${contextPath}/resources/img/hFrgLabel.svg"/>
-			  </label>
-				  
-			  <input type="radio" name="frg_shape" id="vertical" value="V" onclick="radioClicked(event, this.nextElementSibling, idNum)">
-			  <label for="vertical">
-				  <img id="ve_${idNum}" class="ve" alt="세로형 냉장고" src="${contextPath}/resources/img/vFrgLabel.svg"/>
-			  </label>
-			  
-			  <input type="radio" name="frg_shape" id="single" value="S" onclick="radioClicked(event, this.nextElementSibling, idNum)">
-			  <label for="single">
-				  <img id="si_${idNum}" class="si" alt="단일형 냉장고" src="${contextPath}/resources/img/sFrgLabel.svg">
-			  </label>
+	  <div class="settingBox d-grid gap-2 position-relative mx-auto justify-content-sm-center align-items-center fs-4 mt-3 vw-70 vh-70 fw-semibold">
+		  <div class="h-100 d-flex justify-content-sm-center align-items-center bg-white-30  rounded-start-3 border-transparent">냉장고 모양</div>
+		  <div class="h-100 d-flex justify-content-sm-evenly align-items-center bg-white-30 rounded-end-3 border-transparent">
+        <div>
+          <input type="radio" name="frg_shape" id="horizon" value="H" class="position-relative border-solid-3 border-white rounded-circle width-5 height-5 t-4" onclick="radioClicked(event, this.nextElementSibling, idNum)">
+          <label for="horizon" class="h-100">
+            <img id="ho_${idNum}" class="ho w-75 mx-1" alt="가로형 냉장고" src="${contextPath}/resources/img/hFrgLabel.svg"/>
+          </label>
+        </div>
+        <div>  
+          <input type="radio" name="frg_shape" id="vertical" value="V" class="position-relative border-solid-3 border-white rounded-circle width-5 height-5 t-4" onclick="radioClicked(event, this.nextElementSibling, idNum)">
+          <label for="vertical" class="h-100">
+            <img id="ve_${idNum}" class="ve w-75 mx-1" alt="세로형 냉장고" src="${contextPath}/resources/img/vFrgLabel.svg"/>
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="frg_shape" id="single" value="S" class="position-relative border-solid-3 border-white rounded-circle width-5 height-5 t-4" onclick="radioClicked(event, this.nextElementSibling, idNum)">
+          <label for="single" class="h-100">
+            <img id="si_${idNum}" class="si w-75 mx-1" alt="단일형 냉장고" src="${contextPath}/resources/img/sFrgLabel.svg">
+          </label>
+        </div>
 		  </div>
-		  <div class="setting-titleBox">냉장고 정보</div>
-		  <div class="setting-itemBox">
+		  <div class="h-100 d-flex justify-content-sm-center align-items-center bg-white-30  rounded-start-3 border-transparent">냉장고 정보</div>
+		  <div class="h-100 d-flex justify-content-sm-center align-items-center bg-white-30  rounded-end-3 border-transparent">
 			  <div class="selected-fridge"></div>
 			  <div class="fridge-info">
 				  <div class="fridgeInfoBox">

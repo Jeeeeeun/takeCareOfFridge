@@ -54,22 +54,31 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
+							onclick="noFrg();">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();"><i
-								class="fa-solid fa-circle-user"></i></a></li>
+							href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
+							onclick="noFrg();"><i class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<p id="red">${trafficLight[0].red}</p>
-		<p id="yellow">${trafficLight[0].yellow}</p>
-		<p id="green">${trafficLight[0].green}</p>
-		<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
-			<i class="fa-solid fa-plus"></i>
-		</a>
+		<div class="d-flex flex-row position-relative mt-6">
+			<div id="trafficLight"
+				class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+				<p id="red"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
+				<p id="yellow"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].yellow}</p>
+				<p id="green"
+					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
+			</div>
+			<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
+				<i class="fa-solid fa-plus"></i>
+			</a>
+		</div>
 	</header>
 </body>
 </html>
