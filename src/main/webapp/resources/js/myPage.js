@@ -837,3 +837,25 @@ function frgDiscardBtnClicked() {
 function removeFrgFromList(frgName) {
   frgListJson = frgListJson.filter((frgListJson) => frgListJson.frg_name !== frgName);
 }
+
+//세션 만료 관련 , 해당 로직은 바꿀것이 없다.
+function checkSession(){
+    $.ajax({
+        url: `${contextPath}/frg/sessionExpire`,
+        method: "GET",
+        dataType: "json",
+        success: function(data){
+            if(data.sessionExpired){            
+                alert("다시 로그인 해주세요.");
+                window.location.href = `${contextPath}/frg/login`;
+            }
+        },
+        error: function(xhr, status, error){
+        	alert("다시 로그인 해주세요.");
+            window.location.href = `${contextPath}/frg/login`;
+            console.error("Error: ", error);
+        }
+    });
+}
+//일정 시간 간격으로 세션 상태 확인 (세션 만료 관련 ajax와 세트)
+setInterval(checkSession, 1000 * 60 * 60 * 24 + 1000); //24:00:01 마다 세션 검토
