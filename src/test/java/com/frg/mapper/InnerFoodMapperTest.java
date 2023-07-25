@@ -40,7 +40,7 @@ public class InnerFoodMapperTest {
 		String dateString = "2023-11-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate_custom(date);
+		dto.setIn_expireDate(date);
 		dto.setIn_state("frozen");
 
 		int cnt = mapper.insertInnerAuto(dto);
@@ -59,7 +59,7 @@ public class InnerFoodMapperTest {
 		String dateString = "2021-06-10";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate_custom(date);
+		dto.setIn_expireDate(date);
 		dto.setIn_type("다이어트 식품");
 		dto.setIn_state("cool");
 
