@@ -19,8 +19,7 @@ public class InnerDTO {
 	private String in_name;
 	private int in_count;
 	private String in_company;
-	private Date in_expireDate_custom;
-	private String in_expireDate_auto;
+	private Date in_expireDate;
 	private String in_type;
 	private String in_state;
 	private String api_fno;

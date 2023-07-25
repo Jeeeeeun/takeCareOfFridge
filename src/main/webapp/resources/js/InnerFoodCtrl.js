@@ -37,7 +37,7 @@ window.onload = function () {
             const stateCell = document.createElement("td");
 
             nameCell.textContent = item.in_name;
-            expireDateCell.textContent = item.in_expireDate_custom;
+            expireDateCell.textContent = item.in_expireDate;
             dDayCell.textContent = item.d_DAY;
             stateCell.textContent = item.in_state;
 
