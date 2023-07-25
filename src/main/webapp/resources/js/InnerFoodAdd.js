@@ -85,9 +85,6 @@ function searchFoodAPI() {
 					document.getElementById('foodCompany').value = apiCompany;
 					document.getElementById('foodCompany').disabled = true;
 	
-					document.getElementById('dueDateAuto').value = apiExpireDate;
-					document.getElementById('dueDateAuto').disabled = true;
-	
 					document.getElementById('foodType').value = apiType;
 					document.getElementById('foodType').disabled = true;
 					
@@ -338,78 +335,4 @@ function toggleSettingBox() {
 			}
 		});
 	});
-}
-
-/* addFinish(); */
-
-
-//1개의 settingBox밖에 안 됨 :{} 상태.
-function extractDataFromSettingBox() {
-  let frgList = document.querySelector("#frgOption"); // frgList의 ID를 선택
-  let frgState = document.querySelector("[name='frgState']"); // frgState의 name을 선택
-  let foodName = document.querySelector("#foodNameInput"); // foodName의 ID를 선택
-  let expireDateAuto = document.querySelector("#dueDateAuto"); // expireDateAuto의 ID를 선택
-  let expireDateCustom = document.querySelector("#dueDateCustom"); // expireDateCustom의 ID를 선택
-  let foodType = document.querySelector("#foodType"); // foodType의 ID를 선택
-  let foodCount = document.querySelector("#foodCount"); // foodCount의 ID를 선택
-  let foodCompany = document.querySelector("#foodCompany"); // foodCompany의 ID를 선택
-
-  console.log("frgList.value : " + frgList.value);
-  console.log("frgState.value : " + frgState.value);
-  console.log("foodName.value : " + foodName.value);
-  console.log("expireDateAuto.value : " + expireDateAuto.value);
-  console.log("expireDateCustom.value : " + expireDateCustom.value);
-  console.log("foodType.value: " + foodType.value);
-  console.log("foodCount.value : " + foodCount.value);
-  console.log("foodCompany.value : " + foodCompany.value);
-
-  return [{
-    frgList: frgList ? frgList.value : null,
-    frgState: frgState ? frgState.value : null,
-    foodName: foodName ? foodName.value : null,
-    expireDateAuto: expireDateAuto ? expireDateAuto.value : null,
-    expireDateCustom: expireDateCustom ? expireDateCustom.value : null,
-    foodType: foodType ? foodType.value : null,
-    foodCount: foodCount ? foodCount.value : null,
-    foodCompany: foodCompany ? foodCompany.value : null,
-  }];
-}
-
-
-//완료 버튼 눌렀을 때 일어나는 함수
-function addFinish(){
-
-	//e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
-
-	//const settingBox = document.querySelector(".addSettingBox");//settingBox 모두 데려와
-	const extractedData = extractDataFromSettingBox();
-	console.log("extractedData : "+extractedData);
-	//console.log("settingBoxes : "+settingBoxes);
-	
-	//const settingBoxesDataPromises = idNums.map((idNum, index) => {
-	//	return extractDataFromSettingBox(settingBoxes[index], idNum);
-	//});
-
-	$.ajax({
-		type: "POST",
-		url: `${contextPath}/frg/innerAdd/Submit`,
-		data: extractedData,
-		dataType: "json",
-		success: function (response){
-		  alert("성공적으로 등록 완료");
-		  window.location.href =`${contextPath}/frg/innerAdd`;
-		},
-		error: function (err){
-		  alert("등록 실패");
-		  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
-		  if (err.status === 404) {
-	        alert("요청한 페이지를 찾을 수 없습니다.");
-	      } else if (err.status === 500) {
-	        alert("서버 내부 오류가 발생했습니다.");
-	      } else {
-			alert("error - " + err);
-		  }
-		}
-	});
-		
 }

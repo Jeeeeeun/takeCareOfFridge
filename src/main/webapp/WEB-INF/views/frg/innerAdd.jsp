@@ -40,16 +40,13 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous"></script>
-<script
-	src="${pageContext.servletContext.contextPath}/resources/js/InnerFoodAdd.js">
-	
-</script>
 <script>
 	window.contextPath = "${pageContext.servletContext.contextPath}";
 
+	//frgNames 데이터를 JavaScript 변수에 할당
+	const frgNames = ${frgNamesJson};
+
 	document.addEventListener('DOMContentLoaded', function() {
-		// frgNames 데이터를 JavaScript 변수에 할당
-		const frgNames = ${frgNamesJson};
 		// HTML이 모두 렌더링된 후 실행되어야 할 스크립트를 여기에 작성
 		// 이 이벤트 핸들러는 DOMContentLoaded 이벤트가 발생했을 때 실행됩니다.
 		// 냉장고 목록 select 가져오기
@@ -74,75 +71,66 @@
 		// 함수 호출
 		addOptionsToFrgList(frgOptionList, frgNames);
 	});
-        // frgNames를 이용하여 옵션 동적 생성
-        function addOptionsToFrgList(frgOptionList, frgNames) {
-    	    for (let i = 0; i < frgOptionList.length; i++) {
-    	        const frgOption = frgOptionList[i];
-    	        for (let j = 0; j < frgNames.length; j++) {
-    	            const name = frgNames[j];
-    	            if (name !== "") {
-    	                const option = document.createElement("option");
-    	                option.value = name;
-    	                option.textContent = name;
-    	                frgOption.appendChild(option);
-    	            }
-    	        }
-    	    }
-    	}
 
-    	// 함수 호출
-        addOptionsToFrgList(frgOptionList, frgNames);
-    });
-    
-    function addFinish() {
-        // 사용자 입력 데이터를 가져오기
-        const frgList = document.getElementById("frgOption").value;
-        const frgState = document.querySelector("input[name='frgState']:checked").value;
-        const foodName = document.getElementById("foodNameInput").value;
-        const expireDateCustom = document.getElementById("dueDate").value;
-        const foodType = document.getElementById("foodType").value;
-        const foodCount = document.getElementById("foodCount").value;
-        const foodCompany = document.getElementById("foodCompany").value;
+	function addFinish() {
+		// 사용자 입력 데이터를 가져오기
+		const frgName = document.getElementById("frgOption").value;
+		const frgState = document
+				.querySelector("input[name='frgState']:checked").value;
+		const foodName = document.getElementById("foodNameInput").value;
+		const expireDate = document.getElementById("dueDate").value;
+		const foodType = document.getElementById("foodType").value;
+		const foodCount = document.getElementById("foodCount").value;
+		const foodCompany = document.getElementById("foodCompany").value;
 
-        // 데이터를 서버로 전송하기 위해 객체로 만들기
-        const data = {
-            frgList: frgList,
-            frgState: frgState,
-            foodName: foodName,
-            expireDateAuto: expireDateAuto,
-            expireDateCustom: expireDateCustom,
-            foodType: foodType,
-            foodCount: foodCount,
-            foodCompany: foodCompany
-        };
+		console.log("냉장고 : " + frgName);
+		console.log("보관 상태: " + frgState);
+		console.log("식품명: " + foodName);
+		console.log("유통/소비기한: " + expireDate);
+		console.log("식품 유형: " + foodType);
+		console.log("수량: " + foodCount);
+		console.log("제조사명: " + foodCompany);
 
-        $.ajax({
-            type: "POST",
-            url: `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
-            data: JSON.stringify(data), // 데이터를 JSON 형태로 변환하여 전송
-            contentType: "application/json", // 전송하는 데이터가 JSON 형식임을 명시
-            dataType: "json",
-            success: function (response) {
-                alert("성공적으로 등록 완료");
-                window.location.href = `${contextPath}/frg/innerAdd`;
-            },
-            error: function (err) {
-                alert("등록 실패");
-                if (err.status === 404) {
-                    alert("요청한 페이지를 찾을 수 없습니다.");
-                } else if (err.status === 500) {
-                    alert("서버 내부 오류가 발생했습니다.");
-                } else {
-                    alert("error - " + err);
-                }
-            }
-        });
-    }
+		// 데이터를 서버로 전송하기 위해 객체로 만들기
+		const data = {
+			frg_name : frgName,
+			in_state : frgState,
+			in_name : foodName,
+			in_expireDate : new Date(expireDate),
+			in_type : foodType,
+			in_count : foodCount,
+			in_company : foodCompany
+		};
+
+		$
+				.ajax({
+					type : "POST",
+					url : `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
+					data : $.param(data), // 데이터를 URL 쿼리 파라미터 형태로 변환하여 전송
+					contentType : "application/x-www-form-urlencoded",
+					dataType : "json",
+					success : function(response) {
+						alert("성공적으로 등록 완료");
+						window.location.href = `${contextPath}/frg/innerCtrl`;
+					},
+					error : function(err) {
+						alert("등록 실패");
+						if (err.status === 404) {
+							alert("요청한 페이지를 찾을 수 없습니다.");
+						} else if (err.status === 500) {
+							alert("서버 내부 오류가 발생했습니다.");
+						} else {
+							alert("error - " + err);
+						}
+					}
+				});
+		return false;
+	}
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/InnerFoodAdd.js">
+	
 </script>
-
 <body id="page-top">
 
 	<header class="masthead">
@@ -174,7 +162,8 @@
 			</div>
 		</nav>
 		<div class="d-flex flex-row position-relative mt-6">
-			<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+			<div id="trafficLight"
+				class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
 				<p id="red"
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
 				<p id="yellow"
@@ -182,19 +171,7 @@
 				<p id="green"
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 			</div>
-		
-			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd" method="post" id="actionForm">
-
-				<div class="settingBoxWrapper">
-	
-					<div class="addSettingBox-All">
-	
-						<div class="addSettingBox-Left">
-	
-							<div class="addSettingBox-Form">
-	
-			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd"
-				method="post" id="actionForm">
+			<form method="post" action="${pageContext.servletContext.contextPath}/frg/innerAdd" id="actionForm">
 
 				<!-- 
 			
@@ -236,7 +213,7 @@
 									</div>
 									<p>총 N개 등록 중</p>
 								</div>
-	
+
 								<div class="addSettingBox-Form-Scroll">
 
 									<div class="addsettingBox-Wrapper">
@@ -247,7 +224,7 @@
 												<i class="fa-solid fa-square-check"></i>
 												<p>폼 선택하기</p>
 											</div>
-	
+
 											<!-- 냉장고 목록 -->
 											<div class="box1">
 												<label>
@@ -256,17 +233,17 @@
 												</select>
 												</label>
 											</div>
-	
+
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관 위치</p>
 												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" />냉동
+													id="foodStateFrozen" value="frozen" />냉동
 												</label> <label> <input type="radio" name="frgState"
-													id="foodStateCool" />냉장 <br>
+													id="foodStateCool" value="cool" />냉장 <br>
 												</label>
 											</div>
-	
+
 											<!-- 식품명 -->
 											<div class="box3">
 												<label>
@@ -283,20 +260,17 @@
 													</div>
 												</label>
 											</div>
-	
+
 											<!-- 유통/소비기한 -->
 											<div class="box4">
 												<label>
 													<p>유통/소비기한</p>
 													<div class="box4-1">
-														<input type="text" name="expireDateAuto" id="dueDateAuto"
-															placeholder="검색 결과가 입력됩니다." disabled> <input
-															type="date" name="expireDateCustom" id="dueDateCustom"
-															value="">
+														<input type="date" name="expireDate" id="dueDate" value="">
 													</div>
 												</label>
 											</div>
-	
+
 											<!-- 식품유형 -->
 											<div class="box5">
 												<label>
@@ -304,7 +278,7 @@
 													id="foodType" placeholder="검색 결과가 입력됩니다." disabled>
 												</label>
 											</div>
-	
+
 											<!-- 수량 -->
 											<div class="box6">
 												<label>
@@ -324,16 +298,16 @@
 										<!-- setting Box 끝 -->
 									</div>
 								</div>
-	
+
 							</div>
 							<!-- addSettingBox-Custom 끝 -->
-	
+
 						</div>
-	
+
 						<div class="addSettingBox-Right">
-	
+
 							<div class="addSettingBox-Table">
-	
+
 								<!-- 직접입력하기를 할 경우 생겨날 table -->
 								<div class="tableBox">
 									<div class="searchFood">
@@ -362,29 +336,29 @@
 										</table>
 									</div>
 								</div>
-	
-	
+
+
 							</div>
 							<!-- addSettingBox-Auto 끝 -->
-	
+
 						</div>
-	
+
 					</div>
 					<!-- addSettingBox-All 끝 -->
-	
-					<!-- 추가, 완료 버튼 -->
-					<div class="addSettingBtn">
-						<div class="addSettingBtn-Finish">
-							<button type="submit" name="finishBtn" onclick="addFinish();">
-								<i class="fa-solid fa-thumbs-up"></i>등록 완료
-							</button>
-						</div>
-					</div>
-				
+
 				</div>
 				<!-- settingBoxWrapper 끝 -->
+				<div class="addSettingBtn">
+					<div class="addSettingBtn-Finish">
+					<button type="submit" name="finishBtn" onclick="addFinish(); return false;">
+  					  <i class="fa-solid fa-thumbs-up"></i>등록 완료
+					</button>
+					</div>
+				</div>
 			</form>
 		</div>
+		<!-- 추가, 완료 버튼 -->
+
 	</header>
 </body>
 </html>
