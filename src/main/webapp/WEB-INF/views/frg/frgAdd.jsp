@@ -27,7 +27,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../resources/css/styles.css" rel="stylesheet" />
+<link href="${ pageContext.servletContext.contextPath }/resources/css/styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/frgAdd.css" />
+
+		<!-- FontAwesome CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -36,7 +39,7 @@
 	src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
 </head>
 <body id="page-top">
-	<header class="masthead">
+	<header class="custom-masthead">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3"
 			id="mainNav">
@@ -65,7 +68,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="d-flex flex-row position-relative mt-6">
+		<div class="d-flex flex-row position-relative mt-6 w-100 h-100">
 			<div id="trafficLight"
 				class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
 				<p id="red"
@@ -75,9 +78,11 @@
 				<p id="green"
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 			</div>
-			<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form">
-				<i class="fa-solid fa-plus"></i>
+			<div class="bg-white-30 rounded-4 d-flex justify-content-sm-center align-items-center w-20 h-80 mx-auto" style="transform: translateY(20%);">
+			<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" title="이 아이콘을 클릭하면 냉장고를 등록할 수 있습니다.">
+				<i class="fa-solid fa-plus text-white fs-1"></i>
 			</a>
+			</div>
 		</div>
 	</header>
 </body>
