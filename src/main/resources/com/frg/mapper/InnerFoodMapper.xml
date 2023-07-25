@@ -6,30 +6,31 @@
 
 	<insert id="insertFood">
 		INSERT INTO Inner (
-		    frg_index,
-		    in_state,
-		    in_name,
-		    in_expireDate,
-		    in_type,
-		    in_count,
-		    in_company
+		frg_index,
+		in_state,
+		in_name,
+		in_expireDate,
+		in_type,
+		in_count,
+		in_company
 		)
 		VALUES (
-		    (
-	        SELECT frg_index
-            FROM FrgList f
-            WHERE f.frg_name = #{frg_name}
-            AND f.user_index = (
-                SELECT user_index
-                FROM Users
-                WHERE user_id = #{user_id})
-		    ),
-		    #{in_state},
-		    #{in_name},
-		    #{in_expireDate},
-		    #{in_type},
-		    #{in_count},
-		    #{in_company}
+		(
+			SELECT frg_index
+			FROM FrgList f
+			WHERE f.frg_name = #{frg_name}
+			AND f.user_index = (
+			SELECT user_index
+			FROM Users
+			WHERE user_id = #{user_id}
+			)
+			),
+			#{in_state},
+			#{in_name},
+			#{in_expireDate},
+			#{in_type},
+			#{in_count},
+			#{in_company}
 		)
 	</insert>
 
@@ -60,14 +61,17 @@
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name, i.in_expireDate, i.D_DAY,
 		i.in_state
-		FROM Users
+		FROM
+		Users
 		u
 		INNER JOIN Inner_View i ON u.user_index =
 		i.user_index
-		WHERE u.user_id
+		WHERE
+		u.user_id
 		= #{user_id}
 		AND i.frg_index IN (SELECT
-		f.frg_index FROM frgList f
+		f.frg_index FROM
+		frgList f
 		WHERE f.frg_name =
 		#{frg_name})
 	</select>

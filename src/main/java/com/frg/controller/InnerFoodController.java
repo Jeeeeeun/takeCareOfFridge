@@ -1,11 +1,11 @@
 package com.frg.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,21 +64,38 @@ public class InnerFoodController {
 		return "/frg/innerAdd";
 	}
 
-	
-	@PostMapping(value = "/innerAdd/submit")
-	@ResponseBody
-	public String registerInnerFood(HttpSession session,
+	@PostMapping(value = "/innerAdd/submit") // 요청을 POST로 처리하도록 지정
+	public String registerInnerFoodAuto(HttpSession session,
 			@RequestParam(value = "frg_name", required = true) String frgName,
 			@RequestParam("in_state") String frgState, @RequestParam("in_name") String foodName,
-			@RequestParam("in_expireDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date expireDate,
-			@RequestParam("in_type") String foodType, @RequestParam("in_count") int foodCount,
-			@RequestParam("in_company") String foodCompany) throws Exception {
+			@RequestParam("in_expireDate") String expireDate, @RequestParam("in_type") String foodType,
+			@RequestParam("in_count") int foodCount, @RequestParam("in_company") String foodCompany) throws Exception {
 
-		return "/submit";
-		
+		String user_id = (String) session.getAttribute("SESS_ID");
+
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id(user_id);
+		System.out.println(user_id);
+		dto.setFrg_name(frgName);
+		dto.setIn_state(frgState);
+		dto.setIn_name(foodName);
+		System.out.println(foodName);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(expireDate, formatter);
+		dto.setIn_expireDate(date);
+
+		dto.setIn_type(foodType);
+		dto.setIn_count(foodCount);
+		dto.setIn_company(foodCompany);
+		System.out.println(dto);
+
+		inService.registerInnerFood(dto);
+		log.info(inService.registerInnerFood(dto));
+
+		return "redirect:/frg/innerAdd";
 	}
 
-	
 	// foodApi 조회하기
 	// @RequestMapping(value= "/search", method = RequestMethod.GET)
 	@PostMapping("innerAdd/search")
@@ -89,7 +106,6 @@ public class InnerFoodController {
 		List<FoodApiDTO> foodList = inService.selectFoodAPI(foodDto);
 		return foodList;
 	}
-
 
 	@GetMapping("/innerCtrl")
 	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,

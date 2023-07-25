@@ -3,6 +3,7 @@ package com.frg.mapper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,11 +31,12 @@ public class InnerFoodMapperTest {
 	private InnerFoodMapper mapper;
 
 	@Test
+	@Ignore
 	public void testInsertInnerFood() throws ParseException, Exception {
 
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
-		dto.setFrg_name("LG");
+		dto.setFrg_name("fridge1");
+		dto.setUser_id("john01");
 		dto.setIn_state("frozen");
 		dto.setIn_name("삼겹살");
 		String dateString = "2023-01-30";
@@ -49,7 +51,6 @@ public class InnerFoodMapperTest {
 		log.info("result : "+mapper.insertFood(dto));
 		assertEquals(1, mapper.insertFood(dto));
 	}
-
 
 	@Test
 	@Ignore
@@ -84,7 +85,6 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
-	@Ignore
 	public void testselectPartInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");

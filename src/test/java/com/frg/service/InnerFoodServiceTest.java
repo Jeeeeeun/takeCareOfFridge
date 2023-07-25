@@ -34,8 +34,8 @@ public class InnerFoodServiceTest {
 	public void testRegisterInnerFood() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
-		dto.setFrg_name("LG");
+		dto.setUser_id("john01");
+		dto.setFrg_name("fridge1");
 		dto.setIn_state("frozen");
 		dto.setIn_name("김피탕");
 		String dateString = "2023-01-30";

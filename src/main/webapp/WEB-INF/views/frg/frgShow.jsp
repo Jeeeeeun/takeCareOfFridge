@@ -40,21 +40,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	window.contextPath = '${pageContext.servletContext.contextPath}';
+	const contextPath = '${pageContext.servletContext.contextPath}';
 	const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/frgShow.js"></script>
-<script type="text/javascript">
-	function showFrgNameOnImageClick(url) {
-		const frgNameElement = document.getElementById("frg_name");
-		const frgName = frgNameElement.textContent;
-
-		location.href = url + '?frgName=' + frgName;
-	}
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body id="page-top">
 	<header class="custom-masthead">
@@ -102,29 +94,30 @@
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
 					${trafficLight[0].green}</p>
 			</div>
-			<div id="showFridge" class="w-100">
-				<div class="w-20">
-				<a class="goToFoodCtrl" href="javascript:void(0)"
-					onclick="showFrgNameOnImageClick('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
-					<img id="frg_shape" class="bg-white-30 rounded-4 d-flex justify-content-sm-center align-items-center w-20 h-90 mx-auto" style="transform: translateY(20%);">
-				</a>
-				<div id="frg_state">
-					<p id="frg_Astate"></p>
-					<p id="frg_Bstate"></p>
-				</div>
-				<div class="ctrlInfos">
-					<button id="prev" onclick="prevFrg()">
-						<i class="fa-solid fa-caret-left"></i>
+			<div id="showFridge" class="w-100" style="transform: translateY(15%);">
+				<div class="w-20 d-flex flex-column justify-content-sm-center align-items-center mx-auto">
+					<button class="bg-transparent d-flex justify-content-sm-center align-items-center w-100 h-100 mx-0 my-0 border-transparent" onclick="goIntoFrg('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
+						<img id="frg_shape" class="w-100 h-100 z-1 border-transparent position-relative" style="object-fit: cover;">
+						<div id="frg_state" class="d-flex position-absolute z-2">
+							<p id="frg_Astate" class="position-relative fw-semibold m-0"></p>
+							<p id="frg_Bstate" class="position-relative fw-semibold m-0"></p>
+						</div>
 					</button>
-					<!-- 냉장고 이름 표시 부분 -->
-					<p id="frg_name">${frgName}</p>
-					<button id="next" onclick="nextFrg()">
-						<i class="fa-solid fa-caret-right"></i>
-					</button>
-				</div>
-				<button type="button" class="plusFrgBtn text-decoration-none" title="냉장고 더 만들기" onclick="goIntoFrg()">
+					<div class="ctrlInfos bg-transparent border-transparent">
+						<button id="prev" onclick="prevFrg()">
+							<i class="fa-solid fa-caret-left"></i>
+						</button>
+						<!-- 냉장고 이름 표시 부분 -->
+						<p id="frg_name" class="ms-4 me-4">${frgName}</p>
+						<button id="next" onclick="nextFrg()">
+							<i class="fa-solid fa-caret-right"></i>
+						</button>
+					</div>
+					<button type="button"
+						class="plusFrgBtn border-transparent text-decoration-none rounded-5 bg-white-30 px-5 py-1"
+						title="냉장고 더 만들기" onclick="generateNewFrg()">
 						<i class="fa-solid fa-plus"></i>
-				</button>
+					</button>
 				</div>
 			</div>
 		</div>

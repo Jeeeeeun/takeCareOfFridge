@@ -85,9 +85,12 @@ function searchFoodAPI() {
 					document.getElementById('foodCompany').value = apiCompany;
 					document.getElementById('foodCompany').disabled = true;
 	
+<<<<<<< HEAD
 					//document.getElementById('dueDate').value = apiExpireDate;
 					//document.getElementById('dueDate').disabled = true;
 	
+=======
+>>>>>>> 5b59d5630d3cf67a7ccd3c4c48cd7671b22e2c20
 					document.getElementById('foodType').value = apiType;
 					document.getElementById('foodType').disabled = true;
 					
