@@ -1,13 +1,8 @@
 @charset "UTF-8";
+
 #showFridge { /* 냉장고 이미지부터 prev, next 버튼까지 */
-   position: absolute;
    display: flex;
    flex-direction: column;
-   top: 72%;
-   left: 57.5%;
-   transform: translate(-72%, -57.5%);
-   width: 24%;
-   height: 58%;
 }
 
 a.goToFoodCtrl {
