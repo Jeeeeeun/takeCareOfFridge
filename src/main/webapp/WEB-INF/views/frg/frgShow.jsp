@@ -11,7 +11,7 @@
 <meta name="author" content="" />
 <title>frgShow Page</title>
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath }/resources/css/frgShow.css">
+	href="${pageContext.servletContext.contextPath}/resources/css/frgShow.css">
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
 <!-- Bootstrap Icons-->

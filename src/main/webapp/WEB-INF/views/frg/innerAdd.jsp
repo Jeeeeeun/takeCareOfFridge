@@ -55,25 +55,6 @@
 		// 냉장고 목록 select 가져오기
 		let frgOptionList = document.getElementsByName("frgList");
 
-		// frgNames를 이용하여 옵션 동적 생성
-		function addOptionsToFrgList(frgOptionList, frgNames) {
-			for (let i = 0; i < frgOptionList.length; i++) {
-				const frgOption = frgOptionList[i];
-				for (let j = 0; j < frgNames.length; j++) {
-					const name = frgNames[j];
-					if (name !== "") {
-						const option = document.createElement("option");
-						option.value = name;
-						option.textContent = name;
-						frgOption.appendChild(option);
-					}
-				}
-			}
-		}
-
-		// 함수 호출
-		addOptionsToFrgList(frgOptionList, frgNames);
-	});
         // frgNames를 이용하여 옵션 동적 생성
         function addOptionsToFrgList(frgOptionList, frgNames) {
     	    for (let i = 0; i < frgOptionList.length; i++) {
@@ -99,7 +80,7 @@
         const frgList = document.getElementById("frgOption").value;
         const frgState = document.querySelector("input[name='frgState']:checked").value;
         const foodName = document.getElementById("foodNameInput").value;
-        const expireDateCustom = document.getElementById("dueDate").value;
+        const expireDate = document.getElementById("dueDate").value;
         const foodType = document.getElementById("foodType").value;
         const foodCount = document.getElementById("foodCount").value;
         const foodCompany = document.getElementById("foodCompany").value;
@@ -109,8 +90,7 @@
             frgList: frgList,
             frgState: frgState,
             foodName: foodName,
-            expireDateAuto: expireDateAuto,
-            expireDateCustom: expireDateCustom,
+            expireDate: expireDate,
             foodType: foodType,
             foodCount: foodCount,
             foodCompany: foodCompany
@@ -184,38 +164,15 @@
 			</div>
 		
 			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd" method="post" id="actionForm">
-
-				<div class="settingBoxWrapper">
 	
-					<div class="addSettingBox-All">
-	
-						<div class="addSettingBox-Left">
-	
-							<div class="addSettingBox-Form">
-	
-			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd"
-				method="post" id="actionForm">
-
 				<!-- 
-			
-			* css 구조 : 버튼 외 + 버튼
-			form > settingBoxWrapper(버튼 외) + settingBtn (버튼)
-			
-			* 버튼 외
-			settingBoxWrapper > settingBox(form 요소) + tableBox (동적 생성될 table)
-			settingBox > box1 ~ box7 (각 form 요소)
-			box1 (냉장고 목록) > label > p + select > option
-			box2 (보관 위치) > label > p + input
-			box3 (식품명) > label > p + div > input + button + div > input
-			box4 (유통소비기한) > label > p + div > input*2
-			box5 (식품 유형) > label > p + input
-			box6 (수량) > label > p + input
-			box7 (제조사명) > label > p + input
-			
-			* 버튼
-			settingBtn > button*2
-			
-			 -->
+				
+				div (.d-flex) > div (#trafficLight) + form (#actionForm)
+				
+				settingBoxWrapper > addSettingBox-All + addSettingBtn
+				addSettingBox-All > addSettingBox-Left +  addSettingBox-Right
+				
+				 -->
 
 				<div class="settingBoxWrapper">
 
@@ -239,7 +196,7 @@
 	
 								<div class="addSettingBox-Form-Scroll">
 
-									<div class="addsettingBox-Wrapper">
+									<div class="addSettingBox-Wrapper">
 										<div class="addSettingBox">
 
 											<!-- 폼 선택 -->
@@ -261,9 +218,9 @@
 											<div class="box2">
 												<p>보관 위치</p>
 												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" />냉동
+													id="foodStateFrozen"  value="frozen"/>냉동
 												</label> <label> <input type="radio" name="frgState"
-													id="foodStateCool" />냉장 <br>
+													id="foodStateCool" value="cool"/>냉장 <br>
 												</label>
 											</div>
 	
@@ -289,10 +246,7 @@
 												<label>
 													<p>유통/소비기한</p>
 													<div class="box4-1">
-														<input type="text" name="expireDateAuto" id="dueDateAuto"
-															placeholder="검색 결과가 입력됩니다." disabled> <input
-															type="date" name="expireDateCustom" id="dueDateCustom"
-															value="">
+														<input type="date" name="expireDateCustom" id="dueDate" value="">
 													</div>
 												</label>
 											</div>
@@ -320,15 +274,20 @@
 													id="foodCompany" placeholder="검색 결과가 입력됩니다." disabled>
 												</label>
 											</div>
+										
 										</div>
 										<!-- setting Box 끝 -->
 									</div>
+									<!-- addSettingBox-Wrapper -->
+								
 								</div>
+								<!-- addSettingBox-Form-Scroll -->
 	
 							</div>
-							<!-- addSettingBox-Custom 끝 -->
+							<!-- addSettingBox-Form 끝 -->
 	
-						</div>
+						</div> 
+						<!-- addSettingBox-Left -->
 	
 						<div class="addSettingBox-Right">
 	
@@ -363,26 +322,28 @@
 									</div>
 								</div>
 	
-	
 							</div>
-							<!-- addSettingBox-Auto 끝 -->
+							<!-- addSettingBox-Table 끝 -->
 	
 						</div>
+						<!-- addSettingBox-Right 끝 -->
 	
 					</div>
 					<!-- addSettingBox-All 끝 -->
 	
-					<!-- 추가, 완료 버튼 -->
 					<div class="addSettingBtn">
 						<div class="addSettingBtn-Finish">
-							<button type="submit" name="finishBtn" onclick="addFinish();">
+							<button type="submit" name="finishBtn" onclick="addFinish(); return false;"> 
+							<!-- return false가 있어야 button을 눌렀을 때   -->
 								<i class="fa-solid fa-thumbs-up"></i>등록 완료
 							</button>
 						</div>
 					</div>
+					<!-- 추가, 완료 버튼 -->
 				
 				</div>
 				<!-- settingBoxWrapper 끝 -->
+			
 			</form>
 		</div>
 	</header>

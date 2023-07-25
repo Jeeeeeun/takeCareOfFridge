@@ -3,8 +3,8 @@ package com.frg.mapper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.ibatis.ognl.ParseException;
@@ -36,40 +36,18 @@ public class InnerFoodMapperTest {
 		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
 		dto.setIn_state("frozen");
-		dto.setIn_name("생선");
-		String dateString = "2023-11-30";
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = dateFormat.parse(dateString);
+		dto.setIn_name("삼겹살");
+		String dateString = "2023-01-30";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dateString, formatter);
 		dto.setIn_expireDate(date);
-<<<<<<< HEAD
-=======
-		dto.setIn_state("frozen");
-
-		int cnt = mapper.insertInnerAuto(dto);
-		assertEquals(1, cnt);
-	}
-
-	@Test
-	@Ignore
-	public void testInsertInnerCustom() throws ParseException, Exception {
-
-		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
-		dto.setFrg_name("samsung");
-		dto.setIn_name("샐러드");
-		dto.setIn_count(3);
-		String dateString = "2021-06-10";
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate(date);
->>>>>>> fac733e3c1641642b39489ebfbdd72deacab919a
-		dto.setIn_type("다이어트 식품");
+		dto.setIn_type("주말 간식");
 		dto.setIn_count(2);
-		dto.setIn_company("동원");
+		dto.setIn_company("홈메이드");
 		
-		List<InnerDTO> response = mapper.insertFood(dto);
-		assertNotNull(response);
-		
+		log.info("date : " +date);
+		log.info("result : "+mapper.insertFood(dto));
+		assertEquals(1, mapper.insertFood(dto));
 	}
 
 

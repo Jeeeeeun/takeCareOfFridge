@@ -17,9 +17,12 @@
 		VALUES (
 		    (
 	        SELECT frg_index
-	        FROM FrgList f, Users u
-	        WHERE u.user_id = #{user_id}
-	          AND f.frg_name = #{frg_name}
+            FROM FrgList f
+            WHERE f.frg_name = #{frg_name}
+            AND f.user_index = (
+                SELECT user_index
+                FROM Users
+                WHERE user_id = #{user_id})
 		    ),
 		    #{in_state},
 		    #{in_name},

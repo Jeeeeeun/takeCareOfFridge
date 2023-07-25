@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -35,16 +37,16 @@ public class InnerFoodServiceTest {
 		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
 		dto.setIn_state("frozen");
-		dto.setIn_name("육회");
+		dto.setIn_name("김피탕");
 		String dateString = "2023-01-30";
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = dateFormat.parse(dateString);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dateString, formatter);
 		dto.setIn_expireDate(date);
-		dto.setIn_type("다이어트 식품");
+		dto.setIn_type("주말 점심");
 		dto.setIn_count(2);
-		dto.setIn_company("동원");
+		dto.setIn_company("집");
 		
-		assertNotNull(service.registerInnerFood(dto));
+		assertEquals(1, service.registerInnerFood(dto));
 
 	}
 	
