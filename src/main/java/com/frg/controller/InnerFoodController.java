@@ -102,13 +102,13 @@ public class InnerFoodController {
 	}
 	
 	// 진수가 하는 innerAdd
-		@PostMapping(value = "/innerAdd/submit")
-		@ResponseBody
-		public List<InnerDTO> registerInnerFood(@RequestParam("extractedData") InnerDTO extractedData) throws Exception {
+		//@PostMapping(value = "/innerAdd/submit")
+		//@ResponseBody
+		//public List<InnerDTO> registerInnerFood(@RequestParam("extractedData") InnerDTO extractedData) throws Exception {
 
-			log.info("드러와따");
+			//log.info("드러와따");
 			
-			return null;
+			//return null;
 			// ↓ 나중에 살리려고 주석해둠
 			//InnerDTO dto = new InnerDTO();
 //			dto.setUser_id(request.getParameter("user_id"));
@@ -128,7 +128,7 @@ public class InnerFoodController {
 //			log.info(inService.registerInnerAuto(dto));
 
 			//return "/frg/innerAdd";
-		}
+		//}
 
 	
 	// foodApi 조회하기

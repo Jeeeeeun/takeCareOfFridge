@@ -95,13 +95,12 @@
 					${trafficLight[0].green}</p>
 			</div>
 			<div id="showFridge" class="w-100" style="transform: translateY(15%);">
-				<div
-					class="w-20 d-flex flex-column justify-content-sm-center align-items-center mx-auto">
-					<button class="goToFoodCtrl bg-transparent d-flex justify-content-sm-center align-items-center w-100 h-100 mx-0 my-0 border-transparent" onclick="goIntoFrg('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
+				<div class="w-20 d-flex flex-column justify-content-sm-center align-items-center mx-auto">
+					<button class="bg-transparent d-flex justify-content-sm-center align-items-center w-100 h-100 mx-0 my-0 border-transparent" onclick="goIntoFrg('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
 						<img id="frg_shape" class="w-100 h-100 z-1 border-transparent position-relative" style="object-fit: cover;">
-						<div id="frg_state" class="position-absolute z-2">
-							<p id="frg_Astate" class="position-absolute fw-semibold"></p>
-							<p id="frg_Bstate" class="position-absolute fw-semibold"></p>
+						<div id="frg_state" class="d-flex position-absolute z-2">
+							<p id="frg_Astate" class="position-relative fw-semibold m-0"></p>
+							<p id="frg_Bstate" class="position-relative fw-semibold m-0"></p>
 						</div>
 					</button>
 					<div class="ctrlInfos bg-transparent border-transparent">

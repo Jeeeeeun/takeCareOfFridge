@@ -7,6 +7,12 @@ window.onload = function () {
 	frgState = document.getElementById("frg_state");
     frgAstate = document.getElementById("frg_Astate");
     frgBstate = document.getElementById("frg_Bstate");
+    
+    frgShapeImg.onload = function() {
+    	frgState.style.width = frgShapeImg.offsetWidth + "px";
+    	frgState.style.height = frgShapeImg.offsetHeight + "px";
+    	frgState.style.padding = "1%";
+    }
     updateFrg(currentIndex);
 };
   
@@ -17,16 +23,34 @@ window.onload = function () {
     switch (frgListJson[i].frg_shape) {
         case "H":
             frgShapeImg.src = contextPath + "/resources/img/hFrg.svg";
-            frgAstate.style.top = "-20%";
+            frgState.style.flexDirection = "column";
+            frgAstate.style.width = "100%";
+            frgAstate.style.height = "50%";
+            frgAstate.style.textAlign = "right";
+            frgAstate.style.paddingRight = "4%";
+            frgBstate.style.width = "100%";
+            frgBstate.style.height = "50%";
+            frgBstate.style.textAlign = "right";
+            frgBstate.style.paddingRight = "4%";
+
             break;
          case "V":
             frgShapeImg.src = contextPath + "/resources/img/vFrg.svg";
-            frgState.style.height = "10%";
-            frgState.style.display = "flex";
-            frgState.style.top = "-10%";
+            frgState.style.flexDirection = "row";
+            frgAstate.style.width = "50%";
+            frgAstate.style.textAlign = "right";
+            frgAstate.style.paddingRight = "4%";
+            frgBstate.style.width = "50%";
+            frgBstate.style.textAlign = "right";
             break;
          case "S":
             frgShapeImg.src = contextPath + "/resources/img/sFrg.svg";
+            frgState.style.flexDirection = "row";
+            frgAstate.style.width = "100%";
+            frgAstate.style.height = "100%";
+            frgAstate.style.textAlign = "right";
+            frgAstate.style.paddingRight = "4%";
+            frgBstate.style.display = "none";
             break;
     }
   
