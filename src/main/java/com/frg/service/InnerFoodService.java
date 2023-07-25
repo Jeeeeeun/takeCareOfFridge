@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.ResponseDTO;
 import com.frg.domain.UserDTO;
 
 public interface InnerFoodService {
 	
-	int registerInnerAuto(InnerDTO dto);
-	int registerInnerCustom(InnerDTO dto); 
+	List<InnerDTO> registerInnerFood(InnerDTO dto);
 	List<String> selectFrgName(UserDTO user_id);
 	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 

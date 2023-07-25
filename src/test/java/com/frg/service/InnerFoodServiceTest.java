@@ -28,41 +28,23 @@ public class InnerFoodServiceTest {
 	@Setter(onMethod_=@Autowired)
 	InnerFoodService service;
 	
-	@Test  @Ignore
-	public void testRegisterInnerAuto() throws ParseException {
+	@Test 
+	public void testRegisterInnerFood() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
-		dto.setIn_count(30);
+		dto.setIn_state("frozen");
+		dto.setIn_name("육회");
 		String dateString = "2023-01-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate(date);
-		dto.setIn_state("frozen");
+		dto.setIn_type("다이어트 식품");
+		dto.setIn_count(2);
+		dto.setIn_company("동원");
 		
-		int cnt = service.registerInnerAuto(dto);
-		assertEquals(1, cnt);
-
-	}
-	
-	@Test @Ignore 
-	public void testRegisterInnerCustom() throws ParseException {
-		
-		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
-		dto.setFrg_name("samsung");
-		dto.setIn_name("산채비빔밥");
-		dto.setIn_count(3);
-		String dateString = "2023-02-20";
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate(date);
-		dto.setIn_type("유기농 식품");
-		dto.setIn_state("cool");
-		
-		int cnt=service.registerInnerCustom(dto);
-		assertEquals(1, cnt);
+		assertNotNull(service.registerInnerFood(dto));
 
 	}
 	

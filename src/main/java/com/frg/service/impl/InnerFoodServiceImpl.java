@@ -21,13 +21,8 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	private InnerFoodMapper mapper;
 	
 	@Override
-	public int registerInnerAuto(InnerDTO dto) {
-		return mapper.insertInnerAuto(dto);
-	}
-
-	@Override
-	public int registerInnerCustom(InnerDTO dto) {
-		return mapper.insertInnerCustom(dto);
+	public List<InnerDTO> registerInnerFood(InnerDTO dto) {
+		return mapper.insertFood(dto);
 	}
 
 	@Override

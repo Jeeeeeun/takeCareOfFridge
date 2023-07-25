@@ -30,17 +30,19 @@ public class InnerFoodMapperTest {
 	private InnerFoodMapper mapper;
 
 	@Test
-	@Ignore
-	public void testInsertInnerAuto() throws ParseException, Exception {
+	public void testInsertInnerFood() throws ParseException, Exception {
 
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("smith01");
 		dto.setFrg_name("LG");
-		dto.setIn_count(2);
+		dto.setIn_state("frozen");
+		dto.setIn_name("생선");
 		String dateString = "2023-11-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate(date);
+<<<<<<< HEAD
+=======
 		dto.setIn_state("frozen");
 
 		int cnt = mapper.insertInnerAuto(dto);
@@ -60,13 +62,16 @@ public class InnerFoodMapperTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate(date);
+>>>>>>> fac733e3c1641642b39489ebfbdd72deacab919a
 		dto.setIn_type("다이어트 식품");
-		dto.setIn_state("cool");
-
-		int cnt = mapper.insertInnerCustom(dto);
-		assertEquals(1, cnt);
-
+		dto.setIn_count(2);
+		dto.setIn_company("동원");
+		
+		List<InnerDTO> response = mapper.insertFood(dto);
+		assertNotNull(response);
+		
 	}
+
 
 	@Test
 	@Ignore
@@ -113,6 +118,7 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
+	@Ignore
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
