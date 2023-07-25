@@ -533,14 +533,41 @@ function radioBtnClicked(e) {
 
     // 새로 선택된 라디오 버튼에 checked 속성을 추가해줘
     clickedRadio.setAttribute("checked", "");
+    
+   // 선택된 라디오 버튼을 checkedRadio로 업데이트
+    checkedRadio = clickedRadio;
 
     // 왼쪽 상자에 보이는 냉장고 모양 그림 바꿔줘
     switch (clickedRadio.value) {
       case "H":
         frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
+        frgBstate.style.display = "flex";
+        if (aFrozenBtn.getAttribute("selected") !== null) {
+		  bCoolBtn.setAttribute("selected", "");
+		  bCoolBtn.className = "frgSelected";
+		  bFrozenBtn.removeAttribute("selected");
+		  bFrozenBtn.className = "frgNotSelected";
+		} else if (aCoolBtn.getAttribute("selected") !== null) {
+		  bCoolBtn.removeAttribute("selected");
+		  bCoolBtn.className = "frgNotSelected";
+		  bFrozenBtn.setAttribute("selected", "");
+		  bFrozenBtn.className = "frgSelected";
+		}
         break;
       case "V":
         frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
+        frgBstate.style.display = "flex";
+        if (aFrozenBtn.getAttribute("selected") !== null) {
+		  bCoolBtn.setAttribute("selected", "");
+		  bCoolBtn.className = "frgSelected";
+		  bFrozenBtn.removeAttribute("selected");
+		  bFrozenBtn.className = "frgNotSelected";
+		} else if (aCoolBtn.getAttribute("selected") !== null) {
+		  bCoolBtn.removeAttribute("selected");
+		  bCoolBtn.className = "frgNotSelected";
+		  bFrozenBtn.setAttribute("selected", "");
+		  bFrozenBtn.className = "frgSelected";
+		}
         break;
       case "S":
         frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
@@ -549,9 +576,6 @@ function radioBtnClicked(e) {
         bCoolBtn.removeAttribute("selected");
         break;
     }
-
-    // 선택된 라디오 버튼을 checkedRadio로 업데이트
-    checkedRadio = clickedRadio;
   }
 }
 
@@ -621,7 +645,7 @@ function frgCorrectionEnd() {
       // jsp에서 값 가져와서 updatedFrgdata라는 변수의 JSON 형태로 저장
       const updatedFrgData = {
         user_id: userId,
-        frg_index: frgIndex.value,
+        frg_index: parseInt(frgIndex.value),
         frg_name: frgName[1].value,
         frg_shape: checkedRadio.value,
         frg_Astate: frgAstate.querySelector("button[selected]").value,
@@ -703,6 +727,12 @@ function frgCorrectionEnd() {
         data: JSON.stringify(updatedFrgData),
         dataType: "json",
         success: function (response) {
+        	// 숨겨졌던 수정하기 버튼 등장
+		    frgInfoChangeBtn.style.display = "flex";
+		
+		    // 드러나 있던 수정 완료 버튼 숨김
+		    frgCorrectionEndBtn.style.display = "none";
+        
           alertMsg = "냉장고 정보가 성공적으로 변경되었습니다.";
           showAlert(alertMsg);
         },
@@ -710,22 +740,23 @@ function frgCorrectionEnd() {
           alertMsg = "냉장고 정보 변경에 실패했습니다.";
           showAlert(alertMsg);
           if (err.status === 404) {
+          	frgInfoChangeBtn.style.display = "none";
+            frgCorrectionEndBtn.style.display = "flex";
             alertMsg = "요청한 페이지를 찾을 수 없습니다.";
             showAlert(alertMsg);
           } else if (err.status === 500) {
+            frgInfoChangeBtn.style.display = "none";
+            frgCorrectionEndBtn.style.display = "flex";
             alertMsg = "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
             showAlert(alertMsg);
           } else {
+            frgInfoChangeBtn.style.display = "none";
+            frgCorrectionEndBtn.style.display = "flex";
             alertMsg = "error가 발생했습니다. " + err;
             showAlert(alertMsg);
           }
         },
       });
-      // 숨겨졌던 수정하기 버튼 등장
-      frgInfoChangeBtn.style.display = "flex";
-
-      // 드러나 있던 수정 완료 버튼 숨김
-      frgCorrectionEndBtn.style.display = "none";
     })
     .catch(function (error) {
       console.error("사용자 ID를 얻는 데 실패했습니다:", error);
