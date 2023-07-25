@@ -1,46 +1,32 @@
+var currentIndex = 0;
+var frgName, frgNameContent, frgShapeImg, frgState, frgAstate, frgBstate;
+
 window.onload = function () {
+    frgName = document.getElementById("frg_name");
+    frgShapeImg = document.getElementById("frg_shape");
+	frgState = document.getElementById("frg_state");
+    frgAstate = document.getElementById("frg_Astate");
+    frgBstate = document.getElementById("frg_Bstate");
     updateFrg(currentIndex);
 };
   
-  var currentIndex = 0;
-  
   function updateFrg(i) {
-    var frgName = document.getElementById("frg_name");
-    var frgShapeImg = document.getElementById("frg_shape");
-    var frgAstate = document.getElementById("frg_Astate");
-    var frgBstate = document.getElementById("frg_Bstate");
   
     frgName.textContent = frgListJson[i].frg_name;
   
     switch (frgListJson[i].frg_shape) {
         case "H":
-            frgShapeImg.src = window.contextPath + "/resources/img/hFrg.svg";
-            frgAstate.style.position = "relative";
-            frgAstate.style.top = "-500%";
-            frgAstate.style.left = "82%";
-            frgAstate.style.fontWeight = "bold";
-            frgBstate.style.position = "relative";
-            frgBstate.style.top = "-305%";
-            frgBstate.style.left = "82%";
-            frgBstate.style.fontWeight = "bold";
+            frgShapeImg.src = contextPath + "/resources/img/hFrg.svg";
+            frgAstate.style.top = "-20%";
             break;
          case "V":
-            frgShapeImg.src = window.contextPath + "/resources/img/vFrg.svg";
-            frgAstate.style.position = "relative";
-            frgAstate.style.top = "-500%";
-            frgAstate.style.left = "34%";
-            frgAstate.style.fontWeight = "bold";
-            frgBstate.style.position = "relative";
-            frgBstate.style.top = "-540%";
-            frgBstate.style.left = "85%";
-            frgBstate.style.fontWeight = "bold";
+            frgShapeImg.src = contextPath + "/resources/img/vFrg.svg";
+            frgState.style.height = "10%";
+            frgState.style.display = "flex";
+            frgState.style.top = "-10%";
             break;
          case "S":
-            frgShapeImg.src = window.contextPath + "/resources/img/sFrg.svg";
-            frgAstate.style.position = "relative";
-            frgAstate.style.top = "-540%";
-            frgAstate.style.left = "85%";
-            frgAstate.style.fontWeight = "bold";
+            frgShapeImg.src = contextPath + "/resources/img/sFrg.svg";
             break;
     }
   
@@ -83,6 +69,12 @@ window.onload = function () {
     }
   }
   
-  function goIntoFrg() {
-  	window.location.href = window.contextPath + "/frg/frgAdd_form";
+  function goIntoFrg(url) {
+		frgNameContent = frgName.textContent;
+
+		window.location.href = url + '?frgName=' + frgNameContent;
+  }
+  
+  function generateNewFrg() {
+  	window.location.href = contextPath + "/frg/frgAdd_form";
   }
