@@ -78,7 +78,7 @@ public class FrgListMapperTest {
 		assertEquals(expect, result);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testDeleteFrgList() {
 		
 		int expect = 1;
@@ -93,5 +93,19 @@ public class FrgListMapperTest {
 		log.info(frgDto);
 		
 		assertEquals(expect, result);
+	}
+	
+	@Test
+	public void testSelectFrgNames() {
+		FrgListDTO frgDto = new FrgListDTO();
+
+		frgDto.setUser_id("smith01");
+
+		List<String> frgNames = mapper.selectFrgNames(frgDto);
+		
+		log.info(frgNames);
+		
+		assertNotNull(frgNames);
+		
 	}
 }

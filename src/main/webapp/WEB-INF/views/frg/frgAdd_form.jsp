@@ -96,6 +96,11 @@
 				</div>
 			</div>
 		</nav>
+		<div id="customAlert" class="hidden">
+			<div class="alert-content">
+				<p id="alertContent">알림창!</p>
+			</div>
+		</div>
 		<div class="d-flex flex-row position-relative mt-6">
 			<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
 				<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
