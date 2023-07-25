@@ -106,7 +106,6 @@ public class InnerFoodController {
 
 		return "redirect:/frg/innerAdd";
 	}
-
 	// foodApi 조회하기
 	// @RequestMapping(value= "/search", method = RequestMethod.GET)
 	@PostMapping("innerAdd/search")
