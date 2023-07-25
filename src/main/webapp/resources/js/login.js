@@ -12,3 +12,10 @@ function login() {
         return false;
     }
 }
+
+function showMsg(msg){
+	if(msg != null && msg !=''){
+		alert(msg);
+	}
+	
+}

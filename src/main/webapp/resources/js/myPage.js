@@ -838,7 +838,7 @@ function removeFrgFromList(frgName) {
   frgListJson = frgListJson.filter((frgListJson) => frgListJson.frg_name !== frgName);
 }
 
-//세션 만료 관련 , 해당 로직은 바꿀것이 없다.
+//세션 만료 관련 , 해당 로직은 바꿀것이 없다. (일정 시간 간격으로 세션 상태 확인과 세트)
 function checkSession(){
     $.ajax({
         url: `${contextPath}/frg/sessionExpire`,

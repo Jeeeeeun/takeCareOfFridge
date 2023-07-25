@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.ResponseDTO;
@@ -48,10 +49,18 @@ public class MyPageController {
 	private TrafficService trfService;
 
 	@GetMapping(value = "/myPage")
-	public String getMyPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
+	public String getMyPage(HttpSession session, Model model, RedirectAttributes rttr, TrafficDTO trfDto, FrgListDTO frgDto) {
 		log.info("myPage");
 
 	    String userId = (String) session.getAttribute("SESS_ID");
+		log.info("userId - " + userId);
+		//로그인 하지 않고 해당 주소로 접근했을때 로그인페이지로 반환
+		if (userId == null || session == null) {
+			String msg ="로그인이 필요한 기능입니다. 로그인을 해주세요.";
+		    rttr.addFlashAttribute("msg", msg);
+		    
+        	return "redirect:/frg/login";
+        }
 		
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
@@ -87,19 +96,19 @@ public class MyPageController {
 	}
 	//세션 관련 코드 자동 로그아웃됐을때 반응 그냥 그대로 쓰면 가능, 만약 컨트롤러 충돌이 일어난다면 value 값을 바꾸고
 	//	해당 ajax에 url도 변경 해줄 것
-	@GetMapping(value="/sessionExpire", produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
+	@GetMapping(value="/sessionExpire")
 	public Map<String, Boolean> sessionExist(HttpSession session) {
 		Map<String, Boolean> response = new HashMap<>();
 		String userId = (String) session.getAttribute("SESS_ID");
 		log.info("유저 아이디 - " + userId);
-		if(userId == null || session == null) {
-			response.put("sessionExpired", true);
-		} else {
-			response.put("sessionExpired", false);
-		}
 		
-		return response;
+		 if (userId == null) {
+	            response.put("sessionExpired", true);
+	        } else {
+	            response.put("sessionExpired", false);
+	        }
+
+	        return response;
 	}
 	
 	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
