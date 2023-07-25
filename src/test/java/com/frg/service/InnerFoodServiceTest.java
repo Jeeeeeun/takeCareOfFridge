@@ -38,7 +38,7 @@ public class InnerFoodServiceTest {
 		String dateString = "2023-01-30";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate_custom(date);
+		dto.setIn_expireDate(date);
 		dto.setIn_state("frozen");
 		
 		int cnt = service.registerInnerAuto(dto);
@@ -57,7 +57,7 @@ public class InnerFoodServiceTest {
 		String dateString = "2023-02-20";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
-		dto.setIn_expireDate_custom(date);
+		dto.setIn_expireDate(date);
 		dto.setIn_type("유기농 식품");
 		dto.setIn_state("cool");
 		

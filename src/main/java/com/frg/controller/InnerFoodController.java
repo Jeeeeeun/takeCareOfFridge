@@ -82,8 +82,7 @@ public class InnerFoodController {
 	    String dateFormat = "yyyy-MM-dd";
 	    SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 	    log.info("expireDateCustom의 출력결과: " + expireDateCustom);
-	    dto.setIn_expireDate_custom((Date) formatter.parse(expireDateCustom));
-	    dto.setIn_expireDate_auto(expireDateAuto);
+	    dto.setIn_expireDate((Date) formatter.parse(expireDateCustom));
 	    dto.setIn_type(foodType);
 	    dto.setIn_count(foodCount);
 	    dto.setIn_company(foodCompany);
