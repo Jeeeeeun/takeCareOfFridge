@@ -166,10 +166,10 @@
 				</div>
 				<hr class="horizontalLine" />
 				<div class="btns">
-					<button type="button" class="btn" onclick="plusBtnClicked()">
+					<button type="button" class="btn" onclick="plusBtnClicked()" title="냉장고 하나 더 추가하기">
 						<i class="fa-solid fa-plus"></i>
 					</button>
-					<button type="submit" class="btn">완료</button>
+					<button type="submit" class="btn" title="냉장고 등록 완료하기">완료</button>
 				</div>
 			</form>
 		</div>

@@ -27,13 +27,28 @@
 }
 
 .plusFrgBtn {
-	position: relative;
-	display: flex;
-	justify-content: center;
 	color: #fff;
 }
 
 .plusFrgBtn>a {
 	color: #fff;
 	text-decoration: none;
+}
+
+.btn {
+	background: rgba(255, 255, 255, 0.3);
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 48%;
+	height: 70%;
+	border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	font-family: 'MV Boli';
+	font-size: large;
+	font-weight: 600;
+	color: rgb(255, 255, 255);
+	border: 1px solid rgb(255, 255, 255);
 }
