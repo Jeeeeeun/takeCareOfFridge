@@ -82,3 +82,7 @@ window.onload = function () {
       updateFrg(currentIndex);
     }
   }
+  
+  function goIntoFrg() {
+  	window.location.href = window.contextPath + "/frg/frgAdd_form";
+  }

@@ -9,6 +9,8 @@ public class SessionUtil {
 		session.setAttribute("SESS_AUTH", auth);
 		session.setAttribute("SESS_ID", userId);
 		session.setAttribute("SESS_ROLE", role);
+		
+		session.setMaxInactiveInterval(60 * 60 * 24);//24시간 세션 유지
 	}
 
 	public static boolean getSessionAuth(HttpServletRequest request) {

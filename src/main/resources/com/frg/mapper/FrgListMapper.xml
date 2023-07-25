@@ -39,7 +39,7 @@
 		SET frg_name = #{frg_name},
 		    frg_shape = #{frg_shape},
 		    frg_Astate = #{frg_Astate},
-		    frg_Bstate = #{frg_Bstate}
+		    frg_Bstate = #{frg_Bstate, jdbcType=VARCHAR}
 		WHERE user_index = (SELECT user_index FROM Users WHERE user_id = #{user_id})
 		AND frg_index = #{frg_index}
 	</update>

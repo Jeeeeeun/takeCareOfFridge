@@ -74,6 +74,73 @@
 		// 함수 호출
 		addOptionsToFrgList(frgOptionList, frgNames);
 	});
+        // frgNames를 이용하여 옵션 동적 생성
+        function addOptionsToFrgList(frgOptionList, frgNames) {
+    	    for (let i = 0; i < frgOptionList.length; i++) {
+    	        const frgOption = frgOptionList[i];
+    	        for (let j = 0; j < frgNames.length; j++) {
+    	            const name = frgNames[j];
+    	            if (name !== "") {
+    	                const option = document.createElement("option");
+    	                option.value = name;
+    	                option.textContent = name;
+    	                frgOption.appendChild(option);
+    	            }
+    	        }
+    	    }
+    	}
+
+    	// 함수 호출
+        addOptionsToFrgList(frgOptionList, frgNames);
+    });
+    
+    function addFinish() {
+        // 사용자 입력 데이터를 가져오기
+        const frgList = document.getElementById("frgOption").value;
+        const frgState = document.querySelector("input[name='frgState']:checked").value;
+        const foodName = document.getElementById("foodNameInput").value;
+        const expireDateCustom = document.getElementById("dueDate").value;
+        const foodType = document.getElementById("foodType").value;
+        const foodCount = document.getElementById("foodCount").value;
+        const foodCompany = document.getElementById("foodCompany").value;
+
+        // 데이터를 서버로 전송하기 위해 객체로 만들기
+        const data = {
+            frgList: frgList,
+            frgState: frgState,
+            foodName: foodName,
+            expireDateAuto: expireDateAuto,
+            expireDateCustom: expireDateCustom,
+            foodType: foodType,
+            foodCount: foodCount,
+            foodCompany: foodCompany
+        };
+
+        $.ajax({
+            type: "POST",
+            url: `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
+            data: JSON.stringify(data), // 데이터를 JSON 형태로 변환하여 전송
+            contentType: "application/json", // 전송하는 데이터가 JSON 형식임을 명시
+            dataType: "json",
+            success: function (response) {
+                alert("성공적으로 등록 완료");
+                window.location.href = `${contextPath}/frg/innerAdd`;
+            },
+            error: function (err) {
+                alert("등록 실패");
+                if (err.status === 404) {
+                    alert("요청한 페이지를 찾을 수 없습니다.");
+                } else if (err.status === 500) {
+                    alert("서버 내부 오류가 발생했습니다.");
+                } else {
+                    alert("error - " + err);
+                }
+            }
+        });
+    }
+</script>
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/InnerFoodAdd.js">
 </script>
 
 <body id="page-top">
@@ -118,27 +185,6 @@
 		
 			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd" method="post" id="actionForm">
 
-				    <!-- 
-					
-					* css 구조 : 버튼 외 + 버튼
-					form > settingBoxWrapper(버튼 외) + settingBtn (버튼)
-					
-					* 버튼 외
-					settingBoxWrapper > settingBox(form 요소) + tableBox (동적 생성될 table)
-					settingBox > box1 ~ box7 (각 form 요소)
-					box1 (냉장고 목록) > label > p + select > option
-					box2 (보관 위치) > label > p + input
-					box3 (식품명) > label > p + div > input + button + div > input
-					box4 (유통소비기한) > label > p + div > input*2
-					box5 (식품 유형) > label > p + input
-					box6 (수량) > label > p + input
-					box7 (제조사명) > label > p + input
-					
-					* 버튼
-					settingBtn > button*2
-					
-					 -->
-
 				<div class="settingBoxWrapper">
 	
 					<div class="addSettingBox-All">
@@ -147,6 +193,38 @@
 	
 							<div class="addSettingBox-Form">
 	
+			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd"
+				method="post" id="actionForm">
+
+				<!-- 
+			
+			* css 구조 : 버튼 외 + 버튼
+			form > settingBoxWrapper(버튼 외) + settingBtn (버튼)
+			
+			* 버튼 외
+			settingBoxWrapper > settingBox(form 요소) + tableBox (동적 생성될 table)
+			settingBox > box1 ~ box7 (각 form 요소)
+			box1 (냉장고 목록) > label > p + select > option
+			box2 (보관 위치) > label > p + input
+			box3 (식품명) > label > p + div > input + button + div > input
+			box4 (유통소비기한) > label > p + div > input*2
+			box5 (식품 유형) > label > p + input
+			box6 (수량) > label > p + input
+			box7 (제조사명) > label > p + input
+			
+			* 버튼
+			settingBtn > button*2
+			
+			 -->
+
+				<div class="settingBoxWrapper">
+
+					<div class="addSettingBox-All">
+
+						<div class="addSettingBox-Left">
+
+							<div class="addSettingBox-Form">
+
 								<div class="addSettingBox-Count-Plus">
 									<div class="addSettingBtn">
 										<div class="addSettingBtn-text">
@@ -160,10 +238,10 @@
 								</div>
 	
 								<div class="addSettingBox-Form-Scroll">
-	
+
 									<div class="addsettingBox-Wrapper">
 										<div class="addSettingBox">
-	
+
 											<!-- 폼 선택 -->
 											<div class="box0" onclick="toggleSettingBox();">
 												<i class="fa-solid fa-square-check"></i>
@@ -234,7 +312,7 @@
 													id="foodCount" placeholder="식품 수량 등록">
 												</label>
 											</div>
-	
+
 											<!-- 제조사명 -->
 											<div class="box7">
 												<label>
@@ -302,12 +380,11 @@
 							</button>
 						</div>
 					</div>
+				
 				</div>
 				<!-- settingBoxWrapper 끝 -->
-				
 			</form>
 		</div>
-
 	</header>
 </body>
 </html>

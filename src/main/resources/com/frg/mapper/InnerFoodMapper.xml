@@ -42,7 +42,7 @@
 	<select id="selectAllInnerView"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
-		i.in_expireDate_custom, i.D_DAY,
+		i.in_expireDate, i.D_DAY,
 		i.in_state
 		FROM
 		Users u
@@ -55,7 +55,7 @@
 
 	<select id="selectPartInnerView"
 		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_name, i.in_expireDate_custom, i.D_DAY,
+		SELECT i.in_name, i.in_expireDate, i.D_DAY,
 		i.in_state
 		FROM Users
 		u
