@@ -4,51 +4,29 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
-	<insert id="insertInnerAuto">
-		INSERT INTO inner (
-		frg_index,
-		in_name,
-		in_count,
-		in_expireDate_auto,
-		in_expireDate_custom,
-		in_company,
-		in_type,
-		in_state
-		)
-		SELECT
-		(SELECT frg_index FROM FrgList f, Users u WHERE
-		u.user_id=#{user_id} AND
-		f.frg_name =#{frg_name}),
-		api_name,
-		#{in_count},
-		api_expireDate,
-		#{in_expireDate_custom},
-		api_company,
-		api_type,
-		#{in_state}
-		FROM foodAPI
-		WHERE api_fno = 2009039717826
-	</insert>
-
-	<insert id="insertInnerCustom">
+	<insert id="insertFood">
 		INSERT INTO Inner (
-		frg_index,
-		in_name,
-		in_count,
-		in_expireDate_custom,
-		in_type,
-		in_state
+		    frg_index,
+		    in_state,
+		    in_name,
+		    in_expireDate,
+		    in_type,
+		    in_count,
+		    in_company
 		)
 		VALUES (
-		(SELECT frg_index FROM
-		FrgList f, Users u WHERE u.user_id=#{user_id} AND
-		f.frg_name =
-		#{frg_name}),
-		#{in_name},
-		#{in_count},
-		#{in_expireDate_custom},
-		#{in_type},
-		#{in_state}
+		    (
+	        SELECT frg_index
+	        FROM FrgList f, Users u
+	        WHERE u.user_id = #{user_id}
+	          AND f.frg_name = #{frg_name}
+		    ),
+		    #{in_state},
+		    #{in_name},
+		    #{in_expireDate},
+		    #{in_type},
+		    #{in_count},
+		    #{in_company}
 		)
 	</insert>
 

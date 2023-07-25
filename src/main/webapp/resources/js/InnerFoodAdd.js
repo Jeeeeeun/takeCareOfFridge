@@ -46,55 +46,55 @@ function searchFoodAPI() {
 
 				$("#tbodyTag").append(`
         
-            <tr>
-              <td><input type="radio" class="${divClass}" name="foodApiName"/></td>
-              <td>${food.api_name}</td>
-              <td>${food.api_company}</td>
-              <td>${food.api_expiredate}</td>
-              <td>${food.api_type}</td>
-            </tr>		      
-        
-        `);
+		            <tr>
+		              <td><input type="radio" class="${divClass}" name="foodApiName"/></td>
+		              <td>${food.api_name}</td>
+		              <td>${food.api_company}</td>
+		              <td>${food.api_expiredate}</td>
+		              <td>${food.api_type}</td>
+		            </tr>		      
+	        
+	    		`);
 
 
-				// 선택된 divClass를 가진 input 요소에 대한 이벤트 처리
-				$('input.' + divClass).on('change', function () {
-					if ($(this).is(':checked')) {
-
-						// 선택된 input의 부모인 tr 요소를 선택
-						var trElement = $(this).closest('tr');
-
-						// tr 요소 내의 td 요소들의 값을 가져와서 처리
-						var apiName = trElement.find('td:nth-child(2)').text();
-						var apiCompany = trElement.find('td:nth-child(3)').text();
-						var apiExpireDate = trElement.find('td:nth-child(4)').text();
-						var apiType = trElement.find('td:nth-child(5)').text();
-
-						console.log(apiName);
-						console.log(apiCompany);
-						console.log(apiExpireDate);
-						console.log(apiType);
-
-						const settingBox = document.querySelectorAll(".addSettingBox");
-						console.log("settingBox.length : " + settingBox.length);
-
-
-
-						// 변수에 할당된 값으로 각각의 input 태그의 value 값 설정
-						document.getElementById('foodNameInput').value = apiName;
-						document.getElementById('foodNameInput').disabled = true;
-
-						document.getElementById('foodCompany').value = apiCompany;
-						document.getElementById('foodCompany').disabled = true;
-
-						document.getElementById('dueDateAuto').value = apiExpireDate;
-						document.getElementById('dueDateAuto').disabled = true;
-
-						document.getElementById('foodType').value = apiType;
-						document.getElementById('foodType').disabled = true;
-					}
-				});
+			// 선택된 divClass를 가진 input 요소에 대한 이벤트 처리
+			$('input.' + divClass).on('change', function () {
+				if ($(this).is(':checked')) {
+	
+					// 선택된 input의 부모인 tr 요소를 선택
+					var trElement = $(this).closest('tr');
+	
+					// tr 요소 내의 td 요소들의 값을 가져와서 처리
+					var apiName = trElement.find('td:nth-child(2)').text();
+					var apiCompany = trElement.find('td:nth-child(3)').text();
+					var apiExpireDate = trElement.find('td:nth-child(4)').text();
+					var apiType = trElement.find('td:nth-child(5)').text();
+	
+					console.log(apiName);
+					console.log(apiCompany);
+					console.log(apiExpireDate);
+					console.log(apiType);
+	
+					const settingBox = document.querySelectorAll(".addSettingBox");
+					console.log("settingBox.length : " + settingBox.length);
+	
+					// 변수에 할당된 값으로 각각의 input 태그의 value 값 설정
+					document.getElementById('foodNameInput').value = apiName;
+					document.getElementById('foodNameInput').disabled = true;
+	
+					document.getElementById('foodCompany').value = apiCompany;
+					document.getElementById('foodCompany').disabled = true;
+	
+					document.getElementById('dueDateAuto').value = apiExpireDate;
+					document.getElementById('dueDateAuto').disabled = true;
+	
+					document.getElementById('foodType').value = apiType;
+					document.getElementById('foodType').disabled = true;
+					
+					
+				}
 			});
+		});
 
 		},
 		error: function (data, err) {
@@ -379,40 +379,37 @@ function extractDataFromSettingBox() {
 //완료 버튼 눌렀을 때 일어나는 함수
 function addFinish(){
 
-	e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
+	//e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
 
-	const settingBoxes = document.querySelectorAll(".addSettingBox");//settingBox 모두 데려와
+	//const settingBox = document.querySelector(".addSettingBox");//settingBox 모두 데려와
+	const extractedData = extractDataFromSettingBox();
+	console.log("extractedData : "+extractedData);
+	//console.log("settingBoxes : "+settingBoxes);
+	
+	//const settingBoxesDataPromises = idNums.map((idNum, index) => {
+	//	return extractDataFromSettingBox(settingBoxes[index], idNum);
+	//});
 
-	const settingBoxesDataPromises = idNums.map((idNum, index) => {
-		return extractDataFromSettingBox(settingBoxes[index], idNum);
+	$.ajax({
+		type: "POST",
+		url: `${contextPath}/frg/innerAdd/Submit`,
+		data: extractedData,
+		dataType: "json",
+		success: function (response){
+		  alert("성공적으로 등록 완료");
+		  window.location.href =`${contextPath}/frg/innerAdd`;
+		},
+		error: function (err){
+		  alert("등록 실패");
+		  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
+		  if (err.status === 404) {
+	        alert("요청한 페이지를 찾을 수 없습니다.");
+	      } else if (err.status === 500) {
+	        alert("서버 내부 오류가 발생했습니다.");
+	      } else {
+			alert("error - " + err);
+		  }
+		}
 	});
-
-    // Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
-	Promise.all(settingBoxesDataPromises)
-		.then(function (settingBoxesData){
-			$.ajax({
-				type: "POST",
-				url: `${contextPath}/frg/innerAdd/Submit`,
-				data: JSON.stringify(settingBoxesData),
-				dataType: "json",
-				success: function (response){
-				  alert("성공적으로 등록 완료");
-				  window.location.href =`${contextPath}/frg/innerAdd`;
-				},
-				error: function (err){
-				  alert("등록 실패");
-				  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
-				  if (err.status === 404) {
-			        alert("요청한 페이지를 찾을 수 없습니다.");
-			      } else if (err.status === 500) {
-			        alert("서버 내부 오류가 발생했습니다.");
-			      } else {
-					alert("error - " + err);
-				  }
-				}
-			});
-		})
-		.catch(function (error) {
-	      console.error(error);
-	    });
+		
 }
