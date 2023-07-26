@@ -81,6 +81,8 @@
 	        alert("냉장고를 선택해주세요!");
 	        return false;
 	    }
+		const frgState = document
+				.querySelector("input[name='frgState']:checked").value;
 
 		const frgState = document
 				.querySelector("input[name='frgState']:checked").value;
@@ -96,13 +98,18 @@
 	        return false;
 	    }
 
-		const expireDate = document.getElementById("dueDate").value;
+	    const expireDate = document.getElementById("dueDate").value;
 	    if (expireDate === "") {
 	        alert("유통/소비기한을 선택해주세요!");
 	        return false;
 	    }
 
 		const foodType = document.getElementById("foodType").value;
+		  if (foodType === "") {
+		        alert("식품 유형을 입력해주세요!");
+		        return false;
+		    }
+		  
 	    if (foodType === "") {
 	        alert("식품 유형을 입력해주세요!");
 	        return false;
@@ -113,6 +120,7 @@
 	        alert("수량을 입력해주세요!");
 	        return false;
 	    }
+		const foodCompany = document.getElementById("foodCompany").value;
 
 		const foodCompany = document.getElementById("foodCompany").value;
 	    if (foodCompany === "") {
@@ -248,6 +256,11 @@
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관 위치</p>
+<<<<<<< HEAD
+												<label> <input type="radio" name="frgState" 
+													id="foodStateFrozen"  value="frozen" checked/>냉동
+=======
+>>>>>>> 4b700f1f3b9934234416065bb4d07c9b77ed435e
 												<label> <input type="radio" name="frgState"
 													id="foodStateFrozen" value="frozen" checked />냉동 <label> <input
 														type="radio" name="frgState" id="foodStateCool"
