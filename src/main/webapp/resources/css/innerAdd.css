@@ -50,7 +50,7 @@
 	border-radius: 20px;
 }
  */
-.addsettingBox-Wrapper{
+.addSettingBox-Wrapper{
 	background-color:beige;
 }
 
@@ -147,8 +147,7 @@
 
 #frgOption,
 #foodNameInput,
-#dueDateAuto,
-#dueDateCustom,
+#dueDate,
 #foodType,
 #foodCount,
 #foodCompany,
@@ -159,7 +158,7 @@
 	border: 0px;
 }
 
-#dueDateAuto,
+#dueDate,
 #foodNameInput{
 	margin-bottom: 5px;
 }
@@ -168,7 +167,7 @@
 	margin-right:10px;
 }
 
-#dueDateAuto.placeholder::placeholder,
+#dueDate.placeholder::placeholder,
 #foodType.placeholder::placeholder,
 #foodCompany.placeholder::placeholder,
 #foodNameInput.placeholder::placeholder{

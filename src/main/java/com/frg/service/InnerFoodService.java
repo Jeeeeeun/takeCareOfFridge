@@ -9,7 +9,7 @@ import com.frg.domain.UserDTO;
 
 public interface InnerFoodService {
 	
-	List<InnerDTO> registerInnerFood(InnerDTO dto);
+	void registerInnerFood(InnerDTO dto);
 	List<String> selectFrgName(UserDTO user_id);
 	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 

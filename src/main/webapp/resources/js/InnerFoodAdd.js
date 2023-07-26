@@ -1,20 +1,3 @@
-let foodNameInput, checkCustomAll, dueDateAuto, foodType, foodCount, foodCompany, searchInput, searchSubmit, settingBox, tbodyTag;
-
-window.onload = function () {
-
-	foodNameInput = document.getElementById("foodNameInput");
-	checkCustomAll = document.getElementsByName("checkCustom");
-	dueDateAuto = document.querySelector("#dueDateAuto");
-	foodType = document.querySelector("#foodType");
-	foodCount = document.querySelector("#foodCount");
-	foodCompany = document.querySelector("#foodCompany");
-	searchInput = document.querySelector("#searchInput");
-	searchSubmit = document.querySelector("#searchSubmit");
-	settingBox = document.querySelector(`.addSettingBox${settingBoxNumber}`);
-	tbodyTag = document.querySelector("#tbodyTag");
-	
-}
-
 /* searchFoodAPI(); */
 function searchFoodAPI() {
 
@@ -220,94 +203,108 @@ function createNewSettingBox() {
 /* checkCustomOrNot(); */
 function checkCustomOrNot() {
 
-	let checkCustom = "";
-	//checkCustom이 여러개일 경우, 그 중에 사용자가 선택한 checkCustom만 잡아오고 싶어. 어떻게 해?
-	checkCustomAll.forEach(function (checkCustomElement) {
-		if (checkCustomElement.checked) {
-			checkCustom = checkCustomElement;
-			console.log("checkCustom : " + checkCustom);
-		}
-	});
-
-	//선택된 것의 value를 가져옴. 이후에 어떤 로직을 짜야 하지?
-
-	//settingBox이 여러개일 경우, 그 중에 사용자가 선택한 checkCustom이 속해있는 settingBox만 잡아오고 싶어. 어떻게 해?
-	function findSettingBoxFromClickedCheckCustom(clickedCheckCustom) {
-		// 클릭된 요소의 상위 요소들을 탐색하여 settingBox를 찾음
-		let settingBoxElement = clickedCheckCustom;
-
-		while (settingBoxElement) {
-			if (settingBoxElement.classList.contains("settingBox")) {
-				return settingBoxElement;
-			}
-			settingBoxElement = settingBoxElement.parentElement;
-		}
-
-		// 찾지 못한 경우 null 반환
-		return null;
-	}
-
-	// click 이벤트를 추가하여 사용자가 선택한 settingBox를 찾음
-	document.addEventListener("click", function (event) {
-		const clickedElement = event.target;
-		if (clickedElement.nodeName === "INPUT" && clickedElement.getAttribute("name") === "checkCustom") {
-			settingBox = findSettingBoxFromClickedCheckCustom(clickedElement);
-			console.log("settingBox : " + settingBox);
-		}
-	});
-
+	let foodNameInput = document.getElementById("foodNameInput");
+	let checkCustom = document.querySelector("#checkCustomInput");
+	let dueDate = document.querySelector("#dueDate");
+	let foodType = document.querySelector("#foodType");
+	let foodCount = document.querySelector("#foodCount");
+	let foodCompany = document.querySelector("#foodCompany");
+	let searchInput = document.querySelector("#searchInput");
+	let searchSubmit = document.querySelector("#searchSubmit");
+	let tbodyTag = document.querySelector("#tbodyTag");
 
 	//직접 입력하기를 누른 경우의 수
 	//1. 식품명에 아무것도 안 씀 + 직접입력하기 누름
-	if (foodNameInput.value === "" && settingBox.checkCustom.checked == true) {
+	if (foodNameInput.value === "" && checkCustom.checked == true) {
 
 		foodNameInput.disabled = false;
+		foodType.disabled=false;
+		searchInput.disabled = true;
 
 		foodNameInput.placeholder = "식품명을 기입학세요";
 		searchInput.placeholder = "식품을 검색할 수 없어요";
-		dueDateAuto.placeholder = "하단에서 유통/소비기한을 입력하세요";
+		dueDate.placeholder = "하단에서 유통/소비기한을 입력하세요";
 		foodCompany.placeholder = "제조사는 입력할 수 없어요";
 		foodType.placeholder = "식품 유형을 입력하세요";
 
-		dueDateAuto.style.backgroundColor = "white";
+		foodNameInput.style.backgroundColor="white";
+		dueDate.style.backgroundColor = "white";
+		foodType.style.backgroundColor="white";
+		foodCount.style.backgroundColor="white";
 		foodCompany.style.backgroundColor = "white";
 
-	} else if (settingBox.foodNameInput.value === settingBox.searchInput.value && settingBox.checkCustom.checked == true) {
+	} else if (foodNameInput.value === searchInput.value && checkCustom.checked == true) {
 		//2. 식품명에 '검색한 식품명'이 들어가있음 + 직접 입력하기 누름 (변심 또는 실수)
 		let customFinalCheck = confirm("직접 입력하기로 변경하시겠습니까?\n변경 후에는 현재 검색한 내역과 등록한 값이 초기화됩니다.");
 
-		if (customFinalCheck == true) { //변경 확정
+		if (customFinalCheck === true) { //변경 확정
+		
 			//초기화
-			console.log("settingBox : " + settingBox);
-			console.log("settingBox.foodNameInput.value : " + settingBox.foodNameInput.value);
 			foodNameInput.value = "";
-			dueDateAuto.value = "";
+			dueDate.value = "";
 			foodType.value = "";
 			foodCount.value = "";
 			foodCompany.value = "";
-			tbodyTag.html = "";
+			tbodyTag.innerText = "";
+			searchInput.value="";
 
-			//disabled 해제
 			foodNameInput.disabled = false;
-			dueDateAuto.disabled = false;
-			foodType.disabled = false;
-			foodCount.disabled = false;
-			foodCompany.disabled = false;
+			foodType.disabled=false;
+			searchInput.disabled = true;
+	
+			foodNameInput.placeholder = "식품명을 기입학세요";
+			searchInput.placeholder = "식품을 검색할 수 없어요";
+			dueDate.placeholder = "하단에서 유통/소비기한을 입력하세요";
+			foodCompany.placeholder = "제조사는 입력할 수 없어요";
+			foodType.placeholder = "식품 유형을 입력하세요";
+	
+			searchInput.style.backgroundColor="beige";
+			foodNameInput.style.backgroundColor="white";
+			dueDate.style.backgroundColor = "white";
+			foodType.style.backgroundColor="white";
+			foodCount.style.backgroundColor="white";
+			foodCompany.style.backgroundColor = "white";
 
+		} else if(foodNameInput.value !== "" && checkCustom.checked == false){
+		
+			let customCheck = confirm("직접 입력을 해제하시겠습니까?\n해제 후에는 현재까지 입력한 내역이 초기화됩니다.");
+		
+			if(customCheck === true){
+				foodNameInput.disabled = true;
+				foodType.disabled=true;
+				searchInput.disabled=false;
+				
+				foodNameInput.placeholder = "검색결과가 입력됩니다.";
+				searchInput.placeholder = "식품을 검색하세요.";
+				dueDate.placeholder = "검색결과가 입력됩니다.";
+				foodCompany.placeholder = "검색결과가 입력됩니다.";
+				foodType.placeholder = "검색결과가 입력됩니다.";
+				
+				foodNameInput.style.backgroundColor="beige";
+				dueDate.style.backgroundColor = "beige";
+				foodType.style.backgroundColor="beige";
+				foodCount.style.backgroundColor="beige";
+				foodCompany.style.backgroundColor = "beige";
+			}
+		
 		} else { //변경 취소
-			firstCheckCustom.checked == false;
+			checkCustom.checked == false;
 
 			//변경 취소가 되면 모든 것이 원래대로 돌아와야 함.
 			foodNameInput.disabled = true;
-			foodCompany.disabled = true;
-
+			foodType.disabled=true;
+			searchInput.disabled=false;
+			
 			foodNameInput.placeholder = "검색결과가 입력됩니다.";
 			searchInput.placeholder = "식품을 검색하세요.";
-			dueDateAuto.placeholder = "검색결과가 입력됩니다.";
+			dueDate.placeholder = "검색결과가 입력됩니다.";
 			foodCompany.placeholder = "검색결과가 입력됩니다.";
 			foodType.placeholder = "검색결과가 입력됩니다.";
-
-			dueDateAuto.style.backgroundColor = "beige";
+			
+			foodNameInput.style.backgroundColor="beige";
+			dueDate.style.backgroundColor = "beige";
+			foodType.style.backgroundColor="beige";
+			foodCount.style.backgroundColor="beige";
 			foodCompany.style.backgroundColor = "beige";
 		}
 	}
@@ -315,6 +312,7 @@ function checkCustomOrNot() {
 
 
 /* toggleSettingBox(); */
+/*
 function toggleSettingBox() {
 	const settingBoxElements = document.querySelectorAll(".box0");
 	const settingBoxPairs = [];
@@ -336,3 +334,4 @@ function toggleSettingBox() {
 		});
 	});
 }
+*/
