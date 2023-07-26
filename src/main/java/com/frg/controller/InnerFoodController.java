@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,36 +65,13 @@ public class InnerFoodController {
 		return "/frg/innerAdd";
 	}
 
-	@PostMapping(value = "/innerAdd/submit") // 요청을 POST로 처리하도록 지정
-	public String registerInnerFoodAuto(HttpSession session,
-			@RequestParam(value = "frg_name", required = true) String frgName,
-			@RequestParam("in_state") String frgState, @RequestParam("in_name") String foodName,
-			@RequestParam("in_expireDate") String expireDate, @RequestParam("in_type") String foodType,
-			@RequestParam("in_count") int foodCount, @RequestParam("in_company") String foodCompany) throws Exception {
+	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
+	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	    String user_id = (String) session.getAttribute("SESS_ID");
+	    dto.setUser_id(user_id);
+	    inService.registerInnerFood(dto);
 
-		String user_id = (String) session.getAttribute("SESS_ID");
-
-		InnerDTO dto = new InnerDTO();
-		dto.setUser_id(user_id);
-		System.out.println(user_id);
-		dto.setFrg_name(frgName);
-		dto.setIn_state(frgState);
-		dto.setIn_name(foodName);
-		System.out.println(foodName);
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate date = LocalDate.parse(expireDate, formatter);
-		dto.setIn_expireDate(date);
-
-		dto.setIn_type(foodType);
-		dto.setIn_count(foodCount);
-		dto.setIn_company(foodCompany);
-		System.out.println(dto);
-
-		inService.registerInnerFood(dto);
-		log.info(inService.registerInnerFood(dto));
-
-		return "redirect:/frg/innerAdd";
+	    return "redirect:/frg/innerAdd";
 	}
 
 	// foodApi 조회하기

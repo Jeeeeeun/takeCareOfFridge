@@ -1,5 +1,23 @@
 // 고유 id 만들려고 변수 생성
 let idCounter = 0;
+let alertMsg, alertContent, alertWindow;
+  
+window.onload = function() {
+	alertContent = document.querySelector("#alertContent");
+	alertWindow = document.querySelector("#customAlert");
+}
+
+// 알림창 띄우기
+function showAlert(alertMsg) {
+	alertContent.textContent = alertMsg;
+	alertWindow.classList.remove("hidden");
+	alertWindow.classList.add("show");
+	
+	setTimeout(function () {
+		alertWindow.classList.remove("show");
+		alertWindow.classList.add("hidden");
+	}, 3000);
+}
 
 // 화면 아래쪽 + 버튼 눌렀을 때 settingBox 추가 생성
 function plusBtnClicked() {
@@ -218,16 +236,42 @@ function stateBtnClicked(clickedBtn, idNum) {
 	}
 }
 
-/* SESS_ID 데려오려는 함수 */
+// 기존에 있는 냉장고 이름들을 가져오는 함수 (중복 확인 목적)
+function getExistingFrgNames(user_Id) {
+	return fetch(`${contextPath}/frg/getFrgNames?user_id=${user_Id}`)
+	.then((response) => {
+		if (response.ok) {
+			return response.json();
+		} else {
+			throw new Error("냉장고 이름 목록을 가져오는 데 실패했습니다.");
+		}
+	});
+}
+
+// 냉장고 이름 중복 확인
+function checkFrgNameDuplication(newFrgNames, existingFrgNames) {
+	const duplicatedNames = newFrgNames.filter((name) => {
+		return existingFrgNames.includes(name);
+	});
+	
+	if (duplicatedNames.length > 0) { // 겹치는 이름이 한 개라도 있으면
+		alertMsg = `${duplicatedNames.join(', ')}(이)라는 냉장고 이름이 이미 존재합니다.`;
+		showAlert(alertMsg);
+		return false;
+	}
+	return true;
+}
+
+// SESS_ID 데려오려는 함수
 function getUserId() {
 	return fetch(contextPath + "/frg/getUserId")
-		.then(function (response) {
-			if (response.ok) {
-				return response.text();
-			} else {
-				throw new Error("사용자 ID를 가져올 수 없었습니다.");
-			}
-		});
+	.then(function (response) {
+		if (response.ok) {
+			return response.text();
+		} else {
+			throw new Error("User ID를 가져올 수 없었습니다.");
+		}
+	});
 }
 
 function extractDataFromSettingBox(settingBox, idNum) {
@@ -252,48 +296,57 @@ function extractDataFromSettingBox(settingBox, idNum) {
 	});
 }
 
-// 완료 버튼 눌렀을 때 실행될 코드
 function submitBtnClicked(e) {
-	e.preventDefault();
-	const settingBoxes = document.querySelectorAll(".settingBox");
+    e.preventDefault();
+    const settingBoxes = document.querySelectorAll(".settingBox");
 
-	const idNums = Array.from(settingBoxes).map((settingBox) => {
-		const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
-		const idNum = frgNameInput.name.split("_")[2];
+    const idNums = Array.from(settingBoxes).map((settingBox) => {
+        const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
+        const idNum = frgNameInput.name.split("_")[2];
 
-		return parseInt(idNum);
-	});
+        return parseInt(idNum);
+    });
 
-	const settingBoxesDataPromises = idNums.map((idNum, index) => {
-		return extractDataFromSettingBox(settingBoxes[index], idNum);
-	});
+    const settingBoxesDataPromises = idNums.map((idNum, index) => {
+        return extractDataFromSettingBox(settingBoxes[index], idNum);
+    });
 
-	// Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
-	Promise.all(settingBoxesDataPromises)
-		.then(function (settingBoxesData) {
-			$.ajax({
-				type: "POST",
-				url: `${contextPath}/frg/frgAdd_form`,
-				contentType: "application/json; charset=UTF-8",
-				data: JSON.stringify(settingBoxesData),
-				dataType: "json",
-				success: function (response) {
-					alert("냉장고 등록이 완료되었습니다.");
-					window.location.href = `${contextPath}/frg/frgShow`;
-				},
-				error: function (err) {
-					alert("냉장고 등록에 실패했습니다.");
-					if (err.status === 404) {
-						alert("요청한 페이지를 찾을 수 없습니다.");
-					} else if (err.status === 500) {
-						alert("서버 내부 오류가 발생했습니다.");
-					} else {
-						alert("error - " + err);
-					}
-				},
-			});
-		})
-		.catch(function (error) {
-			console.error(error);
-		});
+    // Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
+    Promise.all(settingBoxesDataPromises)
+        .then(function (settingBoxesData) {
+
+			const newFrgNames = settingBoxesData.map((data) => data.frg_name);
+
+			return getUserId()
+			.then((userId) => getExistingFrgNames(userId))
+			.then((existingFrgNames) => {
+				if(checkFrgNameDuplication(newFrgNames, existingFrgNames)) {
+					// 중복된 이름이 없으면 서버에 요청을 보냄
+					$.ajax({
+                        type: "POST",
+                        url: `${contextPath}/frg/frgAdd_form`,
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify(settingBoxesData),
+                        dataType: "json",
+                        success: function (response) {
+                            alert("냉장고 등록이 완료되었습니다.");
+                            window.location.href = `${contextPath}/frg/frgShow`;
+                        },
+                        error: function (err) {
+                            alert("냉장고 등록에 실패했습니다.");
+                            if (err.status === 404) {
+                                alert("요청한 페이지를 찾을 수 없습니다.");
+                            } else if (err.status === 500) {
+                                alert("서버 내부 오류가 발생했습니다.");
+                            } else {
+                                alert("error - " + err);
+                            }
+                        },
+                    })
+                }
+            })
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
 }

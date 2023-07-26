@@ -92,4 +92,12 @@ public class FrgListServiceImpl implements FrgListService {
 		return response;
 	}
 
+	@Override
+	public List<String> getFrgNames(FrgListDTO dto) {
+		
+		List<String> frgNames = mapper.selectFrgNames(dto);
+		
+		return frgNames;
+	}
+
 }

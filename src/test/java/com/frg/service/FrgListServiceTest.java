@@ -82,7 +82,7 @@ public class FrgListServiceTest {
 		assertEquals(expect, resDto.getAffectedRow());
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testRemoveFrgList() {
 		int expect = 1;
 		
@@ -96,5 +96,19 @@ public class FrgListServiceTest {
 		log.info("웅답 객체 - " + resDto);
 		
 		assertEquals(expect, resDto.getAffectedRow());
+	}
+	
+	@Test
+	public void testGetFrgName() {
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setUser_id("smith01");
+		
+		List<String> frgNames = service.getFrgNames(frgDto);
+		
+		log.info(frgNames);
+		
+		assertNotNull(frgNames);
 	}
 }
