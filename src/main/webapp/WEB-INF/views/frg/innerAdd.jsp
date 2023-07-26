@@ -209,10 +209,10 @@
 										<div class="addSettingBox">
 
 											<!-- 폼 선택 -->
-											<div class="box0" onclick="toggleSettingBox();">
+											<!-- <div class="box0" onclick="toggleSettingBox();">
 												<i class="fa-solid fa-square-check"></i>
 												<p>폼 선택하기</p>
-											</div>
+											</div> -->
 
 											<!-- 냉장고 목록 -->
 											<div class="box1">

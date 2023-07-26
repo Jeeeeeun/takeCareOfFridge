@@ -66,11 +66,15 @@ public class InnerFoodController {
 	}
 
 	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
+	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
-	    String user_id = (String) session.getAttribute("SESS_ID");
+	    //RequestBody를 선언해서 json데이터를 객체로 매핑한다. 
+		String user_id = (String) session.getAttribute("SESS_ID");
 	    dto.setUser_id(user_id);
 	    inService.registerInnerFood(dto);
-
+	    
+	    //redirect : controller간에 이동할 때
+	    //redirect 없으면 , 바로 jsp (view)로 이동
 	    return "redirect:/frg/innerAdd";
 	}
 
