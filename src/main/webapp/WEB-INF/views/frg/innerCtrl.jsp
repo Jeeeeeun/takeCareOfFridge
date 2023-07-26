@@ -82,9 +82,11 @@ function filterDataByState(state) {
 function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
     
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
-    document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
+    let d_day= document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
     document.getElementById('detailInfoItemBox_in_expireDate_custom').value = in_expireDate_custom;
 
+    console.log("d_day "+d_day);
+    
     var coolRadio = document.getElementById('coolRadio');
     var frozenRadio = document.getElementById('frozenRadio');
 
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						<thead>
 							<tr>
 								<th
-									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">제품명</th>
+									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">식품명</th>
 								<th
 									style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
 								<th
@@ -232,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					</div>
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
-						<label for="">보관 위치</label> <input name="in_state" id="coolRadio"
+						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
 							type="radio" class="detailInputBox" value="cool"
 							style="width: 10%" disabled>냉장 <input name="in_state"
 							id="frozenRadio" type="radio" class="detailInputBox"

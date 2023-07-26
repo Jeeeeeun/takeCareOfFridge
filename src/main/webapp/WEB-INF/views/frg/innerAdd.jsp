@@ -245,7 +245,7 @@
 
 											<!-- 보관 위치 -->
 											<div class="box2">
-												<p>보관 위치</p>
+												<p>보관상태</p>
 												<label> <input type="radio" name="frgState" 
 													id="foodStateFrozen"  value="frozen" checked/>냉동
 												<label> <input type="radio" name="frgState"
