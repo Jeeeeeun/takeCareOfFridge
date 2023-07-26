@@ -23,6 +23,8 @@ import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
 import com.frg.service.TrafficService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -42,7 +44,7 @@ public class InnerFoodController {
 
 	// innerFoodAdd
 	// localhost:8080/controller/frg/innerAdd
-	@GetMapping(value = "/innerAdd")
+	@GetMapping("/innerAdd")
 	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
 
 		String user_id = (String) session.getAttribute("SESS_ID");
@@ -66,12 +68,14 @@ public class InnerFoodController {
 	}
 
 	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
+	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
 	    String user_id = (String) session.getAttribute("SESS_ID");
 	    dto.setUser_id(user_id);
 	    inService.registerInnerFood(dto);
-
-	    return "redirect:/frg/innerAdd";
+	    JsonObject json = new JsonObject();
+	    json.addProperty("success", true);
+	    return new Gson().toJson(json);
 	}
 
 	// foodApi 조회하기
