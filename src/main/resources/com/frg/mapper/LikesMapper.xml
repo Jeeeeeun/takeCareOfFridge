@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frg.mapper.LikesMapper">
+	<select id="selectAllLikeStatus" resultType="com.frg.domain.LikesDTO">
+		SELECT b.board_index,
+		       CASE
+		         WHEN l.user_index IS NOT NULL THEN 1
+		         ELSE 0
+		       END AS is_liked
+		FROM board b
+		LEFT JOIN likes l ON b.board_index = l.board_index
+		                   AND l.user_index = (SELECT user_index
+		                                       FROM users
+		                                       WHERE user_id = #{user_id, jdbcType=VARCHAR})
+		ORDER BY b.board_index DESC
+	</select>
+	
+	<insert id="insertLike">
+		INSERT INTO likes (board_index, user_index)
+		SELECT #{board_index}, user_index
+		FROM users
+		WHERE user_id = #{user_id}
+		AND NOT EXISTS (
+		    SELECT 1
+		    FROM likes l, users u
+		    WHERE l.board_index = #{board_index}
+		    AND l.user_index = u.user_index
+		    AND u.user_id = #{user_id}
+		)
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM likes
+		WHERE board_index = #{board_index}
+		AND user_index = (
+		  SELECT user_index 
+		  FROM users 
+		  WHERE user_id = #{user_id}
+		)
+		AND EXISTS (
+		  SELECT 1
+		  FROM likes, users
+		  WHERE likes.board_index = #{board_index}
+		  AND likes.user_index = users.user_index
+		  AND users.user_id = #{user_id}
+		)
+	</delete>
+</mapper>
