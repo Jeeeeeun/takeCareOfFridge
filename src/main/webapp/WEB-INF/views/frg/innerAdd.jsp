@@ -102,13 +102,12 @@
 		        return false;
 		    }
 		  
-
 		const foodCount = document.getElementById("foodCount").value;
 	    if (foodCount === "") {
 	        alert("수량을 입력해주세요!");
 	        return false;
 	    }
-	    
+
 		const foodCompany = document.getElementById("foodCompany").value;
 
 
@@ -241,10 +240,10 @@
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관 위치</p>
+												<label> <input type="radio" name="frgState" 
+													id="foodStateFrozen"  value="frozen" checked/>냉동
 												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" value="frozen" checked/>냉동 <label> <input
-														type="radio" name="frgState" id="foodStateCool"
-														value="cool" />냉장 <br>
+													id="foodStateFrozen" value="cool" />냉장 
 											</div>
 
 											<!-- 식품명 -->
