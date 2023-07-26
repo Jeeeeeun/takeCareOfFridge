@@ -75,44 +75,37 @@
 	function addFinish() {
 		// 사용자 입력 데이터를 가져오기
 		const frgName = document.getElementById("frgOption").value;
-		const frgState = document
-				.querySelector("input[name='frgState']:checked").value;
-		const foodName = document.getElementById("foodNameInput").value;
-		const expireDate = document.getElementById("dueDate").value;
-		const foodType = document.getElementById("foodType").value;
-		const foodCount = document.getElementById("foodCount").value;
-		const foodCompany = document.getElementById("foodCompany").value;
-
-	    // 필수 입력 항목 체크
 	    if (frgName === "") {
 	        alert("냉장고를 선택해주세요!");
 	        return false;
 	    }
+		const frgState = document
+				.querySelector("input[name='frgState']:checked").value;
 
-	    if (!frgState) {
-	        alert("보관 상태를 선택해주세요!");
-	        return false;
-	    }
-
+		const foodName = document.getElementById("foodNameInput").value;
 	    if (foodName === "") {
 	        alert("식품명을 입력해주세요!");
 	        return false;
 	    }
-
+	    
+		const expireDate = document.getElementById("dueDate").value;
 	    if (expireDate === "") {
 	        alert("유통/소비기한을 선택해주세요!");
 	        return false;
 	    }
 
-	    if (foodType === "") {
-	        alert("식품 유형을 입력해주세요!");
-	        return false;
-	    }
-
+		const foodType = document.getElementById("foodType").value;
+		  if (foodType === "") {
+		        alert("식품 유형을 입력해주세요!");
+		        return false;
+		    }
+		  
+		const foodCount = document.getElementById("foodCount").value;
 	    if (foodCount === "") {
 	        alert("수량을 입력해주세요!");
 	        return false;
 	    }
+		const foodCompany = document.getElementById("foodCompany").value;
 
 		// 데이터를 서버로 전송하기 위해 객체로 만들기
 		const data = {
@@ -247,7 +240,7 @@
 											<div class="box2">
 												<p>보관 위치</p>
 												<label> <input type="radio" name="frgState" 
-													id="foodStateFrozen"  value="frozen" />냉동
+													id="foodStateFrozen"  value="frozen" checked/>냉동
 												<label> <input type="radio" name="frgState"
 													id="foodStateCool" value="cool"/>냉장 <br>
 											</div>
