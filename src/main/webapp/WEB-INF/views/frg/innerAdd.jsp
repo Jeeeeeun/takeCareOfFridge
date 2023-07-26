@@ -105,12 +105,12 @@
 		$.ajax({
 				type : "POST",
 				url : `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
-				data : $.param(data), // 데이터를 URL 쿼리 파라미터 형태로 변환하여 전송
-				contentType : "application/x-www-form-urlencoded",
+				data: JSON.stringify(data), 
+				contentType: "application/json",
 				dataType : "json",
 				success : function(response) {
 					alert("성공적으로 등록 완료");
-					window.location.href = `${contextPath}/frg/innerCtrl`;
+					window.location.href = `${pageContext.servletContext.contextPath}/frg/innerAdd`;
 				},
 				error : function(err) {
 					alert("등록 실패");
