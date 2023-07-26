@@ -10,7 +10,7 @@ window.onload = function () {
 	foodCompany = document.querySelector("#foodCompany");
 	searchInput = document.querySelector("#searchInput");
 	searchSubmit = document.querySelector("#searchSubmit");
-	settingBox = document.querySelector(`.settingBox${settingBoxNumber}`);
+	settingBox = document.querySelector(`.addSettingBox${settingBoxNumber}`);
 	tbodyTag = document.querySelector("#tbodyTag");
 	
 }
@@ -67,12 +67,12 @@ function searchFoodAPI() {
 					// tr 요소 내의 td 요소들의 값을 가져와서 처리
 					var apiName = trElement.find('td:nth-child(2)').text();
 					var apiCompany = trElement.find('td:nth-child(3)').text();
-					var apiExpireDate = trElement.find('td:nth-child(4)').text();
+					//var apiExpireDate = trElement.find('td:nth-child(4)').text();
 					var apiType = trElement.find('td:nth-child(5)').text();
 	
 					console.log(apiName);
 					console.log(apiCompany);
-					console.log(apiExpireDate);
+					//console.log(apiExpireDate);
 					console.log(apiType);
 	
 					const settingBox = document.querySelectorAll(".addSettingBox");
@@ -84,10 +84,7 @@ function searchFoodAPI() {
 	
 					document.getElementById('foodCompany').value = apiCompany;
 					document.getElementById('foodCompany').disabled = true;
-	
-					document.getElementById('dueDateAuto').value = apiExpireDate;
-					document.getElementById('dueDateAuto').disabled = true;
-	
+
 					document.getElementById('foodType').value = apiType;
 					document.getElementById('foodType').disabled = true;
 					
@@ -262,18 +259,18 @@ function checkCustomOrNot() {
 
 	//직접 입력하기를 누른 경우의 수
 	//1. 식품명에 아무것도 안 씀 + 직접입력하기 누름
-	if (settingBox.foodNameInput.value === "" && settingBox.checkCustom.checked == true) {
+	if (foodNameInput.value === "" && settingBox.checkCustom.checked == true) {
 
-		settingBox.foodNameInput.disabled = false;
+		foodNameInput.disabled = false;
 
-		settingBox.foodNameInput.placeholder = "식품명을 기입학세요";
-		settingBox.searchInput.placeholder = "식품을 검색할 수 없어요";
-		settingBox.dueDateAuto.placeholder = "하단에서 유통/소비기한을 입력하세요";
-		settingBox.foodCompany.placeholder = "제조사는 입력할 수 없어요";
-		settingBox.foodType.placeholder = "식품 유형을 입력하세요";
+		foodNameInput.placeholder = "식품명을 기입학세요";
+		searchInput.placeholder = "식품을 검색할 수 없어요";
+		dueDateAuto.placeholder = "하단에서 유통/소비기한을 입력하세요";
+		foodCompany.placeholder = "제조사는 입력할 수 없어요";
+		foodType.placeholder = "식품 유형을 입력하세요";
 
-		settingBox.dueDateAuto.style.backgroundColor = "white";
-		settingBox.foodCompany.style.backgroundColor = "white";
+		dueDateAuto.style.backgroundColor = "white";
+		foodCompany.style.backgroundColor = "white";
 
 	} else if (settingBox.foodNameInput.value === settingBox.searchInput.value && settingBox.checkCustom.checked == true) {
 		//2. 식품명에 '검색한 식품명'이 들어가있음 + 직접 입력하기 누름 (변심 또는 실수)
@@ -283,35 +280,35 @@ function checkCustomOrNot() {
 			//초기화
 			console.log("settingBox : " + settingBox);
 			console.log("settingBox.foodNameInput.value : " + settingBox.foodNameInput.value);
-			settingBox.foodNameInput.value = "";
-			settingBox.dueDateAuto.value = "";
-			settingBox.foodType.value = "";
-			settingBox.foodCount.value = "";
-			settingBox.foodCompany.value = "";
+			foodNameInput.value = "";
+			dueDateAuto.value = "";
+			foodType.value = "";
+			foodCount.value = "";
+			foodCompany.value = "";
 			tbodyTag.html = "";
 
 			//disabled 해제
-			settingBox.foodNameInput.disabled = false;
-			settingBox.dueDateAuto.disabled = false;
-			settingBox.foodType.disabled = false;
-			settingBox.foodCount.disabled = false;
-			settingBox.foodCompany.disabled = false;
+			foodNameInput.disabled = false;
+			dueDateAuto.disabled = false;
+			foodType.disabled = false;
+			foodCount.disabled = false;
+			foodCompany.disabled = false;
 
 		} else { //변경 취소
 			firstCheckCustom.checked == false;
 
 			//변경 취소가 되면 모든 것이 원래대로 돌아와야 함.
-			settingBox.foodNameInput.disabled = true;
-			settingBox.foodCompany.disabled = true;
+			foodNameInput.disabled = true;
+			foodCompany.disabled = true;
 
-			settingBox.foodNameInput.placeholder = "검색결과가 입력됩니다.";
-			settingBox.searchInput.placeholder = "식품을 검색하세요.";
-			settingBox.dueDateAuto.placeholder = "검색결과가 입력됩니다.";
-			settingBox.foodCompany.placeholder = "검색결과가 입력됩니다.";
-			settingBox.foodType.placeholder = "검색결과가 입력됩니다.";
+			foodNameInput.placeholder = "검색결과가 입력됩니다.";
+			searchInput.placeholder = "식품을 검색하세요.";
+			dueDateAuto.placeholder = "검색결과가 입력됩니다.";
+			foodCompany.placeholder = "검색결과가 입력됩니다.";
+			foodType.placeholder = "검색결과가 입력됩니다.";
 
-			settingBox.dueDateAuto.style.backgroundColor = "beige";
-			settingBox.foodCompany.style.backgroundColor = "beige";
+			dueDateAuto.style.backgroundColor = "beige";
+			foodCompany.style.backgroundColor = "beige";
 		}
 	}
 }
@@ -338,78 +335,4 @@ function toggleSettingBox() {
 			}
 		});
 	});
-}
-
-/* addFinish(); */
-
-
-//1개의 settingBox밖에 안 됨 :{} 상태.
-function extractDataFromSettingBox() {
-  let frgList = document.querySelector("#frgOption"); // frgList의 ID를 선택
-  let frgState = document.querySelector("[name='frgState']"); // frgState의 name을 선택
-  let foodName = document.querySelector("#foodNameInput"); // foodName의 ID를 선택
-  let expireDateAuto = document.querySelector("#dueDateAuto"); // expireDateAuto의 ID를 선택
-  let expireDateCustom = document.querySelector("#dueDateCustom"); // expireDateCustom의 ID를 선택
-  let foodType = document.querySelector("#foodType"); // foodType의 ID를 선택
-  let foodCount = document.querySelector("#foodCount"); // foodCount의 ID를 선택
-  let foodCompany = document.querySelector("#foodCompany"); // foodCompany의 ID를 선택
-
-  console.log("frgList.value : " + frgList.value);
-  console.log("frgState.value : " + frgState.value);
-  console.log("foodName.value : " + foodName.value);
-  console.log("expireDateAuto.value : " + expireDateAuto.value);
-  console.log("expireDateCustom.value : " + expireDateCustom.value);
-  console.log("foodType.value: " + foodType.value);
-  console.log("foodCount.value : " + foodCount.value);
-  console.log("foodCompany.value : " + foodCompany.value);
-
-  return [{
-    frgList: frgList ? frgList.value : null,
-    frgState: frgState ? frgState.value : null,
-    foodName: foodName ? foodName.value : null,
-    expireDateAuto: expireDateAuto ? expireDateAuto.value : null,
-    expireDateCustom: expireDateCustom ? expireDateCustom.value : null,
-    foodType: foodType ? foodType.value : null,
-    foodCount: foodCount ? foodCount.value : null,
-    foodCompany: foodCompany ? foodCompany.value : null,
-  }];
-}
-
-
-//완료 버튼 눌렀을 때 일어나는 함수
-function addFinish(){
-
-	//e.preventDefault() // submit이 갖고 있는 기본 동작을 제거하는 기능(없으면 에러남) 
-
-	//const settingBox = document.querySelector(".addSettingBox");//settingBox 모두 데려와
-	const extractedData = extractDataFromSettingBox();
-	console.log("extractedData : "+extractedData);
-	//console.log("settingBoxes : "+settingBoxes);
-	
-	//const settingBoxesDataPromises = idNums.map((idNum, index) => {
-	//	return extractDataFromSettingBox(settingBoxes[index], idNum);
-	//});
-
-	$.ajax({
-		type: "POST",
-		url: `${contextPath}/frg/innerAdd/Submit`,
-		data: extractedData,
-		dataType: "json",
-		success: function (response){
-		  alert("성공적으로 등록 완료");
-		  window.location.href =`${contextPath}/frg/innerAdd`;
-		},
-		error: function (err){
-		  alert("등록 실패");
-		  //err.status == 뭐냐에 따라서 페이지 랜더링 분류
-		  if (err.status === 404) {
-	        alert("요청한 페이지를 찾을 수 없습니다.");
-	      } else if (err.status === 500) {
-	        alert("서버 내부 오류가 발생했습니다.");
-	      } else {
-			alert("error - " + err);
-		  }
-		}
-	});
-		
 }

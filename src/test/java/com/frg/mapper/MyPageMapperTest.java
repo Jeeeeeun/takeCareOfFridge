@@ -24,19 +24,6 @@ public class MyPageMapperTest {
 
 	@Setter(onMethod_ = @Autowired)
 	private MyPageMapper mapper;
-
-	@Test @Ignore
-	public void testSelectFrgList() {
-		FrgListDTO frgDto = new FrgListDTO();
-
-		frgDto.setUser_id("smith01");
-
-		List<FrgListDTO> frgList = mapper.selectFrgList(frgDto);
-
-		log.info("냉장고 목록 - " + frgList);
-
-		assertNotNull(frgList);
-	}
 	
 	//마이페이지 내 정보 불러오는지 확인
 	@Test @Ignore

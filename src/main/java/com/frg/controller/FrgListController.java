@@ -126,4 +126,17 @@ public class FrgListController {
 
 		return "/frg/frgShow";
 	}
+	
+	@GetMapping(value = "/getFrgNames", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<String>> getFrgNames(@RequestParam("user_id") String user_id) {
+		
+		FrgListDTO frgDto = new FrgListDTO();
+		
+		frgDto.setUser_id(user_id);
+		
+		List<String> frgNames = frgService.getFrgNames(frgDto);
+		
+		return ResponseEntity.ok(frgNames);
+	}
 }

@@ -96,6 +96,11 @@
 				</div>
 			</div>
 		</nav>
+		<div id="customAlert" class="hidden">
+			<div class="alert-content">
+				<p id="alertContent">알림창!</p>
+			</div>
+		</div>
 		<div class="d-flex flex-row position-relative mt-6">
 			<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
 				<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
@@ -166,10 +171,10 @@
 				</div>
 				<hr class="horizontalLine" />
 				<div class="btns">
-					<button type="button" class="btn" onclick="plusBtnClicked()">
+					<button type="button" class="btn" onclick="plusBtnClicked()" title="냉장고 하나 더 추가하기">
 						<i class="fa-solid fa-plus"></i>
 					</button>
-					<button type="submit" class="btn">완료</button>
+					<button type="submit" class="btn" title="냉장고 등록 완료하기">완료</button>
 				</div>
 			</form>
 		</div>

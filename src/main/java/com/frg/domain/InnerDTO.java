@@ -1,6 +1,6 @@
 package com.frg.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class InnerDTO {
 	private String in_name;
 	private int in_count;
 	private String in_company;
-	private Date in_expireDate;
+	private LocalDate in_expireDate;
 	private String in_type;
 	private String in_state;
 	private String api_fno;

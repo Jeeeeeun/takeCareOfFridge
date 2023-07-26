@@ -57,4 +57,15 @@
 		    WHERE user_id = #{user_id}
 		)
 	</delete>
+	
+	<select id="selectFrgNames" resultType="String">
+		SELECT f.frg_name
+		FROM FrgList f
+		JOIN Users u ON f.user_index = u.user_index
+		WHERE f.user_index = (
+		    SELECT u.user_index
+		    FROM Users u
+		    WHERE u.user_id = #{user_id}
+		)
+	</select>
 </mapper>
