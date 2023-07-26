@@ -1,5 +1,9 @@
 package com.frg.mapper;
 
-public interface BoardMapper {
+import java.util.List;
 
+import com.frg.domain.BoardDTO;
+
+public interface BoardMapper {
+	List<BoardDTO> selectAllPosts();
 }

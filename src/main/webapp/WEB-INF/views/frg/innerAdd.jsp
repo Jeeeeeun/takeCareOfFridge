@@ -83,13 +83,36 @@
 		const foodCount = document.getElementById("foodCount").value;
 		const foodCompany = document.getElementById("foodCompany").value;
 
-		console.log("냉장고 : " + frgName);
-		console.log("보관 상태: " + frgState);
-		console.log("식품명: " + foodName);
-		console.log("유통/소비기한: " + expireDate);
-		console.log("식품 유형: " + foodType);
-		console.log("수량: " + foodCount);
-		console.log("제조사명: " + foodCompany);
+	    // 필수 입력 항목 체크
+	    if (frgName === "") {
+	        alert("냉장고를 선택해주세요!");
+	        return false;
+	    }
+
+	    if (!frgState) {
+	        alert("보관 상태를 선택해주세요!");
+	        return false;
+	    }
+
+	    if (foodName === "") {
+	        alert("식품명을 입력해주세요!");
+	        return false;
+	    }
+
+	    if (expireDate === "") {
+	        alert("유통/소비기한을 선택해주세요!");
+	        return false;
+	    }
+
+	    if (foodType === "") {
+	        alert("식품 유형을 입력해주세요!");
+	        return false;
+	    }
+
+	    if (foodCount === "") {
+	        alert("수량을 입력해주세요!");
+	        return false;
+	    }
 
 		// 데이터를 서버로 전송하기 위해 객체로 만들기
 		const data = {
@@ -103,26 +126,23 @@
 		};
 
 		$.ajax({
-				type : "POST",
-				url : `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
-				data : $.param(data), // 데이터를 URL 쿼리 파라미터 형태로 변환하여 전송
-				contentType : "application/x-www-form-urlencoded",
-				dataType : "json",
-				success : function(response) {
-					alert("성공적으로 등록 완료");
-					window.location.href = `${contextPath}/frg/innerCtrl`;
-				},
-				error : function(err) {
-					alert("등록 실패");
-					if (err.status === 404) {
-						alert("요청한 페이지를 찾을 수 없습니다.");
-					} else if (err.status === 500) {
-						alert("서버 내부 오류가 발생했습니다.");
-					} else {
-						alert("error - " + err);
-					}
-				}
-				});
+		    type: "POST",
+		    url: `${pageContext.servletContext.contextPath}/frg/innerAdd/submit`,
+		    data: JSON.stringify(data),
+		    contentType: "application/json",
+		    dataType: "json",
+		    success: function (response) {
+		        if (response.success) {
+		            alert("성공적으로 등록 완료");
+		            location.reload(); // 페이지 새로고침
+		        } else {
+		            alert("등록 실패: " + response.message);
+		        }
+		    },
+		    error: function (err) {
+		        alert("등록 실패: 서버 내부 오류가 발생했습니다.");
+		    }
+		});
 		return false;
 	}
 </script>
@@ -209,10 +229,10 @@
 										<div class="addSettingBox">
 
 											<!-- 폼 선택 -->
-											<div class="box0" onclick="toggleSettingBox();">
+											<!-- <div class="box0" onclick="toggleSettingBox();">
 												<i class="fa-solid fa-square-check"></i>
 												<p>폼 선택하기</p>
-											</div>
+											</div> -->
 
 											<!-- 냉장고 목록 -->
 											<div class="box1">
@@ -282,8 +302,16 @@
 													id="foodCompany" placeholder="검색 결과가 입력됩니다." disabled>
 												</label>
 											</div>
-										
+										<div class="addSettingBtn">
+						<div class="addSettingBtn-Finish">
+							<button type="submit" name="finishBtn" onclick="addFinish(); return false;"> 
+							<!-- return false가 있어야 button을 눌렀을 때   -->
+								<i class="fa-solid fa-thumbs-up"></i>등록 완료
+							</button>
+						</div>
+					</div>
 										</div>
+										
 										<!-- setting Box 끝 -->
 									</div>
 									<!-- addSettingBox-Wrapper -->
@@ -338,17 +366,6 @@
 	
 					</div>
 					<!-- addSettingBox-All 끝 -->
-	
-					<div class="addSettingBtn">
-						<div class="addSettingBtn-Finish">
-							<button type="submit" name="finishBtn" onclick="addFinish(); return false;"> 
-							<!-- return false가 있어야 button을 눌렀을 때   -->
-								<i class="fa-solid fa-thumbs-up"></i>등록 완료
-							</button>
-						</div>
-					</div>
-					<!-- 추가, 완료 버튼 -->
-				
 				</div>
 				<!-- settingBoxWrapper 끝 -->
 			

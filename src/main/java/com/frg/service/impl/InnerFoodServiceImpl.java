@@ -19,24 +19,24 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 
 	@NonNull
 	private InnerFoodMapper mapper;
-	
+
 	@Override
-	public List<InnerDTO> registerInnerFood(InnerDTO dto) {
-		return mapper.insertFood(dto);
+	public void registerInnerFood(InnerDTO dto) {
+		mapper.insertFood(dto);
 	}
 
 	@Override
 	public List<String> selectFrgName(UserDTO user_id) {
 		return mapper.selectFrgName(user_id);
 	}
-	
+
 	@Override
-	public List<InnerDTO> selectAllInnerView(InnerDTO dto){
+	public List<InnerDTO> selectAllInnerView(InnerDTO dto) {
 		return mapper.selectAllInnerView(dto);
 	}
 
 	@Override
-	public List<InnerDTO> selectPartInnerView(InnerDTO dto){
+	public List<InnerDTO> selectPartInnerView(InnerDTO dto) {
 		return mapper.selectPartInnerView(dto);
 	}
 
@@ -44,9 +44,9 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	public List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name) {
 		return mapper.selectFoodAPI(api_name);
 	}
-	
+
 	@Override
-	public List<InnerDTO> selectInnerData(InnerDTO dto){
+	public List<InnerDTO> selectInnerData(InnerDTO dto) {
 		return mapper.selectInnerData(dto);
 	}
 }

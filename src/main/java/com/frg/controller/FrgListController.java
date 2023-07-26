@@ -69,6 +69,31 @@ public class FrgListController {
 		return "/frg/frgAdd_form";
 	}
 
+	@GetMapping("/frgShow")
+	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
+		log.info("frgShow");
+		System.out.println(session);
+	
+		String userId = (String) session.getAttribute("SESS_ID");
+		System.out.println("SESS_ID: " + userId);
+	
+		trfDto.setUser_id(userId);
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		model.addAttribute("trafficLight", trafficLight);
+	
+		frgDto.setUser_id(userId);
+		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
+	
+		// Gson 사용하여 frgList를 JSON 형태로 변환
+		Gson gson = new Gson();
+		String frgListJson = gson.toJson(frgList);
+	
+		// 변환된 JSON 데이터를 model에 추가
+		model.addAttribute("frgListJson", frgListJson);
+	
+		return "/frg/frgShow";
+	}
+
 	@PostMapping(value = "/frgAdd_form", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<List<ResponseDTO>> registerFrgList(@RequestBody List<FrgListDTO> list) {
@@ -102,31 +127,6 @@ public class FrgListController {
 		}
 	}
 
-	@GetMapping("/frgShow")
-	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
-		log.info("frgShow");
-		System.out.println(session);
-
-		String userId = (String) session.getAttribute("SESS_ID");
-		System.out.println("SESS_ID: " + userId);
-
-		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
-		model.addAttribute("trafficLight", trafficLight);
-
-		frgDto.setUser_id(userId);
-		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
-
-		// Gson 사용하여 frgList를 JSON 형태로 변환
-		Gson gson = new Gson();
-		String frgListJson = gson.toJson(frgList);
-
-		// 변환된 JSON 데이터를 model에 추가
-		model.addAttribute("frgListJson", frgListJson);
-
-		return "/frg/frgShow";
-	}
-	
 	@GetMapping(value = "/getFrgNames", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<String>> getFrgNames(@RequestParam("user_id") String user_id) {
@@ -138,5 +138,49 @@ public class FrgListController {
 		List<String> frgNames = frgService.getFrgNames(frgDto);
 		
 		return ResponseEntity.ok(frgNames);
+	}
+	
+	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> modifyFrgList(@RequestBody FrgListDTO frgDto) {
+		
+		ResponseDTO response = frgService.modifyFrgList(frgDto);
+		
+		boolean success = true;
+		
+		if (response.getAffectedRow() <= 0) {
+			success = false;
+		}
+		
+		// 냉장고 정보 수정 성공
+		if (success) {
+			return ResponseEntity.ok(response);
+		}
+		// 냉장고 정보 수정 실패
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+	
+	@PostMapping("/removeFrgList")
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> removeFrgList(@RequestBody FrgListDTO frgDto) {
+		
+		ResponseDTO response = frgService.removeFrgList(frgDto);
+		
+		boolean success = true;
+
+		if (response.getAffectedRow() <= 0) {
+			success = false;
+		}
+		
+		// 냉장고 삭제 성공
+		if (success) {
+			return ResponseEntity.ok(response);
+		}
+		// 냉장고 삭제 실패
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 	}
 }
