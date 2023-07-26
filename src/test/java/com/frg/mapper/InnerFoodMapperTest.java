@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -35,18 +33,18 @@ public class InnerFoodMapperTest {
 	@Test
 	public void testInsertInnerFood() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
-		dto.setFrg_name("fridge1");
-		dto.setUser_id("john01");
+		dto.setFrg_name("samsung");
+		dto.setUser_id("smith01");
 		dto.setIn_state("frozen");
-		dto.setIn_name("대패삼겹살");
-		String dateString = "2023-05-20";
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = dateFormat.parse(dateString);
+		dto.setIn_name("보쌈");
+		String dateString = "2020-01-15";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		Date date = (Date) formatter.parse(dateString);
 		dto.setIn_expireDate(date);
-		dto.setIn_type("여행용");
-		dto.setIn_count(5);
-		dto.setIn_company("마트");
-
+		dto.setIn_type("밀키트");
+		dto.setIn_count(2);
+		dto.setIn_company("농심");
+		
 		// insertFood 메서드를 호출할 때 SomeException이 발생하지 않도록 테스트
 		mapper.insertFood(dto);
 	}
