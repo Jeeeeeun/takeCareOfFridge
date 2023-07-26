@@ -112,6 +112,20 @@ public class MyPageController {
 	}
 	
 	//PostMapping 사용자가 입력한 입력 값들을 반영
+	@PostMapping(value="/updateInfo")
+	@ResponseBody
+	public ResponseEntity<?> postUpdateInfo(@RequestBody UserDTO user){
+		boolean isUpdate = myService.updateMyInfo(user);
+		
+		if (isUpdate) {
+            return ResponseEntity.ok("회원 정보가 성공적으로 수정되었습니다.");
+            
+        } else {
+        	
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 정보 수정에 실패했습니다.");
+            
+        }
+	}
 	
 	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody

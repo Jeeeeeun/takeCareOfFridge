@@ -93,34 +93,36 @@
 		</div>
 		<div>
 			<div class="myPageTitleBox1">가입 정보 확인</div>
+			<form id="userForm">
 			<div class="myPageContentBox1">
 				<div class="myNameBox">
 					<p>Name</p>
 					<div class="nameBoxCenterLine"></div>
-					<input type="text" id="name" disabled />
+					<input type="text" class="userData" id="name" disabled />
 				</div>
 				<div class="myIDBox">
 					<p>ID</p>
 					<div class="idBoxCenterLine"></div>
-					<input type="text" id="id" disabled />
+					<input type="text" class="userData" id="id" disabled />
 				</div>
 				<div class="myEmailBox">
 					<p>Email</p>
 					<div class="emailBoxCenterLine"></div>
-					<input type="text" id="email" disabled />
+					<input type="text" class="userData" id="email" disabled />
 				</div>
 				<div class="myPwBox">
 					<p>PW</p>
 					<div class="pwBoxCenterLine"></div>
-					<input type="password" id="pw" disabled />
+					<input type="password" class="userData" id="pw" disabled />
 				</div>
 				<div class="myPwCheckBox">
 					<p>PW Check</p>
 					<div class="pwCheckBoxCenterLine"></div>
-					<input type="password" id="pwCheck" disabled />
+					<input type="password" class="userData" id="pwCheck" disabled />
 				</div>
-				<button class="modifyMyInfoBtn">수정하기</button>
+				<button class="modifyMyInfoBtn" onclick="btnToggle()">수정하기</button>
 			</div>
+			</form>
 		</div>
 		<div class="centerline"></div>
 		<div>

@@ -44,13 +44,9 @@ public class MyPageMapperTest {
 		UserDTO dto = new UserDTO();
 		dto.setUser_id("test1");
 		dto.setUser_name("test2");
-		dto.setUser_pw("test123");
+		dto.setUser_pw("test123!");
 		dto.setUser_email("test2@com");
 		
-		int result = mapper.updateMyInfo(dto);
-		
-		log.info("result - " + result);
-		
-		assertNotNull(result);
+		mapper.updateMyInfo(dto);
 	}
 }

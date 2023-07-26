@@ -312,8 +312,8 @@
   align-items: center;
 }
 
-.myPageContentBox1 input:disabled {
-  border: 0.5px dashed #eee;
+.myPageContentBox1 input{
+  border: <!--0.5px dashed #eee;--> none;
   /* border 스타일 넣은 이유: 이 위치에 input 요소가 있음을 보여주기 위해서 임시로 만듦.
 	실제로 로직이랑 연결하고 나서는 border: none;으로 바꾸기 */
   background-color: transparent;
