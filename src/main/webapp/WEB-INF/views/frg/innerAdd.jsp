@@ -249,7 +249,7 @@
 											<div class="box2">
 												<p>보관 위치</p>
 												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" value="frozen" />냉동 <label> <input
+													id="foodStateFrozen" value="frozen" checked />냉동 <label> <input
 														type="radio" name="frgState" id="foodStateCool"
 														value="cool" />냉장 <br>
 											</div>

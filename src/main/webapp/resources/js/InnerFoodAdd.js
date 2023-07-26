@@ -207,17 +207,23 @@ function checkCustomOrNot() {
   const foodType = document.querySelector("#foodType");
   const searchInput = document.querySelector("#searchInput");
   const tbodyTag = document.querySelector("#tbodyTag");
+  const foodCompany = document.querySelector("#foodCompany");
+  const foodCount = document.querySelector("#foodCount");
 
   const isCustomChecked = checkCustom.checked;
+  
+  const isChangeToCustomReal = confirm("직접 입력을 해제하시겠습니까?\n해제 후에는 현재까지 입력한 내역이 초기화됩니다.");
+  
 
   foodNameInput.disabled = !isCustomChecked;
   foodType.disabled = !isCustomChecked;
   searchInput.disabled = isCustomChecked;
 
-  foodNameInput.placeholder = isCustomChecked ? "식품명을 기입하세요" : "검색결과가 입력됩니다.";
-  searchInput.placeholder = isCustomChecked ? "식품을 검색할 수 없어요" : "식품을 검색하세요.";
-  dueDate.placeholder = isCustomChecked ? "하단에서 유통/소비기한을 입력하세요" : "검색결과가 입력됩니다.";
-  foodType.placeholder = isCustomChecked ? "식품 유형을 입력하세요" : "검색결과가 입력됩니다.";
+  foodNameInput.placeholder = isCustomChecked ? "식품명을 기입하세요." : "검색결과가 입력됩니다.";
+  searchInput.placeholder = isCustomChecked ? "식품을 검색할 수 없어요." : "식품을 검색하세요.";
+  dueDate.placeholder = isCustomChecked ? "하단에서 유통/소비기한을 입력하세요." : "검색결과가 입력됩니다.";
+  foodType.placeholder = isCustomChecked ? "식품 유형을 입력하세요." : "검색결과가 입력됩니다.";
+  foodCompany.placeholder = isCustomChecked ? "제조사명은 입력할 수 없어요." : "검색결과가 입력됩니다.";
 
   const beigeBackground = isCustomChecked ? "white" : "beige";
   foodNameInput.style.backgroundColor = beigeBackground;
@@ -226,16 +232,30 @@ function checkCustomOrNot() {
   foodCount.style.backgroundColor = beigeBackground;
   foodCompany.style.backgroundColor = beigeBackground;
 
-  if (isCustomChecked) {
-    // 직접 입력하기를 누른 경우
-    foodNameInput.value = "";
-    dueDate.value = "";
-    foodType.value = "";
-    foodCount.value = "";
-    foodCompany.value = "";
-    tbodyTag.innerText = "";
-    searchInput.value = "";
+  if(foodNameInput.value === "" && isCustomChecked){
+  	    // 직접 입력하기를 누른 경우
+	    foodNameInput.value = "";
+	    dueDate.value = "";
+	    foodType.value = "";
+	    foodCount.value = "";
+	    foodCompany.value = "";
+	    tbodyTag.innerText = "";
+	    searchInput.value = "";
   }
+
+  if (foodNameInput.value === searchInput.value && isCustomChecked ) {
+  	if(isChangeToCustomReal){
+	    // 직접 입력하기를 누른 경우
+	    foodNameInput.value = "";
+	    dueDate.value = "";
+	    foodType.value = "";
+	    foodCount.value = "";
+	    foodCompany.value = "";
+	    tbodyTag.innerText = "";
+	    searchInput.value = "";
+  	}
+  }
+  
 }
 
 
