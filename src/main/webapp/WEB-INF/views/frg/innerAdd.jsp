@@ -71,48 +71,55 @@
 		// 함수 호출
 		addOptionsToFrgList(frgOptionList, frgNames);
 	});
-
+	
 	function addFinish() {
 		// 사용자 입력 데이터를 가져오기
-		const frgName = document.getElementById("frgOption").value;
-		const frgState = document
-				.querySelector("input[name='frgState']:checked").value;
-		const foodName = document.getElementById("foodNameInput").value;
-		const expireDate = document.getElementById("dueDate").value;
-		const foodType = document.getElementById("foodType").value;
-		const foodCount = document.getElementById("foodCount").value;
-		const foodCompany = document.getElementById("foodCompany").value;
-
 	    // 필수 입력 항목 체크
+
+		const frgName = document.getElementById("frgOption").value;
 	    if (frgName === "") {
 	        alert("냉장고를 선택해주세요!");
 	        return false;
 	    }
 
+		const frgState = document
+				.querySelector("input[name='frgState']:checked").value;
+		console.log("frgState "+ frgState);
 	    if (!frgState) {
 	        alert("보관 상태를 선택해주세요!");
 	        return false;
 	    }
 
+		const foodName = document.getElementById("foodNameInput").value;
 	    if (foodName === "") {
 	        alert("식품명을 입력해주세요!");
 	        return false;
 	    }
 
+		const expireDate = document.getElementById("dueDate").value;
 	    if (expireDate === "") {
 	        alert("유통/소비기한을 선택해주세요!");
 	        return false;
 	    }
 
+		const foodType = document.getElementById("foodType").value;
 	    if (foodType === "") {
 	        alert("식품 유형을 입력해주세요!");
 	        return false;
 	    }
 
+		const foodCount = document.getElementById("foodCount").value;
 	    if (foodCount === "") {
 	        alert("수량을 입력해주세요!");
 	        return false;
 	    }
+
+		const foodCompany = document.getElementById("foodCompany").value;
+	    if (foodCompany === "") {
+	        alert("수량을 입력해주세요!");
+	        return false;
+	    }
+		
 
 		// 데이터를 서버로 전송하기 위해 객체로 만들기
 		const data = {
@@ -190,9 +197,10 @@
 				<p id="green"
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 			</div>
-		
-			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd" method="post" id="actionForm">
-	
+
+			<form action="${pageContext.servletContext.contextPath}/frg/innerAdd"
+				method="post" id="actionForm">
+
 
 				<!-- 
 				
@@ -228,12 +236,6 @@
 									<div class="addSettingBox-Wrapper">
 										<div class="addSettingBox">
 
-											<!-- 폼 선택 -->
-											<!-- <div class="box0" onclick="toggleSettingBox();">
-												<i class="fa-solid fa-square-check"></i>
-												<p>폼 선택하기</p>
-											</div> -->
-
 											<!-- 냉장고 목록 -->
 											<div class="box1">
 												<label>
@@ -246,10 +248,10 @@
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관 위치</p>
-												<label> <input type="radio" name="frgState" 
-													id="foodStateFrozen"  value="frozen" />냉동
 												<label> <input type="radio" name="frgState"
-													id="foodStateCool" value="cool"/>냉장 <br>
+													id="foodStateFrozen" value="frozen" />냉동 <label> <input
+														type="radio" name="frgState" id="foodStateCool"
+														value="cool" />냉장 <br>
 											</div>
 
 											<!-- 식품명 -->
@@ -302,27 +304,29 @@
 													id="foodCompany" placeholder="검색 결과가 입력됩니다." disabled>
 												</label>
 											</div>
-										<div class="addSettingBtn">
-						<div class="addSettingBtn-Finish">
-							<button type="submit" name="finishBtn" onclick="addFinish(); return false;"> 
-							<!-- return false가 있어야 button을 눌렀을 때   -->
-								<i class="fa-solid fa-thumbs-up"></i>등록 완료
-							</button>
-						</div>
-					</div>
+											
+											<div class="addSettingBtn">
+												<div class="addSettingBtn-Finish">
+													<button type="submit" name="finishBtn"
+														onclick="addFinish(); return false;">
+														<!-- return false가 있어야 button을 눌렀을 때 페이지 넘김이 안 됨 -->
+														<i class="fa-solid fa-thumbs-up"></i>등록 완료
+													</button>
+												</div>
+											</div>
 										</div>
-										
-										<!-- setting Box 끝 -->
+
+										<!-- addSetting Box 끝 -->
 									</div>
 									<!-- addSettingBox-Wrapper -->
-								
+
 								</div>
 								<!-- addSettingBox-Form-Scroll -->
-	
+
 							</div>
 							<!-- addSettingBox-Form 끝 -->
-	
-						</div> 
+
+						</div>
 						<!-- addSettingBox-Left -->
 
 						<div class="addSettingBox-Right">
@@ -357,18 +361,18 @@
 										</table>
 									</div>
 								</div>
-	
+
 							</div>
 							<!-- addSettingBox-Table 끝 -->
-	
+
 						</div>
 						<!-- addSettingBox-Right 끝 -->
-	
+
 					</div>
 					<!-- addSettingBox-All 끝 -->
 				</div>
 				<!-- settingBoxWrapper 끝 -->
-			
+
 			</form>
 		</div>
 
