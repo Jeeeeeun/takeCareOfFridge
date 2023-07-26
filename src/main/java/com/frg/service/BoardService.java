@@ -1,5 +1,9 @@
 package com.frg.service;
 
-public interface BoardService {
+import java.util.List;
 
+import com.frg.domain.BoardDTO;
+
+public interface BoardService {
+	List<BoardDTO> getAllPosts();
 }

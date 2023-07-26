@@ -18,6 +18,6 @@ public interface FrgListMapper {
 	// 냉장고 정보 삭제하기 (delete)
 	int deleteFrgList(FrgListDTO dto);
 	
-	// user 한 명의 냉장고 이름 목록 가져오기 (select)
+	// user 한 명의 냉장고 이름 목록 가져오기 (select) - 냉장고 추가 시 이름 중복 확인 목적
 	List<String> selectFrgNames(FrgListDTO dto);
 }
