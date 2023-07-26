@@ -53,6 +53,16 @@ function addBtnClicked() {
 function changeFrg(frgName, url) {
     location.href = url + "?frgName=" + frgName;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
+    document.getElementById("all").classList.add("selected");
+
+    // 나머지 버튼들에는 selected 클래스 제거
+    document.getElementById("cool").classList.remove("selected");
+    document.getElementById("frozen").classList.remove("selected");
+});
+
 function filterDataByState(state) {
     // 선택된 버튼을 표시하기 위해 모든 버튼에서 'selected' 클래스를 제거합니다
     var buttons = document.querySelectorAll('.stateBtn');
@@ -79,11 +89,11 @@ function filterDataByState(state) {
     }
 }
 
-function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
-    
+function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
-    let d_day= document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
-    document.getElementById('detailInfoItemBox_in_expireDate_custom').value = in_expireDate_custom;
+    document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
+    document.getElementById('detailInfoItemBox_in_expireDate').value = in_expireDate;
 
     console.log("d_day "+d_day);
     
@@ -98,19 +108,6 @@ function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
         frozenRadio.checked = true;
     }
 }
-
-document.getElementById("all").classList.toggle("selected", state === "all");
-document.getElementById("cool").classList.toggle("selected", state === "cool");
-document.getElementById("frozen").classList.toggle("selected", state === "frozen");
-
-document.addEventListener("DOMContentLoaded", function () {
-    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
-    document.getElementById("all").classList.add("selected");
-
-    // 나머지 버튼들에는 selected 클래스 제거
-    document.getElementById("cool").classList.remove("selected");
-    document.getElementById("frozen").classList.remove("selected");
-});
 </script>
 <style>
 /* 셀렉터:hover { 스타일; } */
@@ -206,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
 									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
 									<td style="text-align: center;">${item.in_name}</td>
 									<td style="text-align: center;"><fmt:formatDate
-											value="${item.in_expireDate}" pattern="yyyy년 MM월 dd일" /></td>
+											value="${item.in_expireDate}" pattern="yyyy-MM-dd" /></td>
 									<td style="text-align: center;">${item.d_DAY}</td>
 									<td style="text-align: center;">${item.in_state}</td>
 								</tr>

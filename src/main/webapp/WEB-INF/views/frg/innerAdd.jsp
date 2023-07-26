@@ -83,10 +83,6 @@
 	    }
 		const frgState = document
 				.querySelector("input[name='frgState']:checked").value;
-	    if (!frgState) {
-	        alert("보관 상태를 선택해주세요!");
-	        return false;
-	    }
 
 		const foodName = document.getElementById("foodNameInput").value;
 	    if (foodName === "") {
@@ -113,10 +109,8 @@
 	    }
 
 		const foodCompany = document.getElementById("foodCompany").value;
-	    if (foodCompany === "") {
-	        alert("수량을 입력해주세요!");
-	        return false;
-	    }
+
+
 		
 
 		// 데이터를 서버로 전송하기 위해 객체로 만들기
