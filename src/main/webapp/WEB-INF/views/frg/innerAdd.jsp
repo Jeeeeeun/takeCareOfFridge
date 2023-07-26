@@ -83,10 +83,6 @@
 	    }
 		const frgState = document
 				.querySelector("input[name='frgState']:checked").value;
-
-		const frgState = document
-				.querySelector("input[name='frgState']:checked").value;
-		console.log("frgState "+ frgState);
 	    if (!frgState) {
 	        alert("보관 상태를 선택해주세요!");
 	        return false;
@@ -110,17 +106,11 @@
 		        return false;
 		    }
 		  
-	    if (foodType === "") {
-	        alert("식품 유형을 입력해주세요!");
-	        return false;
-	    }
-
 		const foodCount = document.getElementById("foodCount").value;
 	    if (foodCount === "") {
 	        alert("수량을 입력해주세요!");
 	        return false;
 	    }
-		const foodCompany = document.getElementById("foodCompany").value;
 
 		const foodCompany = document.getElementById("foodCompany").value;
 	    if (foodCompany === "") {
@@ -256,15 +246,10 @@
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관 위치</p>
-<<<<<<< HEAD
 												<label> <input type="radio" name="frgState" 
 													id="foodStateFrozen"  value="frozen" checked/>냉동
-=======
->>>>>>> 4b700f1f3b9934234416065bb4d07c9b77ed435e
 												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" value="frozen" checked />냉동 <label> <input
-														type="radio" name="frgState" id="foodStateCool"
-														value="cool" />냉장 <br>
+													id="foodStateFrozen" value="cool" />냉장 
 											</div>
 
 											<!-- 식품명 -->

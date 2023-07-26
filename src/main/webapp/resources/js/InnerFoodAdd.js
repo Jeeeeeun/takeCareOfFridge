@@ -212,9 +212,6 @@ function checkCustomOrNot() {
 
   const isCustomChecked = checkCustom.checked;
   
-  const isChangeToCustomReal = confirm("직접 입력을 해제하시겠습니까?\n해제 후에는 현재까지 입력한 내역이 초기화됩니다.");
-  
-
   foodNameInput.disabled = !isCustomChecked;
   foodType.disabled = !isCustomChecked;
   searchInput.disabled = isCustomChecked;
@@ -231,30 +228,6 @@ function checkCustomOrNot() {
   foodType.style.backgroundColor = beigeBackground;
   foodCount.style.backgroundColor = beigeBackground;
   foodCompany.style.backgroundColor = beigeBackground;
-
-  if(foodNameInput.value === "" && isCustomChecked){
-  	    // 직접 입력하기를 누른 경우
-	    foodNameInput.value = "";
-	    dueDate.value = "";
-	    foodType.value = "";
-	    foodCount.value = "";
-	    foodCompany.value = "";
-	    tbodyTag.innerText = "";
-	    searchInput.value = "";
-  }
-
-  if (foodNameInput.value === searchInput.value && isCustomChecked ) {
-  	if(isChangeToCustomReal){
-	    // 직접 입력하기를 누른 경우
-	    foodNameInput.value = "";
-	    dueDate.value = "";
-	    foodType.value = "";
-	    foodCount.value = "";
-	    foodCompany.value = "";
-	    tbodyTag.innerText = "";
-	    searchInput.value = "";
-  	}
-  }
   
 }
 
