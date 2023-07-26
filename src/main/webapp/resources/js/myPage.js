@@ -859,3 +859,12 @@ function checkSession(){
 }
 //일정 시간 간격으로 세션 상태 확인 (세션 만료 관련 ajax와 세트)
 setInterval(checkSession, 1000 * 60 * 60 * 24 + 1000); //24:00:01 마다 세션 검토
+
+//마이페이지 수정하기 버튼 토글
+function btnToggle() {
+    document.getElementById('name').disabled = !document.getElementById('name').disabled;
+    document.getElementById('id').disabled = !document.getElementById('id').disabled;
+    document.getElementById('email').disabled = !document.getElementById('email').disabled;
+    document.getElementById('pw').disabled = !document.getElementById('pw').disabled;
+    document.getElementById('pwCheck').disabled = !document.getElementById('pwCheck').disabled;
+}

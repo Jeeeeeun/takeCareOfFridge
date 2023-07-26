@@ -41,8 +41,6 @@ public class InnerFoodMapperTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate(date);
-<<<<<<< HEAD
-=======
 		dto.setIn_state("frozen");
 
 		int cnt = mapper.insertInnerAuto(dto);
@@ -62,7 +60,6 @@ public class InnerFoodMapperTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = dateFormat.parse(dateString);
 		dto.setIn_expireDate(date);
->>>>>>> fac733e3c1641642b39489ebfbdd72deacab919a
 		dto.setIn_type("다이어트 식품");
 		dto.setIn_count(2);
 		dto.setIn_company("동원");

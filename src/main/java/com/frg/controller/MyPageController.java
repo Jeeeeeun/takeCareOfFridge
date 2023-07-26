@@ -111,6 +111,8 @@ public class MyPageController {
 	        return response;
 	}
 	
+	//PostMapping 사용자가 입력한 입력 값들을 반영
+	
 	@PostMapping(value="/frgInfoChange", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<ResponseDTO> modifyFrgList(@RequestBody FrgListDTO frgDto) {

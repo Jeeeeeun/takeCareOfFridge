@@ -117,7 +117,7 @@
 				<div class="myPwCheckBox">
 					<p>PW Check</p>
 					<div class="pwCheckBoxCenterLine"></div>
-					<input type="password" id="pw Check" disabled />
+					<input type="password" id="pwCheck" disabled />
 				</div>
 				<button class="modifyMyInfoBtn">수정하기</button>
 			</div>

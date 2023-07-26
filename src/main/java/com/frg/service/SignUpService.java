@@ -13,6 +13,9 @@ public interface SignUpService {
 	//데이터베이스를 통과해서 해당 중복값이 어떤건지 가져와서 받는곳 or 보내는곳
 	boolean isExistId(String id);
 	
+	////데이터베이스를 통과해서 해당 중복값이 어떤건지 가져와서 받는곳 or 보내는곳 (이메일)
+	boolean isExistEmail(String email);
+	
 	//회원가입의 정보가 잘 등록 됐는지 그 값을 가져와서 받는곳 or 보내는 곳
 	boolean registerUser(UserDTO user);
 	//boolean으로 회원 정보가 정상 등록 되었는지 확인
