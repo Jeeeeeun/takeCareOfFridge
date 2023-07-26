@@ -144,74 +144,76 @@ document.addEventListener("DOMContentLoaded", function () {
 				</ul>
 			</div>
 		</nav>
-		<div class="d-flex flex-row position-relative mt-6">
-			<div id="trafficLight"
-				class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
-				<p id="red"
-					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
-				<p id="yellow"
-					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].yellow}</p>
-				<p id="green"
-					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
-			</div>
-			<div id="contents">
-				<div class="currentStateBox">
-					<div style="display: flex; flex-direction: column;">
-						<label>냉장고 선택:</label> <select name="frgList" id="frgSelect"
-							onchange="changeFrg(this.value,'${pageContext.servletContext.contextPath}/frg/innerCtrl');">
-							<option value="all">전체</option>
-							<c:forEach var="name" items="${frgNames}">
-								<option value="${name}"
-									<c:if test="${ frgName eq name }">selected</c:if>>
-									${name}</option>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="stateBtns" id="stateIn">
-						<button id="all" name="show_in_state"
-							onclick="filterDataByState('all');" class="stateBtn">전체</button>
-						<button id="cool" name="show_in_state"
-							onclick="filterDataByState('cool');" class="stateBtn">냉장</button>
-						<button id="frozen" name="show_in_state"
-							onclick="filterDataByState('frozen');" class="stateBtn">냉동</button>
-					</div>
-					<div>
-						<button class="stateBtn" onclick="addBtnClicked()">식품 등록</button>
-					</div>
+		<nav>
+			<div class="d-flex flex-row position-relative mt-6">
+				<div id="trafficLight"
+					class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+					<p id="red"
+						class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
+					<p id="yellow"
+						class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].yellow}</p>
+					<p id="green"
+						class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 				</div>
-				<div class="wholeFoodListBox">
-					<div class="tableContainer"
-						style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
-						<table id="foodTable" class="foodTable">
-							<thead>
-								<tr>
-									<th
-										style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">제품명</th>
-									<th
-										style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
-									<th
-										style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">D-day</th>
-									<th
-										style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">보관상태</th>
+			</div>
+		</nav>
+		<div id="contents">
+			<div class="currentStateBox">
+				<div style="display: flex; flex-direction: column;">
+					<label>냉장고 선택:</label> <select name="frgList" id="frgSelect"
+						onchange="changeFrg(this.value,'${pageContext.servletContext.contextPath}/frg/innerCtrl');">
+						<option value="all">전체</option>
+						<c:forEach var="name" items="${frgNames}">
+							<option value="${name}"
+								<c:if test="${ frgName eq name }">selected</c:if>>
+								${name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="stateBtns" id="stateIn">
+					<button id="all" name="show_in_state"
+						onclick="filterDataByState('all');" class="stateBtn">전체</button>
+					<button id="cool" name="show_in_state"
+						onclick="filterDataByState('cool');" class="stateBtn">냉장</button>
+					<button id="frozen" name="show_in_state"
+						onclick="filterDataByState('frozen');" class="stateBtn">냉동</button>
+				</div>
+				<div>
+					<button class="stateBtn" onclick="addBtnClicked()">식품 등록</button>
+				</div>
+			</div>
+			<div class="wholeFoodListBox">
+				<div class="tableContainer"
+					style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
+					<table id="foodTable" class="foodTable">
+						<thead>
+							<tr>
+								<th
+									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">제품명</th>
+								<th
+									style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
+								<th
+									style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">D-day</th>
+								<th
+									style="width: 250px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">보관상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="item" items="${dataList}">
+								<tr
+									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
+									<td style="text-align: center;">${item.in_name}</td>
+									<td style="text-align: center;"><fmt:formatDate
+											value="${item.in_expireDate}" pattern="yyyy년 MM월 dd일" /></td>
+									<td style="text-align: center;">${item.d_DAY}</td>
+									<td style="text-align: center;">${item.in_state}</td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="item" items="${dataList}">
-									<tr
-										onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
-										<td style="text-align: center;">${item.in_name}</td>
-										<td style="text-align: center;"><fmt:formatDate
-												value="${item.in_expireDate}" pattern="yyyy년 MM월 dd일" />
-										</td>
-										<td style="text-align: center;">${item.d_DAY}</td>
-										<td style="text-align: center;">${item.in_state}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div>
 			<div class="detailInfoBox">

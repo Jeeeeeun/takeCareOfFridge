@@ -1,7 +1,5 @@
 package com.frg.controller;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +21,8 @@ import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
 import com.frg.service.TrafficService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -42,7 +42,7 @@ public class InnerFoodController {
 
 	// innerFoodAdd
 	// localhost:8080/controller/frg/innerAdd
-	@GetMapping(value = "/innerAdd")
+	@GetMapping("/innerAdd")
 	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
 
 		String user_id = (String) session.getAttribute("SESS_ID");
@@ -65,6 +65,9 @@ public class InnerFoodController {
 		return "/frg/innerAdd";
 	}
 
+	//redirect : controller간에 이동할 때
+	//redirect 없으면 , 바로 jsp (view)로 이동
+
 	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
 	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
@@ -73,9 +76,10 @@ public class InnerFoodController {
 	    dto.setUser_id(user_id);
 	    inService.registerInnerFood(dto);
 	    
-	    //redirect : controller간에 이동할 때
-	    //redirect 없으면 , 바로 jsp (view)로 이동
-	    return "redirect:/frg/innerAdd";
+	    JsonObject json = new JsonObject();
+	    json.addProperty("success", true);
+	    
+	    return new Gson().toJson(json);
 	}
 
 	// foodApi 조회하기
