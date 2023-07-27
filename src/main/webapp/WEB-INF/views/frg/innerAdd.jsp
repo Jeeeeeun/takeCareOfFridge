@@ -146,7 +146,7 @@
 	}
 </script>
 <script
-	src="${pageContext.servletContext.contextPath}/resources/js/InnerFoodAdd.js">
+	src="${pageContext.servletContext.contextPath}/resources/js/innerFoodAdd.js">
 	
 </script>
 <body id="page-top">
@@ -240,10 +240,12 @@
 											<!-- 보관 위치 -->
 											<div class="box2">
 												<p>보관상태</p>
-												<label> <input type="radio" name="frgState" 
-													id="foodStateFrozen"  value="frozen" checked/>냉동
-												<label> <input type="radio" name="frgState"
-													id="foodStateFrozen" value="cool" />냉장 
+												<label> 
+													<input type="radio" name="frgState" id="foodStateFrozen"  value="frozen" checked/>냉동
+												</label>
+												<label>
+													<input type="radio" name="frgState" id="foodStateCool" value="cool" />냉장 
+												</label> 
 											</div>
 
 											<!-- 식품명 -->

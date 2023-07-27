@@ -176,9 +176,9 @@ function createNewSettingBox() {
 
 	const frgOptionId = settingBoxElement.querySelector(`#frgOption${frgOptionCounter}`);
 
-	frgOptionId.style.width = "300px";
+	frgOptionId.style.width = "340px";
 	frgOptionId.style.height = "30px";
-	frgOptionId.style.backgroundColor = "beige";
+	frgOptionId.style.backgroundColor = "white";
 	frgOptionId.style.border = "0px";
 
 	frgNames.forEach(function (name) {
@@ -193,9 +193,9 @@ function createNewSettingBox() {
 	const settingBox = settingBoxElement.querySelector(`.addSettingBox${settingBoxNumber}`);
 
 	settingBox.style.position = "relative";
-	settingBox.style.width = "535px";
-	settingBox.style.height = "381px";
-	settingBox.style.backgroundColor = "gray";
+	settingBox.style.width = "inherit";
+	settingBox.style.height = "inherit";
+	settingBox.style.backgroundColor = "#d3cdcd";
 	settingBox.style.padding = "inherit";
 
 	// 카운터를 증가시켜 다음 요소에 대한 고유한 ID 생성
