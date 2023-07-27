@@ -122,7 +122,6 @@ function updateEndBtnClicked() {
     document.getElementById('updateBtn').style.display = "block";
 }
 
-
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
@@ -276,8 +275,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
 				<form id="detailForm"
-					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post">
-					
+   					 action="<%=request.getContextPath()%>/innerFoodCtrl" method="post" onsubmit="return false;">
 					<div class="detailInfoItemBox">
 						<label for="">보관 냉장고</label><input name="frgName"
 							id="detailInfoItemBox_frg_name" type="text" class="detailInputBox" disabled>
