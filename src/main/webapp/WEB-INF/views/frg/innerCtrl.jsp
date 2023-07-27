@@ -348,7 +348,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
 
-							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked(); return false;">수정</button>
+							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked();">수정</button>
 							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
