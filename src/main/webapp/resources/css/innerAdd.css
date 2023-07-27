@@ -13,8 +13,9 @@
 
 .addSettingBox-All{
 	
-	width: inherit;
-    /* height: inherit; */
+	position: absolute;
+    width: inherit;
+    height: 85%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,8 +25,17 @@
 
 .addSettingBox-Left,
 .addSettingBox-Right{
-	display:flex;
-	flex-direction:column;
+	position: relative;
+    width: 100%;
+    height: 70%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(244, 238, 230, 0.7);
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    margin-right: 1rem;
 }
 
 .addSettingBox-Count-Plus{
@@ -38,43 +48,44 @@
 	width: 550px;
     position: absolute;
     left: 220px;
-    top: 670px;
+    top: 480px;
 }
 
 .addSettingBtn-Finish>button{
 	width:160px;
 }
 
-/* .addSettingBtn-text>button{
-	width:30px;
-	border-radius: 20px;
-}
- */
-.addSettingBox-Wrapper{
+/* .addSettingBox-Wrapper{
 	background-color:beige;
-}
+} */
 
 .addSettingBox{
 	background-color:gray;
 }
 
 
-.addSettingBox-Form{
+/* .addSettingBox-Form{
     position: relative;
-    width: 580px;
-    height: 447px;
+    width: 100%;
+    height: 110%;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-	background-color:#ff8080;
-	margin-right: 3rem;
-}
+    justify-content: center;
+    background-color: #F4EEE6;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    margin-right: 1rem;
+} */
 
 .addSettingBox-Table {
-	background-color:#8080c0;
+	background-color: #F4EEE6;
 	width: 670px;
 	height: 447px;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 .addSettingBox-text{
@@ -92,7 +103,7 @@
 	max-height: 446px; 
 	overflow-y: scroll; 
 	border: 2px solid beige;
-	background-color: #c0c0c0;
+	background-color: #efcfcf;
 }
 
 .box0{

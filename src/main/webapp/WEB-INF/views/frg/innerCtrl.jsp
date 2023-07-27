@@ -10,8 +10,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<link rel="stylesheet" href="../resources/css/navBar.css">
-<link rel="stylesheet" href="../resources/css/descriptionAndTraffic.css">
+<!-- <link rel="stylesheet" href="../resources/css/navBar.css"> -->
+<!-- <link rel="stylesheet" href="../resources/css/descriptionAndTraffic.css"> -->
 <link rel="stylesheet" href="../resources/css/innerCtrl.css">
 <title>innerCtrl Page</title>
 <!-- Favicon-->
@@ -39,9 +39,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <title>식품 정보 조회</title>
-<script
-	src="${pageContext.servletContext.contextPath }/resources/js/innerFoodCtrl.js">
-	</script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
+</script>
 <script>
 window.contextPath = '${pageContext.servletContext.contextPath}';
 </script>
@@ -53,6 +52,16 @@ function addBtnClicked() {
 function changeFrg(frgName, url) {
     location.href = url + "?frgName=" + frgName;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
+    document.getElementById("all").classList.add("selected");
+
+    // 나머지 버튼들에는 selected 클래스 제거
+    document.getElementById("cool").classList.remove("selected");
+    document.getElementById("frozen").classList.remove("selected");
+});
+
 function filterDataByState(state) {
     // 선택된 버튼을 표시하기 위해 모든 버튼에서 'selected' 클래스를 제거합니다
     var buttons = document.querySelectorAll('.stateBtn');
@@ -79,12 +88,39 @@ function filterDataByState(state) {
     }
 }
 
-function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
-    
+function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
     document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
-    document.getElementById('detailInfoItemBox_in_expireDate_custom').value = in_expireDate_custom;
+	
+	function convertDateFormat(in_expireDate) {
+		
+		console.log("in_expireDate : "+in_expireDate);
+		  const months = {
+		    Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
+		    Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
+		  };
 
+		  // 주어진 날짜 문자열을 공백(' ')을 기준으로 나누어 배열로 만드는 역할
+		  const parts = in_expireDate.split(' ');
+		  // parts를 적용한 출력 예시 : ["Sun", "Jul", "02", "09:00:00", "KST", "2023"]
+
+		  const year = parts[5];
+		  const month = months[parts[1]];
+		  const day = parts[2];
+		  
+		  // 원하는 형태로 만들어줌
+		  const parsedExpireDate = year+"-"+month+"-"+day;
+
+		  return parsedExpireDate;
+	}
+	
+	let testExpireDate = convertDateFormat(in_expireDate);
+	// 출력되는지 확인
+	console.log(testExpireDate);
+	
+	document.getElementById('detailInfoItemBox_in_expireDate').value=testExpireDate;
+	
     var coolRadio = document.getElementById('coolRadio');
     var frozenRadio = document.getElementById('frozenRadio');
 
@@ -96,19 +132,6 @@ function handleRowClick(in_name, in_expireDate_custom, d_DAY, in_state) {
         frozenRadio.checked = true;
     }
 }
-
-document.getElementById("all").classList.toggle("selected", state === "all");
-document.getElementById("cool").classList.toggle("selected", state === "cool");
-document.getElementById("frozen").classList.toggle("selected", state === "frozen");
-
-document.addEventListener("DOMContentLoaded", function () {
-    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
-    document.getElementById("all").classList.add("selected");
-
-    // 나머지 버튼들에는 selected 클래스 제거
-    document.getElementById("cool").classList.remove("selected");
-    document.getElementById("frozen").classList.remove("selected");
-});
 </script>
 <style>
 /* 셀렉터:hover { 스타일; } */
@@ -189,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						<thead>
 							<tr>
 								<th
-									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">제품명</th>
+									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">식품명</th>
 								<th
 									style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
 								<th
@@ -204,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
 									<td style="text-align: center;">${item.in_name}</td>
 									<td style="text-align: center;"><fmt:formatDate
-											value="${item.in_expireDate}" pattern="yyyy년 MM월 dd일" /></td>
+											value="${item.in_expireDate}" pattern="yyyy-MM-dd" /></td>
 									<td style="text-align: center;">${item.d_DAY}</td>
 									<td style="text-align: center;">${item.in_state}</td>
 								</tr>
@@ -232,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					</div>
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
-						<label for="">보관 위치</label> <input name="in_state" id="coolRadio"
+						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
 							type="radio" class="detailInputBox" value="cool"
 							style="width: 10%" disabled>냉장 <input name="in_state"
 							id="frozenRadio" type="radio" class="detailInputBox"
