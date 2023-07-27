@@ -39,8 +39,9 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <title>식품 정보 조회</title>
-<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
-</script>
+<%-- <script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
+</script> --%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 window.contextPath = '${pageContext.servletContext.contextPath}';
 </script>
@@ -60,6 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // 나머지 버튼들에는 selected 클래스 제거
     document.getElementById("cool").classList.remove("selected");
     document.getElementById("frozen").classList.remove("selected");
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const frgNameParam = urlParams.get("frgName");
+
+    // 냉장고 인풋에 냉장고 이름 파라미터 값을 설정합니다.
+    document.getElementById('detailInfoItemBox_frg_name').value = frgNameParam;
 });
 
 function filterDataByState(state) {
@@ -88,14 +95,61 @@ function filterDataByState(state) {
     }
 }
 
-function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+//수정버튼
+function updateBtnClicked() {
+    // 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
+    document.getElementById('detailInfoItemBox_in_name').disabled= false;
+    document.getElementById('detailInfoItemBox_in_company').disabled= false;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled= false;
+    document.getElementById('detailInfoItemBox_d_DAY').value="";
+    document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
+    document.getElementById('detailInfoItemBox_d_DAY').placeholder="자동으로 계산됩니다";
+    document.getElementById('detailInfoItemBox_in_count').disabled= false;
+    document.getElementById('detailInfoItemBox_in_type').disabled= false;
+    
+    // 수정 버튼 숨기고, 수정 완료 버튼 보이기
+    document.getElementById('updateBtn').style.display = "none";
+    document.getElementById('updateEndBtn').style.display = "block";
+    document.getElementById('deleteBtn').style.display = "none";
+}
 
+//수정완료버튼
+function updateEndBtnClicked() {
+    // 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+    document.getElementById('detailInfoItemBox_in_name').disabled= true;
+    document.getElementById('detailInfoItemBox_in_company').disabled= true;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled= true;
+    let insertedDdayValue = document.getElementById('detailInfoItemBox_in_expireDate').value;
+    document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
+    document.getElementById('detailInfoItemBox_in_count').disabled= true;
+    document.getElementById('detailInfoItemBox_in_type').disabled= true;
+    
+    //현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
+    function calculateDateDifference(insertedDdayValue){
+    	
+    	const currentDate = new Date();
+    	const expireDate = new Date(insertedDdayValue);
+ 
+    	//시간 차이를 밀리초 단위로 계산하고 일(day)로 변환하여 소수점 아래 버림
+    	const daysDifference = Math.floor((expireDate-currentDate)/(24*60*60*1000));
+    
+    	return daysDifference;
+    }
+    
+    document.getElementById('detailInfoItemBox_d_DAY').value = calculateDateDifference(insertedDdayValue);
+    
+    // 수정 완료 버튼 숨기고, 수정 버튼 보이기
+    document.getElementById('updateEndBtn').style.display = "none";
+    document.getElementById('updateBtn').style.display = "block";
+}
+
+function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+	
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
     document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
 	
 	function convertDateFormat(in_expireDate) {
 		
-		console.log("in_expireDate : "+in_expireDate);
 		  const months = {
 		    Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
 		    Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
@@ -116,9 +170,6 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 	}
 	
 	let testExpireDate = convertDateFormat(in_expireDate);
-	// 출력되는지 확인
-	console.log(testExpireDate);
-	
 	document.getElementById('detailInfoItemBox_in_expireDate').value=testExpireDate;
 	
     var coolRadio = document.getElementById('coolRadio');
@@ -131,6 +182,29 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         coolRadio.checked = false;
         frozenRadio.checked = true;
     }
+    
+    const frgName=document.getElementById('detailInfoItemBox_frg_name').value;
+    
+    const requestData = {
+            in_name: in_name,
+            frgName: frgName
+        };
+    
+    $.ajax({
+        url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/getInnerData`,
+        type: "POST",
+        data: requestData,
+	    dataType: "json",
+        success: function(requestData,textStatus) {
+        	console.log(requestData);
+
+        },
+        error: function() {
+            // 에러 발생 시의 코드
+            console.error('Failed to get food info from the server.');
+        }
+    });
+	return false;
 }
 </script>
 <style>
@@ -237,22 +311,23 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 				</div>
 			</div>
 		</div>
-		</div>
 		<div>
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
 				<form id="detailForm"
-					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post">
+					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post"
+					onsubmit="return false;">
 					<div class="detailInfoItemBox">
-						<label for="frg">보관 냉장고</label> <select name="frgList"
-							id="frgSelect" class="detailInputBox disabled" disabled>
-							<option value="${name}">${name}</option>
-						</select>
+						<label for="">보관 냉장고</label><input name="frgName"
+							id="detailInfoItemBox_frg_name" type="text"
+							class="detailInputBox" disabled>
 					</div>
+
 					<div class="detailInfoItemBox">
 						<label for="">식품명</label> <input id="detailInfoItemBox_in_name"
 							type="text" class="detailInputBox" disabled>
 					</div>
+
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
 						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
@@ -288,17 +363,18 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 							id="detailInfoItemBox_in_type" type="text" class="detailInputBox"
 							value="${innerData.in_type}" disabled>
 					</div>
-					<div style="position: relative; top: 370%;">
+					<div class="detailInfoBtnBox" style="position: relative; top: 550%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="updateBtn"
-								onclick="updateBtnClicked()">수정</button>
+
+							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked(); return false;">수정</button>
 							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" style="display: none; top: 10%;"
-								id="updateEndBtn" onclick="updateEndBtnClicked()">수정 완료</button>
+							<button class="ctrlBtn" id="updateEndBtn"
+								onclick="updateEndBtnClicked()" style="display: none;">수정
+								완료</button>
 						</div>
 					</div>
 				</form>

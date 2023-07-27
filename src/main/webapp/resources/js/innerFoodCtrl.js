@@ -49,5 +49,4 @@ window.onload = function () {
             tableBody.appendChild(row);
         });
     }
-    
 }

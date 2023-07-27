@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,21 +66,21 @@ public class InnerFoodController {
 		return "/frg/innerAdd";
 	}
 
-	//redirect : controller간에 이동할 때
-	//redirect 없으면 , 바로 jsp (view)로 이동
+	// redirect : controller간에 이동할 때
+	// redirect 없으면 , 바로 jsp (view)로 이동
 
 	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
 	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
-	    //RequestBody를 선언해서 json데이터를 객체로 매핑한다. 
+		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
-	    dto.setUser_id(user_id);
-	    inService.registerInnerFood(dto);
-	    
-	    JsonObject json = new JsonObject();
-	    json.addProperty("success", true);
-	    
-	    return new Gson().toJson(json);
+		dto.setUser_id(user_id);
+		inService.registerInnerFood(dto);
+
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+
+		return new Gson().toJson(json);
 	}
 
 	// foodApi 조회하기
@@ -123,6 +124,24 @@ public class InnerFoodController {
 		model.addAttribute("trafficLight", trafficLight);
 
 		return "/frg/innerCtrl"; // JSP 페이지로 랜더링
+	}
+
+	@PostMapping(value = "/innerCtrl/getInnerData")
+	@ResponseBody
+	public List<InnerDTO> getInnerData(HttpSession session, @RequestParam("frgName") String frgName,
+	        @RequestParam("in_name") String in_name) throws Exception {
+
+	    String user_id = (String) session.getAttribute("SESS_ID");
+	    System.out.println(user_id);
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id(user_id);
+	    dto.setIn_name(in_name);
+	    System.out.println(in_name);
+	    dto.setFrg_name(frgName);
+	    System.out.println(frgName);
+	    List<InnerDTO> innerData=inService.selectInnerData(dto);
+
+	    return innerData;
 	}
 
 }
