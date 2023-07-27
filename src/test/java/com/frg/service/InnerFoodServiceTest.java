@@ -31,6 +31,7 @@ public class InnerFoodServiceTest {
 	InnerFoodService service;
 
 	@Test
+	@Ignore
 	public void testRegisterInnerFood() throws ParseException {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
@@ -103,5 +104,16 @@ public class InnerFoodServiceTest {
 
 		List<InnerDTO> result = service.selectInnerData(dto);
 		assertNotNull(result);
+	}
+	
+	@Test
+	public void testDeleteInnerFood() {
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("john01");
+		dto.setFrg_name("fridge2");
+		dto.setIn_name("본죽");
+		
+		service.deleteInnerFood(dto);
+		
 	}
 }

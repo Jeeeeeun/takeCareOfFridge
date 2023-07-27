@@ -208,6 +208,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         	document.getElementById('detailInfoItemBox_in_company').value = in_company;
         	const in_type = requestData[0].in_type;
         	document.getElementById('detailInfoItemBox_in_type').value = in_type;
+        	const in_index = requestData[0].in_index;
         },
         error: function() {
             // 에러 발생 시의 코드
@@ -216,6 +217,42 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
     });
 	return false;
 }
+
+function deleteBtnClick() {
+    if (confirm("정말 삭제하시겠습니까?")) {
+
+        const frgName = document.getElementById('detailInfoItemBox_frg_name').value;
+        const in_name = document.getElementById('detailInfoItemBox_in_name').value;
+
+        const requestData = {
+            in_name: in_name,
+            frgName: frgName
+        };
+
+        $.ajax({
+            url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/deleteInnerData`,
+            type: "POST",
+            data: requestData,
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    alert("삭제 완료");
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    alert("삭제 실패: " + response.message);
+                }
+            },
+            error: function (err) {
+                alert("삭제 실패: 서버 내부 오류가 발생했습니다.");
+            }
+        });
+    } else {
+    	return;
+    }
+
+    return false; 
+}
+
 </script>
 <style>
 /* 셀렉터:hover { 스타일; } */
@@ -377,7 +414,8 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 
 							<button class="ctrlBtn" id="updateBtn"
 								onclick="updateBtnClicked();">수정</button>
-							<button class="ctrlBtn" id="deleteBtn">삭제</button>
+							<button class="ctrlBtn" id="deleteBtn"
+								onclick="deleteBtnClick();">삭제</button>
 						</div>
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">

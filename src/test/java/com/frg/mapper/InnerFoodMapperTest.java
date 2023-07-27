@@ -86,7 +86,7 @@ public class InnerFoodMapperTest {
 	@Ignore
 	public void testselectPartInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("john01");
+		dto.setUser_id("smith01");
 		dto.setFrg_name("fridge2");
 
 		List<InnerDTO> result = mapper.selectPartInnerView(dto);
@@ -127,7 +127,16 @@ public class InnerFoodMapperTest {
 		
 		mapper.updateFood(dto);
 		System.out.println("성공");
+	}	
+	
+	@Test
+	@Ignore
+	public void testDeleteInnerData() {
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_name("fridge2");
+		dto.setIn_name("김치");
 		
-		
+		mapper.deleteFood(dto);
 	}
 }
