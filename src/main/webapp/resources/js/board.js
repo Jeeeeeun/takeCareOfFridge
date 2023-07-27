@@ -8,14 +8,15 @@ window.onload = function () {
 	fullHeart = document.querySelectorAll("[id^=full-heart-]");
 	emptyHeart = document.querySelectorAll("[id^=empty-heart-]");
 	
-	plusBtn.addEventListener("click", () => window.location.href = "`${contextPath}/comm/board/${boardIndex}`");
+	plusBtn.addEventListener("click", () => window.location.href = `${contextPath}/board/create`);
+	//.addEventListener("click", () => window.location.href = `${contextPath}/comm/board?board_index=${boardIndex}`);
 	
 	emptyHeart.forEach(function (heart) {
 		heart.addEventListener("click", addLikeHandler);
 	});
 
 	fullHeart.forEach(function (heart) {
-		heart.addEventListener("click", cancelLikehandler);
+		heart.addEventListener("click", cancelLikeHandler);
 	});
 };
 
@@ -76,6 +77,7 @@ function addLike(heart) {
 				// 꽉 찬 하트로 바꾸기
 				heart.classList.remove("fa-regular");
 				heart.classList.add("fa-solid");
+				heart.style.color = "red";
 				heart.setAttribute("id", `full-heart-${boardIndex}`);
 				heart.removeEventListener("click", addLikeHandler);
 				heart.addEventListener("click", cancelLikeHandler);
@@ -129,6 +131,7 @@ function cancelLike(heart) {
 				// 빈 하트로 바꾸기
 				heart.classList.remove("fa-solid");
 				heart.classList.add("fa-regular");
+				heart.style.color = "black";
 				heart.setAttribute("id", `empty-heart-${boardIndex}`);
 				heart.removeEventListener("click", cancelLikeHandler);
 				heart.addEventListener("click", addLikeHandler);
