@@ -8306,6 +8306,14 @@ none
 	width: 25% !important;
 }
 
+.w-30 {
+	width: 30% !important;
+}
+
+.w-40 {
+	width: 40 !important;
+}
+
 .w-45 {
 	width: 45% !important;	
 }

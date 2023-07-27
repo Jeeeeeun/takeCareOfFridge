@@ -81,14 +81,21 @@
 				</div>
 			</div>
 			<div class="mt-9 vw-80 mx-auto">
-				<div class="btns d-flex justify-content-sm-end h-5 position-relative">
-					<form action="${ pageContext.servletContext.contextPath }/board/search" method="get" id="searchForm">
-						<select class="text-white w-30 position-relative rounded-5 fs-7 bg-white-30 border-solid-1 border-white me-2 px-2 h-100">
-							<option value="">검색 범위</option>
-							<option value="text">게시글 제목 + 내용</option>
-							<option value="date">날짜</option>
+				<div class="btns d-flex justify-content-sm-end h-5 position-relative flex-row">
+					<form method="get" id="searchForm" class="d-flex align-items-sm-center">
+						<select id="searchType" class="text-white w-40 position-relative rounded-5 fs-7 bg-white-30 border-solid-1 border-white me-2 px-2 h-100">
+							<option class="bg-dark fs-6" value="">검색 범위</option>
+							<option class="bg-dark fs-6" value="text">게시글 제목 + 내용</option>
+							<option class="bg-dark fs-6" value="date">날짜</option>
 						</select>
-						<input type="search" autocomplete="true" class="text-white w-30 position-relative rounded-5 bg-white-30 border-solid-1 border-white me-2 indent-10 h-100" name="search" />
+						<div id="inputSearchType" class="h-100">
+							<input type="search" autocomplete="true" class="text-white w-40 h-100 position-relative rounded-5 bg-white-30 border-solid-1 border-white me-2 indent-10" name="search" />
+						</div>
+						<div id="inputDateType" class="hidden h-100 me-5">
+							<input type="date" class="text-white w-40 position-relative rounded-5 bg-white-30 border-solid-1 border-white indent-10 h-100" >
+							<span class="d-flex justify-content-sm-center align-items-sm-center text-white mx-1"><i class="fa-solid fa-minus"></i></span>
+							<input type="date" class="text-white w-40 position-relative rounded-5 bg-white-30 border-solid-1 border-white indent-10 h-100" >
+						</div>
 						<span id="searchBtn" class="position-absolute e-7 top-20 text-white">
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</span>

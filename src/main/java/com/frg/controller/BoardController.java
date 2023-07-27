@@ -1,5 +1,6 @@
 package com.frg.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -71,9 +72,16 @@ public class BoardController {
 		return "/board/edit";
 	}
 	
-	@GetMapping("/search")
-	public String searchPosts(@RequestParam("search") String search, Model model) {
+	@GetMapping("/searchKeyword")
+	public String searchPostsByWord(@RequestParam("search") String search, Model model) {
 	    // search 변수를 사용하여 게시글 검색 처리
+	    // model.addAttribute를 사용하여 검색 결과를 전달
+		return "/board/list";
+	}
+	
+	@GetMapping("/searchDate")
+	public String searchPostsByDate(@RequestParam("fromDate") LocalDate fromDate, @RequestParam("toDate") LocalDate toDate, Model model) {
+		// fromDate와 toDate 변수를 사용하여 게시글 검색 처리
 	    // model.addAttribute를 사용하여 검색 결과를 전달
 		return "/board/list";
 	}
