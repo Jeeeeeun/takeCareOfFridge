@@ -24,4 +24,11 @@ public class BoardServiceImpl implements BoardService {
 		return allPosts;
 	}
 
+	@Override
+	public int getChangedLike(BoardDTO brdDto) {
+	   int updatedLike = mapper.selectChangedLike(brdDto);
+	   
+	   return updatedLike;
+	}
+
 }

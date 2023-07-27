@@ -31,14 +31,15 @@ public class BoardController {
 	private LikesService likeService;
 
 	@GetMapping(value = "/board")
-	public String getAllPosts(HttpSession session, Model model, LikesDTO likeDto) {
+	public String getAllPosts(HttpSession session, Model model, LikesDTO likeDto, BoardDTO brdDto) {
 		log.info("getAllPosts");
 		
 		String userId = (String) session.getAttribute("SESS_ID");
 		
 		likeDto.setUser_id(userId);
+
 		
-		List<BoardDTO> allPosts = boardService.getAllPosts(); // 게시글 전체 목록 조회
+		List<BoardDTO> allPosts = boardService.getAllPosts(); // 게시글 전체 목록 조회(내림차순)
 		List<LikesDTO> likeStatus = likeService.getAllLikeStatus(likeDto); // 좋아요 상태 조회
 		
 		model.addAttribute("allPosts", allPosts);
