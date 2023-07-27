@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
+	<!-- innerAdd -->
 	<insert id="insertFood" parameterType="com.frg.domain.InnerDTO">
 		INSERT INTO Inner (
 		frg_index,
@@ -42,9 +43,14 @@
 		WHERE
 		u.user_id = #{user_id}
 	</select>
+	
+	<select id="selectFoodAPI"
+		resultType="com.frg.domain.FoodApiDTO">
+		SELECT * FROM foodAPI WHERE api_name=#{api_name}
+	</select>
 
-	<select id="selectAllInnerView"
-		resultType="com.frg.domain.InnerDTO">
+	<!-- innerCtrl -->
+	<select id="selectAllInnerView" resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
 		i.in_expireDate, i.D_DAY,
 		i.in_state
@@ -57,25 +63,6 @@
 		#{user_id}
 	</select>
 
-	<select id="selectPartInnerView2"
-		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_name, i.in_expireDate, i.D_DAY,
-		i.in_state
-		FROM
-		Users
-		u
-		INNER JOIN Inner_View i ON u.user_index =
-		i.user_index
-		WHERE
-		u.user_id
-		= #{user_id}
-		AND i.frg_index IN (SELECT
-		f.frg_index FROM
-		frgList f
-		WHERE f.frg_name =
-		#{frg_name})
-	</select>
-	
 	<select id="selectPartInnerView" resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name
 				, i.in_expireDate
@@ -90,12 +77,7 @@
 										FROM	frgList f
 										WHERE f.frg_name = #{frg_name} )
 	</select>
-
-	<select id="selectFoodAPI"
-		resultType="com.frg.domain.FoodApiDTO">
-		SELECT * FROM foodAPI WHERE api_name=#{api_name}
-	</select>
-
+	
 	<select id="selectInnerData"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_count,i.in_company, i.in_type
@@ -119,4 +101,5 @@
 		where i.in_name =
 		#{in_name})
 	</select>
+	
 </mapper>

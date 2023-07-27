@@ -292,6 +292,11 @@ input.detailInputBox[type="radio"] {
 	height: auto;
 }
 
+.detailInfoBtnBox{
+	width: 100%;
+    height: 105%;
+}
+
 .ctrlBtn {
 	/* 수정, 삭제 버튼 */
 	background-color: #FFFFFF;

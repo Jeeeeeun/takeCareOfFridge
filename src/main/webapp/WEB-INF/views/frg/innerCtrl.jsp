@@ -39,8 +39,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <title>식품 정보 조회</title>
-<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
-</script>
+<%-- <script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
+</script> --%>
 <script>
 window.contextPath = '${pageContext.servletContext.contextPath}';
 </script>
@@ -97,26 +97,46 @@ function filterDataByState(state) {
 //수정버튼
 function updateBtnClicked() {
     // 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
-    document.getElementById('detailInfoItemBox_in_company').setAttribute("disabled", false);
-    document.getElementById('detailInfoItemBox_in_expireDate').setAttribute("disabled", false);
-    document.getElementById('detailInfoItemBox_d_DAY').setAttribute("disabled", false);
-    document.getElementById('detailInfoItemBox_in_count').setAttribute("disabled", false);
-    document.getElementById('detailInfoItemBox_in_type').setAttribute("disabled", false);
+    document.getElementById('detailInfoItemBox_in_name').disabled= false;
+    document.getElementById('detailInfoItemBox_in_company').disabled= false;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled= false;
+    document.getElementById('detailInfoItemBox_d_DAY').value="";
+    document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
+    document.getElementById('detailInfoItemBox_d_DAY').placeholder="자동으로 계산됩니다";
+    document.getElementById('detailInfoItemBox_in_count').disabled= false;
+    document.getElementById('detailInfoItemBox_in_type').disabled= false;
     
     // 수정 버튼 숨기고, 수정 완료 버튼 보이기
     document.getElementById('updateBtn').style.display = "none";
     document.getElementById('updateEndBtn').style.display = "block";
+    document.getElementById('deleteBtn').style.display = "none";
 }
 
 //수정완료버튼
 function updateEndBtnClicked() {
     // 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
-    document.getElementById('detailInfoItemBox_in_company').removeAttribute("disabled");
-    document.getElementById('detailInfoItemBox_in_expireDate').removeAttribute("disabled");
-    document.getElementById('detailInfoItemBox_d_DAY').removeAttribute("disabled");
-    document.getElementById('detailInfoItemBox_in_count').removeAttribute("disabled");
-    document.getElementById('detailInfoItemBox_in_type').removeAttribute("disabled");
-
+    document.getElementById('detailInfoItemBox_in_name').disabled= true;
+    document.getElementById('detailInfoItemBox_in_company').disabled= true;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled= true;
+    let insertedDdayValue = document.getElementById('detailInfoItemBox_in_expireDate').value;
+    document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
+    document.getElementById('detailInfoItemBox_in_count').disabled= true;
+    document.getElementById('detailInfoItemBox_in_type').disabled= true;
+    
+    //현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
+    function calculateDateDifference(insertedDdayValue){
+    	
+    	const currentDate = new Date();
+    	const expireDate = new Date(insertedDdayValue);
+ 
+    	//시간 차이를 밀리초 단위로 계산하고 일(day)로 변환하여 소수점 아래 버림
+    	const daysDifference = Math.floor((expireDate-currentDate)/(24*60*60*1000));
+    
+    	return daysDifference;
+    }
+    
+    document.getElementById('detailInfoItemBox_d_DAY').value = calculateDateDifference(insertedDdayValue);
+    
     // 수정 완료 버튼 숨기고, 수정 버튼 보이기
     document.getElementById('updateEndBtn').style.display = "none";
     document.getElementById('updateBtn').style.display = "block";
@@ -321,7 +341,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 							id="detailInfoItemBox_in_type" type="text" class="detailInputBox"
 							value="${innerData.in_type}" disabled>
 					</div>
-					<div style="position: relative; top: 370%;">
+					<div class="detailInfoBtnBox" style="position: relative; top: 550%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
 							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked(); return false;">수정</button>
