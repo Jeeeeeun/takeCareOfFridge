@@ -39,8 +39,10 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <title>식품 정보 조회</title>
-<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js">
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%-- <script
+	src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js"> 
+</script> --%>
 <script>
 window.contextPath = '${pageContext.servletContext.contextPath}';
 </script>
@@ -95,13 +97,12 @@ function filterDataByState(state) {
 }
 
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
-
+	
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
     document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
 	
 	function convertDateFormat(in_expireDate) {
 		
-		console.log("in_expireDate : "+in_expireDate);
 		  const months = {
 		    Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
 		    Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
@@ -122,9 +123,6 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 	}
 	
 	let testExpireDate = convertDateFormat(in_expireDate);
-	// 출력되는지 확인
-	console.log(testExpireDate);
-	
 	document.getElementById('detailInfoItemBox_in_expireDate').value=testExpireDate;
 	
     var coolRadio = document.getElementById('coolRadio');
@@ -137,6 +135,29 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         coolRadio.checked = false;
         frozenRadio.checked = true;
     }
+    
+    const frgName=document.getElementById('detailInfoItemBox_frg_name').value;
+    
+    const requestData = {
+            in_name: in_name,
+            frgName: frgName
+        };
+    
+    $.ajax({
+        url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/getInnerData`,
+        type: "POST",
+        data: requestData,
+	    dataType: "json",
+        success: function(requestData,textStatus) {
+        	console.log(requestData);
+
+        },
+        error: function() {
+            // 에러 발생 시의 코드
+            console.error('Failed to get food info from the server.');
+        }
+    });
+	return false;
 }
 </script>
 <style>
@@ -247,17 +268,19 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
 				<form id="detailForm"
-   					 action="<%=request.getContextPath()%>/innerFoodCtrl" method="post" onsubmit="return false;">
+					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post"
+					onsubmit="return false;">
 					<div class="detailInfoItemBox">
 						<label for="">보관 냉장고</label><input name="frgName"
-							id="detailInfoItemBox_frg_name" type="text" class="detailInputBox" disabled>
+							id="detailInfoItemBox_frg_name" type="text"
+							class="detailInputBox" disabled>
 					</div>
-					
+
 					<div class="detailInfoItemBox">
 						<label for="">식품명</label> <input id="detailInfoItemBox_in_name"
 							type="text" class="detailInputBox" disabled>
 					</div>
-					
+
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
 						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
@@ -296,12 +319,15 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 					<div style="position: relative; top: 370%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked()">수정</button>
+							<button class="ctrlBtn" id="updateBtn"
+								onclick="updateBtnClicked()">수정</button>
 							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="updateEndBtn" onclick="updateEndBtnClicked()" style="display: none;">수정 완료</button>
+							<button class="ctrlBtn" id="updateEndBtn"
+								onclick="updateEndBtnClicked()" style="display: none;">수정
+								완료</button>
 						</div>
 					</div>
 				</form>
