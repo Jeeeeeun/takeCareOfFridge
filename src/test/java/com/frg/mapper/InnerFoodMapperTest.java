@@ -113,7 +113,8 @@ public class InnerFoodMapperTest {
 	public void testUpdateFood() {
 		
 		InnerDTO dto = new InnerDTO();
-		dto.setFrg_index(5);
+		dto.setFrg_name("fridge2");
+		dto.setUser_id("john01");
 		dto.setIn_name("찐만두");
 		dto.setIn_count(6);
 		String dateString = "2023-05-11";
@@ -123,10 +124,10 @@ public class InnerFoodMapperTest {
 		dto.setIn_company("농심");
 		dto.setIn_type("찜");
 		dto.setIn_state("frozen");
-		dto.setIn_index(40);
+		dto.setIn_index(68);
 		
 		mapper.updateFood(dto);
-		System.out.println("성공");
+		
 	}	
 	
 	@Test
