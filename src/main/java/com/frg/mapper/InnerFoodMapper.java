@@ -14,5 +14,6 @@ public interface InnerFoodMapper {
 	List<InnerDTO> selectAllInnerView(InnerDTO dto);
 	List<InnerDTO> selectPartInnerView(InnerDTO dto);
 	List<InnerDTO> selectInnerData(InnerDTO dto);
-	
+	void updateFood(InnerDTO dto);
+	void deleteFood(InnerDTO dto);
 }

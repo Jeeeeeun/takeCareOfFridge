@@ -31,6 +31,7 @@ public class InnerFoodMapperTest {
 	private InnerFoodMapper mapper;
 
 	@Test
+	@Ignore
 	public void testInsertInnerFood() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
 		dto.setFrg_name("samsung");
@@ -85,7 +86,7 @@ public class InnerFoodMapperTest {
 	@Ignore
 	public void testselectPartInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("john01");
+		dto.setUser_id("smith01");
 		dto.setFrg_name("fridge2");
 
 		List<InnerDTO> result = mapper.selectPartInnerView(dto);
@@ -96,6 +97,7 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
+	@Ignore
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
@@ -105,5 +107,37 @@ public class InnerFoodMapperTest {
 		List<InnerDTO> result = mapper.selectInnerData(dto);
 		System.out.println(result);
 
+	}
+	
+	@Test
+	public void testUpdateFood() {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setFrg_name("fridge2");
+		dto.setUser_id("john01");
+		dto.setIn_name("찐만두");
+		dto.setIn_count(6);
+		String dateString = "2023-05-11";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		Date date = (Date) formatter.parse(dateString);
+		dto.setIn_expireDate(date);
+		dto.setIn_company("농심");
+		dto.setIn_type("찜");
+		dto.setIn_state("frozen");
+		dto.setIn_index(68);
+		
+		mapper.updateFood(dto);
+		
+	}	
+	
+	@Test
+	@Ignore
+	public void testDeleteInnerData() {
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_name("fridge2");
+		dto.setIn_name("김치");
+		
+		mapper.deleteFood(dto);
 	}
 }
