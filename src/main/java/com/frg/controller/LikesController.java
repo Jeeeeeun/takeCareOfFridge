@@ -45,6 +45,7 @@ public class LikesController {
 		String userId = (String) session.getAttribute("SESS_ID");
 		
 		likeDto.setUser_id(userId);
+		brdDto.setBoard_index(likeDto.getBoard_index());
 
 		
 		ResponseDTO response = likeService.registerLike(likeDto);
@@ -80,6 +81,7 @@ public class LikesController {
 		String userId = (String) session.getAttribute("SESS_ID");
 		
 		likeDto.setUser_id(userId);
+		brdDto.setBoard_index(likeDto.getBoard_index());
 		
 		ResponseDTO response = likeService.removeLike(likeDto);
 		
