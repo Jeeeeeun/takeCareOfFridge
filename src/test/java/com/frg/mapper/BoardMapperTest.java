@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BoardMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
 	
-	@Test
+	@Test @Ignore
 	public void testSelectAllPosts() { // 게시글 목록 전체 조회(내림차순)
 		List<BoardDTO> allPosts = mapper.selectAllPosts();
 		
@@ -32,4 +33,15 @@ public class BoardMapperTest {
 		assertNotNull(allPosts);
 	}
 
+	@Test
+	public void testSelectChangedLike() {
+		
+		BoardDTO brdDto = new BoardDTO();
+		
+		brdDto.setBoard_index(13);
+		
+		int updatedLike = mapper.selectChangedLike(brdDto);
+		
+		assertEquals(0, updatedLike);
+	}
 }

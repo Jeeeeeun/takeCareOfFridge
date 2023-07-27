@@ -8,4 +8,11 @@
 		FROM board_view
 		ORDER BY board_index DESC
 	</select>
+	
+	<select id="selectChangedLike" resultType="int">
+		SELECT board_like
+			AS updated_like
+		FROM board
+		WHERE board_index = #{board_index}
+	</select>
 </mapper>

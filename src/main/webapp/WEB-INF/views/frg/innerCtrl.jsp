@@ -60,6 +60,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // 나머지 버튼들에는 selected 클래스 제거
     document.getElementById("cool").classList.remove("selected");
     document.getElementById("frozen").classList.remove("selected");
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const frgNameParam = urlParams.get("frgName");
+
+    // 냉장고 인풋에 냉장고 이름 파라미터 값을 설정합니다.
+    document.getElementById('detailInfoItemBox_frg_name').value = frgNameParam;
 });
 
 function filterDataByState(state) {
@@ -87,6 +93,33 @@ function filterDataByState(state) {
         });
     }
 }
+
+function updateBtnClicked() {
+    // 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
+    document.getElementById('detailInfoItemBox_in_company').setAttribute("disabled", true);
+    document.getElementById('detailInfoItemBox_in_expireDate').setAttribute("disabled", true);
+    document.getElementById('detailInfoItemBox_d_DAY').setAttribute("disabled", true);
+    document.getElementById('detailInfoItemBox_in_count').setAttribute("disabled", true);
+    document.getElementById('detailInfoItemBox_in_type').setAttribute("disabled", true);
+    
+    // 수정 버튼 숨기고, 수정 완료 버튼 보이기
+    document.getElementById('updateBtn').style.display = "none";
+    document.getElementById('updateEndBtn').style.display = "block";
+}
+
+function updateEndBtnClicked() {
+    // 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+    document.getElementById('detailInfoItemBox_in_company').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_expireDate').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_d_DAY').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_count').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_type').removeAttribute("disabled");
+
+    // 수정 완료 버튼 숨기고, 수정 버튼 보이기
+    document.getElementById('updateEndBtn').style.display = "none";
+    document.getElementById('updateBtn').style.display = "block";
+}
+
 
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 
@@ -237,22 +270,22 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 				</div>
 			</div>
 		</div>
-		</div>
 		<div>
 			<div class="detailInfoBox">
 				<div class="detailInfoTitleBox">상세 보기</div>
 				<form id="detailForm"
 					action="<%=request.getContextPath()%>/innerFoodCtrl" method="post">
+					
 					<div class="detailInfoItemBox">
-						<label for="frg">보관 냉장고</label> <select name="frgList"
-							id="frgSelect" class="detailInputBox disabled" disabled>
-							<option value="${name}">${name}</option>
-						</select>
+						<label for="">보관 냉장고</label><input name="frgName"
+							id="detailInfoItemBox_frg_name" type="text" class="detailInputBox" disabled>
 					</div>
+					
 					<div class="detailInfoItemBox">
 						<label for="">식품명</label> <input id="detailInfoItemBox_in_name"
 							type="text" class="detailInputBox" disabled>
 					</div>
+					
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
 						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
@@ -291,14 +324,12 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 					<div style="position: relative; top: 370%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="updateBtn"
-								onclick="updateBtnClicked()">수정</button>
+							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked()">수정</button>
 							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" style="display: none; top: 10%;"
-								id="updateEndBtn" onclick="updateEndBtnClicked()">수정 완료</button>
+							<button class="ctrlBtn" id="updateEndBtn" onclick="updateEndBtnClicked()" style="display: none;">수정 완료</button>
 						</div>
 					</div>
 				</form>

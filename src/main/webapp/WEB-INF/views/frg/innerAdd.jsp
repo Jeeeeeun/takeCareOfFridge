@@ -340,7 +340,8 @@
 										<!-- searchFood-1 끝 -->
 									</div>
 									<!-- searchFood 끝 -->
-									<div class="FoodTableDiv">
+									<div class="FoodTableDiv"
+										style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
 										<table id="showFoodTable">
 											<thead>
 												<tr>

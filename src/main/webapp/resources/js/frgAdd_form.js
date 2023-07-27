@@ -329,17 +329,22 @@ function submitBtnClicked(e) {
                         data: JSON.stringify(settingBoxesData),
                         dataType: "json",
                         success: function (response) {
-                            alert("냉장고 등록이 완료되었습니다.");
+                            alertMsg = "냉장고 등록이 완료되었습니다.";
+                            showAlert(alertMsg);
                             window.location.href = `${contextPath}/frg/frgShow`;
                         },
                         error: function (err) {
-                            alert("냉장고 등록에 실패했습니다.");
+                            alertMsg = "냉장고 등록에 실패했습니다.";
+                            showAlert(alertMsg);
                             if (err.status === 404) {
-                                alert("요청한 페이지를 찾을 수 없습니다.");
+                                alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+                                showAlert(alertMsg);
                             } else if (err.status === 500) {
-                                alert("서버 내부 오류가 발생했습니다.");
+                                alertMsg = "서버 내부 오류가 발생했습니다.";
+                                showAlert(alertMsg);
                             } else {
-                                alert("error - " + err);
+                                alertMsg = "알 수 없는 오류가 발생했습니다";
+                                showAlert(alertMsg);
                             }
                         },
                     })

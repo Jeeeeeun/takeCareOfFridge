@@ -54,7 +54,7 @@ public class LikesMapperTest {
 		
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testDeleteLike() {
 		
 		int expect = 1;

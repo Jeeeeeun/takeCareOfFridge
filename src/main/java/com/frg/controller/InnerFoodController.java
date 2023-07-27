@@ -124,5 +124,5 @@ public class InnerFoodController {
 
 		return "/frg/innerCtrl"; // JSP 페이지로 랜더링
 	}
-
+	
 }
