@@ -107,6 +107,8 @@ function updateBtnClicked() {
     document.getElementById('detailInfoItemBox_d_DAY').placeholder="자동으로 계산됩니다";
     document.getElementById('detailInfoItemBox_in_count').disabled= false;
     document.getElementById('detailInfoItemBox_in_type').disabled= false;
+    document.getElementById('coolRadio').disabled=false;
+    document.getElementById('frozenRadio').disabled=false;
     
     // 수정 버튼 숨기고, 수정 완료 버튼 보이기
     document.getElementById('updateBtn').style.display = "none";
@@ -124,6 +126,8 @@ function updateEndBtnClicked() {
     document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
     document.getElementById('detailInfoItemBox_in_count').disabled= true;
     document.getElementById('detailInfoItemBox_in_type').disabled= true;
+    document.getElementById('coolRadio').disabled=true;
+    document.getElementById('frozenRadio').disabled=true;
     
     //현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
     function calculateDateDifference(insertedDdayValue){

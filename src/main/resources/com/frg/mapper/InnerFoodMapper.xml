@@ -105,13 +105,13 @@
 	<update id="updateFood">
 		UPDATE Inner
 		SET
-		    frg_index = 5,
+		    frg_index = #{frg_index},
 		    in_name = #{in_name},
 		    in_count = #{in_count},
 		    in_expireDate = #{in_expireDate},
 		    in_company = #{in_company},
 		    in_type = #{in_type},
 		    in_state = #{in_state}
-		WHERE in_index = 40;
+		WHERE in_index = #{in_index}
 	</update>
 </mapper>
