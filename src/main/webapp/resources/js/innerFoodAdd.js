@@ -91,15 +91,17 @@ function searchFoodAPI() {
 }
 
 let settingBoxNumber = 1;
-let frgOptionCounter = 1; // 냉장고 옵션의 카운터 변수
+let frgOptionCounter = 1;
+let frgStateCounter = 1; 
 /* createNewSettingBox(); */
 function createNewSettingBox() {
 
-	const addSettingBox = document.querySelector(".addsettingBox-Wrapper");
+	const addSettingBox = document.querySelector(".addSettingBox-Wrapper");
 	const settingBoxElement = document.createElement("div");
 	settingBoxElement.innerHTML = `
 	  <hr class="horizontalLine" style="border-style: dashed">
-		<div class="addSettingBox">
+		<div class="addSettingBox${settingBoxNumber}">
+			<!-- 냉장고 목록 -->
 			<div class="box1">
 				<label>
 					<p>냉장고 선택</p> <select name="frgList" id="frgOption${frgOptionCounter}">
@@ -107,61 +109,64 @@ function createNewSettingBox() {
 				</select>
 				</label>
 			</div>
-			
+
+			<!-- 보관 위치 -->
 			<div class="box2">
 				<p>보관 위치</p>
-				<label> <input type="radio" name="frgState"
-					id="foodStateFrozen" />냉동
-				</label> <label> <input type="radio" name="frgState"
-					id="foodStateCool" />냉장 <br>
-				</label>
+				<label> <input type="radio" name="frgState${frgStateCounter}" 
+					id="foodStateFrozen"  value="frozen" checked/>냉동
+				<label> <input type="radio" name="frgState${frgStateCounter}"
+					id="foodStateFrozen" value="cool" />냉장 
 			</div>
 
+			<!-- 식품명 -->
 			<div class="box3">
 				<label>
 					<p>식품명</p>
 					<div class="box3-1">
 						<div class="box3-2">
 							<input type="text" name="foodName" id="foodNameInput"
-								placeholder="검색 결과가 입력됩니다." />
+								placeholder="검색 결과가 입력됩니다." disabled />
 							<div class="box3-3">
-								<input type="checkbox" name="checkCustom" id="checkCustomInput" onclick="checkCustomOrNot();">직접입력하기
+								<input type="checkbox" name="checkCustom"
+									id="checkCustomInput" onclick="checkCustomOrNot();">직접입력하기
 							</div>
 						</div>
 					</div>
 				</label>
 			</div>
 
+			<!-- 유통/소비기한 -->
 			<div class="box4">
 				<label>
 					<p>유통/소비기한</p>
 					<div class="box4-1">
-						<input type="text" name="expireDateAuto" id="dueDateAuto"
-							placeholder="검색 결과가 입력됩니다."> 
-						<input type="date"
-							name="expireDateCustom" id="dueDateCustom" value="">
+						<input type="date" name="expireDate" id="dueDate" value="">
 					</div>
 				</label>
 			</div>
 
+			<!-- 식품유형 -->
 			<div class="box5">
 				<label>
-					<p>식품유형</p> <input type="text" name="foodType" id="foodType"
-					placeholder="검색 결과가 입력됩니다.">
+					<p>식품유형</p> <input type="text" name="foodType"
+					id="foodType" placeholder="검색 결과가 입력됩니다." disabled>
 				</label>
 			</div>
 
+			<!-- 수량 -->
 			<div class="box6">
 				<label>
-					<p>수량</p> <input type="number" name="foodCount" id="foodCount"
-					placeholder="식품 수량 등록">
+					<p>수량</p> <input type="number" name="foodCount"
+					id="foodCount" placeholder="식품 수량 등록">
 				</label>
 			</div>
 
+			<!-- 제조사명 -->
 			<div class="box7">
 				<label>
 					<p>제조사명</p> <input type="text" name="foodCompany"
-					id="foodCompany" placeholder="검색 결과가 입력됩니다.">
+					id="foodCompany" placeholder="검색 결과가 입력됩니다." disabled>
 				</label>
 			</div>
 		</div>
@@ -188,14 +193,15 @@ function createNewSettingBox() {
 	const settingBox = settingBoxElement.querySelector(`.addSettingBox${settingBoxNumber}`);
 
 	settingBox.style.position = "relative";
-	settingBox.style.width = "550px";
-	settingBox.style.height = "447px";
+	settingBox.style.width = "535px";
+	settingBox.style.height = "381px";
 	settingBox.style.backgroundColor = "gray";
 	settingBox.style.padding = "inherit";
 
 	// 카운터를 증가시켜 다음 요소에 대한 고유한 ID 생성
 	frgOptionCounter++;
 	settingBoxNumber++;
+	frgStateCounter++;
 
 };
 

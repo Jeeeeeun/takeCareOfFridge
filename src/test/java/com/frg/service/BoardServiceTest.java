@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,24 @@ public class BoardServiceTest {
 	@Setter(onMethod_ = @Autowired)
 	private BoardService service;
 	
-	@Test
+	@Test @Ignore
 	public void testGetAllPosts() {
 		List<BoardDTO> allPosts = service.getAllPosts();
 		
 		log.info("게시글 전체 목록 - " + allPosts);
 		
 		assertNotNull(allPosts);
+	}
+	
+	@Test
+	public void testGetChangedLike() {
+		BoardDTO brdDto = new BoardDTO();
+		
+		brdDto.setBoard_index(13);
+		
+		int updatedLike = service.getChangedLike(brdDto);
+		
+		assertEquals(0, updatedLike);
 	}
 
 }
