@@ -142,6 +142,7 @@ function updateEndBtnClicked() {
     // 수정 완료 버튼 숨기고, 수정 버튼 보이기
     document.getElementById('updateEndBtn').style.display = "none";
     document.getElementById('updateBtn').style.display = "block";
+    document.getElementById('deleteBtn').style.display = "block";
 }
 
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
