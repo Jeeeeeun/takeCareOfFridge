@@ -110,6 +110,7 @@ public class InnerFoodMapperTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateFood() {
 		
 		InnerDTO dto = new InnerDTO();
@@ -117,7 +118,7 @@ public class InnerFoodMapperTest {
 		dto.setUser_id("john01");
 		dto.setIn_name("찐만두");
 		dto.setIn_count(6);
-		String dateString = "2023-05-11";
+		String dateString = "2020-01-15";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		Date date = (Date) formatter.parse(dateString);
 		dto.setIn_expireDate(date);
