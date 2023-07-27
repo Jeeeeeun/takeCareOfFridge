@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.frg.domain.BoardDTO;
@@ -47,5 +48,12 @@ public class BoardController {
 		model.addAttribute("userId", userId);
 		
 		return "/comm/board";
+	}
+	
+	@GetMapping(value = "/board/{board_index}")
+	public String getPostDetails(@PathVariable("board_index") int boardIndex, Model model) {
+	    // 게시물 세부 정보를 가져오는 로직 작성
+		
+		return "/comm/board_details";
 	}
 }
