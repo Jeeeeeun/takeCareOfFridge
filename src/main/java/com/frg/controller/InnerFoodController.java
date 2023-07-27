@@ -132,16 +132,31 @@ public class InnerFoodController {
 	        @RequestParam("in_name") String in_name) throws Exception {
 
 	    String user_id = (String) session.getAttribute("SESS_ID");
-	    System.out.println(user_id);
 	    InnerDTO dto = new InnerDTO();
 	    dto.setUser_id(user_id);
 	    dto.setIn_name(in_name);
-	    System.out.println(in_name);
 	    dto.setFrg_name(frgName);
-	    System.out.println(frgName);
 	    List<InnerDTO> innerData=inService.selectInnerData(dto);
 
 	    return innerData;
+	}
+	
+	@PostMapping(value = "/innerCtrl/deleteInnerData")
+	@ResponseBody
+	public String deleteInnerData(HttpSession session, @RequestParam("frgName") String frgName,
+	        @RequestParam("in_name") String in_name) throws Exception {
+		
+		String user_id = (String) session.getAttribute("SESS_ID");
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id(user_id);
+	    dto.setIn_name(in_name);
+	    dto.setFrg_name(frgName);
+		inService.deleteInnerFood(dto);
+		
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+
+		return new Gson().toJson(json);
 	}
 
 }
