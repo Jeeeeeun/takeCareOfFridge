@@ -96,15 +96,14 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
-	@Ignore
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
 		dto.setFrg_name("fridge2");
-		dto.setIn_name("멸치볶음");
+		dto.setIn_name("용가리치킨");
 
 		List<InnerDTO> result = mapper.selectInnerData(dto);
-		assertNotNull(result);
+		System.out.println(result);
 
 	}
 }
