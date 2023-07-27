@@ -96,6 +96,34 @@ function filterDataByState(state) {
     }
 }
 
+//수정버튼
+function updateBtnClicked() {
+    // 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
+    document.getElementById('detailInfoItemBox_in_company').setAttribute("disabled", false);
+    document.getElementById('detailInfoItemBox_in_expireDate').setAttribute("disabled", false);
+    document.getElementById('detailInfoItemBox_d_DAY').setAttribute("disabled", false);
+    document.getElementById('detailInfoItemBox_in_count').setAttribute("disabled", false);
+    document.getElementById('detailInfoItemBox_in_type').setAttribute("disabled", false);
+    
+    // 수정 버튼 숨기고, 수정 완료 버튼 보이기
+    document.getElementById('updateBtn').style.display = "none";
+    document.getElementById('updateEndBtn').style.display = "block";
+}
+
+//수정완료버튼
+function updateEndBtnClicked() {
+    // 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+    document.getElementById('detailInfoItemBox_in_company').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_expireDate').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_d_DAY').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_count').removeAttribute("disabled");
+    document.getElementById('detailInfoItemBox_in_type').removeAttribute("disabled");
+
+    // 수정 완료 버튼 숨기고, 수정 버튼 보이기
+    document.getElementById('updateEndBtn').style.display = "none";
+    document.getElementById('updateBtn').style.display = "block";
+}
+
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 	
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
@@ -319,8 +347,8 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 					<div style="position: relative; top: 370%;">
 						<div
 							style="position: relative; display: flex; justify-content: center; align-items: center;">
-							<button class="ctrlBtn" id="updateBtn"
-								onclick="updateBtnClicked()">수정</button>
+
+							<button class="ctrlBtn" id="updateBtn" onclick="updateBtnClicked(); return false;">수정</button>
 							<button class="ctrlBtn" id="deleteBtn">삭제</button>
 						</div>
 						<div
