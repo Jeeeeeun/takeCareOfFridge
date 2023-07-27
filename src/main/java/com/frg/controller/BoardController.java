@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.frg.domain.BoardDTO;
 import com.frg.domain.LikesDTO;
@@ -21,7 +22,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/comm/*")
+@RequestMapping("/board/*")
 @Log4j
 public class BoardController {
 
@@ -31,8 +32,9 @@ public class BoardController {
 	@Setter(onMethod_ = @Autowired)
 	private LikesService likeService;
 
-	@GetMapping(value = "/board")
+	@GetMapping(value = "/list")
 	public String getAllPosts(HttpSession session, Model model, LikesDTO likeDto, BoardDTO brdDto) {
+		// 게시글 목록 전체 조회
 		log.info("getAllPosts");
 		
 		String userId = (String) session.getAttribute("SESS_ID");
@@ -47,13 +49,32 @@ public class BoardController {
 		model.addAttribute("likeStatus", likeStatus);
 		model.addAttribute("userId", userId);
 		
-		return "/comm/board";
+		return "/board/list";
 	}
 	
-	@GetMapping(value = "/board/{board_index}")
+	@GetMapping(value = "/view/{board_index}")
 	public String getPostDetails(@PathVariable("board_index") int boardIndex, Model model) {
-	    // 게시물 세부 정보를 가져오는 로직 작성
+	    // 게시글 하나 내용 조회
 		
-		return "/comm/board_details";
+		return "/board/view";
+	}
+	
+	@GetMapping("/create")
+	public String createNewPost() {
+		// 게시글 새로 작성
+		return "/board/create";
+	}
+	
+	@GetMapping("/edit/{board_index}")
+	public String editPost() {
+		// 게시글 수정
+		return "/board/edit";
+	}
+	
+	@GetMapping("/search")
+	public String searchPosts(@RequestParam("search") String search, Model model) {
+	    // search 변수를 사용하여 게시글 검색 처리
+	    // model.addAttribute를 사용하여 검색 결과를 전달
+		return "/board/list";
 	}
 }

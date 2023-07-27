@@ -232,7 +232,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/frg/frgShow">MyFridge</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/comm/board">Community</a></li>
+						href="<%=request.getContextPath()%>/board/list">Community</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
 					<li class="nav-item"><a class="nav-link"

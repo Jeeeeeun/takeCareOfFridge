@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>board detail 페이지</title>
+<title>게시글 수정 페이지</title>
 </head>
 <body>
-board_detail 페이지
+게시글 수정 페이지
 </body>
 </html>
