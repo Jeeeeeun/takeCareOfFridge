@@ -54,4 +54,9 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 	public void deleteInnerFood(InnerDTO dto) {
 		mapper.deleteFood(dto);
 	}
+
+	@Override
+	public int updateInnerFood(InnerDTO dto) {
+		return mapper.updateFood(dto);
+	}
 }

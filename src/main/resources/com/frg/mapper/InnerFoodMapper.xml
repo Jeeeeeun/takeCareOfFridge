@@ -107,7 +107,13 @@
 	<update id="updateFood">
 		UPDATE Inner
 		SET
-		    frg_index = #{frg_index},
+		    frg_index = (select frg_index 
+            from frgList f
+            where frg_name=#{frg_name}
+            AND f.user_index = (
+			SELECT user_index
+			FROM Users
+			WHERE user_id = #{user_id})),
 		    in_name = #{in_name},
 		    in_count = #{in_count},
 		    in_expireDate = #{in_expireDate},
