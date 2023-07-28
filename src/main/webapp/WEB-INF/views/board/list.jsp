@@ -40,7 +40,7 @@
 	</script>
 	
 	<!-- JavaScript External Links -->
-	<script src="${ pageContext.servletContext.contextPath }/resources/js/board.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/boardList.js"></script>
 
 	<!-- jQuery CDN -->
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -191,3 +191,7 @@
 		</header>
 	</body>
 </html>
+<!-- 해야 할 일
+1. 날짜 기간에 따른 검색 기능
+2. pageNation
+3. 게시글 제목 누르면 그 게시글 내용 보러 들어갈 수 있게 처리 -->

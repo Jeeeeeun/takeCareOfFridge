@@ -8,12 +8,14 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frg.domain.BoardDTO;
 import com.frg.domain.LikesDTO;
@@ -74,8 +76,9 @@ public class BoardController {
 		return "/board/edit";
 	}
 	
-	@GetMapping("/searchKeyword")
-	public String searchPostsByWord(@RequestParam("search") String search, Model model) {
+	@GetMapping(value = "/searchKeyword", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<BoardDTO> searchPostsByWord(@RequestParam("search") String search, Model model) {
 	    
 		// search 변수를 사용하여 게시글 검색 처리
 		Map<String, Object> params = new HashMap<>();
@@ -87,13 +90,18 @@ public class BoardController {
 	    // model.addAttribute를 사용하여 검색 결과를 전달
 		model.addAttribute("searchResults", filteredPosts);
 		
-		return "/board/list";
+		return filteredPosts;
 	}
 	
 	@GetMapping("/searchDate")
-	public String searchPostsByDate(@RequestParam("fromDate") LocalDate fromDate, @RequestParam("toDate") LocalDate toDate, Model model) {
+	public List<BoardDTO> searchPostsByDate(@RequestParam("fromDate") LocalDate fromDate, @RequestParam("toDate") LocalDate toDate, Model model) {
+		
 		// fromDate와 toDate 변수를 사용하여 게시글 검색 처리
+		List<BoardDTO> filteredPosts = boardService.getPostsByDate(fromDate, toDate);
+		
 	    // model.addAttribute를 사용하여 검색 결과를 전달
-		return "/board/list";
+		model.addAttribute("searchedResults", filteredPosts);
+		
+		return filteredPosts;
 	}
 }
