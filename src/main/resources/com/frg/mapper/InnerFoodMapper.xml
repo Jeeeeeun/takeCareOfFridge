@@ -23,7 +23,8 @@
 		AND f.user_index = (
 		SELECT user_index
 		FROM Users
-		WHERE user_id = #{user_id}
+		WHERE user_id =
+		#{user_id}
 		)
 		),
 		#{in_state},
@@ -70,56 +71,69 @@
 		, i.in_expireDate
 		, i.d_day
 		, i.in_state
-		FROM Users u
+		FROM
+		Users u
 		INNER JOIN Inner_View i
 		ON u.user_index = i.user_index
 		WHERE
 		u.user_id = #{user_id}
 		AND i.frg_index IN (SELECT f.frg_index
-		FROM frgList f
+		FROM
+		frgList f
 		WHERE f.frg_name = #{frg_name} )
 	</select>
 
 	<select id="selectInnerData"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_count,i.in_company, i.in_type,i.in_index
-		FROM users u
+		FROM
+		users u
 		JOIN
 		FrgList f ON
 		u.user_index =
 		f.user_index
 		JOIN
-		inner i ON f.frg_index =
+		inner i ON
+		f.frg_index =
 		i.frg_index
 		WHERE u.user_id =
 		#{user_id}
 		AND
-		f.frg_name = #{frg_name}
+		f.frg_name =
+		#{frg_name}
 		AND
 		i.in_index
 		in
 		(Select
 		i.in_index from inner i
-		where i.in_name =
+		where
+		i.in_name =
 		#{in_name})
 	</select>
 
-	<update id="updateFood">
+	<update id="updateFood" parameterType="com.frg.domain.InnerDTO">
 		UPDATE Inner
 		SET
-		    frg_index = (select frg_index 
-            from frgList f
-            where frg_name=#{frg_name}
-            AND f.user_index = (
-			SELECT user_index
-			FROM Users
-			WHERE user_id = #{user_id})),
-		    in_name = #{in_name},
-		    in_count = #{in_count},
-		    in_expireDate = #{in_expireDate},
-		    in_company = #{in_company},
-		    in_type = #{in_type},
-		    in_state = #{in_state}
+		frg_index =
+		(
+		SELECT
+		frg_index
+		FROM FrgList f
+		WHERE f.frg_name = #{frg_name}
+		AND
+		f.user_index
+		= (
+		SELECT user_index
+		FROM Users
+		WHERE user_id = #{user_id}
+		)
+		),
+		in_name = #{in_name},
+		in_count = #{in_count},
+		in_expireDate = #{in_expireDate},
+		in_company = #{in_company},
+		in_type = #{in_type},
+		in_state = #{in_state}
 		WHERE in_index = #{in_index}
 	</update>
 
@@ -129,12 +143,15 @@
 		SELECT i.in_index
 		FROM inner i
 		JOIN FrgList f ON i.frg_index = f.frg_index
-		JOIN users u ON f.user_index = u.user_index
+		JOIN users u ON
+		f.user_index = u.user_index
 		WHERE u.user_id = #{user_id}
-		AND f.frg_name = #{frg_name}
+		AND f.frg_name
+		= #{frg_name}
 		AND i.in_index IN (
 		SELECT in_index
 		FROM inner
-		WHERE in_name = #{in_name}))
+		WHERE in_name
+		= #{in_name}))
 	</delete>
 </mapper>

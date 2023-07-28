@@ -55,21 +55,6 @@ function changeFrg(frgName, url) {
     location.href = url + "?frgName=" + frgName;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
-    document.getElementById("all").classList.add("selected");
-
-    // 나머지 버튼들에는 selected 클래스 제거
-    document.getElementById("cool").classList.remove("selected");
-    document.getElementById("frozen").classList.remove("selected");
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const frgNameParam = urlParams.get("frgName");
-
-    // 냉장고 인풋에 냉장고 이름 파라미터 값을 설정합니다.
-    document.getElementById('detailInfoItemBox_frg_name').value = frgNameParam;
-});
-
 function filterDataByState(state) {
     // 선택된 버튼을 표시하기 위해 모든 버튼에서 'selected' 클래스를 제거합니다
     var buttons = document.querySelectorAll('.stateBtn');
@@ -86,7 +71,7 @@ function filterDataByState(state) {
         allRows.forEach(row => row.style.display = "table-row");
     } else {
         allRows.forEach(row => {
-            const in_state = row.querySelector("td:nth-child(4)").innerText;
+            const in_state = row.querySelector("td:nth-child(5)").innerText;
             if (in_state === state) {
                 row.style.display = "table-row";
             } else {
@@ -95,6 +80,52 @@ function filterDataByState(state) {
         });
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
+    document.getElementById("all").classList.add("selected");
+    // 나머지 버튼들에는 selected 클래스 제거
+    document.getElementById("cool").classList.remove("selected");
+    document.getElementById("frozen").classList.remove("selected");
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const frgNameParam = urlParams.get("frgName");
+
+    // 냉장고 인풋에 냉장고 이름 파라미터 값을 설정합니다.
+    document.getElementById('detailInfoItemBox_frg_name').value = frgNameParam;    
+    
+    $.ajax({
+        url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/trafficStandard`,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            // 데이터를 JSON 객체로 정상적으로 받았을 때의 처리 로직
+            const dangerous = data[0].dangerous_standard;
+            const warning = data[0].warning_standard;
+
+            // 각 행의 circleColor를 설정
+            const circleColors = document.getElementsByClassName("circleColor");
+            for (let i = 0; i < circleColors.length; i++) {
+                const d_day = parseInt(circleColors[i].getAttribute("ddayData")); // 행의 d_day 값
+                const circle = circleColors[i];
+                circle.classList.remove("red_circle", "y_circle", "green_circle"); // 이전에 추가된 클래스 모두 제거
+
+                if (dangerous < d_day) {
+                    circle.classList.add("red_circle");
+                } else if (dangerous >= d_day && d_day > warning) {
+                    circle.classList.add("yellow_circle");
+                } else {
+                    circle.classList.add("green_circle");
+                }
+            }
+        },
+        error: function () {
+            // 에러 발생 시의 코드
+            console.error('Failed to get food info from the server.');
+        }
+    });
+    
+});
 
 //수정버튼
 function updateBtnClicked() {
@@ -340,6 +371,54 @@ function deleteBtnClick() {
 	background-color: #e0e0e0; /* 배경색 변경 */
 	cursor: pointer; /* 커서 모양 변경 */
 }
+
+.red_circle {
+	width: 15px;
+	height: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	background-color: red;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.yellow_circle {
+	width: 15px;
+	height: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	background-color: yellow;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.green_circle {
+	width: 15px;
+	height: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	background-color: #03c03c;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.black_circle {
+	width: 15px;
+	height: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	background-color: black;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 </style>
 </head>
 <body id="page-top">
@@ -359,7 +438,7 @@ function deleteBtnClick() {
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/frg/frgShow">MyFridge</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/comm/board">Community</a></li>
+						href="<%=request.getContextPath()%>/board/list">Community</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
 					<li class="nav-item"><a class="nav-link"
@@ -413,6 +492,8 @@ function deleteBtnClick() {
 						<thead>
 							<tr>
 								<th
+									style="width: 100px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;"><span class="black_circle"></span></th>
+								<th
 									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">식품명</th>
 								<th
 									style="width: 550px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">유통기한</th>
@@ -426,6 +507,7 @@ function deleteBtnClick() {
 							<c:forEach var="item" items="${dataList}">
 								<tr
 									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
+									<td><span class="circleColor" ddayData="${item.d_DAY}"></span></td>
 									<td style="text-align: center;">${item.in_name}</td>
 									<td style="text-align: center;"><fmt:formatDate
 											value="${item.in_expireDate}" pattern="yyyy-MM-dd" /></td>

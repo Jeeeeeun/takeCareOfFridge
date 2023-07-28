@@ -79,6 +79,11 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+@font-face {
+  font-family: "FontAwesome";
+  src: url("path/to/font-awesome/fonts/fontawesome-webfont.woff2") format("woff2");
+}
+
 *,
 *::before,
 *::after {
@@ -8301,6 +8306,14 @@ none
 	width: 25% !important;
 }
 
+.w-30 {
+	width: 30% !important;
+}
+
+.w-40 {
+	width: 40 !important;
+}
+
 .w-45 {
 	width: 45% !important;	
 }
@@ -9102,6 +9115,10 @@ none
 
 .fs-6 {
   font-size: 1rem !important;
+}
+
+.fs-7 {
+	font-size: 0.75rem !important;
 }
 
 .fst-italic {
@@ -12104,7 +12121,9 @@ body {
 .text-white-75 {
   color: rgba(255, 255, 255, 0.75) !important;
 }
-
+.text-red {
+	color: #f00;
+}
 .btn-xl {
   padding: 1.25rem 2.25rem;
   font-size: 0.85rem;

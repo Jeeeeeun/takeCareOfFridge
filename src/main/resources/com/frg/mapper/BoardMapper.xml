@@ -15,4 +15,20 @@
 		FROM board
 		WHERE board_index = #{board_index}
 	</select>
+	
+	<select id="selectPostsByWord" resultType="com.frg.domain.BoardDTO">
+	    SELECT *
+	    FROM board_view bv
+	    WHERE bv.board_index IN (
+	        SELECT board_index
+	        FROM board
+	        WHERE board_title LIKE '%' || #{search} || '%' OR board_content LIKE '%' || #{search} || '%'
+	    )
+	</select>
+	
+	<select id="selectPostsByDate" resultType="com.frg.domain.BoardDTO">
+	    SELECT *
+	    FROM board
+	    WHERE board_regDate BETWEEN TO_DATE(#{fromDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD') AND TO_DATE(#{toDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD') + INTERVAL '1' DAY
+	</select>
 </mapper>

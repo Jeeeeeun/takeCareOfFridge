@@ -1,23 +1,44 @@
-let alertMsg, alertContent, alertWindow, plusBtn, likeNumDisplay, fullHeart, emptyHeart, addLikeData, cancelLikeData, fullHeartTemplate, emptyHeartTemplate, newFullHeart, newEmptyHeart, likeNum;
+let alertMsg, alertContent, alertWindow, searchForm, searchInput, inputSearchType, inputDateType, plusBtn, likeNumDisplay, fullHeart, emptyHeart, addLikeData, cancelLikeData, fullHeartTemplate, emptyHeartTemplate, newFullHeart, newEmptyHeart, likeNum;
 
 window.onload = function () {
 	alertContent = document.querySelector("#alertContent");
 	alertWindow = document.querySelector("#customAlert");
+	searchForm = document.querySelector('#searchForm');
+	searchInput = document.querySelector('#searchType');
+	inputSearchType = document.querySelector('#inputSearchType');
+	inputDateType = document.querySelector('#inputDateType');
 	plusBtn = document.querySelector("#plusBtn");
 	likeNumDisplays = document.querySelectorAll("[id^=likeNum-]");
 	fullHeart = document.querySelectorAll("[id^=full-heart-]");
 	emptyHeart = document.querySelectorAll("[id^=empty-heart-]");
 	
-	plusBtn.addEventListener("click", () => window.location.href = "`${contextPath}/comm/board/${boardIndex}`");
+	searchInput.addEventListener("change", changeSearchInput);
+	
+	plusBtn.addEventListener("click", () => window.location.href = `${contextPath}/board/create`);
+	//.addEventListener("click", () => window.location.href = `${contextPath}/board/view?board_index=${boardIndex}`);
 	
 	emptyHeart.forEach(function (heart) {
 		heart.addEventListener("click", addLikeHandler);
 	});
 
 	fullHeart.forEach(function (heart) {
-		heart.addEventListener("click", cancelLikehandler);
+		heart.addEventListener("click", cancelLikeHandler);
 	});
 };
+
+// 검색창 종류 바꾸기
+function changeSearchInput() {
+	
+	if(searchInput.value === 'text') {
+		searchForm.action = "${ pageContext.servletContext.contextPath }/board/searchKeyword"
+		inputSearchType.style.display = "flex";
+		inputDateType.style.display = "none";
+	} else if (searchInput.value === 'date') {
+	searchForm.action = "${ pageContext.servletContext.contextPath }/board/searchDate"
+		inputSearchType.style.display = "none";
+		inputDateType.style.display = "flex";
+	}
+}
 
 // SESS_ID 데려오려는 함수
 function getUserId() {
@@ -76,6 +97,7 @@ function addLike(heart) {
 				// 꽉 찬 하트로 바꾸기
 				heart.classList.remove("fa-regular");
 				heart.classList.add("fa-solid");
+				heart.style.color = "red";
 				heart.setAttribute("id", `full-heart-${boardIndex}`);
 				heart.removeEventListener("click", addLikeHandler);
 				heart.addEventListener("click", cancelLikeHandler);
@@ -129,6 +151,7 @@ function cancelLike(heart) {
 				// 빈 하트로 바꾸기
 				heart.classList.remove("fa-solid");
 				heart.classList.add("fa-regular");
+				heart.style.color = "black";
 				heart.setAttribute("id", `empty-heart-${boardIndex}`);
 				heart.removeEventListener("click", cancelLikeHandler);
 				heart.addEventListener("click", addLikeHandler);

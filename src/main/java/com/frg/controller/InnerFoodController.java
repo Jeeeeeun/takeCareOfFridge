@@ -174,5 +174,16 @@ public class InnerFoodController {
 
 		return new Gson().toJson(json);
 	}
+	
+	@GetMapping(value = "/innerCtrl/trafficStandard")
+	@ResponseBody
+	public List<TrafficDTO> trafficStandard(HttpSession session,TrafficDTO trfDto) {
+		String user_id=(String) session.getAttribute("SESS_ID");
+		
+		trfDto.setUser_id(user_id);
+		List<TrafficDTO> trafficStandard = trfService.getTrafficStandard(trfDto);
+		
+		return trafficStandard;
+	}
 
 }

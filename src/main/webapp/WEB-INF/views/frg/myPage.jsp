@@ -67,7 +67,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/comm/board">Community</a></li>
+							href="${ pageContext.servletContext.contextPath }/board/list">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
 						<li class="nav-item"><a class="nav-link"
