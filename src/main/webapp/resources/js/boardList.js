@@ -43,7 +43,7 @@ function showAlert(alertMsg) {
     setTimeout(function () {
         alertWindow.classList.remove("show");
         alertWindow.classList.add("hidden");
-    }, 3000);
+    }, 2500);
 }
 
 // handler 함수 쓰는 이유:

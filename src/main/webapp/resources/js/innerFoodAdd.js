@@ -1,3 +1,24 @@
+// 전역변수로 사용할 변수 선언
+let alertMsg, alertContent, alertWindow;
+
+// 페이지 로딩되자마자, DOM 객체 캐치
+window.onload = function() {
+	alertContent = document.querySelector("#alertContent");
+	alertWindow = document.querySelector("#customAlert");
+}
+
+// 알림창 띄우기
+function showAlert(alertMsg) {
+	alertContent.textContent = alertMsg;
+	alertWindow.classList.remove("hidden");
+	alertWindow.classList.add("show");
+	
+	setTimeout(function () {
+		alertWindow.classList.remove("show");
+		alertWindow.classList.add("hidden");
+	}, 2500);
+}
+
 /* searchFoodAPI(); */
 function searchFoodAPI() {
 

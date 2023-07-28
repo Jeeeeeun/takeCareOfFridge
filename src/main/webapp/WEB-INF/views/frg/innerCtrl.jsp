@@ -33,7 +33,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../resources/css/styles.css" rel="stylesheet" />
+<link href="${pageContext.servletContext.contextPath}/resources/css/styles.css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -447,7 +447,11 @@ function deleteBtnClick() {
 				</ul>
 			</div>
 		</nav>
-		<nav>
+					<div id="customAlert" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+				<div class="d-flex align-items-sm-center justify-content-sm-center text-center bg-white py-2 rounded-3 w-40 h-20 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+					<p id="alertContent">알림창!</p>
+				</div>
+			</div>
 			<div class="d-flex flex-row position-relative mt-6">
 				<div id="trafficLight"
 					class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
@@ -459,7 +463,6 @@ function deleteBtnClick() {
 						class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 				</div>
 			</div>
-		</nav>
 		<div id="contents">
 			<div class="currentStateBox">
 				<div style="display: flex; flex-direction: column;">

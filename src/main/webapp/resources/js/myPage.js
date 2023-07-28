@@ -111,7 +111,7 @@ function showAlert(alertMsg) {
   setTimeout(function () {
     alertWindow.classList.remove("show");
     alertWindow.classList.add("hidden");
-  }, 3000);
+  }, 2500);
 }
 
 // 컨펌창 켜기

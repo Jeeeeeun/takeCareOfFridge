@@ -8122,6 +8122,39 @@ none
 	transform: translateY(-50%) !important;
 }
 
+/* 애니메이션 효과(transition)을 모든 스타일에 대해서 적용해 줌 */
+.transition-all {
+	transition-property: all !important;
+}
+
+/* 애니메이션 효과(transition)을 width에 대해서 적용해 줌 */
+.transition-width {
+	transition-property: width !important;
+}
+
+/* 애니메이션 효과(translation)을 opacity(투명도)에 대해서 적용해 줌 */
+.transition-opacity {
+	transition-property: opacity !important;
+}
+
+/* 애니메이션 효과(transition) 지속 시간 */
+.transition-duration-03 {
+	transition-duration: 0.3s !important;
+}
+
+/* 애니메이션 효과(transition) 진행 타이밍 변화 */
+.transition-timing-easeOut {
+	transition-timing-function: ease-out;
+}
+
+/* 애니메이션 효과(transition) 지연 시간 */
+.transition-delay-03 {
+	transition-delay: 0.3s !important;
+}
+
+.shadow-forAlert {
+	box-shadow: 0 4px 7px rgba(var(--bs-border-color-translucent));
+}
 .border {
 	border: 1px solid #dee2e6 !important;
 }
@@ -8311,7 +8344,7 @@ none
 }
 
 .w-40 {
-	width: 40 !important;
+	width: 40% !important;
 }
 
 .w-45 {
@@ -8388,6 +8421,10 @@ none
 
 .h-10 {
 	height: 10% !important;
+}
+
+.h-20 {
+	height: 20% !important;
 }
 
 .h-25 {
@@ -9213,10 +9250,19 @@ none
 	white-space: nowrap !important;
 }
 
+.text-prewrap {
+	white-space: pre-wrap !important;
+}
+
 /* rtl:begin:remove */
 .text-break {
 	word-wrap: break-word !important;
 	word-break: break-word !important;
+}
+
+/* 단어 잘림 방지 */
+.text-keepAll {
+	word-break: keep-all;
 }
 
 /* rtl:end:remove */
@@ -9359,6 +9405,10 @@ none
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-black-50 {
+	background-color: rgba(var(--bs-black-rgb), 0.5) !important;
 }
 
 .bg-white-30 {
@@ -9560,6 +9610,10 @@ none
 
 .z-5 {
 	z-index: 5 !important;
+}
+
+.z-10 {
+	z-index: 10 !important;
 }
 
 .e-5 {

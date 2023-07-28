@@ -1,7 +1,10 @@
 // 고유 id 만들려고 변수 생성
 let idCounter = 0;
+
+// 전역변수로 사용할 변수 선언
 let alertMsg, alertContent, alertWindow;
-  
+
+// 페이지 로딩되자마자, DOM 객체 캐치
 window.onload = function() {
 	alertContent = document.querySelector("#alertContent");
 	alertWindow = document.querySelector("#customAlert");
@@ -16,7 +19,7 @@ function showAlert(alertMsg) {
 	setTimeout(function () {
 		alertWindow.classList.remove("show");
 		alertWindow.classList.add("hidden");
-	}, 3000);
+	}, 2500);
 }
 
 // 화면 아래쪽 + 버튼 눌렀을 때 settingBox 추가 생성
