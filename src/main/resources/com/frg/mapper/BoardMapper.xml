@@ -24,11 +24,15 @@
 	        FROM board
 	        WHERE board_title LIKE '%' || #{search} || '%' OR board_content LIKE '%' || #{search} || '%'
 	    )
+	    ORDER BY bv.board_index DESC
 	</select>
 	
 	<select id="selectPostsByDate" resultType="com.frg.domain.BoardDTO">
 	    SELECT *
-	    FROM board
-	    WHERE board_regDate BETWEEN TO_DATE(#{fromDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD') AND TO_DATE(#{toDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD') + INTERVAL '1' DAY
+	    FROM board_view
+	    WHERE board_regDate BETWEEN
+	        TO_DATE(TO_CHAR(#{fromDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND
+	        TO_DATE(TO_CHAR(#{toDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD'), 'YYYY-MM-DD') + INTERVAL '1' DAY
+	    ORDER BY board_index DESC
 	</select>
 </mapper>

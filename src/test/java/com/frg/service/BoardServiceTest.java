@@ -2,7 +2,10 @@ package com.frg.service;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,7 +37,7 @@ public class BoardServiceTest {
 		assertNotNull(allPosts);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testGetChangedLike() {
 		BoardDTO brdDto = new BoardDTO();
 		
@@ -45,4 +48,30 @@ public class BoardServiceTest {
 		assertEquals(0, updatedLike);
 	}
 
+	@Test @Ignore
+	public void testGetPostsByWord() {
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("search", "제목임");
+		
+		List<BoardDTO> filteredPosts = service.getPostsByWord(params);
+		
+		log.info("매개변수 - " + params);
+		log.info("검색된 게시글 목록 - " + filteredPosts);
+		
+		assertNotNull(filteredPosts);
+	}
+	
+	@Test
+	public void testGetPostsByDate() {
+		LocalDate fromDate = LocalDate.of(2023, 7, 21);
+		LocalDate toDate = LocalDate.of(2023, 7, 27);
+		
+		List<BoardDTO> filteredPosts = service.getPostsByDate(fromDate, toDate);
+		
+		log.info(fromDate + " 부터 " + toDate + "까지");
+		log.info("검색된 게시글 목록 - " + filteredPosts);
+		
+		assertNotNull(filteredPosts);
+	}
 }

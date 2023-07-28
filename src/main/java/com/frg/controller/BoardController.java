@@ -1,7 +1,9 @@
 package com.frg.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -74,8 +76,17 @@ public class BoardController {
 	
 	@GetMapping("/searchKeyword")
 	public String searchPostsByWord(@RequestParam("search") String search, Model model) {
-	    // search 변수를 사용하여 게시글 검색 처리
+	    
+		// search 변수를 사용하여 게시글 검색 처리
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("search", search);
+		
+		List<BoardDTO> filteredPosts = boardService.getPostsByWord(params);
+		
 	    // model.addAttribute를 사용하여 검색 결과를 전달
+		model.addAttribute("searchResults", filteredPosts);
+		
 		return "/board/list";
 	}
 	
