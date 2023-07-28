@@ -112,16 +112,16 @@ public class InnerFoodMapperTest {
 	
 	@Test
 	@Ignore
-	public void testUpdateFood() throws java.text.ParseException {
+	public void testUpdateFood() {
 		
 		InnerDTO dto = new InnerDTO();
-		dto.setFrg_name("fridge1");
-		dto.setUser_id("smith01");
+		dto.setFrg_name("fridge2");
+		dto.setUser_id("john01");
 		dto.setIn_name("찐만두");
 		dto.setIn_count(6);
-		String dateString = "2023-05-11";
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = formatter.parse(dateString);
+		String dateString = "2020-01-15";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		Date date = (Date) formatter.parse(dateString);
 		dto.setIn_expireDate(date);
 		dto.setIn_company("농심");
 		dto.setIn_type("찜");

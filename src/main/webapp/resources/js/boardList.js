@@ -1,50 +1,49 @@
 let alertMsg, alertContent, alertWindow, searchForm, searchInput, inputSearchType, inputDateType, searchBtn, searchText, searchDate, posts, plusBtn, likeNumDisplay, fullHeart, emptyHeart, addLikeData, cancelLikeData, fullHeartTemplate, emptyHeartTemplate, newFullHeart, newEmptyHeart, likeNum;
 
-window.onload = function () {
-	alertContent = document.querySelector("#alertContent");
-	alertWindow = document.querySelector("#customAlert");
-	searchForm = document.querySelector('#searchForm');
-	searchInput = document.querySelector('#searchType');
-	inputSearchType = document.querySelector('#inputSearchType');
-	inputDateType = document.querySelector('#inputDateType');
-	searchBtn = document.querySelector('#searchBtn');
-	searchText = document.querySelector('#searchText');
-	searchDate = document.querySelector('#searchDate');
-	posts = document.querySelector('#posts');
-	plusBtn = document.querySelector("#plusBtn");
-	likeNumDisplays = document.querySelectorAll("[id^=likeNum-]");
-	fullHeart = document.querySelectorAll("[id^=full-heart-]");
-	emptyHeart = document.querySelectorAll("[id^=empty-heart-]");
-	
-	searchInput.addEventListener("change", changeSearchInput);
-	
-	plusBtn.addEventListener("click", () => window.location.href = `${contextPath}/board/create`);
-	//.addEventListener("click", () => window.location.href = `${contextPath}/board/view?board_index=${boardIndex}`);
-	
-	bindLikeEvent();
+window.onload = function () { 
+    alertContent = document.querySelector("#alertContent"); 
+    alertWindow = document.querySelector("#customAlert"); 
+
+    searchForm = document.querySelector('#searchForm'); 
+    searchInput = document.querySelector('#searchType'); 
+    inputSearchType = document.querySelector('#inputSearchType'); 
+    inputDateType = document.querySelector('#inputDateType'); 
+    searchBtn = document.querySelector('#searchBtn'); 
+    searchText = document.querySelector('#searchText'); 
+    searchDate = document.querySelector('#searchDate'); 
+    posts = document.querySelector('#posts'); 
+    plusBtn = document.querySelector("#plusBtn"); 
+    likeNumDisplays = document.querySelectorAll("[id^=likeNum-]"); 
+    fullHeart = document.querySelectorAll("[id^=full-heart-]"); 
+    emptyHeart = document.querySelectorAll("[id^=empty-heart-]"); 
+    
+    searchInput.addEventListener("change", changeSearchInput); 
+    
+    plusBtn.addEventListener("click", () => window.location.href = `${contextPath}/board/create`); 
+    bindLikeEvent(); 
 };
 
 // SESS_ID 데려오려는 함수
 function getUserId() {
-	return fetch(contextPath + "/frg/getUserId").then(function (response) {
-		if (response.ok) {
-			return response.text();
-		} else {
-			throw new Error("사용자 ID를 가져올 수 없었습니다.");
-		}
-	});
+    return fetch(contextPath + "/frg/getUserId").then(function (response) {
+        if (response.ok) {
+            return response.text();
+        } else {
+            throw new Error("사용자 ID를 가져올 수 없었습니다.");
+        }
+    });
 }
 
 // 알림창 띄우기
 function showAlert(alertMsg) {
-	alertContent.textContent = alertMsg;
-	alertWindow.classList.remove("hidden");
-	alertWindow.classList.add("show");
-	
-	setTimeout(function () {
-		alertWindow.classList.remove("show");
-		alertWindow.classList.add("hidden");
-	}, 3000);
+    alertContent.textContent = alertMsg;
+    alertWindow.classList.remove("hidden");
+    alertWindow.classList.add("show");
+    
+    setTimeout(function () {
+        alertWindow.classList.remove("show");
+        alertWindow.classList.add("hidden");
+    }, 3000);
 }
 
 // handler 함수 쓰는 이유:
@@ -205,75 +204,79 @@ function bindLikeEvent() {
 // 검색어 입력하고 검색 버튼 누르면 제목이나 내용에 검색어가 포함된 게시글 목록만 필터링되어 보임.
 function searchPostsByWord() {
 
-	let searchWord = inputSearchType.querySelector("input[type='search']").value;
-	
-	let searchText = document.querySelector('#searchText');
-	
-	const searchKeyword = {
-		search: searchWord
-	};
-	
-	$.ajax ({
-		url: `${contextPath}/board/searchKeyword?search=` + encodeURIComponent(searchWord),
-		method: "GET",
-		contentType: "application/json",
-		dataType: "json",
-		success: function(searchResults) {
-			alertMsg = searchWord + "(이)가 검색되었습니다.";
-			showAlert(alertMsg);
-			
-			// 게시글 목록 초기화
-			posts.textContent = '';
-			
-			// 검색 결과 게시글 목록의 동적 생성
-			var searchPosts = '';
-			if (searchResults.length === 0) { // 검색 결과가 없으면
-				searchPosts = '<tr><td colspan="8" class="p-3 py-2 text-center">검색된 게시글이 존재하지 않습니다.</td></tr>';
-			} else { // 검색 결과가 하나라도 있으면
-				searchResults.forEach(function(board) {
-					searchPosts += `<tr>
-						<td class="w-7 p-3 py-2 text-center">${board.board_index}</td>
-						<td class="w-45 p-3 py-2">${board.board_title}</td>
-						<td class="w-7 p-3 py-2 text-center">${board.board_hasAttach >= 1 ? '<i class="fa-solid fa-paperclip"></i>' : ''}</td>
-						<td class="w-10 p-3 py-2 text-center">${board.user_id}</td>
-						<td class="w-10 p-3 py-2 text-center">${new Date(board.board_regDate).toLocaleDateString('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit' })}</td>
-						<td class="w-7 p-3 py-2 text-center">${board.board_commentCount}</td>
-						<td class="w-7 p-3 py-2 text-center">`;
-	
-						if (userId === board.user_id) {
-							searchPosts += `<span title="내가 쓴 게시글은 좋아요를 누를 수 없어요.">${board.board_like}</span>`;
-						} else {
-							if (likeStatus[status.index].is_liked === 1) {
-								searchPosts += `<span>
-										<i class="fa-solid fa-heart text-red" id="full-heart-${board.board_index}" data-board-index="${board.board_index}"></i>&nbsp;
-										<span id="likeNum-${board.board_index}">${board.board_like}</span>
-									</span>`;
-								} else {
-									searchPosts += `<span>
-											<i class="fa-regular fa-heart" id="empty-heart-${board.board_index}" data-board-index="${board.board_index}"></i>&nbsp;
-											<span id="likeNum-${board.board_index}">${board.board_like}</span>
-										</span>`;
-									}
-								}
-								searchPosts += `</td>
-										<td class="w-7 p-3 py-2 text-center">${board.board_viewCount}</td>
-									</tr>`;
-								});
-							}
-							posts.innerHTML = searchPosts;
-							bindLikeEvent();
-						},
-		error: function(err) {
-			alertMsg = searchWord + "을(를) 검색하는 데 실패했습니다."
-			showAlert(alertMsg);
-		}
-	});
+let searchWord = inputSearchType.querySelector("input[type='search']").value;
+
+let searchText = document.querySelector('#searchText');
+
+// SESS_ID를 가져오는 함수를 호출
+getUserId()
+    .then(function (userId) {
+        const searchKeyword = {
+            search: searchWord
+        };
+
+        $.ajax({
+            url: `${contextPath}/board/searchKeyword?search=` + searchWord,
+            method: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (searchResults) {
+                alertMsg = searchWord + "(이)가 검색되었습니다.";
+                showAlert(alertMsg);
+
+                // 게시글 목록 초기화
+                posts.textContent = '';
+
+                // 검색 결과 게시글 목록의 동적 생성
+                let searchPosts = '';
+                if (searchResults.length === 0) { // 검색 결과가 없으면
+                    searchPosts = '<tr><td colspan="8" class="p-3 py-2 text-center">검색된 게시글이 존재하지 않습니다.</td></tr>';
+                } else { // 검색 결과가 하나라도 있으면
+                    searchResults.forEach(function (board) {
+                        searchPosts += `<tr>
+                            <td class="w-7 p-3 py-2 text-center">${board.board_index}</td>
+                            <td class="w-45 p-3 py-2">${board.board_title}</td>
+                            <td class="w-7 p-3 py-2 text-center">${board.board_hasAttach >= 1 ? '<i class="fa-solid fa-paperclip"></i>' : ''}</td>
+                            <td class="w-10 p-3 py-2 text-center">${board.user_id}</td>
+                            <td class="w-10 p-3 py-2 text-center">${new Date(board.board_regDate).toLocaleDateString('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit' })}</td>
+                            <td class="w-7 p-3 py-2 text-center">${board.board_commentCount}</td>
+                            <td class="w-7 p-3 py-2 text-center">`;
+
+                        if (userId === board.user_id) {
+                            searchPosts += `<span title="내가 쓴 게시글은 좋아요를 누를 수 없어요.">${board.board_like}</span>`;
+                        } else {
+                            if (likeStatus[status.index].is_liked === 1) {
+                                searchPosts += `<span>
+                                    <i class="fa-solid fa-heart text-red" id="full-heart-${board.board_index}" data-board-index="${board.board_index}"></i>&nbsp;
+                                    <span id="likeNum-${board.board_index}">${board.board_like}</span>
+                                </span>`;
+                            } else {
+                                searchPosts += `<span>
+                                    <i class="fa-regular fa-heart" id="empty-heart-${board.board_index}" data-board-index="${board.board_index}"></i>&nbsp;
+                                    <span id="likeNum-${board.board_index}">${board.board_like}</span>
+                                </span>`;
+                            }
+                        }
+                        searchPosts += `</td>
+                                <td class="w-7 p-3 py-2 text-center">${board.board_viewCount}</td>
+                            </tr>`;
+                    });
+                }
+                posts.innerHTML = searchPosts;
+                bindLikeEvent();
+            },
+            error: function (err) {
+                console.log(err);
+                alertMsg = searchWord + "을(를) 검색하는 데 실패했습니다."
+                showAlert(alertMsg);
+
+            }
+        });
+    });
 }
 
 // 게시글 작성일 범위로 검색하면 그 기간 안에 작성된 게시글 목록만 필터링되어 보임.
 function searchPostsByDate() {
 	let fromDate = inputDateType.querySelectorAll("input[type='date']")[0].value;
 	let toDate = inputDateType.querySelectorAll("input[type='date']")[1].value;
-	
-	//searchDate
 }
