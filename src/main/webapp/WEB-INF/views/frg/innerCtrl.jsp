@@ -230,14 +230,10 @@ function updateEndBtnClicked() {
     	in_state : inState,
     	in_company : inCompany,
     	in_expireDate : inExpireDate,
-    	//D_DAY : dDay,
     	in_count : inCount,
     	in_type : inType,
     	in_index : inIndex
     };
-    
-    //여기까지는 잘 가져옴.
-    //controller로 이동을 못 함.
     
     $.ajax({
         url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/updateInnerData`,
