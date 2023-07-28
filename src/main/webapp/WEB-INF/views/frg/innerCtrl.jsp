@@ -227,7 +227,7 @@ function updateEndBtnClicked() {
     console.log(inExpireDate);
     console.log(inCount);
     console.log(inType);
-    console.log(dDay);
+    console.log("여기 : "+inIndex);
     
     const requestData = {
     	frg_name : frgName,
@@ -327,6 +327,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         	document.getElementById('detailInfoItemBox_in_type').value = in_type;
         	const in_index = requestData[0].in_index;
         	selectIndex=in_index;
+        	console.log(selectIndex);
         },
         error: function() {
             // 에러 발생 시의 코드
