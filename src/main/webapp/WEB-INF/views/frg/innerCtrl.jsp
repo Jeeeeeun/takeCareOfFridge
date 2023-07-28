@@ -144,6 +144,7 @@ function updateBtnClicked() {
     // 수정 버튼 숨기고, 수정 완료 버튼 보이기
     document.getElementById('updateBtn').style.display = "none";
     document.getElementById('updateEndBtn').style.display = "block";
+    document.getElementById('cancelBtn').style.display="block";
     document.getElementById('deleteBtn').style.display = "none";
 }
 
@@ -158,8 +159,18 @@ function updateEndBtnClicked() {
     document.getElementById('detailInfoItemBox_in_count').disabled = true;
     document.getElementById('detailInfoItemBox_in_type').disabled = true;
     document.getElementById('coolRadio').disabled = true;
-    document.getElementById('frozenRadio').disabled = true;
 
+    if (!document.getElementById('detailInfoItemBox_frg_name').value ||
+            !document.getElementById('detailInfoItemBox_in_name').value ||
+            !document.querySelector('input[name="in_state"]:checked') ||
+            !document.getElementById('detailInfoItemBox_in_expireDate').value ||
+            !document.getElementById('detailInfoItemBox_in_count').value ||
+            !document.getElementById('detailInfoItemBox_in_type').value ||
+            !selectIndex) {
+            alert("모든 필수 입력 값을 입력하세요.");
+           return;
+        }
+    
     // 현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
     function calculateDateDifference(insertedDdayValue) {
         const currentDate = new Date();
@@ -207,6 +218,7 @@ function updateEndBtnClicked() {
     dDay = finalDaysDifference;
     const inCount = document.getElementById('detailInfoItemBox_in_count').value;
     const inType = document.getElementById('detailInfoItemBox_in_type').value;
+    inIndex=selectIndex;
     
     console.log(frgName);
     console.log(inName);
@@ -225,6 +237,7 @@ function updateEndBtnClicked() {
     	in_company : inCompany,
     	in_type : inType,
     	in_state : inState
+    	in_index : inIndex
     };
     
     $.ajax({
@@ -232,20 +245,16 @@ function updateEndBtnClicked() {
         type: "POST",
         data: JSON.stringify(requestData), // JSON 데이터를 문자열로 변환하여 body에 넣어 보냄
         contentType: 'application/json', // 요청의 컨텐츠 타입을 JSON으로 설정
-        success: function(response) {
-        	
-        	alert("update 성공");  
-        	frgName = response[0].frg_name;
-            inName = response[0].in_name;
-            inCount = response[0].in_count;
-            inExpireDate = response[0].in_expireDate;
-            inCompany = response[0].in_company;
-            inType = response[0].in_type;
-            inState = response[0].in_state;
-        	
+        success: function (response) {
+            if (response.success) {
+                alert("수정 완료");
+                location.reload(); // 페이지 새로고침
+            } else {
+                alert("수정 실패: " + response.message);
+            }
         },
-        error: function() {
-        	console.error('Failed to update food info from the server.');
+        error: function (err) {
+            alert("수정 실패: 서버 내부 오류가 발생했습니다.");
         }
     });
     
@@ -253,18 +262,16 @@ function updateEndBtnClicked() {
     
     // 수정 완료 버튼 숨기고, 수정 버튼 보이기
     document.getElementById('updateEndBtn').style.display = "none";
+   	document.getElementById('cancelBtn').style.display="none";
     document.getElementById('updateBtn').style.display = "block";
     document.getElementById('deleteBtn').style.display = "block";
 }
-
-
-
 
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 	
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
     document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
-	
+    
 	function convertDateFormat(in_expireDate) {
 		
 		  const months = {
@@ -299,7 +306,6 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         coolRadio.checked = false;
         frozenRadio.checked = true;
     }
-    
     const frgName=document.getElementById('detailInfoItemBox_frg_name').value;
     
     const requestData = {
@@ -320,6 +326,7 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
         	const in_type = requestData[0].in_type;
         	document.getElementById('detailInfoItemBox_in_type').value = in_type;
         	const in_index = requestData[0].in_index;
+        	selectIndex=in_index;
         },
         error: function() {
             // 에러 발생 시의 코드
@@ -362,6 +369,24 @@ function deleteBtnClick() {
     }
 
     return false; 
+}
+
+function cancelBtnClick() {
+    // 수정 상태를 해제하고 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+    document.getElementById('detailInfoItemBox_in_name').disabled = true;
+    document.getElementById('detailInfoItemBox_in_company').disabled = true;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
+    document.getElementById('detailInfoItemBox_d_DAY').disabled = true;
+    document.getElementById('detailInfoItemBox_in_count').disabled = true;
+    document.getElementById('detailInfoItemBox_in_type').disabled = true;
+    document.getElementById('coolRadio').disabled = true;
+    document.getElementById('frozenRadio').disabled = true;
+
+    // 수정 완료 버튼, 취소 버튼 숨기고, 수정 버튼 보이기
+    document.getElementById('updateEndBtn').style.display = "none";
+    document.getElementById('cancelBtn').style.display = "none";
+    document.getElementById('updateBtn').style.display = "block";
+    document.getElementById('deleteBtn').style.display = "block";
 }
 
 </script>
@@ -492,7 +517,8 @@ function deleteBtnClick() {
 						<thead>
 							<tr>
 								<th
-									style="width: 100px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;"><span class="black_circle"></span></th>
+									style="width: 100px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;"><span
+									class="black_circle"></span></th>
 								<th
 									style="width: 300px; text-align: center; border: 1px solid #ccc; position: sticky; top: 0; background-color: #f9f9f9;">식품명</th>
 								<th
@@ -506,7 +532,7 @@ function deleteBtnClick() {
 						<tbody>
 							<c:forEach var="item" items="${dataList}">
 								<tr
-									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}')	;">
+									onclick="handleRowClick('${item.in_name}', '${item.in_expireDate}', '${item.d_DAY}', '${item.in_state}');">
 									<td><span class="circleColor" ddayData="${item.d_DAY}"></span></td>
 									<td style="text-align: center;">${item.in_name}</td>
 									<td style="text-align: center;"><fmt:formatDate
@@ -539,11 +565,9 @@ function deleteBtnClick() {
 
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
-						<label for="">보관상태</label> 
-							<input name="in_state" id="coolRadio"
+						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
 							type="radio" class="detailInputBox" value="cool"
-							style="width: 10%" disabled>냉장 
-							<input name="in_state"
+							style="width: 10%" disabled>냉장 <input name="in_state"
 							id="frozenRadio" type="radio" class="detailInputBox"
 							value="frozen" style="width: 10%" disabled>냉동
 					</div>
@@ -571,6 +595,10 @@ function deleteBtnClick() {
 						<label id="">식품 유형</label><input id="detailInfoItemBox_in_type"
 							type="text" class="detailInputBox" disabled>
 					</div>
+					<div class="detailInfoItemBox">
+						<label id="hiddenLabel"></label><input id="indexValue"
+							type="hidden" name="in_index" value="" />
+					</div>
 					<div class="detailInfoBtnBox"
 						style="position: relative; top: 550%;">
 						<div
@@ -586,6 +614,8 @@ function deleteBtnClick() {
 							<button class="ctrlBtn" id="updateEndBtn"
 								onclick="updateEndBtnClicked()" style="display: none;">수정
 								완료</button>
+							<button class="ctrlBtn" id="cancelBtn" onclick="cancelBtnClick()"
+								style="display: none;">취소</button>
 						</div>
 					</div>
 				</form>

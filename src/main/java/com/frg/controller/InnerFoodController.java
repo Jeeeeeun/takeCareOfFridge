@@ -145,15 +145,16 @@ public class InnerFoodController {
 	
 	@PostMapping(value = "/innerCtrl/updateInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Integer updateInnerData(HttpSession session,@RequestBody InnerDTO updateDto){
+	public String updateInnerData(HttpSession session,@RequestBody InnerDTO dto){
 		
 		String user_id = (String) session.getAttribute("SESS_ID");
-		updateDto.setUser_id(user_id);
-		int updatedRowCount = inService.updateInnerFood(updateDto);
+		dto.setUser_id(user_id);
+		inService.updateInnerFood(dto);
+		
 		JsonObject json = new JsonObject();
 		json.addProperty("success", true);
-		
-		return updatedRowCount;
+
+		return new Gson().toJson(json);
 	}
 	
 	

@@ -38,9 +38,9 @@
 	<script>
 		const contextPath = "${pageContext.servletContext.contextPath}";
 	</script>
-
+	
 	<!-- JavaScript External Links -->
-	<script src="${ pageContext.servletContext.contextPath }/resources/js/board.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/boardList.js"></script>
 
 	<!-- jQuery CDN -->
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -84,7 +84,7 @@
 				<div class="btns d-flex justify-content-sm-end h-5 position-relative flex-row">
 					<form method="get" id="searchForm" class="d-flex align-items-sm-center">
 						<select id="searchType" class="text-white w-40 position-relative rounded-5 fs-7 bg-white-30 border-solid-1 border-white me-2 px-2 h-100">
-							<option class="bg-dark fs-6" value="">검색 범위</option>
+							<option class="bg-dark fs-6" value="">검색 기준</option>
 							<option class="bg-dark fs-6" value="text">게시글 제목 + 내용</option>
 							<option class="bg-dark fs-6" value="date">날짜</option>
 						</select>
@@ -119,7 +119,7 @@
 							<th class="w-7 px-2 py-1 text-center">조회</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="posts">
 						<c:if test="${not empty allPosts}">
 							<c:forEach var="board" items="${ allPosts }" varStatus="status">
 								<tr>
@@ -191,3 +191,7 @@
 		</header>
 	</body>
 </html>
+<!-- 해야 할 일
+1. 날짜 기간에 따른 검색 기능
+2. pageNation
+3. 게시글 제목 누르면 그 게시글 내용 보러 들어갈 수 있게 처리 -->

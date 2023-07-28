@@ -87,7 +87,7 @@ public class InnerFoodMapperTest {
 	@Ignore
 	public void testSelectPartInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
-		dto.setUser_id("smith01");
+		dto.setUser_id("john01");
 		dto.setFrg_name("fridge2");
 
 		List<InnerDTO> result = mapper.selectPartInnerView(dto);
@@ -98,7 +98,7 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
-	@Ignore
+
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
@@ -127,7 +127,6 @@ public class InnerFoodMapperTest {
 		dto.setIn_type("찜");
 		dto.setIn_state("frozen");
 		dto.setIn_index(40);
-		
 		assertEquals(1,mapper.updateFood(dto));
 		
 	}	
