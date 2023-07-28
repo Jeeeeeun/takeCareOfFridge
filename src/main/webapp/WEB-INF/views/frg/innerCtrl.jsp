@@ -208,19 +208,24 @@ function updateEndBtnClicked() {
     const inCount = document.getElementById('detailInfoItemBox_in_count').value;
     const inType = document.getElementById('detailInfoItemBox_in_type').value;
     
+    console.log(frgName);
+    console.log(inName);
+    console.log(inState);
+    console.log(inCompany);
+    console.log(inExpireDate);
+    console.log(inCount);
+    console.log(inType);
+    console.log(dDay);
+    
     const requestData = {
     	frg_name : frgName,
     	in_name : inName,
-    	in_state : inState,
-    	in_company : inCompany,
-    	in_expireDate : inExpireDate,
-    	//D_DAY : dDay,
     	in_count : inCount,
-    	in_type : inType
+    	in_expireDate : inExpireDate,
+    	in_company : inCompany,
+    	in_type : inType,
+    	in_state : inState
     };
-    
-    //여기까지는 잘 가져옴.
-    //controller로 이동을 못 함.
     
     $.ajax({
         url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/updateInnerData`,
@@ -230,8 +235,6 @@ function updateEndBtnClicked() {
         success: function(response) {
         	
         	alert("update 성공");  
-        	
-        	//
         	frgName = response[0].frg_name;
             inName = response[0].in_name;
             inCount = response[0].in_count;
@@ -239,9 +242,6 @@ function updateEndBtnClicked() {
             inCompany = response[0].in_company;
             inType = response[0].in_type;
             inState = response[0].in_state;
-        	
-            
-            //dday는 필요 없고,user_id, in_index는 필요 있음
         	
         },
         error: function() {

@@ -145,7 +145,7 @@ public class InnerFoodController {
 	
 	@PostMapping(value = "/innerCtrl/updateInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public int updateInnerData(HttpSession session,@RequestBody InnerDTO updateDto){
+	public Integer updateInnerData(HttpSession session,@RequestBody InnerDTO updateDto){
 		
 		String user_id = (String) session.getAttribute("SESS_ID");
 		updateDto.setUser_id(user_id);

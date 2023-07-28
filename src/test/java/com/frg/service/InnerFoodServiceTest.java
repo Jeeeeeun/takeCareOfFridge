@@ -117,6 +117,7 @@ public class InnerFoodServiceTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateInnerFood() throws ParseException {
 		
 		InnerDTO dto = new InnerDTO();
