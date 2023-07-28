@@ -82,6 +82,10 @@ function filterDataByState(state) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+	
+	document.getElementById('updateBtn').disabled = true;
+	document.getElementById('deleteBtn').disabled = true;
+	
     // 페이지 로드 시, 전체 버튼에 selected 클래스 추가
     document.getElementById("all").classList.add("selected");
     // 나머지 버튼들에는 selected 클래스 제거
@@ -220,25 +224,20 @@ function updateEndBtnClicked() {
     const inType = document.getElementById('detailInfoItemBox_in_type').value;
     inIndex=selectIndex;
     
-    console.log(frgName);
-    console.log(inName);
-    console.log(inState);
-    console.log(inCompany);
-    console.log(inExpireDate);
-    console.log(inCount);
-    console.log(inType);
-    console.log("여기 : "+inIndex);
-    
     const requestData = {
     	frg_name : frgName,
     	in_name : inName,
-    	in_count : inCount,
-    	in_expireDate : inExpireDate,
+    	in_state : inState,
     	in_company : inCompany,
+    	in_expireDate : inExpireDate,
+    	//D_DAY : dDay,
+    	in_count : inCount,
     	in_type : inType,
-    	in_state : inState
     	in_index : inIndex
     };
+    
+    //여기까지는 잘 가져옴.
+    //controller로 이동을 못 함.
     
     $.ajax({
         url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/updateInnerData`,
@@ -267,7 +266,21 @@ function updateEndBtnClicked() {
     document.getElementById('deleteBtn').style.display = "block";
 }
 
+let selectIndex = null;
+let selectedData = null;
+
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+	
+	document.getElementById('updateBtn').disabled = false;
+	  document.getElementById('deleteBtn').disabled = false;
+	  
+	  selectedData = {
+		        name: in_name,
+		        expireDate: in_expireDate,
+		        dDay: d_DAY,
+		        state: in_state
+		    };
+
 	
     document.getElementById('detailInfoItemBox_in_name').value = in_name;
     document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
@@ -334,6 +347,8 @@ function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
             console.error('Failed to get food info from the server.');
         }
     });
+
+    
 	return false;
 }
 
@@ -373,7 +388,6 @@ function deleteBtnClick() {
 }
 
 function cancelBtnClick() {
-    // 수정 상태를 해제하고 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
     document.getElementById('detailInfoItemBox_in_name').disabled = true;
     document.getElementById('detailInfoItemBox_in_company').disabled = true;
     document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
@@ -383,13 +397,28 @@ function cancelBtnClick() {
     document.getElementById('coolRadio').disabled = true;
     document.getElementById('frozenRadio').disabled = true;
 
-    // 수정 완료 버튼, 취소 버튼 숨기고, 수정 버튼 보이기
     document.getElementById('updateEndBtn').style.display = "none";
     document.getElementById('cancelBtn').style.display = "none";
     document.getElementById('updateBtn').style.display = "block";
     document.getElementById('deleteBtn').style.display = "block";
-}
 
+    // 선택한 데이터를 복원
+    if (selectedData) {
+        document.getElementById('detailInfoItemBox_in_name').value = selectedData.name;
+        document.getElementById('detailInfoItemBox_d_DAY').value = selectedData.dDay;
+
+        var coolRadio = document.getElementById('coolRadio');
+        var frozenRadio = document.getElementById('frozenRadio');
+
+        if (selectedData.state === "cool") {
+            coolRadio.checked = true;
+            frozenRadio.checked = false;
+        } else if (selectedData.state === "frozen") {
+            coolRadio.checked = false;
+            frozenRadio.checked = true;
+        }
+    }
+}
 </script>
 <style>
 /* 셀렉터:hover { 스타일; } */
