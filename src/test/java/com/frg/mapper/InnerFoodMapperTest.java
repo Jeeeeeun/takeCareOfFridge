@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.format.DateTimeFormatter;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -112,23 +112,22 @@ public class InnerFoodMapperTest {
 	
 	@Test
 	@Ignore
-	public void testUpdateFood() {
+	public void testUpdateFood() throws java.text.ParseException {
 		
 		InnerDTO dto = new InnerDTO();
-		dto.setFrg_name("fridge2");
-		dto.setUser_id("john01");
+		dto.setFrg_name("samsung");
+		dto.setUser_id("smith01");
 		dto.setIn_name("찐만두");
 		dto.setIn_count(6);
 		String dateString = "2020-01-15";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		Date date = (Date) formatter.parse(dateString);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = formatter.parse(dateString);
 		dto.setIn_expireDate(date);
 		dto.setIn_company("농심");
 		dto.setIn_type("찜");
 		dto.setIn_state("frozen");
-		dto.setIn_index(68);
-		
-		mapper.updateFood(dto);
+		dto.setIn_index(40);
+		assertEquals(1,mapper.updateFood(dto));
 		
 	}	
 	
