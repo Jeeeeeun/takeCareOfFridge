@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -107,6 +105,7 @@ public class InnerFoodServiceTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testDeleteInnerFood() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
@@ -114,6 +113,27 @@ public class InnerFoodServiceTest {
 		dto.setIn_name("본죽");
 		
 		service.deleteInnerFood(dto);
+		
+	}
+	
+	@Test
+	public void testUpdateInnerFood() throws ParseException {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setFrg_name("samsung");
+		dto.setUser_id("smith01");
+		dto.setIn_name("감자만두");
+		dto.setIn_count(6);
+		String dateString = "2023-05-11";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(dateString);
+		dto.setIn_expireDate(date);
+		dto.setIn_company("농심");
+		dto.setIn_type("찜");
+		dto.setIn_state("frozen");
+		dto.setIn_index(40);
+		
+		assertEquals(1,service.updateInnerFood(dto));
 		
 	}
 }

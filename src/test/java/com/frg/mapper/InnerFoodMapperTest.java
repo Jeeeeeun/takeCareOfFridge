@@ -5,7 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.ognl.ParseException;
@@ -73,7 +74,7 @@ public class InnerFoodMapperTest {
 
 	@Test
 	@Ignore
-	public void testselectAllInnerView() throws ParseException, Exception {
+	public void testSelectAllInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
 
@@ -84,7 +85,7 @@ public class InnerFoodMapperTest {
 
 	@Test
 	@Ignore
-	public void testselectPartInnerView() throws ParseException, Exception {
+	public void testSelectPartInnerView() throws ParseException, Exception {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("smith01");
 		dto.setFrg_name("fridge2");
@@ -110,6 +111,18 @@ public class InnerFoodMapperTest {
 	}
 	
 	@Test
+<<<<<<< HEAD
+	public void testUpdateFood() throws java.text.ParseException {
+		
+		InnerDTO dto = new InnerDTO();
+		dto.setFrg_name("samsung");
+		dto.setUser_id("smith01");
+		dto.setIn_name("찐만두");
+		dto.setIn_count(6);
+		String dateString = "2023-05-11";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(dateString);
+=======
 	@Ignore
 	public void testUpdateFood() {
 		
@@ -121,14 +134,19 @@ public class InnerFoodMapperTest {
 		String dateString = "2020-01-15";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		Date date = (Date) formatter.parse(dateString);
+>>>>>>> f32dcd9c328b9e43e78ad6cd96a99c1d8467f963
 		dto.setIn_expireDate(date);
 		dto.setIn_company("농심");
 		dto.setIn_type("찜");
 		dto.setIn_state("frozen");
 		dto.setIn_index(68);
 		
+<<<<<<< HEAD
+		assertEquals(1,mapper.updateFood(dto));
+=======
 		mapper.updateFood(dto);
 		
+>>>>>>> f32dcd9c328b9e43e78ad6cd96a99c1d8467f963
 	}	
 	
 	@Test
@@ -136,8 +154,8 @@ public class InnerFoodMapperTest {
 	public void testDeleteInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("smith01");
-		dto.setFrg_name("fridge2");
-		dto.setIn_name("김치");
+		dto.setFrg_name("samsung");
+		dto.setIn_name("생선");
 		
 		mapper.deleteFood(dto);
 	}

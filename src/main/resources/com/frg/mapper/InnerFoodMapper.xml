@@ -128,11 +128,9 @@
 		WHERE user_id = #{user_id}
 		)
 		),
-		in_name =
-		#{in_name},
+		in_name = #{in_name},
 		in_count = #{in_count},
-		in_expireDate =
-		#{in_expireDate},
+		in_expireDate = #{in_expireDate},
 		in_company = #{in_company},
 		in_type = #{in_type},
 		in_state = #{in_state}

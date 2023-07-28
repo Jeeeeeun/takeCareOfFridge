@@ -1,10 +1,12 @@
 package com.frg.controller;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -141,7 +143,21 @@ public class InnerFoodController {
 	    return innerData;
 	}
 	
-	@PostMapping(value = "/innerCtrl/deleteInnerData")
+	@PostMapping(value = "/innerCtrl/updateInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public int updateInnerData(HttpSession session,@RequestBody InnerDTO updateDto){
+		
+		String user_id = (String) session.getAttribute("SESS_ID");
+		updateDto.setUser_id(user_id);
+		int updatedRowCount = inService.updateInnerFood(updateDto);
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+		
+		return updatedRowCount;
+	}
+	
+	
+	@PostMapping(value = "/innerCtrl/deleteInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String deleteInnerData(HttpSession session, @RequestParam("frgName") String frgName,
 	        @RequestParam("in_name") String in_name) throws Exception {

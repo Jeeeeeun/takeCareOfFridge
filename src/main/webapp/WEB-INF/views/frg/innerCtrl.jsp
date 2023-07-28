@@ -148,37 +148,117 @@ function updateBtnClicked() {
 }
 
 //수정완료버튼
+// 수정 완료 버튼 클릭 이벤트 핸들러
 function updateEndBtnClicked() {
     // 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
-    document.getElementById('detailInfoItemBox_in_name').disabled= true;
-    document.getElementById('detailInfoItemBox_in_company').disabled= true;
-    document.getElementById('detailInfoItemBox_in_expireDate').disabled= true;
-    let insertedDdayValue = document.getElementById('detailInfoItemBox_in_expireDate').value;
-    document.getElementById('detailInfoItemBox_d_DAY').disabled= true;
-    document.getElementById('detailInfoItemBox_in_count').disabled= true;
-    document.getElementById('detailInfoItemBox_in_type').disabled= true;
-    document.getElementById('coolRadio').disabled=true;
-    document.getElementById('frozenRadio').disabled=true;
-    
-    //현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
-    function calculateDateDifference(insertedDdayValue){
-    	
-    	const currentDate = new Date();
-    	const expireDate = new Date(insertedDdayValue);
- 
-    	//시간 차이를 밀리초 단위로 계산하고 일(day)로 변환하여 소수점 아래 버림
-    	const daysDifference = Math.floor((expireDate-currentDate)/(24*60*60*1000));
-    
-    	return daysDifference;
+    document.getElementById('detailInfoItemBox_in_name').disabled = true;
+    document.getElementById('detailInfoItemBox_in_company').disabled = true;
+    document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
+    document.getElementById('detailInfoItemBox_d_DAY').disabled = true;
+    document.getElementById('detailInfoItemBox_in_count').disabled = true;
+    document.getElementById('detailInfoItemBox_in_type').disabled = true;
+    document.getElementById('coolRadio').disabled = true;
+    document.getElementById('frozenRadio').disabled = true;
+
+    // 현재 날짜와 insertedDdayValue간의 일수 차이 계산하기
+    function calculateDateDifference(insertedDdayValue) {
+        const currentDate = new Date();
+        const expireDate = new Date(insertedDdayValue);
+
+        // 시간 차이를 밀리초 단위로 계산하고 일(day)로 변환하여 소수점 아래 버림
+        const daysDifference = Math.floor((expireDate - currentDate) / (24 * 60 * 60 * 1000));
+
+        return daysDifference;
     }
+
+    // d-day를 표시하는 함수
+    function showDday(daysDifference) {
+        const d_day_input = document.getElementById('detailInfoItemBox_d_DAY');
+        if (daysDifference >= 0) {
+            d_day_input.placeholder = daysDifference;
+        } else {
+            d_day_input.placeholder =  Math.abs(daysDifference);
+        }
+        return daysDifference;
+    }
+
+    // insertedDdayValue 값이 변경되었을 때 호출되는 이벤트 핸들러
+    function handleDdayValueChange() {
+        const newInsertedDdayValue = document.getElementById('detailInfoItemBox_in_expireDate').value;
+        const newDaysDifference = calculateDateDifference(newInsertedDdayValue);
+        d_day_value = newDaysDifference; // 새로운 d-day 값 저장
+        showDday(d_day_value); // 새로운 d-day 표시
+    }
+
+    // 기존에 계산된 d-day 값을 초기화하고 처음 d-day를 표시
+    let insertedDdayValue = document.getElementById('detailInfoItemBox_in_expireDate').value;
+    let d_day_value = calculateDateDifference(insertedDdayValue);
+    let finalDaysDifference = showDday(d_day_value);
+
+    // insertedDdayValue 값이 변경되었을 때 이벤트 리스너 등록
+    document.getElementById('detailInfoItemBox_in_expireDate').addEventListener('change', handleDdayValueChange);
     
-    document.getElementById('detailInfoItemBox_d_DAY').value = calculateDateDifference(insertedDdayValue);
+    const frgName = document.getElementById('detailInfoItemBox_frg_name').value;
+    const inName = document.getElementById('detailInfoItemBox_in_name').value;
+    const inState = document.querySelector('input[name="in_state"]:checked').value;
+    const inCompany = document.getElementById('detailInfoItemBox_in_company').value;
+    const inExpireDate = document.getElementById('detailInfoItemBox_in_expireDate').value;
+    let dDay = document.getElementById('detailInfoItemBox_d_DAY').value;
+    dDay = finalDaysDifference;
+    const inCount = document.getElementById('detailInfoItemBox_in_count').value;
+    const inType = document.getElementById('detailInfoItemBox_in_type').value;
+    
+    const requestData = {
+    	frg_name : frgName,
+    	in_name : inName,
+    	in_state : inState,
+    	in_company : inCompany,
+    	in_expireDate : inExpireDate,
+    	//D_DAY : dDay,
+    	in_count : inCount,
+    	in_type : inType
+    };
+    
+    //여기까지는 잘 가져옴.
+    //controller로 이동을 못 함.
+    
+    $.ajax({
+        url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/updateInnerData`,
+        type: "POST",
+        data: JSON.stringify(requestData), // JSON 데이터를 문자열로 변환하여 body에 넣어 보냄
+        contentType: 'application/json', // 요청의 컨텐츠 타입을 JSON으로 설정
+        success: function(response) {
+        	
+        	alert("update 성공");  
+        	
+        	//
+        	frgName = response[0].frg_name;
+            inName = response[0].in_name;
+            inCount = response[0].in_count;
+            inExpireDate = response[0].in_expireDate;
+            inCompany = response[0].in_company;
+            inType = response[0].in_type;
+            inState = response[0].in_state;
+        	
+            
+            //dday는 필요 없고,user_id, in_index는 필요 있음
+        	
+        },
+        error: function() {
+        	console.error('Failed to update food info from the server.');
+        }
+    });
+    
+    return false;
     
     // 수정 완료 버튼 숨기고, 수정 버튼 보이기
     document.getElementById('updateEndBtn').style.display = "none";
     document.getElementById('updateBtn').style.display = "block";
     document.getElementById('deleteBtn').style.display = "block";
 }
+
+
+
 
 function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
 	
@@ -459,9 +539,11 @@ function deleteBtnClick() {
 
 					<div class="detailInfoItemBox"
 						style="display: flex; justify-content: center;">
-						<label for="">보관상태</label> <input name="in_state" id="coolRadio"
+						<label for="">보관상태</label> 
+							<input name="in_state" id="coolRadio"
 							type="radio" class="detailInputBox" value="cool"
-							style="width: 10%" disabled>냉장 <input name="in_state"
+							style="width: 10%" disabled>냉장 
+							<input name="in_state"
 							id="frozenRadio" type="radio" class="detailInputBox"
 							value="frozen" style="width: 10%" disabled>냉동
 					</div>
