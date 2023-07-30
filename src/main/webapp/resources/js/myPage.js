@@ -27,7 +27,9 @@ var frgIndex,
   alertWindow,
   confirmMsg,
   confirmContent,
-  confirmWindow;
+  confirmWindow,
+  confirmYesBtn,
+  confirmNoBtn;
 
 window.onload = function () {
   // DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
@@ -57,6 +59,8 @@ window.onload = function () {
   alertWindow = document.querySelector("#customAlert");
   confirmContent = document.querySelector("#confirmContent");
   confirmWindow = document.querySelector("#customConfirm");
+  confirmYesBtn = document.querySelector("#confirmYesBtn");
+  confirmNoBtn = document.querySelector("#confirmNoBtn");
 
   updateFrg(currentIndex);
   checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
@@ -106,10 +110,10 @@ function getUserId() {
 function showAlert(alertMsg) {
   alertContent.textContent = alertMsg;
   alertWindow.classList.remove("hidden");
-  alertWindow.classList.add("show");
+  alertWindow.classList.add("bg-opacity-100");
 
   setTimeout(function () {
-    alertWindow.classList.remove("show");
+    alertWindow.classList.remove("bg-opacity-100");
     alertWindow.classList.add("hidden");
   }, 2500);
 }
@@ -118,7 +122,7 @@ function showAlert(alertMsg) {
 function showConfirm(confirmMsg, yesClicked, noClicked) {
   confirmContent.textContent = confirmMsg;
   confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("show");
+  confirmWindow.classList.add("bg-opacity-100");
 
   confirmYesBtn.onclick = function () {
     // Yes 눌리면 이뤄질 동작들
@@ -141,7 +145,7 @@ function showConfirm(confirmMsg, yesClicked, noClicked) {
 
 // 컨펌창 끄기
 function closeConfirm() {
-  confirmWindow.classList.remove("show");
+  confirmWindow.classList.remove("bg-opacity-100");
   confirmWindow.classList.add("hidden");
 }
 

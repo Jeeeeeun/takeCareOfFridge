@@ -1,95 +1,5 @@
 @charset "UTF-8";
 
-.hidden {
-	display: none;
-}
-
-#customAlert {
-	/* 알림창, 컨펌창 띄울 때 뒷 배경 */
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 5;
-    transition: opacity 0.3s ease-out;
-}
-
-.alert-content {
-  /* 하얀 알림창 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  width: 40%;
-  height: 20%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  word-break: keep-all;
-  white-space: pre-wrap;
-  z-index: 10;
-  transition: all 0.3s ease-out;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
-}
-
-.confirm-content {
-  /* 하얀 컨펌창 */
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  width: 35%;
-  height: 20%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  word-break: keep-all;
-  white-space: pre-wrap;
-  z-index: 10;
-  transition: all 0.3s ease-out;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
-}
-
-#alertContent {
-	margin: auto;
-	font-size: 1.2rem;
-}
-
-#confirmContent {
-	margin: 1.2rem auto;
-	font-size: 1.2rem;
-}
-
-.show { /* 투명하게 안 보였던 알림창 보이게 해주는 클래스 */
-	opacity: 1;
-}
-
-.confirmBtns {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	margin: 0 1rem;
-}
-
-#confirmYesBtn, #confirmNoBtn {
-	border-radius: 0.5rem;
-	margin: 0 0.5rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 1rem;
-	padding-left: 1rem;
-}
-
 /* 가입 정보 확인 스타일 시작 */
 .myPageTitleBox1 {
   /* 가입 정보 확인 */
@@ -952,7 +862,7 @@
 	margin: 0 0.3%;
 }
 
-input[type="radio"] {
+.radio_group input[type="radio"] {
 	appearance: none;
 	-webkit-appearance: none;
 	border: 3px solid #D6C2B4;
@@ -961,8 +871,13 @@ input[type="radio"] {
 	height: 1rem;
 }
 
-input[type="radio"]:checked {
+.radio_group input[type="radio"]:checked {
 	background-color: #604C3F;
+}
+
+/* Disabled이면서 checked인 경우 */
+.radio_group input[type="radio"]:disabled:checked {
+    background-color: #604C3F;
 }
 
 #myFrgAstate {

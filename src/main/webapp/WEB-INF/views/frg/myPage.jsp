@@ -77,17 +77,19 @@
 				</div>
 			</div>
 		</nav>
-		<div id="customAlert" class="hidden">
-			<div class="alert-content">
-				<p id="alertContent">알림창!</p>
+		<div id="customAlert" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+			<!-- 알림창 -->
+			<div class="d-flex align-items-sm-center justify-content-sm-center text-center bg-white py-2 rounded-3 w-40 h-20 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+				<p id="alertContent" class="m-auto fs-5">알림창!</p>
 			</div>
 		</div>
-		<div id="customConfirm" class="hidden">
-			<div class="confirm-content">
-				<p id="confirmContent">컨펌창!</p>
-				<div class="confirmBtns">
-					<button id="confirmYesBtn" class="btn btn-primary">Yes</button>
-					<button id="confirmNoBtn" class="btn btn-secondary">No</button>
+		<div id="customConfirm" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+			<!-- 컨펌창 -->
+			<div class="w-35 h-20 d-flex flex-column align-items-sm-center justify-content-sm-center text-center bg-white p-3 rounded-3 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+				<p id="confirmContent" class="my-4 mx-auto fs-5">컨펌창!</p>
+				<div class="w-100 h-50 d-flex flex-row justify-content-sm-end align-items-sm-center mx-3 my-0">
+					<button id="confirmYesBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-primary text-center rounded-3 mx-2 py-3">Yes</button>
+					<button id="confirmNoBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-secondary rounded-3 mx-2 py-3">No</button>
 				</div>
 			</div>
 		</div>

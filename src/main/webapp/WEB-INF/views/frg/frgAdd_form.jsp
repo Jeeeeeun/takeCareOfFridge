@@ -44,7 +44,7 @@
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" ></script>
 
 	</head>
-	<body id="page-top">
+	<body>
 		<header class="custom-masthead">
 			<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
 				<div class="container px-4 px-lg-5">
@@ -99,8 +99,9 @@
 			</div>
 		</nav>
 		<div id="customAlert" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+			<!-- 알림창 -->
 			<div class="d-flex align-items-sm-center justify-content-sm-center text-center bg-white py-2 rounded-3 w-40 h-20 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
-				<p id="alertContent">알림창!</p>
+				<p id="alertContent" class="m-auto fs-5">알림창!</p>
 			</div>
 		</div>
 		<div class="d-flex flex-row position-relative mt-6">
