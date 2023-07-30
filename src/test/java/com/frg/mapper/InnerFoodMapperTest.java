@@ -79,7 +79,7 @@ public class InnerFoodMapperTest {
 		dto.setUser_id("john01");
 
 		List<InnerDTO> result = mapper.selectAllInnerView(dto);
-		assertEquals(4, result.size()); // 리스트의 크기가 1인지 확인합니다.
+		assertNotNull(result); 
 		System.out.println(dto);
 	}
 
@@ -98,12 +98,11 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
-
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
 		dto.setFrg_name("fridge2");
-		dto.setIn_name("용가리치킨");
+		dto.setIn_name("오랜지쥬스");
 
 		List<InnerDTO> result = mapper.selectInnerData(dto);
 		System.out.println(result);

@@ -85,7 +85,7 @@
 
 	<select id="selectInnerData"
 		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_count,i.in_company, i.in_type,i.in_index
+		SELECT i.in_count,i.in_company, i.in_type,i.in_index, frg_name
 		FROM
 		users u
 		JOIN
