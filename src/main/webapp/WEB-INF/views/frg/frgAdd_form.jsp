@@ -116,9 +116,9 @@
 					${trafficLight[0].green}
 				</p>
 			</div>
-			<form action="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" method="post" class="settingBoxContainer" onsubmit="submitBtnClicked(event)">
-				<div class="settingBoxWrapper">
-					<div class="settingBox">
+			<form action="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" method="post" class="vw-100 d-flex flex-column justify-content-sm-center align-items-sm-center" onsubmit="submitBtnClicked(event)">
+				<div class="settingBoxWrapper mh-5000 vw-70">
+					<div class="settingBox d-grid justify-content-sm-center align-items-sm-center gap-2 fs-xl fw-semibold text-white position-relative vw-60 vh-70 mx-auto">
 						<div class="setting-titleBox">냉장고 모양</div>
 						<div class="setting-itemBox">
 							<div>
@@ -147,7 +147,7 @@
 								<div class="fridgeInfoBox">
 									<div class="w-100">
 										<label class="fridgeInfoLabelName" for="frg_name_0">이름</label>
-										<input class="fridgeInfoInput" id="frg_name_0" name="frg_name_0" required />
+										<input class="fridgeInfoInput" id="frg_name_0" name="frg_name_0" />
 									</div>
 									<div class="w-100">
 										<label class="fridgeInfoLabelState">A</label>

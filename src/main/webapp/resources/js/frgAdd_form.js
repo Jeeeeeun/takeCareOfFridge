@@ -2,7 +2,7 @@
 let idCounter = 0;
 
 // 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow;
+let alertMsg, alertContent, alertWindow, radioBtns;
 
 // 페이지 로딩되자마자, DOM 객체 캐치
 window.onload = function() {
@@ -34,7 +34,7 @@ function createNewSettingBox(idNum) {
 	const settingBoxElement = document.createElement("div");
 	settingBoxElement.innerHTML = `
 		<hr class="horizontalLine" style="border-style: dashed">
-		<div class="settingBox">
+		<div class="settingBox d-grid justify-content-sm-center align-items-sm-center gap-2 fs-xl fw-semibold text-white position-relative vw-60 vh-70 mx-auto">
 			<div class="setting-titleBox">냉장고 모양</div>
 			<div class="setting-itemBox">
 				<div>
@@ -63,7 +63,7 @@ function createNewSettingBox(idNum) {
 					<div class="fridgeInfoBox">
 						<div class="w-100">
 							<label class="fridgeInfoLabelName" for="frg_name_${idNum}">이름</label>
-							<input class="fridgeInfoInput" id="frg_name_${idNum}" name="frg_name_${idNum}" required/>
+							<input class="fridgeInfoInput" id="frg_name_${idNum}" name="frg_name_${idNum}" />
 						</div>
 						<div class="w-100">
 							<label class="fridgeInfoLabelState">A</label>
@@ -265,6 +265,94 @@ function checkFrgNameDuplication(newFrgNames, existingFrgNames) {
 	return true;
 }
 
+// 각 settingBox 별로 라디오 버튼들 중에서 최소한 하나는 선택되어 있는 것 맞지?
+function checkAtLeastOneRadioBtnSelected(idNum) {
+	const hRadio = document.querySelector(`input[id="horizon_${idNum}"]`);
+	const vRadio = document.querySelector(`input[id="vertical_${idNum}"]`);
+	const sRadio = document.querySelector(`input[id="single_${idNum}"]`);
+
+	if (!hRadio.checked && !vRadio.checked && !sRadio.checked) {
+		return hRadio; // 라디오 버튼이 비어있으면 첫 번째 빈 라디오 버튼 요소를 반환
+	}
+	return null; // 비어있는 라디오 버튼이 없으면 null 반환
+}
+
+// 모든 settingBox에서 라디오버튼 하나씩 다 선택 돼 있어?
+function checkAllGroupsOfRadios(numberOfSettingBoxes) {
+	for (let i = 0; i < numberOfSettingBoxes; i++) {
+		if (checkAtLeastOneRadioBtnSelected(i) !== null) {
+			return false; // 빈 라디오 버튼 그룹이 하나라도 있으면 false 반환
+		}
+	}
+	return true; // 빈 라디오 버튼 그룹이 하나도 없으면 true 반환
+}
+
+// 냉장고 이름 비어 있어?
+function checkFrgNameFilledIn(idNum) {
+	const fridgeName = document.querySelector(`input[id="frg_name_${idNum}"]`);
+
+	if(fridgeName.value.trim() === '') {
+		return fridgeName; // 빈 곳이 있으면 첫 번째 비어있는 frgName 요소 반환
+	} else {
+		return null; // 빈 곳 없으면 null 반환
+	}
+}
+
+// 모든 settingBox에서 냉장고 이름 비어있는지 전부 검사해줘.
+function checkAllGroupsOfFrgNames(numberOfSettingBoxes) {
+	for (let i = 0; i < numberOfSettingBoxes; i++) {
+		if (checkFrgNameFilledIn(i) !== null) {
+			return false; // 빈 곳이 한 군데라도 있으면 false 반환
+		}
+	}
+	return true; // 빈 곳이 한 군데도 없으면 true 반환
+}
+
+// 냉장고 보관 상태 버튼 체크 돼 있지?
+// (single 냉장고에서는 Bstate 없고, horizon이든 vertical이든 Astate가 체크돼 있으면 Bstate는 자동으로 선택되니까 A만 검사하자)
+function checkFrgStateBtnSelected(idNum) {
+	const fridgeAstate = document.querySelector(`button[name='frg_Astate_${idNum}']`);
+
+	if(!fridgeAstate.selected) {
+		return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
+	}
+	return null; // 냉장고 상태 버튼 선택돼 있으면 null 반환
+}
+
+// 냉장고 보관 상태 버튼 전부 체크되어 있는지 검사해줘.
+function checkAllGroupsOfFrgStates(numberOfSettingBoxes) {
+	for (let i = 0; i < numberOfSettingBoxes; i++) {
+		if (checkFrgStateBtnSelected(i) !== null) {
+			return false; // 냉장고 보관 상태 버튼 선택 안 된 곳이 한 군데라도 있으면 false 반환
+		}
+	}
+	return true; // 냉장고 보관 상태 버튼 선택 안 된 곳이 하나도 없으면 true 반환
+}
+
+// 혹시 빈 요소 있어서 등록 실패하면 빈 요소 찾아줘.
+function getFirstEmptyElement(numberOfSettingBoxes) {
+	for (let i = 0; i < numberOfSettingBoxes; i++) {
+		const emptyRadio = checkAtLeastOneRadioBtnSelected(i);
+		const emptyFrgName = checkFrgNameFilledIn(i);
+		const emptyFrgState = checkFrgStateBtnSelected(i);
+
+		// 각각의 DOM 객체를 확인해서 비어있는 곳이 있으면, 그 첫 번째 요소 자체와 그 요소가 무엇인지를 반환
+		if(emptyRadio) {
+			return {element: emptyRadio, type: 'radio'};
+		}
+
+		if(emptyFrgName) {
+			return {element: emptyFrgName, type: 'frgName'};
+		}
+
+		if(emptyFrgState) {
+			return {element: emptyFrgState, type: 'frgState'};
+		}
+	}
+
+	return null; // 모든 요소 빈 게 없으면 null 반환
+}
+
 // SESS_ID 데려오려는 함수
 function getUserId() {
 	return fetch(contextPath + "/frg/getUserId")
@@ -299,62 +387,100 @@ function extractDataFromSettingBox(settingBox, idNum) {
 	});
 }
 
+// 완료 버튼 클릭하면
 function submitBtnClicked(e) {
     e.preventDefault();
+    
+	// settingBox 총 몇 개야?
     const settingBoxes = document.querySelectorAll(".settingBox");
+	const numberOfSettingBoxes = settingBoxes.length;
 
-    const idNums = Array.from(settingBoxes).map((settingBox) => {
-        const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
-        const idNum = frgNameInput.name.split("_")[2];
+	// 라디오 버튼 체크 or 냉장고 이름 or 보관 상태 빈 곳 있어?
+	if (checkAllGroupsOfRadios(numberOfSettingBoxes) 
+		&& checkAllGroupsOfFrgNames(numberOfSettingBoxes)
+		&& checkAllGroupsOfFrgStates(numberOfSettingBoxes)) {
 
-        return parseInt(idNum);
-    });
+		// 빈 곳 없으면 아래 내용 실행해줘.
 
-    const settingBoxesDataPromises = idNums.map((idNum, index) => {
-        return extractDataFromSettingBox(settingBoxes[index], idNum);
-    });
+		// 냉장고 이름에 붙은 idNum을 추출해줘 
+		const idNums = Array.from(settingBoxes).map((settingBox) => {
+			const frgNameInput = settingBox.querySelector(`input[name^="frg_name_"]`);
+			const idNum = frgNameInput.name.split("_")[2];
+	
+			return parseInt(idNum);
+		});
+	
+		const settingBoxesDataPromises = idNums.map((idNum, index) => {
+			return extractDataFromSettingBox(settingBoxes[index], idNum);
+		});
+	
+		// Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
+		Promise.all(settingBoxesDataPromises)
+			.then(function (settingBoxesData) {
+	
+				const newFrgNames = settingBoxesData.map((data) => data.frg_name);
+	
+				return getUserId()
+				.then((userId) => getExistingFrgNames(userId))
+				.then((existingFrgNames) => {
+					if(checkFrgNameDuplication(newFrgNames, existingFrgNames)) {
+						// 중복된 이름이 없으면 서버에 요청을 보냄
+						$.ajax({
+							type: "POST",
+							url: `${contextPath}/frg/frgAdd_form`,
+							contentType: "application/json; charset=UTF-8",
+							data: JSON.stringify(settingBoxesData),
+							dataType: "json",
+							success: function (response) {
+								alertMsg = "냉장고 등록이 완료되었습니다.";
+								showAlert(alertMsg);
+								window.location.href = `${contextPath}/frg/frgShow`;
+							},
+							error: function (err) {
+								alertMsg = "냉장고 등록에 실패했습니다.";
+								showAlert(alertMsg);
+								if (err.status === 404) {
+									alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+									showAlert(alertMsg);
+								} else if (err.status === 500) {
+									alertMsg = "서버 내부 오류가 발생했습니다.";
+									showAlert(alertMsg);
+								} else {
+									alertMsg = "알 수 없는 오류가 발생했습니다";
+									showAlert(alertMsg);
+								}
+							},
+						})
+					}
+				})
+			})
+			.catch(function (error) {
+				console.error(error);
+			});
+	} else {
+		// 어디가 비었어? 빈 첫 번째 요소로 가자
+		const firstEmptyInfo = getFirstEmptyElement(numberOfSettingBoxes);
+		
+		console.log('firstEmptyInfo:', firstEmptyInfo); // 객체가 올바른지 확인
 
-    // Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
-    Promise.all(settingBoxesDataPromises)
-        .then(function (settingBoxesData) {
+		switch (firstEmptyInfo.type) {
+			case 'radio':
+				showAlert('냉장고 모양을 선택하지 않은 곳이 있습니다.');
+				break;
+			case 'frgName':
+				console.log(firstEmptyInfo.element);
+				showAlert('냉장고 이름을 작성하지 않은 곳이 있습니다.');
+				break;
+			case 'frgState':
+				showAlert('냉장고 보관 상태를 선택하지 않은 곳이 있습니다.');
+				break;
+		}
 
-			const newFrgNames = settingBoxesData.map((data) => data.frg_name);
-
-			return getUserId()
-			.then((userId) => getExistingFrgNames(userId))
-			.then((existingFrgNames) => {
-				if(checkFrgNameDuplication(newFrgNames, existingFrgNames)) {
-					// 중복된 이름이 없으면 서버에 요청을 보냄
-					$.ajax({
-                        type: "POST",
-                        url: `${contextPath}/frg/frgAdd_form`,
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify(settingBoxesData),
-                        dataType: "json",
-                        success: function (response) {
-                            alertMsg = "냉장고 등록이 완료되었습니다.";
-                            showAlert(alertMsg);
-                            window.location.href = `${contextPath}/frg/frgShow`;
-                        },
-                        error: function (err) {
-                            alertMsg = "냉장고 등록에 실패했습니다.";
-                            showAlert(alertMsg);
-                            if (err.status === 404) {
-                                alertMsg = "요청한 페이지를 찾을 수 없습니다.";
-                                showAlert(alertMsg);
-                            } else if (err.status === 500) {
-                                alertMsg = "서버 내부 오류가 발생했습니다.";
-                                showAlert(alertMsg);
-                            } else {
-                                alertMsg = "알 수 없는 오류가 발생했습니다";
-                                showAlert(alertMsg);
-                            }
-                        },
-                    })
-                }
-            })
-        })
-        .catch(function (error) {
-            console.error(error);
-        });
+		firstEmptyInfo.element.focus(); // 빈 곳으로 focus 가자.
+			
+		window.scrollTo({ // 그 위치로 자동 스크롤
+			top: firstEmptyInfo.element.offsetTop,
+			behavior: 'smooth'
+		});
+	}
 }

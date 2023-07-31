@@ -8470,6 +8470,10 @@ none
 	max-width: 100% !important;
 }
 
+.vw-60 {
+	width: 60vw !important;
+}
+
 .vw-70 {
 	width: 70vw !important;
 }
@@ -8580,6 +8584,10 @@ none
 
 .mh-100 {
 	max-height: 100% !important;
+}
+
+.mh-5000 {
+	max-height: 5000px !important;
 }
 
 .vh-60 {
@@ -9307,6 +9315,14 @@ none
 
 .fs-7 {
 	font-size: 0.75rem !important;
+}
+
+.fs-l {
+	font-size: large !important;
+}
+
+.fs-xl {
+	font-size: x-large !important;
 }
 
 .fst-italic {
