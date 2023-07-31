@@ -8027,6 +8027,14 @@ none
   display: none !important;
 }
 
+.d-grid-col-25-75 {
+	grid-template-columns: 1fr 3fr;
+}
+
+.d-grid-row-40-60 {
+	grid-template-rows: 1fr 1.5fr;
+} 
+
 .shadow {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -8971,6 +8979,10 @@ none
 
 .mt-auto {
 	margin-top: auto !important;
+}
+
+.mt-3p {
+	margin-top: 3% !important;
 }
 
 .me-0 {

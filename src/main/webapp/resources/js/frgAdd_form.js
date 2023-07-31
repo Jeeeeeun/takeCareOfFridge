@@ -68,47 +68,62 @@ function createNewSettingBox(idNum) {
 	const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
 	const settingBoxElement = document.createElement("div");
 	settingBoxElement.innerHTML = `
-		<hr class="horizontalLine" style="border-style: dashed">
-		<div class="settingBox d-grid justify-content-sm-center align-items-sm-center gap-2 fs-xl fw-semibold text-white position-relative vw-60 vh-70 mx-auto">
-			<div class="setting-titleBox">냉장고 모양</div>
-			<div class="setting-itemBox">
-				<div>
-					<input type="radio" name="frg_shape" id="horizon" value="H" onclick="radioClicked(event, this.nextElementSibling)">
-					<label for="horizon">
-						<img id="ho_${idNum}" class="ho" alt="가로형 냉장고" src="${contextPath}/resources/img/hFrgLabel.svg"/>
-					</label>
-				</div>
-				<div>
-					<input type="radio" name="frg_shape" id="vertical" value="V" onclick="radioClicked(event, this.nextElementSibling)">
-					<label for="vertical">
-						<img id="ve_${idNum}" class="ve" alt="세로형 냉장고" src="${contextPath}/resources/img/vFrgLabel.svg"/>
-					</label>
-				</div>
-				<div>
-					<input type="radio" name="frg_shape" id="single" value="S" onclick="radioClicked(event, this.nextElementSibling)">
-					<label for="single">
-						<img id="si_${idNum}" class="si" alt="단일형 냉장고" src="${contextPath}/resources/img/sFrgLabel.svg">
-					</label>
+		<hr class="horizontalLine" style="border-style: dashed">					
+		<div class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
+			<div class="w-100 mt-3p mb-2 text-end">
+				<div class="w-100 text-white">
+					<i id="trashIcon_${idNum}" class="fa-solid fa-trash"></i>
 				</div>
 			</div>
-			<div class="setting-titleBox">냉장고 정보</div>
-			<div class="setting-itemBox">
-				<div class="selected-fridge"></div>
-				<div class="fridge-info">
-					<div class="fridgeInfoBox">
-						<div class="w-100">
-							<label class="fridgeInfoLabelName" for="frg_name_${idNum}">이름</label>
-							<input class="fridgeInfoInput" id="frg_name_${idNum}" name="frg_name_${idNum}" />
-						</div>
-						<div class="w-100">
-							<label class="fridgeInfoLabelState">A</label>
-							<button type="button" name="frg_Astate_${idNum}" value="cool" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">냉장</button>
-							<button type="button" name="frg_Astate_${idNum}" value="frozen" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">냉동</button>
-						</div>
-						<div class="w-100">
-							<label class="fridgeInfoLabelState">B</label>
-							<button type="button" name="frg_Bstate_${idNum}" value="cool" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">냉장</button>
-							<button type="button" name="frg_Bstate_${idNum}" value="frozen" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">냉동</button>
+			<div class="d-grid d-grid-col-25-75 d-grid-row-40-60 justify-content-sm-center align-items-sm-center gap-2 fs-xl fw-semibold text-white position-relative vw-60 vh-70 mx-auto">
+				<div class="setting-titleBox">냉장고 모양</div>
+				<div class="setting-itemBox">
+					<div>
+						<input type="radio" name="frg_shape" id="horizon" value="H" onclick="radioClicked(event, this.nextElementSibling)" />
+						<label for="horizon">
+							<img id="ho_${idNum}" class="ho" alt="가로형 냉장고" src="${ contextPath }/resources/img/hFrgLabel.svg" />
+						</label>
+					</div>
+					<div>
+						<input type="radio" name="frg_shape" id="vertical" value="V" onclick="radioClicked(event, this.nextElementSibling)" />
+						<label for="vertical">
+							<img id="ve_${idNum}" class="ve" alt="세로형 냉장고" src="${ contextPath }/resources/img/vFrgLabel.svg" />
+						</label>
+					</div>
+					<div>
+						<input type="radio" name="frg_shape" id="single" value="S" onclick="radioClicked(event, this.nextElementSibling)" />
+						<label for="single">
+							<img id="si_${idNum}" class="si" alt="단일형 냉장고" src="${ contextPath }/resources/img/sFrgLabel.svg" />
+						</label>
+					</div>
+				</div>
+				<div class="setting-titleBox">냉장고 정보</div>
+				<div class="setting-itemBox">
+					<div class="selected-fridge"></div>
+					<div class="fridge-info">
+						<div class="fridgeInfoBox">
+							<div class="w-100">
+								<label class="fridgeInfoLabelName" for="frg_name_${idNum}">이름</label>
+								<input class="fridgeInfoInput" id="frg_name_${idNum}" name="frg_name_${idNum}" />
+							</div>
+							<div class="w-100">
+								<label class="fridgeInfoLabelState">A</label>
+								<button type="button" name="frg_Astate_${idNum}" value="cool" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">
+									냉장
+								</button>
+								<button type="button" name="frg_Astate_${idNum}" value="frozen" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">
+									냉동
+								</button>
+							</div>
+							<div class="w-100">
+								<label class="fridgeInfoLabelState">B</label>
+								<button type="button" name="frg_Bstate_${idNum}" value="cool" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">
+									냉장
+								</button>
+								<button type="button" name="frg_Bstate_${idNum}" value="frozen" class="stateSelectBtn" onclick="stateBtnClicked(this, ${idNum})">
+									냉동
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
