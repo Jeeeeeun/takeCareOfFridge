@@ -164,6 +164,16 @@
 			
 			document.addEventListener("DOMContentLoaded", function () {
 				
+				 // 선택 상자가 열릴 때 "제품을 선택하세요" 옵션을 제거합니다.
+			    document.getElementById('detailInfoItemBox_frg_name').addEventListener('focus', function() {
+			        this.children[0].style.display = 'none';
+			    });
+
+			    // 선택 상자가 닫힐 때 "제품을 선택하세요" 옵션을 추가합니다.
+			    document.getElementById('detailInfoItemBox_frg_name').addEventListener('blur', function() {
+			        this.children[0].style.display = 'block';
+			    });
+				
 				// 알림창 위한 전역변수 초기화
 				alertContent = document.querySelector("#alertContent");
 				alertWindow = document.querySelector("#customAlert");
@@ -225,6 +235,7 @@
 			function updateBtnClicked() {
 				
 				// 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
+				document.getElementById('detailInfoItemBox_frg_name').disabled = false;
 				document.getElementById('detailInfoItemBox_in_name').disabled= false;
 				document.getElementById('detailInfoItemBox_in_company').disabled= false;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = false;
@@ -249,6 +260,7 @@
 			function updateEndBtnClicked() {
 				
 				// 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_company').disabled = true;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
@@ -492,6 +504,7 @@
 			
 			function cancelBtnClicked() {
 				
+				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_company').disabled = true;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
@@ -683,7 +696,14 @@
 									</div>
 									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-1 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
     									<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_frg_name">보관 냉장고</label>
-    									<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="text" id="detailInfoItemBox_frg_name" disabled />
+    									<div id="frgSelectContainer" class="w-70 h-80 mx-1">
+       										<select id="detailInfoItemBox_frg_name" class="w-70 h-100 bg-transparent border-05 border-white border-dashed border-opacity-50 rounded-4 px-3 py-1" disabled>
+       										<option value="">제품을 선택하세요</option>
+       										<c:forEach var="name" items="${frgNames}">
+          								 		<option value="${name}">${name}</option>
+          								 	</c:forEach>	
+        									</select>
+   									    </div>
 									</div>
 									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_name">식품명</label>
