@@ -2,12 +2,16 @@
 let idCounter = 0;
 
 // 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow, radioBtns;
+let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn;
 
 // 페이지 로딩되자마자, DOM 객체 캐치
 window.onload = function() {
 	alertContent = document.querySelector("#alertContent");
 	alertWindow = document.querySelector("#customAlert");
+	confirmContent = document.querySelector("#confirmContent");
+	confirmWindow = document.querySelector("#customConfirm");
+	confirmYesBtn = document.querySelector("#confirmYesBtn");
+	confirmNoBtn = document.querySelector("#confirmNoBtn");
 }
 
 // 알림창 띄우기
@@ -20,6 +24,37 @@ function showAlert(alertMsg) {
 		alertWindow.classList.remove("show");
 		alertWindow.classList.add("hidden");
 	}, 2500);
+}
+
+// 컨펌창 켜기
+function showConfirm(confirmMsg, yesClicked, noClicked) {
+  confirmContent.textContent = confirmMsg;
+  confirmWindow.classList.remove("hidden");
+  confirmWindow.classList.add("bg-opacity-100");
+
+  confirmYesBtn.onclick = function () {
+    // Yes 눌리면 이뤄질 동작들
+    if (yesClicked) {
+      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
+    }
+    // 컨펌창 끄기
+    closeConfirm();
+  };
+
+  confirmNoBtn.onclick = function () {
+    // No 눌리면 이뤄질 동작들
+    if (noClicked) {
+      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
+    }
+    // 컨펌창 끄기
+    closeConfirm();
+  };
+}
+
+// 컨펌창 끄기
+function closeConfirm() {
+  confirmWindow.classList.remove("bg-opacity-100");
+  confirmWindow.classList.add("hidden");
 }
 
 // 화면 아래쪽 + 버튼 눌렀을 때 settingBox 추가 생성
@@ -280,6 +315,10 @@ function checkAtLeastOneRadioBtnSelected(idNum) {
 // 모든 settingBox에서 라디오버튼 하나씩 다 선택 돼 있어?
 function checkAllGroupsOfRadios(numberOfSettingBoxes) {
 	for (let i = 0; i < numberOfSettingBoxes; i++) {
+
+		const hRadio = document.querySelector(`input[id="horizon_${i}"]`);
+		if(!hRadio) continue; // hRadio가 없으면 다음 i로 이동
+
 		if (checkAtLeastOneRadioBtnSelected(i) !== null) {
 			return false; // 빈 라디오 버튼 그룹이 하나라도 있으면 false 반환
 		}
@@ -301,6 +340,10 @@ function checkFrgNameFilledIn(idNum) {
 // 모든 settingBox에서 냉장고 이름 비어있는지 전부 검사해줘.
 function checkAllGroupsOfFrgNames(numberOfSettingBoxes) {
 	for (let i = 0; i < numberOfSettingBoxes; i++) {
+
+		const frgName = document.querySelector(`input[id="frg_name_${i}"]`);
+		if (!frgName) continue; // frgName이 없으면 다음 i로 이동
+
 		if (checkFrgNameFilledIn(i) !== null) {
 			return false; // 빈 곳이 한 군데라도 있으면 false 반환
 		}
@@ -311,17 +354,21 @@ function checkAllGroupsOfFrgNames(numberOfSettingBoxes) {
 // 냉장고 보관 상태 버튼 체크 돼 있지?
 // (single 냉장고에서는 Bstate 없고, horizon이든 vertical이든 Astate가 체크돼 있으면 Bstate는 자동으로 선택되니까 A만 검사하자)
 function checkFrgStateBtnSelected(idNum) {
-	const fridgeAstate = document.querySelector(`button[name='frg_Astate_${idNum}']`);
+	const fridgeAstate = document.querySelector(`button[name="frg_Astate_${idNum}"]`);
 
-	if(!fridgeAstate.selected) {
-		return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
-	}
-	return null; // 냉장고 상태 버튼 선택돼 있으면 null 반환
+    if (!fridgeAstate.classList.contains('selected')) {
+        return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
+    }
+    return null; // 냉장고 상태 버튼 선택돼 있으면 null 반환
 }
 
 // 냉장고 보관 상태 버튼 전부 체크되어 있는지 검사해줘.
 function checkAllGroupsOfFrgStates(numberOfSettingBoxes) {
 	for (let i = 0; i < numberOfSettingBoxes; i++) {
+
+		const fridgeAstate = document.querySelector(`button[name="frg_Astate_${i}"]`);
+		if (!fridgeAstate) continue; // fridgeAstate가 없으면 다음 i로 이동
+
 		if (checkFrgStateBtnSelected(i) !== null) {
 			return false; // 냉장고 보관 상태 버튼 선택 안 된 곳이 한 군데라도 있으면 false 반환
 		}
@@ -353,6 +400,45 @@ function getFirstEmptyElement(numberOfSettingBoxes) {
 	return null; // 모든 요소 빈 게 없으면 null 반환
 }
 
+// 아예 settingBox가 통째로 빈 form은 없는 거야?
+function getEmptySettingBox(numberOfSettingBoxes) {
+
+    let emptySettingBoxes = [];
+
+    for (let i = 0; i < numberOfSettingBoxes; i++) {
+        const emptyRadio = checkAtLeastOneRadioBtnSelected(i);
+        const emptyFrgName = checkFrgNameFilledIn(i);
+        const emptyFrgState = checkFrgStateBtnSelected(i);
+
+			console.log("emptyRadio " + i + emptyRadio);
+        	console.log("emptyFrgName " + i + emptyFrgName);
+        	console.log("emptyFrgState " + i + emptyFrgState);
+
+        // 세 가지 요소가 모두 비어 있으면 해당 setting box의 인덱스를 빈 setting box 목록에 추가
+        if (emptyRadio && emptyFrgName && emptyFrgState) {
+        	console.log("Add to emptySettingBoxes:", i); 
+            emptySettingBoxes.push(i);
+        }
+    }
+
+    return emptySettingBoxes;
+}
+
+// 빈 form은 삭제하자.
+function removeEmptySettingBoxes(emptySettingBoxes, settingBoxes) {
+	return new Promise((resolve) => {
+		emptySettingBoxes.forEach((indexOfEmptySettingBox, idx, array) => {
+			settingBoxes[indexOfEmptySettingBox].remove();
+			if (idx === array.length -1) {
+				resolve();
+				// resolve(): 시간차를 두고 실행되는 '비동기' 작업 정상적으로 완료됐을 때 호출되는 함수
+				// 이 함수는 정상적으로 실행됐음을 알린 후
+				// 이후에 붙는 then 안의 함수를 실행함.
+			}
+		});
+	});
+}
+
 // SESS_ID 데려오려는 함수
 function getUserId() {
 	return fetch(contextPath + "/frg/getUserId")
@@ -366,36 +452,66 @@ function getUserId() {
 }
 
 function extractDataFromSettingBox(settingBox, idNum) {
+	const frgShapeName = settingBox.querySelector('input[type="radio"]').name;
+	const frgShape = settingBox.querySelector(`input[name="${frgShapeName}"]:checked`);
+	
+	const frgName = settingBox.querySelector(`input[name="frg_name_${idNum}"]`);
+	
+	const frgAstate = settingBox.querySelector(`button[name="frg_Astate_${idNum}"].selected`);
+	
+	// frgShape의 값이 'S'이면 frg_Bstate는 null로 설정됨
+	const frgBstate = frgShape && frgShape.value === "S" ? null : settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
+	
+	// 빈 상자 확인 및 처리
+	if (!settingBox || !frgShape || !frgName || !frgAstate || (frgShape.value !== "S" && !frgBstate)) {
+		return Promise.resolve(null);
+	}
+	
 	return getUserId().then(function (userId) {
-		const frgShapeName = settingBox.querySelector('input[type="radio"]').name;
-		const frgShape = settingBox.querySelector(`input[name="${frgShapeName}"]:checked`);
-
-		const frgName = settingBox.querySelector(`input[name="frg_name_${idNum}"]`);
-
-		const frgAstate = settingBox.querySelector(`button[name="frg_Astate_${idNum}"].selected`);
-
-		// frgShape의 값이 'S'이면 frg_Bstate는 null로 설정됨
-		const frgBstate = frgShape && frgShape.value === "S" ? null : settingBox.querySelector(`button[name="frg_Bstate_${idNum}"].selected`);
-
 		return {
 			user_id: userId,
-			frg_shape: frgShape ? frgShape.value : null,
-			frg_name: frgName ? frgName.value : null,
-			frg_Astate: frgAstate ? frgAstate.value : null,
+			frg_shape: frgShape.value,
+			frg_name: frgName.value,
+			frg_Astate: frgAstate.value,
 			frg_Bstate: frgBstate ? frgBstate.value : null,
 		};
 	});
 }
+  
 
 // 완료 버튼 클릭하면
 function submitBtnClicked(e) {
-    e.preventDefault();
-    
-	// settingBox 총 몇 개야?
-    const settingBoxes = document.querySelectorAll(".settingBox");
+	e.preventDefault();
+	
+	const settingBoxes = document.querySelectorAll(".settingBox");
 	const numberOfSettingBoxes = settingBoxes.length;
+  
+	const emptySettingBoxes = getEmptySettingBox(numberOfSettingBoxes);
+	
+	console.log(emptySettingBoxes);
+	
+	if (emptySettingBoxes.length > 0) {
+		const indexesOfEmptySettingBoxes = emptySettingBoxes.map((i) => i + 1);
+		confirmMsg = `${indexesOfEmptySettingBoxes.join(", ")}번째 박스가 비어있습니다. 삭제할까요?`;
+		
+		showConfirm(confirmMsg, () => {
+			removeEmptySettingBoxes(emptySettingBoxes, settingBoxes).then(() => {
+				// 삭제된 빈 박스를 제외한 새로운 settingBoxes를 얻는다.
+				const updatedSettingBoxes = document.querySelectorAll(".settingBox");
+				completeSubmittingForm(updatedSettingBoxes, settingBoxes);
+			});
+		}, () => {
+			// 사용자가 취소 버튼을 눌렀거나 오류가 발생한 경우 처리
+			return;
+		});
+	} else {
+		completeSubmittingForm(numberOfSettingBoxes, settingBoxes);
+	}
+}
 
-	// 라디오 버튼 체크 or 냉장고 이름 or 보관 상태 빈 곳 있어?
+// 빈 form 없으면 냉장고 등록 완료 처리할 함수
+function completeSubmittingForm(numberOfSettingBoxes, settingBoxes) {
+		// 라디오 버튼 체크 or 냉장고 이름 or 보관 상태 빈 곳 있어?
 	if (checkAllGroupsOfRadios(numberOfSettingBoxes) 
 		&& checkAllGroupsOfFrgNames(numberOfSettingBoxes)
 		&& checkAllGroupsOfFrgStates(numberOfSettingBoxes)) {
@@ -417,6 +533,9 @@ function submitBtnClicked(e) {
 		// Promise.all()을 사용해서 모든 settingBox의 데이터가 반환될 때까지 기다림
 		Promise.all(settingBoxesDataPromises)
 			.then(function (settingBoxesData) {
+
+				// 빈 form 데이터는 걸러내기
+				settingBoxesData = settingBoxesData.filter(data => data !== null);
 	
 				const newFrgNames = settingBoxesData.map((data) => data.frg_name);
 	

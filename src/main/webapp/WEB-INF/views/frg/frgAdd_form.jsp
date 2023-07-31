@@ -104,6 +104,16 @@
 				<p id="alertContent" class="m-auto fs-5">알림창!</p>
 			</div>
 		</div>
+		<div id="customConfirm" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+			<!-- 컨펌창 -->
+			<div class="w-35 h-20 d-flex flex-column align-items-sm-center justify-content-sm-center text-center bg-white p-3 rounded-3 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+				<p id="confirmContent" class="my-4 mx-auto fs-5">컨펌창!</p>
+				<div class="w-100 h-50 d-flex flex-row justify-content-sm-end align-items-sm-center mx-3 my-0">
+					<button id="confirmYesBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-primary text-center rounded-3 mx-2 py-3">Yes</button>
+					<button id="confirmNoBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-secondary rounded-3 mx-2 py-3">No</button>
+				</div>
+			</div>
+		</div>
 		<div class="d-flex flex-row position-relative mt-6">
 			<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
 				<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
@@ -174,10 +184,10 @@
 				</div>
 				<hr class="horizontalLine" />
 				<div class="btns">
-					<button type="button" class="btn" onclick="plusBtnClicked()" title="냉장고 하나 더 추가하기">
+					<button type="button" class="button" onclick="plusBtnClicked()" title="냉장고 하나 더 추가하기">
 						<i class="fa-solid fa-plus"></i>
 					</button>
-					<button type="submit" class="btn" title="냉장고 등록 완료하기">완료</button>
+					<button type="submit" class="button" title="냉장고 등록 완료하기">완료</button>
 				</div>
 			</form>
 		</div>
