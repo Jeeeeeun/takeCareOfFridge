@@ -49,12 +49,9 @@
 		WHERE frg_index = (
 		    SELECT frg_index
 		    FROM FrgList
+		    JOIN Users ON FrgList.user_index = Users.user_index
 		    WHERE frg_name = #{frg_name}
-		) 
-		AND user_index = (
-		    SELECT user_index
-		    FROM Users
-		    WHERE user_id = #{user_id}
+		    AND Users.user_id = #{user_id}
 		)
 	</delete>
 	
