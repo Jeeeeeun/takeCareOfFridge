@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.frg.domain.FoodApiDTO;
+import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.domain.UserDTO;
 
@@ -78,6 +79,16 @@ public class InnerFoodServiceTest {
 		System.out.println(dto);
 	}
 
+	@Test
+	public void testSelectFrgNameAll() throws ParseException{
+		FrgListDTO dto = new FrgListDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_index(2);
+		
+		service.selectFrgNameAll(dto);
+		System.out.println(dto);
+	}
+	
 	@Test
 	@Ignore
 	public void testSelectPartInnerView() throws ParseException {

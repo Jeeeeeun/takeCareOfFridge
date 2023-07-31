@@ -164,6 +164,16 @@
 			
 			document.addEventListener("DOMContentLoaded", function () {
 				
+				 // 선택 상자가 열릴 때 "제품을 선택하세요" 옵션을 제거합니다.
+			    document.getElementById('detailInfoItemBox_frg_name').addEventListener('focus', function() {
+			        this.children[0].style.display = 'none';
+			    });
+
+			    // 선택 상자가 닫힐 때 "제품을 선택하세요" 옵션을 추가합니다.
+			    document.getElementById('detailInfoItemBox_frg_name').addEventListener('blur', function() {
+			        this.children[0].style.display = 'block';
+			    });
+				
 				// 알림창 위한 전역변수 초기화
 				alertContent = document.querySelector("#alertContent");
 				alertWindow = document.querySelector("#customAlert");
@@ -188,9 +198,6 @@
 				const urlParams = new URLSearchParams(window.location.search);
 				const frgNameParam = urlParams.get("frgName");
 			
-				// 냉장고 인풋에 냉장고 이름 파라미터 값을 설정
-				document.getElementById('detailInfoItemBox_frg_name').value = frgNameParam;    
-				
 				$.ajax({
 					url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/trafficStandard`,
 					type: "GET",
@@ -226,7 +233,9 @@
 			
 			//수정버튼
 			function updateBtnClicked() {
+				
 				// 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
+				document.getElementById('detailInfoItemBox_frg_name').disabled = false;
 				document.getElementById('detailInfoItemBox_in_name').disabled= false;
 				document.getElementById('detailInfoItemBox_in_company').disabled= false;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = false;
@@ -243,12 +252,15 @@
 				document.getElementById('beforeUpdateBtns').classList.add('hidden');
 				document.getElementById('afterUpdateBtns').classList.remove('hidden');
 				document.getElementById('afterUpdateBtns').classList.add('d-flex');
+				
 			}
 			
 			// 수정 완료 버튼
 			// 수정 완료 버튼 클릭 이벤트 핸들러
 			function updateEndBtnClicked() {
+				
 				// 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
+				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_company').disabled = true;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
@@ -352,8 +364,6 @@
 					}
 				});
 				
-				//return false;
-				
 				// 수정 완료 버튼 숨기고, 수정 버튼 보이기
 				document.getElementById('beforeUpdateBtns').classList.remove('hidden');
 				document.getElementById('beforeUpdateBtns').classList.add('d-flex');
@@ -364,9 +374,9 @@
 			let selectIndex = null;
 			let selectedData = null;
 			
-			function handleRowClick(in_name, in_expireDate, d_DAY, in_state) {
+			function handleRowClick(in_name, in_expireDate, d_DAY, in_state, frg_index) {
 				
-				document.getElementById('updateBtn').disabled = false;
+				  document.getElementById('updateBtn').disabled = false;
 				  document.getElementById('deleteBtn').disabled = false;
 				  
 				  selectedData = {
@@ -414,29 +424,30 @@
 					coolRadio.checked = false;
 					frozenRadio.checked = true;
 				}
-				const frgName=document.getElementById('detailInfoItemBox_frg_name').value;
 				
 				const requestData = {
 						in_name: in_name,
-						frgName: frgName
+						frg_index: frg_index
 					};
 				
 				$.ajax({
-					url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/getInnerData`,
-					type: "POST",
-					data: requestData,
-					dataType: "json",
-					success: function(requestData,textStatus) {
-						const in_count = requestData[0].in_count;
-						document.getElementById('detailInfoItemBox_in_count').value = in_count;
-						const in_company = requestData[0].in_company;
-						document.getElementById('detailInfoItemBox_in_company').value = in_company;
-						const in_type = requestData[0].in_type;
-						document.getElementById('detailInfoItemBox_in_type').value = in_type;
-						const in_index = requestData[0].in_index;
-						selectIndex=in_index;
-						console.log(selectIndex);
-					},
+				    url: `${pageContext.servletContext.contextPath}/frg/innerCtrl/getInnerData`,
+				    type: "POST",
+				    data: requestData,
+				    dataType: "json",
+				    success: function (responseData) {
+				        const in_count = responseData.innerData[0].in_count;
+				        document.getElementById('detailInfoItemBox_in_count').value = in_count;
+				        const in_company = responseData.innerData[0].in_company;
+				        document.getElementById('detailInfoItemBox_in_company').value = in_company;
+				        const in_type = responseData.innerData[0].in_type;
+				        document.getElementById('detailInfoItemBox_in_type').value = in_type;
+				        const in_index = responseData.innerData[0].in_index;
+				        selectIndex = in_index;
+				        const frg_name = responseData.FrgName;
+				        selectFrgName = frg_name; // 여기에서 FrgName 값을 받아옴
+				        document.getElementById('detailInfoItemBox_frg_name').value = selectFrgName;
+				    },
 					error: function() {
 						// 에러 발생 시의 코드
 						console.error('Failed to get food info from the server.');
@@ -492,6 +503,8 @@
 			}
 			
 			function cancelBtnClicked() {
+				
+				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_company').disabled = true;
 				document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
@@ -640,7 +653,7 @@
 									</thead>
 									<tbody id="tableBody" class="w-100 h-95 overflowX-hidden overflowY-auto">
 										<c:forEach var="item" items="${ dataList }">
-											<tr class="w-100 h-100 position-relative z-1" onclick="handleRowClick('${ item.in_name }', '${ item.in_expireDate }', '${ item.d_DAY }', '${ item.in_state }');">
+											<tr class="w-100 h-100 position-relative z-1" onclick="handleRowClick('${ item.in_name }', '${ item.in_expireDate }', '${ item.d_DAY }', '${ item.in_state }', ${item.frg_index});">
 												<td class="w-5 h-100 rounded-start-4 text-center border-05 border-white border-dashed border-opacity-25 p-2">
 													<span class="circleColor width-4 height-4 rounded-circle d-sm-block justify-content-sm-center align-items-sm-center mx-auto" ddayData="${ item.d_DAY }"></span>
 												</td>
@@ -682,8 +695,15 @@
 										<input id="indexValue" type="number" />
 									</div>
 									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-1 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
-										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_frg_name">보관 냉장고</label>
-										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="text" id="detailInfoItemBox_frg_name" disabled />
+    									<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_frg_name">보관 냉장고</label>
+    									<div id="frgSelectContainer" class="w-70 h-80 mx-1">
+       										<select id="detailInfoItemBox_frg_name" class="w-70 h-100 bg-transparent border-05 border-white border-dashed border-opacity-50 rounded-4 px-3 py-1" disabled>
+       										<option value="">제품을 선택하세요</option>
+       										<c:forEach var="name" items="${frgNames}">
+          								 		<option value="${name}">${name}</option>
+          								 	</c:forEach>	
+        									</select>
+   									    </div>
 									</div>
 									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_name">식품명</label>

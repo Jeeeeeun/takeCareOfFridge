@@ -55,7 +55,8 @@
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
 		i.in_expireDate, i.D_DAY,
-		i.in_state
+		i.in_state,
+		i.frg_index
 		FROM
 		Users u
 		INNER JOIN Inner_View i ON u.user_index =
@@ -64,6 +65,16 @@
 		u.user_id =
 		#{user_id}
 	</select>
+	
+	<select id="selectFrgNameAll"
+		resultType="string">
+		SELECT frgList.frg_name
+		FROM users
+		JOIN frgList ON
+		users.user_index = frgList.user_index
+		WHERE users.user_id = #{user_id}
+		AND frgList.frg_index = #{frg_index}
+	</select>
 
 	<select id="selectPartInnerView"
 		resultType="com.frg.domain.InnerDTO">
@@ -71,6 +82,7 @@
 		, i.in_expireDate
 		, i.d_day
 		, i.in_state
+		, i.frg_index
 		FROM
 		Users u
 		INNER JOIN Inner_View i
@@ -85,7 +97,8 @@
 
 	<select id="selectInnerData"
 		resultType="com.frg.domain.InnerDTO">
-		SELECT i.in_count,i.in_company, i.in_type,i.in_index
+		SELECT i.in_count,i.in_company, i.in_type,i.in_index,
+		i.frg_index
 		FROM
 		users u
 		JOIN
@@ -99,8 +112,8 @@
 		WHERE u.user_id =
 		#{user_id}
 		AND
-		f.frg_name =
-		#{frg_name}
+		f.frg_index =
+		#{frg_index}
 		AND
 		i.in_index
 		in
@@ -114,19 +127,23 @@
 	<update id="updateFood" parameterType="com.frg.domain.InnerDTO">
 		UPDATE Inner
 		SET
-		    frg_index = (select frg_index 
-            from frgList f
-            where frg_name=#{frg_name}
-            AND f.user_index = (
-			SELECT user_index
-			FROM Users
-			WHERE user_id = #{user_id})),
-		    in_name = #{in_name},
-		    in_count = #{in_count},
-		    in_expireDate = #{in_expireDate},
-		    in_company = #{in_company},
-		    in_type = #{in_type},
-		    in_state = #{in_state}
+		frg_index =
+		(select frg_index
+		from frgList f
+		where frg_name=#{frg_name}
+		AND
+		f.user_index = (
+		SELECT user_index
+		FROM Users
+		WHERE user_id =
+		#{user_id})),
+		in_name = #{in_name},
+		in_count = #{in_count},
+		in_expireDate = #{in_expireDate},
+		in_company = #{in_company},
+		in_type =
+		#{in_type},
+		in_state = #{in_state}
 		WHERE in_index =#{in_index}
 	</update>
 
