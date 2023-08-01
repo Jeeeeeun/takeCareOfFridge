@@ -27,7 +27,9 @@ var frgIndex,
   alertWindow,
   confirmMsg,
   confirmContent,
-  confirmWindow;
+  confirmWindow,
+  confirmYesBtn,
+  confirmNoBtn;
 
 window.onload = function () {
   // DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
@@ -57,6 +59,8 @@ window.onload = function () {
   alertWindow = document.querySelector("#customAlert");
   confirmContent = document.querySelector("#confirmContent");
   confirmWindow = document.querySelector("#customConfirm");
+  confirmYesBtn = document.querySelector("#confirmYesBtn");
+  confirmNoBtn = document.querySelector("#confirmNoBtn");
 
   updateFrg(currentIndex);
   checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
@@ -73,19 +77,19 @@ window.onload = function () {
 function showAlert(alertMsg) {
   alertContent.textContent = alertMsg;
   alertWindow.classList.remove("hidden");
-  alertWindow.classList.add("show");
+  alertWindow.classList.add("bg-opacity-100");
 
   setTimeout(function () {
-    alertWindow.classList.remove("show");
+    alertWindow.classList.remove("bg-opacity-100");
     alertWindow.classList.add("hidden");
-  }, 3000);
+  }, 2500);
 }
 
 // 컨펌창 켜기
 function showConfirm(confirmMsg, yesClicked, noClicked) {
   confirmContent.textContent = confirmMsg;
   confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("show");
+  confirmWindow.classList.add("bg-opacity-100");
 
   confirmYesBtn.onclick = function () {
     // Yes 눌리면 이뤄질 동작들
@@ -108,7 +112,7 @@ function showConfirm(confirmMsg, yesClicked, noClicked) {
 
 // 컨펌창 끄기
 function closeConfirm() {
-  confirmWindow.classList.remove("show");
+  confirmWindow.classList.remove("bg-opacity-100");
   confirmWindow.classList.add("hidden");
 }
 
@@ -123,9 +127,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.setAttribute("checked", ""); // hRadio.checked = true;도 같은 효과를 내지만, 실제로 라디오버튼 요소에 checked 속성을 추가해주진 못함.
-      vRadio.removeAttribute("checked");
-      sRadio.removeAttribute("checked");
+      hRadio.checked = true;
+      vRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -136,9 +140,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.setAttribute("checked", "");
-      sRadio.removeAttribute("checked");
+      vRadio.checked = true;
+      hRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -149,9 +153,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.removeAttribute("checked");
-      sRadio.setAttribute("checked", "");
+      sRadio.checked = true;
+      vRadio.checked = false;
+      hRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.display = "none";
@@ -191,6 +195,13 @@ function updateFrg(i) {
       bCoolBtn.className = "frgSelected";
       break;
   }
+
+  console.log("냉장고 index: " + frgIndex.value);
+  console.log("냉장고 이름: " + frgName[0].textContent);
+  console.log("냉장고 모양: " + frgListJson[i].frg_shape);
+  console.log("냉장고 A section 보관 상태: " + frgListJson[i].frg_Astate);
+  console.log("냉장고 B section 보관 상태: " + frgListJson[i].frg_Bstate);
+
 }
 
 function prevFrg() {

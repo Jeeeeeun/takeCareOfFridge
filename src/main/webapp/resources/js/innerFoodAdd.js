@@ -1,3 +1,24 @@
+// 전역변수로 사용할 변수 선언
+let alertMsg, alertContent, alertWindow;
+
+// 페이지 로딩되자마자, DOM 객체 캐치
+window.onload = function() {
+	alertContent = document.querySelector("#alertContent");
+	alertWindow = document.querySelector("#customAlert");
+}
+
+// 알림창 띄우기
+function showAlert(alertMsg) {
+	alertContent.textContent = alertMsg;
+	alertWindow.classList.remove("hidden");
+	alertWindow.classList.add("show");
+	
+	setTimeout(function () {
+		alertWindow.classList.remove("show");
+		alertWindow.classList.add("hidden");
+	}, 2500);
+}
+
 /* searchFoodAPI(); */
 function searchFoodAPI() {
 
@@ -91,16 +112,17 @@ function searchFoodAPI() {
 }
 
 let settingBoxNumber = 1;
-let frgOptionCounter = 1; // 냉장고 옵션의 카운터 변수
+let frgOptionCounter = 1;
+let frgStateCounter = 1; 
 /* createNewSettingBox(); */
 function createNewSettingBox() {
 
-	const addSettingBox = document.querySelector(".addsettingBox-Wrapper");
+	const addSettingBox = document.querySelector(".addSettingBox-Wrapper");
 	const settingBoxElement = document.createElement("div");
 	settingBoxElement.innerHTML = `
 	  <hr class="horizontalLine" style="border-style: dashed">
-		<div class="box0" onclick="toggleSettingBox();"><i class="fa-solid fa-square-check"></i><p>폼 선택하기</p></div>
-		<div class="addSettingBox addSettingBox${settingBoxNumber}">
+		<div class="addSettingBox${settingBoxNumber}">
+			<!-- 냉장고 목록 -->
 			<div class="box1">
 				<label>
 					<p>냉장고 선택</p> <select name="frgList" id="frgOption${frgOptionCounter}">
@@ -108,61 +130,64 @@ function createNewSettingBox() {
 				</select>
 				</label>
 			</div>
-			
+
+			<!-- 보관 위치 -->
 			<div class="box2">
 				<p>보관 위치</p>
-				<label> <input type="radio" name="frgState"
-					id="foodStateFrozen" />냉동
-				</label> <label> <input type="radio" name="frgState"
-					id="foodStateCool" />냉장 <br>
-				</label>
+				<label> <input type="radio" name="frgState${frgStateCounter}" 
+					id="foodStateFrozen"  value="frozen" checked/>냉동
+				<label> <input type="radio" name="frgState${frgStateCounter}"
+					id="foodStateFrozen" value="cool" />냉장 
 			</div>
 
+			<!-- 식품명 -->
 			<div class="box3">
 				<label>
 					<p>식품명</p>
 					<div class="box3-1">
 						<div class="box3-2">
 							<input type="text" name="foodName" id="foodNameInput"
-								placeholder="검색 결과가 입력됩니다." />
+								placeholder="검색 결과가 입력됩니다." disabled />
 							<div class="box3-3">
-								<input type="checkbox" name="checkCustom" id="checkCustomInput" onclick="checkCustomOrNot();">직접입력하기
+								<input type="checkbox" name="checkCustom"
+									id="checkCustomInput" onclick="checkCustomOrNot();">직접입력하기
 							</div>
 						</div>
 					</div>
 				</label>
 			</div>
 
+			<!-- 유통/소비기한 -->
 			<div class="box4">
 				<label>
 					<p>유통/소비기한</p>
 					<div class="box4-1">
-						<input type="text" name="expireDateAuto" id="dueDateAuto"
-							placeholder="검색 결과가 입력됩니다."> 
-						<input type="date"
-							name="expireDateCustom" id="dueDateCustom" value="">
+						<input type="date" name="expireDate" id="dueDate" value="">
 					</div>
 				</label>
 			</div>
 
+			<!-- 식품유형 -->
 			<div class="box5">
 				<label>
-					<p>식품유형</p> <input type="text" name="foodType" id="foodType"
-					placeholder="검색 결과가 입력됩니다.">
+					<p>식품유형</p> <input type="text" name="foodType"
+					id="foodType" placeholder="검색 결과가 입력됩니다." disabled>
 				</label>
 			</div>
 
+			<!-- 수량 -->
 			<div class="box6">
 				<label>
-					<p>수량</p> <input type="number" name="foodCount" id="foodCount"
-					placeholder="식품 수량 등록">
+					<p>수량</p> <input type="number" name="foodCount"
+					id="foodCount" placeholder="식품 수량 등록">
 				</label>
 			</div>
 
+			<!-- 제조사명 -->
 			<div class="box7">
 				<label>
 					<p>제조사명</p> <input type="text" name="foodCompany"
-					id="foodCompany" placeholder="검색 결과가 입력됩니다.">
+					id="foodCompany" placeholder="검색 결과가 입력됩니다." disabled>
 				</label>
 			</div>
 		</div>
@@ -172,9 +197,9 @@ function createNewSettingBox() {
 
 	const frgOptionId = settingBoxElement.querySelector(`#frgOption${frgOptionCounter}`);
 
-	frgOptionId.style.width = "300px";
+	frgOptionId.style.width = "340px";
 	frgOptionId.style.height = "30px";
-	frgOptionId.style.backgroundColor = "beige";
+	frgOptionId.style.backgroundColor = "white";
 	frgOptionId.style.border = "0px";
 
 	frgNames.forEach(function (name) {
@@ -189,125 +214,48 @@ function createNewSettingBox() {
 	const settingBox = settingBoxElement.querySelector(`.addSettingBox${settingBoxNumber}`);
 
 	settingBox.style.position = "relative";
-	settingBox.style.width = "550px";
-	settingBox.style.height = "447px";
-	settingBox.style.backgroundColor = "gray";
+	settingBox.style.width = "inherit";
+	settingBox.style.height = "inherit";
+	settingBox.style.backgroundColor = "#d3cdcd";
 	settingBox.style.padding = "inherit";
 
 	// 카운터를 증가시켜 다음 요소에 대한 고유한 ID 생성
 	frgOptionCounter++;
 	settingBoxNumber++;
+	frgStateCounter++;
 
 };
 
 /* checkCustomOrNot(); */
 function checkCustomOrNot() {
+  const foodNameInput = document.getElementById("foodNameInput");
+  const checkCustom = document.querySelector("#checkCustomInput");
+  const dueDate = document.querySelector("#dueDate");
+  const foodType = document.querySelector("#foodType");
+  const searchInput = document.querySelector("#searchInput");
+  const tbodyTag = document.querySelector("#tbodyTag");
+  const foodCompany = document.querySelector("#foodCompany");
+  const foodCount = document.querySelector("#foodCount");
 
-	let foodNameInput = document.getElementById("foodNameInput");
-	let checkCustom = document.querySelector("#checkCustomInput");
-	let dueDate = document.querySelector("#dueDate");
-	let foodType = document.querySelector("#foodType");
-	let foodCount = document.querySelector("#foodCount");
-	let foodCompany = document.querySelector("#foodCompany");
-	let searchInput = document.querySelector("#searchInput");
-	let searchSubmit = document.querySelector("#searchSubmit");
-	let tbodyTag = document.querySelector("#tbodyTag");
+  const isCustomChecked = checkCustom.checked;
+  
+  foodNameInput.disabled = !isCustomChecked;
+  foodType.disabled = !isCustomChecked;
+  searchInput.disabled = isCustomChecked;
 
-	//직접 입력하기를 누른 경우의 수
-	//1. 식품명에 아무것도 안 씀 + 직접입력하기 누름
-	if (foodNameInput.value === "" && checkCustom.checked == true) {
+  foodNameInput.placeholder = isCustomChecked ? "식품명을 기입하세요." : "검색결과가 입력됩니다.";
+  searchInput.placeholder = isCustomChecked ? "식품을 검색할 수 없어요." : "식품을 검색하세요.";
+  dueDate.placeholder = isCustomChecked ? "하단에서 유통/소비기한을 입력하세요." : "검색결과가 입력됩니다.";
+  foodType.placeholder = isCustomChecked ? "식품 유형을 입력하세요." : "검색결과가 입력됩니다.";
+  foodCompany.placeholder = isCustomChecked ? "제조사명은 입력할 수 없어요." : "검색결과가 입력됩니다.";
 
-		foodNameInput.disabled = false;
-		foodType.disabled=false;
-		searchInput.disabled = true;
-
-		foodNameInput.placeholder = "식품명을 기입학세요";
-		searchInput.placeholder = "식품을 검색할 수 없어요";
-		dueDate.placeholder = "하단에서 유통/소비기한을 입력하세요";
-		foodCompany.placeholder = "제조사는 입력할 수 없어요";
-		foodType.placeholder = "식품 유형을 입력하세요";
-
-		foodNameInput.style.backgroundColor="white";
-		dueDate.style.backgroundColor = "white";
-		foodType.style.backgroundColor="white";
-		foodCount.style.backgroundColor="white";
-		foodCompany.style.backgroundColor = "white";
-
-	} else if (foodNameInput.value === searchInput.value && checkCustom.checked == true) {
-		//2. 식품명에 '검색한 식품명'이 들어가있음 + 직접 입력하기 누름 (변심 또는 실수)
-		let customFinalCheck = confirm("직접 입력하기로 변경하시겠습니까?\n변경 후에는 현재 검색한 내역과 등록한 값이 초기화됩니다.");
-
-		if (customFinalCheck === true) { //변경 확정
-		
-			//초기화
-			foodNameInput.value = "";
-			dueDate.value = "";
-			foodType.value = "";
-			foodCount.value = "";
-			foodCompany.value = "";
-			tbodyTag.innerText = "";
-			searchInput.value="";
-
-			foodNameInput.disabled = false;
-			foodType.disabled=false;
-			searchInput.disabled = true;
-	
-			foodNameInput.placeholder = "식품명을 기입학세요";
-			searchInput.placeholder = "식품을 검색할 수 없어요";
-			dueDate.placeholder = "하단에서 유통/소비기한을 입력하세요";
-			foodCompany.placeholder = "제조사는 입력할 수 없어요";
-			foodType.placeholder = "식품 유형을 입력하세요";
-	
-			searchInput.style.backgroundColor="beige";
-			foodNameInput.style.backgroundColor="white";
-			dueDate.style.backgroundColor = "white";
-			foodType.style.backgroundColor="white";
-			foodCount.style.backgroundColor="white";
-			foodCompany.style.backgroundColor = "white";
-
-		} else if(foodNameInput.value !== "" && checkCustom.checked == false){
-		
-			let customCheck = confirm("직접 입력을 해제하시겠습니까?\n해제 후에는 현재까지 입력한 내역이 초기화됩니다.");
-		
-			if(customCheck === true){
-				foodNameInput.disabled = true;
-				foodType.disabled=true;
-				searchInput.disabled=false;
-				
-				foodNameInput.placeholder = "검색결과가 입력됩니다.";
-				searchInput.placeholder = "식품을 검색하세요.";
-				dueDate.placeholder = "검색결과가 입력됩니다.";
-				foodCompany.placeholder = "검색결과가 입력됩니다.";
-				foodType.placeholder = "검색결과가 입력됩니다.";
-				
-				foodNameInput.style.backgroundColor="beige";
-				dueDate.style.backgroundColor = "beige";
-				foodType.style.backgroundColor="beige";
-				foodCount.style.backgroundColor="beige";
-				foodCompany.style.backgroundColor = "beige";
-			}
-		
-		} else { //변경 취소
-			checkCustom.checked == false;
-
-			//변경 취소가 되면 모든 것이 원래대로 돌아와야 함.
-			foodNameInput.disabled = true;
-			foodType.disabled=true;
-			searchInput.disabled=false;
-			
-			foodNameInput.placeholder = "검색결과가 입력됩니다.";
-			searchInput.placeholder = "식품을 검색하세요.";
-			dueDate.placeholder = "검색결과가 입력됩니다.";
-			foodCompany.placeholder = "검색결과가 입력됩니다.";
-			foodType.placeholder = "검색결과가 입력됩니다.";
-			
-			foodNameInput.style.backgroundColor="beige";
-			dueDate.style.backgroundColor = "beige";
-			foodType.style.backgroundColor="beige";
-			foodCount.style.backgroundColor="beige";
-			foodCompany.style.backgroundColor = "beige";
-		}
-	}
+  const changeBackground = isCustomChecked ? "#b7aeae" : "white";
+  foodNameInput.style.backgroundColor = changeBackground;
+  dueDate.style.backgroundColor = changeBackground;
+  foodType.style.backgroundColor = changeBackground;
+  foodCount.style.backgroundColor = changeBackground;
+  foodCompany.style.backgroundColor = changeBackground;
+  
 }
 
 

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.hidden {
+	display: none;
+}
+
 .custom-masthead {
 	padding-top: 2rem;
 	padding-bottom: calc(10rem - 4.5rem);
@@ -9,4 +13,52 @@
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-size: cover;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none; /* 기본 스타일 제거 */
+  display: none; /* 화면에 표시되지 않도록 설정 */
+}
+
+.btn { /* + 버튼 */
+	font-family: 'MV Boli';
+	font-size: large;
+	font-weight: 600;
+	color: rgb(255, 255, 255);
+	border: 1px solid rgb(255, 255, 255);
+}
+
+#customAlert {
+	/* 알림창, 컨펌창 띄울 때 뒷 배경 */
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 5;
+    transition: opacity 0.3s ease-out;
+}
+
+.alert-content {
+  /* 하얀 알림창 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  width: 40%;
+  height: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  word-break: keep-all;
+  white-space: pre-wrap;
+  z-index: 10;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
 }

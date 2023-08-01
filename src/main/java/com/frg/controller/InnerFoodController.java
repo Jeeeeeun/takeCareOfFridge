@@ -1,9 +1,13 @@
 package com.frg.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
+import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
@@ -65,21 +70,21 @@ public class InnerFoodController {
 		return "/frg/innerAdd";
 	}
 
-	//redirect : controller간에 이동할 때
-	//redirect 없으면 , 바로 jsp (view)로 이동
+	// redirect : controller간에 이동할 때
+	// redirect 없으면 , 바로 jsp (view)로 이동
 
 	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
 	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
-	    //RequestBody를 선언해서 json데이터를 객체로 매핑한다. 
+		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
-	    dto.setUser_id(user_id);
-	    inService.registerInnerFood(dto);
-	    
-	    JsonObject json = new JsonObject();
-	    json.addProperty("success", true);
-	    
-	    return new Gson().toJson(json);
+		dto.setUser_id(user_id);
+		inService.registerInnerFood(dto);
+
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+
+		return new Gson().toJson(json);
 	}
 
 	// foodApi 조회하기
@@ -100,9 +105,7 @@ public class InnerFoodController {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);
 		dto.setFrg_name(frgName);
-		System.out.println(frgName);
-
-		// 서비스를 통해 데이터를 받아옴
+		
 		if (frgName.equals("all")) {
 			List<InnerDTO> dataList = inService.selectAllInnerView(dto);
 			model.addAttribute("dataList", dataList);
@@ -110,7 +113,7 @@ public class InnerFoodController {
 			List<InnerDTO> dataList = inService.selectPartInnerView(dto);
 			model.addAttribute("dataList", dataList);
 		}
-
+		 
 		UserDTO userDto = new UserDTO();
 		userDto.setUser_id(user_id);
 		List<String> frgNames = inService.selectFrgName(userDto);
@@ -123,6 +126,73 @@ public class InnerFoodController {
 		model.addAttribute("trafficLight", trafficLight);
 
 		return "/frg/innerCtrl"; // JSP 페이지로 랜더링
+	}
+
+	@PostMapping(value = "/innerCtrl/getInnerData")
+	@ResponseBody
+	public Map<String, Object> getInnerData(HttpServletRequest request, HttpSession session,
+	        @RequestParam("frg_index") int frg_index, @RequestParam("in_name") String in_name) throws Exception {
+
+	    String user_id = (String) session.getAttribute("SESS_ID");
+	    InnerDTO dto = new InnerDTO();
+	    dto.setUser_id(user_id);
+	    dto.setIn_name(in_name);
+	    dto.setFrg_index(frg_index);
+
+	    FrgListDTO frgDto = new FrgListDTO();
+	    frgDto.setUser_id(user_id);
+	    frgDto.setFrg_index(frg_index);
+	    String FrgName = inService.selectFrgNameAll(frgDto);
+
+	    List<InnerDTO> innerData = inService.selectInnerData(dto);
+
+	    Map<String, Object> resultMap = new HashMap<>();
+	    resultMap.put("FrgName", FrgName);
+	    resultMap.put("innerData", innerData);
+	    return resultMap;
+	}
+
+	@PostMapping(value = "/innerCtrl/updateInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String updateInnerData(HttpSession session, @RequestBody InnerDTO dto) {
+
+		String user_id = (String) session.getAttribute("SESS_ID");
+		dto.setUser_id(user_id);
+		inService.updateInnerFood(dto);
+
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+
+		return new Gson().toJson(json);
+	}
+
+	@PostMapping(value = "/innerCtrl/deleteInnerData", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String deleteInnerData(HttpSession session, @RequestParam("frgName") String frgName,
+			@RequestParam("in_name") String in_name) throws Exception {
+
+		String user_id = (String) session.getAttribute("SESS_ID");
+		InnerDTO dto = new InnerDTO();
+		dto.setUser_id(user_id);
+		dto.setIn_name(in_name);
+		dto.setFrg_name(frgName);
+		inService.deleteInnerFood(dto);
+
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+
+		return new Gson().toJson(json);
+	}
+
+	@GetMapping(value = "/innerCtrl/trafficStandard")
+	@ResponseBody
+	public List<TrafficDTO> trafficStandard(HttpSession session, TrafficDTO trfDto) {
+		String user_id = (String) session.getAttribute("SESS_ID");
+
+		trfDto.setUser_id(user_id);
+		List<TrafficDTO> trafficStandard = trfService.getTrafficStandard(trfDto);
+
+		return trafficStandard;
 	}
 
 }

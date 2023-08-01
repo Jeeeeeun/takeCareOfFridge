@@ -59,7 +59,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/comm/board">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">
 									Community
 								</a>
 							</li>

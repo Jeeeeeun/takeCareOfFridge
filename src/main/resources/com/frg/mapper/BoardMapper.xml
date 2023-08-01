@@ -8,4 +8,31 @@
 		FROM board_view
 		ORDER BY board_index DESC
 	</select>
+	
+	<select id="selectChangedLike" resultType="int">
+		SELECT board_like
+			AS updated_like
+		FROM board
+		WHERE board_index = #{board_index}
+	</select>
+	
+	<select id="selectPostsByWord" resultType="com.frg.domain.BoardDTO">
+	    SELECT *
+	    FROM board_view bv
+	    WHERE bv.board_index IN (
+	        SELECT board_index
+	        FROM board
+	        WHERE board_title LIKE '%' || #{search} || '%' OR board_content LIKE '%' || #{search} || '%'
+	    )
+	    ORDER BY bv.board_index DESC
+	</select>
+	
+	<select id="selectPostsByDate" resultType="com.frg.domain.BoardDTO">
+	    SELECT *
+	    FROM board_view
+	    WHERE board_regDate BETWEEN
+	        TO_DATE(TO_CHAR(#{fromDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD'), 'YYYY-MM-DD') AND
+	        TO_DATE(TO_CHAR(#{toDate, jdbcType=DATE, javaType=java.time.LocalDate}, 'YYYY-MM-DD'), 'YYYY-MM-DD') + INTERVAL '1' DAY
+	    ORDER BY board_index DESC
+	</select>
 </mapper>
