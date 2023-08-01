@@ -49,4 +49,13 @@ public class MyPageMapperTest {
 		
 		mapper.updateMyInfo(dto);
 	}
+	
+	@Test @Ignore
+	public void testDelete() {
+		String id = "test1";
+		
+		int result = mapper.deleteUser(id);
+		
+		assertEquals(1, result);
+	}
 }

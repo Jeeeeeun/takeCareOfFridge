@@ -10,11 +10,19 @@
 		WHERE user_id = #{ user_id }
 	</select>
 	<!-- 수정을 위한 쿼리문 update문 (전체) 이름 || 비밀번호 || 이메일 -->
-	<update id="updateMyInfo">
+	<update id="updateMyInfo" parameterType="String">
 		UPDATE Users
 		SET user_name = #{ user_name },
     	user_pw = #{ user_pw },
     	user_email = #{ user_email }
-		WHERE user_id = #{ user_id}
+		WHERE user_id = #{ user_id }
 	</update>
+	  	<!-- 마이페이지 이메일 중복 확인 관련 쿼리 -->
+  	<select id="emailExist" resultType="int" parameterType="String">
+  		select count(*) from users where user_email = #{ email }
+  	</select>
+  	
+  	<delete id="deleteUser" parameterType="String">
+  		DELETE FROM Users WHERE user_id = #{ user_id }
+  	</delete>
 </mapper>

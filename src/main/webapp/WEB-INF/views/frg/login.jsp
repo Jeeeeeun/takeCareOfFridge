@@ -35,7 +35,7 @@
 	if (errorMsg !== 'null') {
 		alert(errorMsg);
 	}
-	showMsg ('${msg}'); // 로그인 안하고 주소로 접근했을때 뜨는 에러메세지
+	alert('${msg}'); // 로그인 안하고 주소로 접근했을때 뜨는 에러메세지
 </script>
 </head>
 <body id="page-top">

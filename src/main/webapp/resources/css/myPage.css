@@ -323,6 +323,23 @@
   height: 60%;
 }
 
+.userDeleteBtn {
+  /* 내 정보 탈퇴 버튼 */
+  background: #ffffff;
+  position: absolute;
+  bottom: 4%;
+  border: none;
+  -moz-border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  color: #604c3f;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; 
+  background: transparent;
+}
+
 .modifyMyInfoBtn {
   /* 내 정보 수정 버튼 */
   background: #ffffff;
@@ -340,6 +357,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 /* 가입 정보 확인 스타일 끝 */
 

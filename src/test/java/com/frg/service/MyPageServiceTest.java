@@ -51,6 +51,7 @@ public class MyPageServiceTest {
 		user.setUser_id("test1");
 		user.setUser_name("test1");
 		user.setUser_pw("test123!");
+		user.setChange_email(true);
 		user.setUser_email("test1@com");
 		
 		boolean registerd = service.updateMyInfo(user);
@@ -58,5 +59,14 @@ public class MyPageServiceTest {
 		log.info("servie.policyPwd(user.getUser_비밀번호())" + sguService.policyPwd(user.getUser_pw()));
 		log.info("service.업데이트(user)" + service.updateMyInfo(user));
 		assertTrue("실패", registerd);
+	}
+	
+	@Test @Ignore
+	public void testDeleteUser() {
+		String id = "test3";
+		
+		boolean result = service.deleteUser(id);
+		
+		assertTrue( "실패" , result );
 	}
 }

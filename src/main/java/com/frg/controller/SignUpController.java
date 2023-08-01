@@ -50,7 +50,7 @@ public class SignUpController {
 		return ResponseEntity.ok(isExId);
 	}
 	
-	@GetMapping(value = "/checkEmail")
+	@GetMapping(value = "/checkSignUpEmail")
 	@ResponseBody
 	public ResponseEntity<?> checkEmail(@RequestParam("email") String email) {
 		

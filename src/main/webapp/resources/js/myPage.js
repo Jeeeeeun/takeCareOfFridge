@@ -66,42 +66,8 @@ window.onload = function () {
   warningValue = trfStandard[0].warning_standard;
 
   trfStandardShow(dangerousValue, warningValue);
+
 };
-/*-----------------------------------------------------------------------------------------------*/
-//마이페이지 현재 로그인 중인 사용자 정보
-function getUserInfo(){
-    $.ajax({
-        url: `${contextPath}/frg/userInfo`,
-        method: "GET",
-        dataType: "json",
-        success: function(data){
-                $('#name').val(data.user_name);
-                $('#id').val(data.user_id);
-                $('#email').val(data.user_email);
-                $('#pw').val(data.user_pw);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error: ", error);
-            alertMsg = "사용자 정보를 불러오는데 실패했습니다."; 
-            showAlert(alertMsg); // 오류가 발생하면 메시지 표시
-        }
-    });
-}
-//사용자 정보 가져온 함수를 불러와서 페이지가 생성되면서 해당 정보를 가져옴
-$(document).ready(function() {
-    getUserInfo();
-});
-/*-----------------------------------------------------------------------------------------------*/
-// SESS_ID 데려오려는 함수
-function getUserId() {
-  return fetch(contextPath + "/frg/getUserId").then(function (response) {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error("사용자 ID를 가져올 수 없었습니다.");
-    }
-  });
-}
 
 // 알림창 띄우기
 function showAlert(alertMsg) {
@@ -837,76 +803,4 @@ function frgDiscardBtnClicked() {
 
 function removeFrgFromList(frgName) {
   frgListJson = frgListJson.filter((frgListJson) => frgListJson.frg_name !== frgName);
-}
-/*-----------------------------------------------------------------------------------------------*/
-//세션 만료 관련 일정 시간 간격으로 세션 상태 확인과 세트
-function checkSession(){
-    $.ajax({
-        url: `${contextPath}/frg/sessionExpire`,
-        method: "GET",
-        dataType: "json",
-        success: function(data){
-            if(data.sessionExpired){
-                alertMsg = "다시 로그인 해주세요.";
-                showAlert(alertMsg);
-                window.location.href = `${contextPath}/frg/login`;
-            }
-        },
-        error: function(xhr, status, error){
-        	alertMsg = "다시 로그인 해주세요.";
-            showAlert(alertMsg);
-            window.location.href = `${contextPath}/frg/login`;
-            console.error("Error: ", error);
-        }
-    });
-}
-//일정 시간 간격으로 세션 상태 확인 (세션 만료 관련 ajax와 세트)
-setInterval(checkSession, 1000 * 60 * 60 * 24 + 1000); //24:00:01 마다 세션 검토
-/*-----------------------------------------------------------------------------------------------*/
-//마이페이지 수정하기 버튼 토글
-function disabledToggle(elem){
-    elem.disabled = !elem.disabled;
-}
-function btnToggle() {
-    const inputs = document.getElementsByTagName("input");
-    const btn = document.querySelector('.modifyMyInfoBtn');
-    if(btn.textContent === '수정하기'){
-        for(let input of inputs){
-            if(input.id === "id")continue; //아이디 부분만 건너뛰기
-            disabledToggle(input);
-        }
-        btn.textContent = '완료';
-    } else {
-        for(let input of inputs){
-            if(input.id === "id")continue; //아이디 부분만 건너뛰기
-            disabledToggle(input);
-        }
-        btn.textContent = '수정하기';
-        upddateUser();
-    }
-}
-/*-----------------------------------------------------------------------------------------------*/
-//마이페이지 수정사항 업데이트
-function upddateUser(){
-    const userDate = {
-        user_name: $('#name').val(),
-        user_email: $('#email').val(),
-        user_pw: $('#pw').val()
-    }
-    $.ajax({
-        url: `${contextPath}/frg/updateInfo`,
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(userDate),
-        success: function(response){
-            if(response){
-                alertMsg = "사용자 정보 업데이트 성공했습니다.";
-                showAlert(alertMsg);
-            }
-        },
-        error: function(error){
-            alertMsg = "오류가 발생했습니다.";
-            showAlert(alertMsg);
-        }
-    });
 }
