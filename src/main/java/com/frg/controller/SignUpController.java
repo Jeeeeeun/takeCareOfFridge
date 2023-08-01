@@ -50,6 +50,15 @@ public class SignUpController {
 		return ResponseEntity.ok(isExId);
 	}
 	
+	@GetMapping(value = "/checkSignUpEmail")
+	@ResponseBody
+	public ResponseEntity<?> checkEmail(@RequestParam("email") String email) {
+		
+		boolean isExEmail = service.isExistEmail(email);
+		
+		return ResponseEntity.ok(isExEmail);
+	}
+	
 	@GetMapping(value = "/signUp")
 	public String getLogin() {
 		return "/frg/signUp";

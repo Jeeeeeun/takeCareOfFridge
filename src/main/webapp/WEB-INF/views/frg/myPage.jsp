@@ -37,10 +37,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath }/resources/css/myPage.css">
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"
-     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
-     crossorigin="anonymous">
-</script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	window.contextPath = '${pageContext.servletContext.contextPath}';
 	let frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
@@ -48,6 +45,8 @@
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/myPage.js"></script>
+	<script
+	src="${pageContext.servletContext.contextPath}/resources/js/myPageInfo.js"></script>
 </head>
 <body>
 	<header class="masthead">
@@ -99,29 +98,39 @@
 				<div class="myNameBox">
 					<p>Name</p>
 					<div class="nameBoxCenterLine"></div>
-					<input type="text" id="name" disabled />
+					<input type="text" class="userData" id="name" disabled />
 				</div>
 				<div class="myIDBox">
 					<p>ID</p>
 					<div class="idBoxCenterLine"></div>
-					<input type="text" id="id" disabled />
+					<input type="text" class="userData" id="id" disabled />
 				</div>
 				<div class="myEmailBox">
 					<p>Email</p>
 					<div class="emailBoxCenterLine"></div>
-					<input type="text" id="email" disabled />
+					<input type="email" class="userData" id="email" disabled />
+					<button class="duplicateBtn" id="checkEmail" type="button" 
+					style="margin-bottom: -7%; margin-left: -11%; display: none;">중복확인</button>
+				</div>
+				<div class="emailErrorMsg hidden" id="emailErrorMsg">
+							<span></span>
 				</div>
 				<div class="myPwBox">
 					<p>PW</p>
 					<div class="pwBoxCenterLine"></div>
-					<input type="password" id="pw" disabled />
+					<input type="password" class="userData" id="pw" title="암호화된 비밀번호" disabled />
 				</div>
 				<div class="myPwCheckBox">
 					<p>PW Check</p>
 					<div class="pwCheckBoxCenterLine"></div>
-					<input type="password" id="pw Check" disabled />
+					<input type="password" class="userData" id="pwCheck" disabled />
+					<div id="pwdAlert"
+							style="margin-left: -85px; margin-top: 20px">
+							<span></span>
+					</div>
 				</div>
-				<button class="modifyMyInfoBtn">수정하기</button>
+				<button class="modifyMyInfoBtn" id="submitButton">수정하기</button>
+				<button class="userDeleteBtn" id="deleteBtn">회원탈퇴</button>
 			</div>
 		</div>
 		<div class="centerline"></div>

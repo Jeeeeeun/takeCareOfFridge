@@ -80,7 +80,11 @@
 						</div>
 						<input type="email" class="inputBox box3" id="user_email"
 							name="user_email" placeholder="EMAIL" required
-							style="margin-bottom: 20px;"> <br> 
+							style="margin-bottom: 20px; margin-left:84px;">
+						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button>
+						<div class="emailErrorMsg hidden" id="emailErrorMsg">
+							<span></span>
+						</div>
 						<input
 							type="password" class="inputBox box4" id="user_pw" name="user_pw"
 							placeholder="PW" required style="margin-bottom: 20px;"> <br>

@@ -222,8 +222,8 @@
   align-items: center;
 }
 
-.myPageContentBox1 input:disabled {
-  border: 0.5px dashed #eee;
+.myPageContentBox1 input{
+  border: <!--0.5px dashed #eee;--> none;
   /* border 스타일 넣은 이유: 이 위치에 input 요소가 있음을 보여주기 위해서 임시로 만듦.
 	실제로 로직이랑 연결하고 나서는 border: none;으로 바꾸기 */
   background-color: transparent;
@@ -231,6 +231,23 @@
   left: 35%;
   width: 60%;
   height: 60%;
+}
+
+.userDeleteBtn {
+  /* 내 정보 탈퇴 버튼 */
+  background: #ffffff;
+  position: absolute;
+  bottom: 4%;
+  border: none;
+  -moz-border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  color: #604c3f;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; 
+  background: transparent;
 }
 
 .modifyMyInfoBtn {
@@ -250,6 +267,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 /* 가입 정보 확인 스타일 끝 */
 

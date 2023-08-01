@@ -33,9 +33,12 @@ window.onload = function() { // 함수를 사용하여 페이지 로드 후 내�
 $(document).ready(function() {
     const msgDiv = $("#idErrorMsg");
     const msgSpan = msgDiv.find("span");
+    const msgEmailDiv = $("#emailErrorMsg");
+    const msgEmailSpan = msgEmailDiv.find("span");
     const pwdPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     
     let isIdChecked = null;
+    let isEmailChecked = null;
 	
     //아이디 중복확인 관련 JS
     $("#checkId").click(function() { //checkId 요소를 클릭하면 다음 함수가 실행
@@ -83,8 +86,58 @@ $(document).ready(function() {
         });
     });
 
+    //이메일 중복확인 관련 JS
+    $("#checkEmail").click(function() { //checkId 요소를 클릭하면 다음 함수가 실행
+        let email = $("#user_email").val();
+		
+		
+		// 이메일가 입력되지 않았을 경우 에러 메세지 표시
+        if (email.length === 0) { 
+            msgEmailSpan.text("※ 이메일을 입력해 주세요.");
+            msgEmailDiv.show();
+            msgEmailDiv.css("color","red");
+            msgEmailDiv.removeClass("hidden");
+           
+            $("#user_email").css("margin-bottom", "0px");
+            
+            return;
+        }
+        //ajax 입력값이 변경되면 서버에 ajax요청 전송
+        $.ajax({
+            url: "checkSignUpEmail" ,
+            type: "GET" ,
+            dataType: "json",
+            data: {email:email},
+            success: function (result){
+                if(result){
+                    msgEmailSpan.text("※ 이미 사용 중인 이메일입니다.");
+                    msgEmailDiv.show();
+                    msgEmailDiv.css("color","red");
+                    msgEmailDiv.removeClass("hidden");
+           
+                    $("#user_email").css("margin-bottom", "0px");
+                    
+                    isEmailChecked = false;
+                } else {
+                    msgEmailSpan.text("※ 사용 가능한 이메일입니다.");
+                    msgEmailDiv.show();
+                    msgEmailDiv.css("color","green");
+                    msgEmailDiv.removeClass("hidden");
+
+                    $("#user_email").css("margin-bottom", "0px");
+                    
+                    isEmailChecked = true;
+                }
+            },
+        });
+    });
+
     $("#user_id").on("change" , function(){
         isIdChecked = null;
+    });
+
+    $("#user_email").on("change" , function(){
+        isEmailChecked = null;
     });
 
     $("#submitButton").click(function(e){
@@ -96,6 +149,9 @@ $(document).ready(function() {
         } else if(!pwdPattern.test(pwd)){
             e.preventDefault();
             alert("비밀번호는 최소 8자리 이상이며, 최소 하나의 대소문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.");
+        } else if(isEmailChecked === null || isEmailChecked !== true){
+            e.preventDefault();
+            alert("이메일 중복확인 해주세요.");
         }
     });
 });

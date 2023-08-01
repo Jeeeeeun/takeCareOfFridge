@@ -158,3 +158,4 @@ public class InnerFoodMapperTest {
 		mapper.deleteFood(dto);
 	}
 }
+

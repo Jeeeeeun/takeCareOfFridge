@@ -12,4 +12,5 @@ public class UserDTO {
 	private String user_id;
 	private String user_pw;
 	private String user_email;
+	private boolean change_email; // 이메일 변경 여부
 }
