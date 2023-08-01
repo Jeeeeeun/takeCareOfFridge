@@ -11,13 +11,6 @@
 	background-size: cover;
 }
 
-.settingBox {
-	margin-top: 3%;
-	grid-template-columns: 1fr 3fr;
-	grid-template-rows: 1fr 1.5fr;
-	font-family: 'MV Boli';
-}
-
 .setting-titleBox {
 	display: flex;
 	align-items: center;
@@ -174,7 +167,7 @@ input[type="radio"]:checked {
 	height: 6vh;
 }
 
-.btn { /* 개별적인 + 버튼, 완료 버튼 */
+.button { /* 개별적인 + 버튼, 완료 버튼 */
 	background: rgba(255, 255, 255, 0.3);
 	position: relative;
 	display: flex;
@@ -185,7 +178,6 @@ input[type="radio"]:checked {
 	border-radius: 1rem;
 	-moz-border-radius: 1rem;
 	-webkit-border-radius: 1rem;
-	font-family: 'MV Boli';
 	font-size: large;
 	font-weight: 600;
 	color: rgb(255, 255, 255);
