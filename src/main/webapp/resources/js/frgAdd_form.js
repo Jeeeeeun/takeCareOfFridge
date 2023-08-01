@@ -67,8 +67,7 @@ function plusBtnClicked() {
 function createNewSettingBox(idNum) {
 	const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
 	const settingBoxElement = document.createElement("div");
-	settingBoxElement.innerHTML = `
-		<hr class="horizontalLine" style="border-style: dashed">					
+	settingBoxElement.innerHTML = `				
 		<div class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
 			<div class="w-100 mt-3p mb-2 text-end">
 				<div class="w-100 text-white">
@@ -170,6 +169,16 @@ function createNewSettingBox(idNum) {
 		radioClicked(event, singleLabel, idNum);
 	};
 
+	// settingBox별 가로 구분선
+	const horizontalLine = document.createElement('hr');
+	horizontalLine.className = 'horizontalLine';
+	horizontalLine.style.borderStyle = 'dashed';
+
+	// settingBox별 삭제(trashIcon) 아이콘
+	const trashIcon = settingBoxElement.querySelector(`#trashIcon_${idNum}`);
+	trashIcon.addEventListener("click", () => removeSettingBoxById(idNum));
+
+	settingBoxWrapper.appendChild(horizontalLine);
 	settingBoxWrapper.appendChild(settingBoxElement);
 }
 
@@ -439,7 +448,7 @@ function getEmptySettingBox(numberOfSettingBoxes) {
     return emptySettingBoxes;
 }
 
-// 빈 form은 삭제하자.
+// submit 전 빈 form 자동 삭제하기
 function removeEmptySettingBoxes(emptySettingBoxes, settingBoxes) {
 	return new Promise((resolve) => {
 		emptySettingBoxes.forEach((indexOfEmptySettingBox, idx, array) => {
@@ -452,6 +461,21 @@ function removeEmptySettingBoxes(emptySettingBoxes, settingBoxes) {
 			}
 		});
 	});
+}
+
+// settingBox 별로 지우기
+function removeSettingBoxById(idNum) {
+	const settingBoxWrapper = document.querySelector('.settingBoxWrapper');
+	const trashIcon = document.querySelector(`#trashIcon_${idNum}`);
+	const settingBox = trashIcon.closest('.settingBox');
+	const horizontalLine = settingBox.previousElementSibling;
+
+	if (horizontalLine && horizontalLine.tagName === "HR" && settingBoxWrapper.contains(horizontalLine)) {
+		settingBoxWrapper.removeChild(horizontalLine);
+	}
+	if (settingBoxWrapper.contains(settingBox)) {
+		settingBoxWrapper.removeChild(settingBox);
+	}
 }
 
 // SESS_ID 데려오려는 함수

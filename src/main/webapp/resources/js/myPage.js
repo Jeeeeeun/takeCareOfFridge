@@ -160,9 +160,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.setAttribute("checked", ""); // hRadio.checked = true;도 같은 효과를 내지만, 실제로 라디오버튼 요소에 checked 속성을 추가해주진 못함.
-      vRadio.removeAttribute("checked");
-      sRadio.removeAttribute("checked");
+      hRadio.checked = true;
+      vRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -173,9 +173,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.setAttribute("checked", "");
-      sRadio.removeAttribute("checked");
+      vRadio.checked = true;
+      hRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -186,9 +186,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.removeAttribute("checked");
-      sRadio.setAttribute("checked", "");
+      sRadio.checked = true;
+      vRadio.checked = false;
+      hRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.display = "none";
@@ -228,6 +228,13 @@ function updateFrg(i) {
       bCoolBtn.className = "frgSelected";
       break;
   }
+
+  console.log("냉장고 index: " + frgIndex.value);
+  console.log("냉장고 이름: " + frgName[0].textContent);
+  console.log("냉장고 모양: " + frgListJson[i].frg_shape);
+  console.log("냉장고 A section 보관 상태: " + frgListJson[i].frg_Astate);
+  console.log("냉장고 B section 보관 상태: " + frgListJson[i].frg_Bstate);
+
 }
 
 function prevFrg() {
