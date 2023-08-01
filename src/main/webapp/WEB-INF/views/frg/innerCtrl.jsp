@@ -233,7 +233,6 @@
 			
 			//수정버튼
 			function updateBtnClicked() {
-				
 				// 읽기 전용으로 설정되지 않은 입력 필드들을 읽기 전용으로 변경
 				document.getElementById('detailInfoItemBox_frg_name').disabled = false;
 				document.getElementById('detailInfoItemBox_in_name').disabled= false;
@@ -258,7 +257,6 @@
 			// 수정 완료 버튼
 			// 수정 완료 버튼 클릭 이벤트 핸들러
 			function updateEndBtnClicked() {
-				
 				// 읽기 전용으로 변경된 입력 필드들을 다시 수정 가능으로 변경
 				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
@@ -364,6 +362,8 @@
 					}
 				});
 				
+				originalData = null;
+				
 				// 수정 완료 버튼 숨기고, 수정 버튼 보이기
 				document.getElementById('beforeUpdateBtns').classList.remove('hidden');
 				document.getElementById('beforeUpdateBtns').classList.add('d-flex');
@@ -372,46 +372,55 @@
 			}
 			
 			let selectIndex = null;
-			let selectedData = null;
+			let originalData = null;
+			
+			function convertDateFormat(in_expireDate) {
+				
+				  const months = {
+					Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
+					Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
+				  };
+		
+				  // 주어진 날짜 문자열을 공백(' ')을 기준으로 나누어 배열로 만드는 역할
+				  const parts = in_expireDate.split(' ');
+				  // parts를 적용한 출력 예시 : ["Sun", "Jul", "02", "09:00:00", "KST", "2023"]
+		
+				  const year = parts[5];
+				  const month = months[parts[1]];
+				  const day = parts[2];
+				  
+				  // 원하는 형태로 만들어줌
+				  const parsedExpireDate = year+"-"+month+"-"+day;
+		
+				  return parsedExpireDate;
+			}
 			
 			function handleRowClick(in_name, in_expireDate, d_DAY, in_state, frg_index) {
-				
+				  
 				  document.getElementById('updateBtn').disabled = false;
 				  document.getElementById('deleteBtn').disabled = false;
-				  
-				  selectedData = {
-							name: in_name,
-							expireDate: in_expireDate,
-							dDay: d_DAY,
-							state: in_state
-						};
-			
 				
+				// 수정 완료 버튼 숨기고, 수정 버튼 보이기
+					document.getElementById('beforeUpdateBtns').classList.remove('hidden');
+					document.getElementById('beforeUpdateBtns').classList.add('d-flex');
+					document.getElementById('afterUpdateBtns').classList.remove('d-flex');
+					document.getElementById('afterUpdateBtns').classList.add('hidden');
+
+				    // 2. 모든 항목을 disabled 상태로 변경
+				    document.getElementById('detailInfoItemBox_frg_name').disabled = true;
+				    document.getElementById('detailInfoItemBox_in_name').disabled = true;
+				    document.getElementById('detailInfoItemBox_in_company').disabled = true;
+				    document.getElementById('detailInfoItemBox_in_expireDate').disabled = true;
+				    document.getElementById('detailInfoItemBox_d_DAY').disabled = true;
+				    document.getElementById('detailInfoItemBox_in_count').disabled = true;
+				    document.getElementById('detailInfoItemBox_in_type').disabled = true;
+				    document.getElementById('coolRadio').disabled = true;
+				    document.getElementById('frozenRadio').disabled = true;
+				  
 				document.getElementById('detailInfoItemBox_in_name').value = in_name;
 				document.getElementById('detailInfoItemBox_d_DAY').value = d_DAY;
 				
-				function convertDateFormat(in_expireDate) {
-					
-					  const months = {
-						Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
-						Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
-					  };
-			
-					  // 주어진 날짜 문자열을 공백(' ')을 기준으로 나누어 배열로 만드는 역할
-					  const parts = in_expireDate.split(' ');
-					  // parts를 적용한 출력 예시 : ["Sun", "Jul", "02", "09:00:00", "KST", "2023"]
-			
-					  const year = parts[5];
-					  const month = months[parts[1]];
-					  const day = parts[2];
-					  
-					  // 원하는 형태로 만들어줌
-					  const parsedExpireDate = year+"-"+month+"-"+day;
-			
-					  return parsedExpireDate;
-				}
-				
-				let testExpireDate = convertDateFormat(in_expireDate);
+				const testExpireDate = convertDateFormat(in_expireDate);
 				document.getElementById('detailInfoItemBox_in_expireDate').value=testExpireDate;
 				
 				var coolRadio = document.getElementById('coolRadio');
@@ -447,13 +456,23 @@
 				        const frg_name = responseData.FrgName;
 				        selectFrgName = frg_name; // 여기에서 FrgName 값을 받아옴
 				        document.getElementById('detailInfoItemBox_frg_name').value = selectFrgName;
+				        
+				        originalData = {
+								frg_name: frg_name,
+					            in_name: in_name,
+					            in_state: in_state,
+					            in_company: in_company,
+					            in_expireDate: in_expireDate,
+					            d_DAY: d_DAY,
+					            in_count: in_count,
+					            in_type: in_type
+					        };
 				    },
 					error: function() {
 						// 에러 발생 시의 코드
 						console.error('Failed to get food info from the server.');
 					}
 				});
-			
 				
 				return false;
 			}
@@ -503,7 +522,6 @@
 			}
 			
 			function cancelBtnClicked() {
-				
 				document.getElementById('detailInfoItemBox_frg_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_name').disabled = true;
 				document.getElementById('detailInfoItemBox_in_company').disabled = true;
@@ -518,23 +536,29 @@
 				document.getElementById('afterUpdateBtns').classList.remove('d-flex');
 				document.getElementById('beforeUpdateBtns').classList.remove('hidden');
 				document.getElementById('afterUpdateBtns').classList.add('hidden');
-			
-				// 선택한 데이터를 복원
-				if (selectedData) {
-					document.getElementById('detailInfoItemBox_in_name').value = selectedData.name;
-					document.getElementById('detailInfoItemBox_d_DAY').value = selectedData.dDay;
-			
-					var coolRadio = document.getElementById('coolRadio');
-					var frozenRadio = document.getElementById('frozenRadio');
-			
-					if (selectedData.state === "cool") {
-						coolRadio.checked = true;
-						frozenRadio.checked = false;
-					} else if (selectedData.state === "frozen") {
-						coolRadio.checked = false;
-						frozenRadio.checked = true;
-					}
-				}
+				
+				// 원래 데이터로 복원하는 작업
+			    if (originalData !== null) {
+			    	document.getElementById('detailInfoItemBox_frg_name').value = originalData.frg_name; 
+			        document.getElementById('detailInfoItemBox_in_name').value = originalData.in_name;
+			        document.getElementById('detailInfoItemBox_in_company').value = originalData.in_company;
+			        // 날짜 변환 함수를 활용하여 "yyyy-MM-dd" 형식으로 변환
+			        const formattedDate = convertDateFormat(originalData.in_expireDate);
+			        document.getElementById('detailInfoItemBox_in_expireDate').value = formattedDate;
+					// Handling 보관상태 (Storage State)
+			        if (originalData.in_state) {
+			            if (originalData.in_state === "cool") {
+			                document.getElementById('coolRadio').checked = true;
+			            } else if (originalData.in_state === "frozen") {
+			                document.getElementById('frozenRadio').checked = true;
+			            }
+			        }
+			        document.getElementById('detailInfoItemBox_d_DAY').value = originalData.d_DAY;
+			        document.getElementById('detailInfoItemBox_in_count').value = originalData.in_count;
+			        document.getElementById('detailInfoItemBox_in_type').value = originalData.in_type;
+			    }
+				
+				originalData = null;
 			}
 			</script>
 
