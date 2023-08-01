@@ -2,7 +2,7 @@
 let idCounter = 0;
 
 // 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn;
+let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn, settingBoxElement, trashIcon;
 
 // 페이지 로딩되자마자, DOM 객체 캐치
 window.onload = function() {
@@ -12,6 +12,13 @@ window.onload = function() {
 	confirmWindow = document.querySelector("#customConfirm");
 	confirmYesBtn = document.querySelector("#confirmYesBtn");
 	confirmNoBtn = document.querySelector("#confirmNoBtn");
+
+	const firstSettingBox = document.querySelector('.settingBox');
+	const firstFormTrashIcon = firstSettingBox.querySelector('#trashIcon_0');
+	firstFormTrashIcon.addEventListener("click", () => {
+		removeSettingBoxById(0);
+	})
+
 }
 
 // 알림창 띄우기
@@ -67,8 +74,9 @@ function plusBtnClicked() {
 function createNewSettingBox(idNum) {
 	const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
 	const settingBoxElement = document.createElement("div");
-	settingBoxElement.innerHTML = `				
-		<div class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
+	settingBoxElement.innerHTML = `
+		<hr id="horizontalLine_${idNum}" class="horizontalLine" style="border-style:dashed;"/>
+		<div id="settingBox_${idNum}" class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
 			<div class="w-100 mt-3p mb-2 text-end">
 				<div class="w-100 text-white">
 					<i id="trashIcon_${idNum}" class="fa-solid fa-trash"></i>
@@ -169,16 +177,10 @@ function createNewSettingBox(idNum) {
 		radioClicked(event, singleLabel, idNum);
 	};
 
-	// settingBox별 가로 구분선
-	const horizontalLine = document.createElement('hr');
-	horizontalLine.className = 'horizontalLine';
-	horizontalLine.style.borderStyle = 'dashed';
-
 	// settingBox별 삭제(trashIcon) 아이콘
-	const trashIcon = settingBoxElement.querySelector(`#trashIcon_${idNum}`);
+	trashIcon = settingBoxElement.querySelector(`#trashIcon_${idNum}`);
 	trashIcon.addEventListener("click", () => removeSettingBoxById(idNum));
 
-	settingBoxWrapper.appendChild(horizontalLine);
 	settingBoxWrapper.appendChild(settingBoxElement);
 }
 
@@ -329,9 +331,12 @@ function checkAtLeastOneRadioBtnSelected(idNum) {
 	const hRadio = document.querySelector(`input[id="horizon_${idNum}"]`);
 	const vRadio = document.querySelector(`input[id="vertical_${idNum}"]`);
 	const sRadio = document.querySelector(`input[id="single_${idNum}"]`);
-
-	if (!hRadio.checked && !vRadio.checked && !sRadio.checked) {
-		return hRadio; // 라디오 버튼이 비어있으면 첫 번째 빈 라디오 버튼 요소를 반환
+	
+	// hRadio, vRadio, sRadio 검사를 수행하기 전에 이들이 존재하는지 확인
+	if (hRadio && vRadio && sRadio) {
+		if (!hRadio.checked && !vRadio.checked && !sRadio.checked) {
+			return hRadio; // 라디오 버튼이 비어있으면 첫 번째 빈 라디오 버튼 요소를 반환
+		}
 	}
 	return null; // 비어있는 라디오 버튼이 없으면 null 반환
 }
@@ -354,11 +359,12 @@ function checkAllGroupsOfRadios(numberOfSettingBoxes) {
 function checkFrgNameFilledIn(idNum) {
 	const fridgeName = document.querySelector(`input[id="frg_name_${idNum}"]`);
 
-	if(fridgeName.value.trim() === '') {
-		return fridgeName; // 빈 곳이 있으면 첫 번째 비어있는 frgName 요소 반환
-	} else {
-		return null; // 빈 곳 없으면 null 반환
+	if (fridgeName) {
+		if(fridgeName.value.trim() === '') {
+			return fridgeName; // 빈 곳이 있으면 첫 번째 비어있는 frgName 요소 반환
+		}
 	}
+	return null; // 빈 곳 없거나 fridgeName이 존재하지 않으면 null 반환
 }
 
 // 모든 settingBox에서 냉장고 이름 비어있는지 전부 검사해줘.
@@ -380,10 +386,12 @@ function checkAllGroupsOfFrgNames(numberOfSettingBoxes) {
 function checkFrgStateBtnSelected(idNum) {
 	const fridgeAstate = document.querySelector(`button[name="frg_Astate_${idNum}"]`);
 
-    if (!fridgeAstate.classList.contains('selected')) {
-        return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
-    }
-    return null; // 냉장고 상태 버튼 선택돼 있으면 null 반환
+	if (fridgeAstate) {
+		if (!fridgeAstate.classList.contains('selected')) {
+			return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
+		}
+	}
+    return null; // 냉장고 상태 버튼 선택돼 있거나 그 idNum에 해당하는 frgAstate 버튼이 없으면 null 반환
 }
 
 // 냉장고 보관 상태 버튼 전부 체크되어 있는지 검사해줘.
@@ -434,10 +442,6 @@ function getEmptySettingBox(numberOfSettingBoxes) {
         const emptyFrgName = checkFrgNameFilledIn(i);
         const emptyFrgState = checkFrgStateBtnSelected(i);
 
-			console.log("emptyRadio " + i + emptyRadio);
-        	console.log("emptyFrgName " + i + emptyFrgName);
-        	console.log("emptyFrgState " + i + emptyFrgState);
-
         // 세 가지 요소가 모두 비어 있으면 해당 setting box의 인덱스를 빈 setting box 목록에 추가
         if (emptyRadio && emptyFrgName && emptyFrgState) {
         	console.log("Add to emptySettingBoxes:", i); 
@@ -463,20 +467,49 @@ function removeEmptySettingBoxes(emptySettingBoxes, settingBoxes) {
 	});
 }
 
-// settingBox 별로 지우기
 function removeSettingBoxById(idNum) {
-	const settingBoxWrapper = document.querySelector('.settingBoxWrapper');
-	const trashIcon = document.querySelector(`#trashIcon_${idNum}`);
-	const settingBox = trashIcon.closest('.settingBox');
-	const horizontalLine = settingBox.previousElementSibling;
+	const settingBoxWrapper = document.querySelector(".settingBoxWrapper");
 
-	if (horizontalLine && horizontalLine.tagName === "HR" && settingBoxWrapper.contains(horizontalLine)) {
-		settingBoxWrapper.removeChild(horizontalLine);
+	if (settingBoxWrapper.querySelectorAll(".settingBox").length === 1) {
+		alertMsg = "양식이 1개만 남았을 때는 삭제하실 수 없습니다.";
+		showAlert(alertMsg);
+		return;
 	}
-	if (settingBoxWrapper.contains(settingBox)) {
-		settingBoxWrapper.removeChild(settingBox);
+
+	const discardSettingBox = settingBoxWrapper.querySelector(`#trashIcon_${idNum}`).closest(".settingBox");
+  
+	const isFirstSettingBox = discardSettingBox === settingBoxWrapper.querySelector(".settingBox"); // true or false
+  
+	let shouldBeRemovedHorizontalLine;
+	if (isFirstSettingBox) {
+	  shouldBeRemovedHorizontalLine = document.querySelector(
+		`#horizontalLine_${parseInt(idNum) + 1}`
+	  );
+	} else {
+	  shouldBeRemovedHorizontalLine = document.querySelector(
+		`#horizontalLine_${idNum}`
+	  );
 	}
-}
+  
+	confirmMsg = "선택하신 양식을 삭제할까요?";
+	showConfirm(
+	  confirmMsg,
+	  function () {
+		console.log("YES 클릭");
+  
+		if (shouldBeRemovedHorizontalLine) {
+		  shouldBeRemovedHorizontalLine.remove();
+		}
+		discardSettingBox.remove();
+	  },
+	  function () {
+		console.log("NO 클릭");
+		return;
+	  }
+	);
+  }
+  
+  
 
 // SESS_ID 데려오려는 함수
 function getUserId() {
@@ -535,7 +568,8 @@ function submitBtnClicked(e) {
 		
 		showConfirm(confirmMsg, () => {
 			removeEmptySettingBoxes(emptySettingBoxes, settingBoxes).then(() => {
-				// 삭제된 빈 박스를 제외한 새로운 settingBoxes를 얻는다.
+
+				// 삭제된 빈 박스를 제외한 새로운 settingBoxes를 얻음
 				const updatedSettingBoxes = document.querySelectorAll(".settingBox");
 				completeSubmittingForm(updatedSettingBoxes, settingBoxes);
 			});

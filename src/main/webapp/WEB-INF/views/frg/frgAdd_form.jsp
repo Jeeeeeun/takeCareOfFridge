@@ -128,7 +128,7 @@
 			</div>
 			<form action="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" method="post" class="vw-100 d-flex flex-column justify-content-sm-center align-items-sm-center" onsubmit="submitBtnClicked(event)">
 				<div class="settingBoxWrapper mh-5000 vw-70">
-					<div class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
+					<div id="settingBox_0" class="settingBox d-flex flex-column position-relative vw-60 vh-75 mx-auto">
 						<div class="w-100 mt-3p mb-2 text-end">
 							<div class="w-100 text-white">
 								<i id="trashIcon_0" class="fa-solid fa-trash"></i>
