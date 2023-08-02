@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.InnerDTOList;
 import com.frg.domain.UserDTO;
 
 public interface InnerFoodMapper {
 	
-	void insertFood(InnerDTO dto);
+	void insertInnerFood(InnerDTO dto);
 	List<String> selectFrgName(UserDTO user_id);
 	List<FoodApiDTO> selectFoodAPI(FoodApiDTO api_name);
 	List<InnerDTO> selectAllInnerView(InnerDTO dto);

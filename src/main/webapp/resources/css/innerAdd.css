@@ -7,8 +7,9 @@
     height: 85%;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: baseline;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
 }
 
 .addSettingBox-All{
@@ -36,24 +37,58 @@
     margin-right: 1rem;
 }
 
+.addSettingBox-Form{
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.addSettingBox-Form-Scroll{
+	max-height: 360px; 
+	overflow-y: scroll; 
+	/* border: 2px solid beige; */
+	position: inherit;
+    width: max-content;
+    height: 100%;
+    margin: ０ auto;
+}
+
 .addSettingBox-Count-Plus{
-	display:flex;
-	flex-direction: row;
-	justify-content: space-between;
+	width: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.addSettingBox-Count-Plus>p{
+	margin:0;
+}
+
+.addSettingBtn-text{
+	display: flex;
+    flex-direction: row;
+} 
+
+#addFormBtn{
+	margin-right: 15%;
 }
 
 .addSettingBtn-Finish{
-	width: 550px;
-    position: absolute;
-    left: 220px;
-    top: 480px;
+	width: auto;
+    position: relative;
+    left: 160px;
+    top: 70px;
 }
 
 .addSettingBtn-Finish>button{
-	width:160px;
+	width:auto;
 }
 
-.addSettingBox{
+#addSettingBoxForm-0{
 	background-color:#d3cdcd;
 }
 
@@ -77,12 +112,6 @@
 	margin: 12px 6px;
 }
 
-.addSettingBox-Form-Scroll{
-	max-height: 360px; 
-	overflow-y: scroll; 
-	border: 2px solid beige;
-}
-
 .box0{
 	position:relative;
 	width:inherit;
@@ -93,11 +122,11 @@
 	align-items: baseline;
 }
 
+.selectedFormToRemove,
 .box1>label,
 .box2,
 .box3>label,
 .box4>label,
-.box4>label>.box4-1,
 .box5>label,
 .box6>label,
 .box7>label{
@@ -105,6 +134,21 @@
 	margin-bottom: 5px;
 	align-items: center;
 	border-bottom: 1px dashed beige;
+}
+
+.selectedFormToRemove{
+	position:relative;
+	width: inherit;
+	height: 30px;
+	display: flex;
+	justify-content: flex-end;
+    align-items: center;
+}
+
+.selectedForm{
+	position:relative;
+	width: inherit;
+	margin-right: 5px;
 }
 
 .box3-2{
@@ -133,36 +177,30 @@
 	margin: 10px 10px;
 }
 
-#frgOption,
-#foodNameInput,
-#dueDate,
-#foodType,
-#foodCount,
-#foodCompany,
-#searchInput{
-	width: 340px;
-	height: 30px;
+#frgOption-0,
+#foodNameInput-0,
+#dueDate-0,
+#foodType-0,
+#foodCount-0,
+#foodCompany-0{
+	width: 50%;
+	height: 100%;
 	background-color: white;
 	border: 0px;
 }
 
-#foodStateFrozen{
-	
-}
-
-#dueDate,
-#foodNameInput{
-	margin-bottom: 5px;
-}
-
 #searchInput{
+	width: 80%;
+    height: 100%;
+    background-color: white;
+    border: 0px;
 	margin-right:10px;
 }
 
-#dueDate.placeholder::placeholder,
-#foodType.placeholder::placeholder,
-#foodCompany.placeholder::placeholder,
-#foodNameInput.placeholder::placeholder{
+#dueDate-0.placeholder::placeholder,
+#foodType-0.placeholder::placeholder,
+#foodCompany-0.placeholder::placeholder,
+#foodNameInput-0.placeholder::placeholder{
 	font-size=0.5rem;
 }
 
@@ -190,8 +228,9 @@
 }
 
 #showFoodTable{
-    width: 596px;
-    height: 305px;
+	position : relative;
+    width: 100%;
+    height: 100%;
     background-color: #d3cdcd;
     margin: auto;
     text-align: center;
@@ -200,16 +239,22 @@
 }
 
 thead, tbody, tfoot, tr, td, th {
-    border-style: solid;
-    border-width: thin;
+	border: 1px solid white
 }
 
 th{
-	height: 35px;
+	height: 45px;
 	font-size: 1.1rem;
-	font-weight: 550;
-	color:white;
+	font-weight: 530;
+	align-items:center;
 }
+
+tr{
+	position: relative;
+	width: 100%;
+	height: 40px; 
+}
+
 
 /* td{
 	table-layout: fixed; 테이블의 셀 높이 자동 조정
@@ -244,10 +289,23 @@ th{
     justify-content: space-evenly;
 }
 
-.addSettingBtn button,
+.searchFood-1{
+	display:flex;
+	flex-direction:row;
+	align-items: center;
+}
+
 #searchSubmit{
-	width:150px;
-	height: 35px;
-	border-radius: 20px;
-	border: 1px solid #b5b5b5
+	width: 140px;
+    height: 30px;
+    border-radius: 20px;
+    border: 1px solid #b5b5b5;
+}
+
+#addFormBtn,
+#removeFormBtn{
+	width: 50%;
+    height: 100%;
+    border-radius: 20px;
+    border: 1px solid #b5b5b5;
 }

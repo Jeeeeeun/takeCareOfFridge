@@ -1,7 +1,6 @@
 package com.frg.controller;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -71,18 +70,23 @@ public class InnerFoodController {
 	// redirect : controller간에 이동할 때
 	// redirect 없으면 , 바로 jsp (view)로 이동
 
-	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
+	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	public List<InnerDTO> registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+		
 		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
 		dto.setUser_id(user_id);
-		inService.registerInnerFood(dto);
-
+		log.info("여기 : "+dto);
+		
+		/*
 		JsonObject json = new JsonObject();
 		json.addProperty("success", true);
-
-		return new Gson().toJson(json);
+		*/
+		
+		List<InnerDTO> result = inService.registerInnerFood(dto);
+		log.info("여기2 : "+result);
+		return result;
 	}
 
 	// foodApi 조회하기

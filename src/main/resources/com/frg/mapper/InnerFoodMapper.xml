@@ -4,35 +4,33 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
-	<!-- innerAdd -->
-	<insert id="insertFood" parameterType="com.frg.domain.InnerDTO">
+	<insert id="insertFoodList" parameterType="com.frg.domain.InnerDTO">
 		INSERT INTO Inner (
-		frg_index,
-		in_state,
-		in_name,
-		in_expireDate,
-		in_type,
-		in_count,
-		in_company
+		    frg_index,
+		    in_state,
+		    in_name,
+		    in_expireDate,
+		    in_type,
+		    in_count,
+		    in_company
 		)
 		VALUES (
-		(
-		SELECT frg_index
-		FROM FrgList f
-		WHERE f.frg_name = #{frg_name}
-		AND f.user_index = (
-		SELECT user_index
-		FROM Users
-		WHERE user_id =
-		#{user_id}
-		)
-		),
-		#{in_state},
-		#{in_name},
-		#{in_expireDate},
-		#{in_type},
-		#{in_count},
-		#{in_company}
+		    (
+		        SELECT frg_index
+		        FROM FrgList f
+		        WHERE f.frg_name = #{frg_name}
+		        AND f.user_index = (
+		            SELECT user_index
+		            FROM Users
+		            WHERE user_id = #{user_id}
+		        )
+		    ),
+		    #{in_state},
+		    #{in_name},
+		    #{in_expireDate},
+		    #{in_type},
+		    #{in_count},
+		    #{in_company}
 		)
 	</insert>
 
