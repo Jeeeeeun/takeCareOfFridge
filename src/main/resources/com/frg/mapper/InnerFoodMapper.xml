@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frg.mapper.InnerFoodMapper">
 
-	<insert id="insertFoodList" parameterType="com.frg.domain.InnerDTO">
+	<insert id="insertInnerFood" parameterType="com.frg.domain.InnerDTO">
 		INSERT INTO Inner (
 		    frg_index,
 		    in_state,

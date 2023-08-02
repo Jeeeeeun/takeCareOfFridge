@@ -472,7 +472,6 @@ function checkCustomOrNot() {
 
 /*addFinish()*/
 function addFinish() {
-
 		
 		const addSettingBoxes = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
 		const addSettingBoxesDataList = [];
@@ -488,14 +487,13 @@ function addFinish() {
 		    foodCountInput = addSettingBoxes[i].querySelector(`input[name^="in_count-"]`);
 		    foodCompanyInput = addSettingBoxes[i].querySelector(`input[name^="in_company-"]`);
 		    
-		    /*
 		    console.log("frgOptionInput.value : "+frgOptionInput.value);
 		    console.log("frgStateInput.value : "+frgStateInput.value);
 		    console.log("foodNameInput.value : "+foodNameInput.value);
 		    console.log("dueDateInput.value : "+dueDateInput.value);
 		    console.log("foodTypeInput.value : "+foodTypeInput.value);
 		    console.log("foodCountInput.value : "+foodCountInput.value);
-		    console.log("foodCompanyInput.value : "+foodCompanyInput.value);*/
+		    console.log("foodCompanyInput.value : "+foodCompanyInput.value);
 		
 		    if ( //폼이 비어있지 않으면 데이터를 서버로 보내기
 		    	frgOptionInput.value !== "" &&
@@ -533,16 +531,50 @@ function addFinish() {
 					in_company : foodCompany
 				};
 				
+				console.log("addSettingBoxesData",addSettingBoxesData);
 				/*
-				console.log(addSettingBoxesData);
 				console.log('-------------------------------');
-				console.log(JSON.stringify(addSettingBoxesData));*/
+				console.log(JSON.stringify(addSettingBoxesData));
 				
 				addSettingBoxesDataList.push(addSettingBoxesData);
 				console.log('-------------------------------');
 				console.log(addSettingBoxesDataList);
-				console.log('-------------------------------');
+				console.log('-------------------------------');*/
 				
+				$.ajax({
+			    type: "POST",
+			    url: `${contextPath}/frg/innerAdd/submit`,
+			    contentType: "application/json",
+			    data: JSON.stringify(addSettingBoxesData),
+			    dataType: "json",
+			    success: function (response) {
+			        if (response.success) {
+			            alert("성공적으로 등록 완료");
+			            console.log("response.frg_name "+response.frg_name);
+			            
+			            //innerCtrl로 이동하기 위해 다시 $.ajax 호출
+			            let frgNameData = { frgName: response.frg_name };
+			            
+			            $.ajax({
+			                type: "GET",
+			                url: `${contextPath}/frg/innerCtrl`,
+			                data: frgNameData,
+			                dataType: "html",
+			                success: function (data) {
+			               		$('html').html(data);
+			                },
+			                error: function (err) {
+			               		alert("error가 발생했습니다.");
+			                }
+			            });
+			        } else {
+			            alert("등록 실패 : " + response.message);
+			        }
+			    },
+			    error: function (err) {
+			        alert("등록 실패: 서버 내부 오류가 발생했습니다.");
+			    }
+			});
 		        
 		    } else if (  // 비어있는 폼이 있을 경우 등록 불가, 해당 폼으로 자동 스크롤
 		    	frgOptionInput.value === "" ||
@@ -559,41 +591,5 @@ function addFinish() {
 		    }
 		    
 		}
-	 		$.ajax({
-			    type: "POST",
-			    url: `${contextPath}/frg/innerAdd/submit`,
-			    contentType: "application/json",
-			    data: JSON.stringify(addSettingBoxesDataList),
-			    dataType: "json",
-			    success: function (response) {
-			        if (response.success) {
-			            console.log("response.frg_name "+response.frg_name);
-			            alert("성공적으로 등록 완료");
-			            
-			            // 고민 기점 : window.location.href로 해서 innerCtrl로 보낼 건지, 아래처럼 ajax써서 보낼건지..
-			            // innerCtrl로 보낼 때 parameter(frgName)를 받아와야 하는데 어떻게 받지 
-			            // 이걸 받으려면 ajax 써야 하나
-			            
-			            // innerCtrl로 이동하기 위해 다시 $.ajax 호출
-			            $.ajax({
-			                type: "GET",
-			                url: `${contextPath}/frg/innerCtrl`,
-			                data: {
-			                    frgName: reponse.frg_name // 원하는 값으로 설정
-			                },
-			                success: function (data) {
-			               
-			                },
-			                error: function (err) {
-			               
-			                }
-			            });
-			        } else {
-			            alert("등록 실패 : " + response.message);
-			        }
-			    },
-			    error: function (err) {
-			        alert("등록 실패: 서버 내부 오류가 발생했습니다.");
-			    }
-			});
+	 		
 	}

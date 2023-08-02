@@ -10,7 +10,7 @@
 <meta name="author" content="" />
 <title>SignUP Page</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -74,14 +74,14 @@
 						<input type="text"
 							class="inputBox box2" id="user_id" name="user_id"
 							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkId" type="button">중복확인</button>
+						<button class="duplicateBtn" id="checkId" type="button">중복확인</button> <br>
 						<div class="idErrorMsg hidden" id="idErrorMsg">
 							<span></span>
 						</div>
 						<input type="email" class="inputBox box3" id="user_email"
 							name="user_email" placeholder="EMAIL" required
 							style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button>
+						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button> <br>
 						<div class="emailErrorMsg hidden" id="emailErrorMsg">
 							<span></span>
 						</div>
@@ -95,7 +95,7 @@
 
 						<button type="submit" class="signUpBtn" id="submitButton" disabled>회원가입하기</button>
 						<!-- 회원가입 버튼 이걸 추가해서 첫 버튼 비활성화 하기 disabled
-							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게 끔 만들기
+							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게끔 만들기
 						 -->
 					</form>
 				</div>

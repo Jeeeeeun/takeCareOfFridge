@@ -64,24 +64,47 @@
     justify-content: space-evenly;
 }
 
-.addSettingBox-Form-0{
-	position: relative;
-    background-color: #ffffff6e;
-    width: 100%;
-    height: 100%;
-}
 
-.addSettingBox-Form-Scroll{
-	max-height: 380px;
-    overflow-y: scroll;
+#actionForm {
     position: relative;
     width: 100%;
     height: 100%;
+    top: 4%;
+}
+
+#addSettingBoxForm-0{
+	position: relative;
+    background-color: #ffffff6e;
+    width: 100%;
+    height: 90%;
+    border-radius: 12px;
+}
+
+#addSettingBoxForm-0>.box1,
+#addSettingBoxForm-0>.box2,
+#addSettingBoxForm-0>.box3,
+#addSettingBoxForm-0>.box4,
+#addSettingBoxForm-0>.box5,
+#addSettingBoxForm-0>.box6,
+#addSettingBoxForm-0>.box7{
+	position: relative;
+	width: 100%;
+	height: 10%;
+	
+}
+
+.addSettingBox-Form-Scroll{
+	/* max-height: 413px;
+    overflow-y: scroll; */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
 }
 
 .addSettingBox-Count-Plus{
 	width: 400px;
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
@@ -102,21 +125,19 @@
 }
 
 .addSettingBtn-Finish{
-	width: auto;
     position: relative;
-    left: 30%;
-    top: 20%;
+    left: 0%;
+    top: 5%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .addSettingBtn-Finish>button{
-	background-color: #ffffffc7;
+	background-color: #ffffffe8;
     width: 40%;
     border: 0px;
     border-radius: 20px;
-}
-
-#addSettingBoxForm-0{
-	background-color:#ffffff6e;
 }
 
 .addSettingBox-Table {
@@ -158,24 +179,44 @@
 .box6,
 .box7{
 	display: flex;
-	margin-bottom: 5px;
-	align-items: center;
-	border-bottom: 1px dashed beige;
+    margin-bottom: 9px;
+    align-items: center;
+    height: 10%;
+    border-bottom: 1px dashed beige;
+}
+
+.box2-1,
+.box3-1{
+	position: relative;
+    width: 100%;
 }
 
 .selectedFormToRemove{
 	position:relative;
 	width: inherit;
 	height: 30px;
-	display: flex;
+	display: none;
 	justify-content: flex-end;
     align-items: center;
+    padding: 6% 0;
+}
+
+.addSettingBoxForm-boxes{
+	position: relative;
+    width: 96%;
+    height: 87%;
+    top: 10%;
+    margin: 0 auto;
 }
 
 .selectedForm{
 	position:relative;
 	width: inherit;
 	margin-right: 5px;
+}
+
+.box3{
+	height: 20%;
 }
 
 .box3-2{
@@ -187,21 +228,15 @@
 	display:flex;
 }
 
-.box4-1{
-	display:flex;
-	flex-direction: column;
-}
-
-.box1>label>p,
-.box2>p,
-.box3>label>p,
-.box4>label>p,
-.box5>label>p,
-.box6>label>p,
-.box7>label>p{
-	float: left;
-	width: 150px;
-	margin: 10px 10px;
+.box1>label,
+.box2>label,
+.box3>label,
+.box4>label,
+.box5>label,
+.box6>label,
+.box7>label{
+	width: 50%;
+	margin-left: 4%;
 }
 
 #frgOption-0,
@@ -210,11 +245,15 @@
 #foodType-0,
 #foodCount-0,
 #foodCompany-0{
-	width: 50%;
-	height: 100%;
+	width: 100%;
+	height: 57%;
 	background-color: white;
 	border: 0px;
 	border-radius: 20px;
+}
+
+#foodNameInput-0{
+	margin-bottom: 3%;
 }
 
 #searchInput{
@@ -268,7 +307,8 @@
 }
 
 thead, tbody, tfoot, tr, td, th {
-	border: 1px solid white
+	border: 1px solid white;
+	
 }
 
 th{
@@ -276,6 +316,7 @@ th{
 	font-size: 1.1rem;
 	font-weight: 530;
 	align-items:center;
+	border-radius: 20px;
 }
 
 tr{
@@ -284,14 +325,6 @@ tr{
 	height: 40px; 
 }
 
-
-/* td{
-	table-layout: fixed; 테이블의 셀 높이 자동 조정
-} */
-
-.box2>label{
-	margin-right:30px;
-}
 
 .box3>label>box3-1,
 .box4>label>box4-1
@@ -312,23 +345,26 @@ tr{
 }
 
 .settingBtn>.settingBtn-1{
-	width: 320px;
-	height: 35px;
+	width: 70%;
+	height: 100%;
 	display: flex;
     justify-content: space-evenly;
+    
 }
 
 .searchFood-1{
-	display:flex;
-	flex-direction:row;
-	align-items: center;
+	display: flex;
+    width: 80%;
+    flex-direction: row;
+    align-items: center;
 }
 
 #searchSubmit{
-	width: 140px;
-    height: 30px;
+	width: 30%;
+    height: 100%;
     border-radius: 20px;
     border: 1px solid #b5b5b5;
+    border-radius: 20px;
 }
 
 #addFormBtn,

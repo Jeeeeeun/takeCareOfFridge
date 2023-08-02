@@ -11,35 +11,32 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Inner Add Page</title>
+	
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
+
 <!-- Bootstrap Icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
 <!-- Google fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
-	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+
 <!-- SimpleLightbox plugin CSS-->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
-	rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+
 <!-- Core theme CSS (includes Bootstrap)-->
-<link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/styles.css?after" />
-<link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/innerAdd.css?after" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://code.jquery.com/jquery-3.7.0.js"
-	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/styles.css" />
+
+<!-- External Custom CSS StyleSheet -->
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/innerAdd.css" />
+
+<!-- FontAwesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>	
+	
 <script>
 	window.contextPath = "${pageContext.servletContext.contextPath}";
 	//frgNames 데이터를 JavaScript 변수에 할당
@@ -47,8 +44,8 @@
 </script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/innerFoodAdd.js">
-	
 </script>
+	</head>
 <body id="page-top">
 
 	<header class="masthead">
@@ -76,6 +73,12 @@
 							href="${ pageContext.servletContext.contextPath }/frg/myPage"><i
 								class="fa-solid fa-circle-user"></i></a></li>
 					</ul>
+				</div>
+			</div>
+	
+			<div id="customAlert" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+				<div class="d-flex align-items-sm-center justify-content-sm-center text-center bg-white py-2 rounded-3 w-40 h-20 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+					<p id="alertContent">알림창!</p>
 				</div>
 			</div>
 		</nav>
@@ -117,7 +120,7 @@
 									<form action="${pageContext.servletContext.contextPath}/frg/innerAdd/submit"
 										method="post" id="actionForm">
 										
-										<div class="addSettingBox-Form-Scroll">
+										<div class="addSettingBox-Form-Scroll" >
 		
 											<div class="addSettingBox-Wrapper">
 												
@@ -127,74 +130,79 @@
 														<input type="checkbox" name="formToRemove" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
 													</div>
 													
-													<!-- 냉장고 목록 -->
-													<div class="box1">
-														<label for="frgOption-0">
-															냉장고 선택
-														</label>
-														<select name="frg_name-0" id="frgOption-0">
-															<option value="">냉장고 선택</option>
-														</select>
-													</div>
-		
-													<!-- 보관 위치 -->
-													<div class="box2">
-														<label for="foodStateFrozen foodStateCool"> 
-															보관상태
-														</label>
-														<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
-														<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장 
-													</div>
-		
-													<!-- 식품명 -->
-													<div class="box3">
-														<label for="foodNameInput-0">
-															식품명
-														</label>
-														<div class="box3-1">
-															<div class="box3-2">
-																<input type="text" name="in_name-0" id="foodNameInput-0"
-																	placeholder="검색 결과가 입력됩니다." disabled />
-															</div>
-															<div class="box3-3">
-																<input type="checkbox" 
-																	id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+													
+													<div class="addSettingBoxForm-boxes">
+													
+														<!-- 냉장고 목록 -->
+														<div class="box1">
+															<label for="frgOption-0">
+																냉장고 선택
+															</label>
+															<select name="frg_name-0" id="frgOption-0">
+																<option value="">냉장고 선택</option>
+															</select>
+														</div>
+			
+														<!-- 보관 위치 -->
+														<div class="box2">
+															<label for="foodStateFrozen foodStateCool"> 
+																보관상태
+															</label>
+															<div class="box2-1">
+																<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
+																<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장
+															</div> 
+														</div>
+			
+														<!-- 식품명 -->
+														<div class="box3">
+															<label for="foodNameInput-0">
+																식품명
+															</label>
+															<div class="box3-1">
+																<div class="box3-2">
+																	<input type="text" name="in_name-0" id="foodNameInput-0"
+																		placeholder="검색 결과가 입력됩니다." disabled />
+																</div>
+																<div class="box3-3">
+																	<input type="checkbox" 
+																		id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+																</div>
 															</div>
 														</div>
-													</div>
-		
-													<!-- 유통/소비기한 -->
-													<div class="box4">
-														<label for="dueDate-0">
-															유통/소비기한
-														</label>
-														<div class="box4-1">
-															<input type="date" name="in_expireDate-0" id="dueDate-0" value="">
+			
+														<!-- 유통/소비기한 -->
+														<div class="box4">
+															<label for="dueDate-0">
+																유통/소비기한
+															</label>
+														    <input type="date" name="in_expireDate-0" id="dueDate-0" value="">
 														</div>
-													</div>
-		
-													<!-- 식품유형 -->
-													<div class="box5">
-														<label for="foodType-0">
-															식품유형 
-														</label>
-														<input type="text" name="in_type-0" id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
-													</div>
-		
-													<!-- 수량 -->
-													<div class="box6">
-														<label for="foodCount-0">
-															수량 
-														</label>
-															<input type="number" name="in_count-0" id="foodCount-0" placeholder="식품 수량 등록">
-													</div>
-		
-													<!-- 제조사명 -->
-													<div class="box7">
-														<label for="foodCompany-0">
-															제조사명 
-														</label>
-														<input type="text" name="in_company-0"id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
+			
+														<!-- 식품유형 -->
+														<div class="box5">
+															<label for="foodType-0">
+																식품유형 
+															</label>
+															<input type="text" name="in_type-0" id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
+														</div>
+			
+														<!-- 수량 -->
+														<div class="box6">
+															<label for="foodCount-0">
+																수량 
+															</label>
+																<input type="number" name="in_count-0" id="foodCount-0" placeholder="식품 수량 등록">
+														</div>
+			
+														<!-- 제조사명 -->
+														<div class="box7">
+															<label for="foodCompany-0">
+																제조사명 
+															</label>
+															<input type="text" name="in_company-0"id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
+														</div>
+													
 													</div>
 													
 												</div>

@@ -13,7 +13,7 @@
 <title>myPage</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
-	href="${ pageContext.servletContext.contextPath }/resources/img/vFrg.svg" />
+	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"

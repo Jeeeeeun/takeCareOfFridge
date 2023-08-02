@@ -6,36 +6,40 @@
 
   	<!-- innerAdd -->
 	<insert id="insertFoodList" parameterType="com.frg.domain.InnerDTOList">
-		<foreach collection="list" item="item" separator=" ">
-			INSERT INTO Inner (
-			    frg_index,
-			    in_state,
-			    in_name,
-			    in_expireDate,
-			    in_type,
-			    in_count,
-			    in_company
-			)
-			VALUES (
-			    (
-			        SELECT frg_index
-			        FROM FrgList f
-			        WHERE f.frg_name = #{item.frg_name}
-			        AND f.user_index = (
-			            SELECT user_index
-			            FROM Users
-			            WHERE user_id = #{item.user_id}
-			        )
-			    ),
-			    #{item.in_state},
-			    #{item.in_name},
-			    TO_DATE(#{item.in_expireDate}, 'YYYY-MM-DD'),
-			    #{item.in_type},
-			    #{item.in_count},
-			    #{item.in_company}
-			)
-		</foreach>
+	    INSERT ALL
+	    <foreach collection="list" item="item" separator=" " index="index" open="" close="SELECT * FROM DUAL">
+	        INTO Inner (
+	            frg_index,
+	            in_index,
+	            in_name,
+	            in_count,
+	            in_expireDate,
+	            in_company,
+	            in_type,
+	            in_state
+	        )
+	        VALUES (
+	            (
+	                SELECT frg_index
+	                FROM FrgList f
+	                WHERE f.frg_name = #{item.frg_name}
+	                AND f.user_index = (
+	                    SELECT user_index
+	                    FROM Users
+	                    WHERE user_id = #{item.user_id}
+	                )
+	            ),
+	            (get_in_index_seq_nextval() + 1), 
+	            #{item.in_name},
+	            #{item.in_count},
+	            TO_DATE(#{item.in_expireDate}, 'YYYY-MM-DD'),
+	            #{item.in_company},
+	            #{item.in_type},
+	            #{item.in_state}
+	        )
+	    </foreach>
 	</insert>
+
 
 
 </mapper>

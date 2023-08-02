@@ -76,21 +76,20 @@ public class InnerFoodController {
 
 	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public List<InnerDTOList> registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
 		
 		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
 		dto.setUser_id(user_id);
 		inService.registerInnerFood(dto);
+
+		String frgName = dto.getFrg_name(); // InnerDTO를 이용하여 'frg_name' 값을 얻음
 		
-//		JsonObject json = new JsonObject();
-//		json.addProperty("success", true);
-		
-		List<InnerDTOList> dtoList = new List<InnerDTOList>();
-		dtoList.
-		
-		//return new Gson().toJson(json);
-		return dtoList;
+		JsonObject json = new JsonObject();
+		json.addProperty("success", true);
+		json.addProperty("frg_name", frgName); // 'frg_name' 값을 JsonObject에 추가
+
+		return new Gson().toJson(json);
 	}
 
 	// foodApi 조회하기
@@ -107,6 +106,8 @@ public class InnerFoodController {
 	@GetMapping("/innerCtrl")
 	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
 			TrafficDTO trfDto) {
+		
+		log.info("여기1");
 		String user_id = (String) session.getAttribute("SESS_ID");
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);

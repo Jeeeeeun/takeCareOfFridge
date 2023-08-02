@@ -35,28 +35,28 @@ public class InnerFoodListMapperTest {
 	        InnerDTO dto1 = new InnerDTO();
 	        dto1.setFrg_name("samsung");
 	        dto1.setUser_id("smith01");
-	        dto1.setIn_state("frozen");
 	        dto1.setIn_name("보쌈곱배기");
+	        dto1.setIn_count(2);
 	        String dateString = "2020-01-15";
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        Date date = formatter.parse(dateString);
 	        dto1.setIn_expireDate(date);
-	        dto1.setIn_type("밀키트");
-	        dto1.setIn_count(2);
 	        dto1.setIn_company("농심");
+	        dto1.setIn_type("밀키트");
+	        dto1.setIn_state("frozen");
 	
 	        InnerDTO dto2 = new InnerDTO();
 	        dto2.setFrg_name("samsung");
 	        dto2.setUser_id("smith01");
-	        dto2.setIn_state("frozen");
 	        dto2.setIn_name("꿀고구마");
+	        dto2.setIn_count(2);
 	        String dateString2 = "2020-01-15";
 	        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 	        Date date2 = formatter2.parse(dateString2);
 	        dto2.setIn_expireDate(date2);
-	        dto2.setIn_type("밀키트");
-	        dto2.setIn_count(2);
 	        dto2.setIn_company("농심");
+	        dto2.setIn_type("밀키트");
+	        dto2.setIn_state("frozen");
 	
 	        dtoList.getList().add(dto1);
 	        dtoList.getList().add(dto2);
