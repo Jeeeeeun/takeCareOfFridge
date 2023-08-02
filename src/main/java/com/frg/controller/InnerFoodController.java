@@ -1,6 +1,5 @@
 package com.frg.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.InnerDTOList;
 import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
@@ -76,17 +76,21 @@ public class InnerFoodController {
 
 	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	public List<InnerDTOList> registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
 		
 		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
 		dto.setUser_id(user_id);
 		inService.registerInnerFood(dto);
 		
-		JsonObject json = new JsonObject();
-		json.addProperty("success", true);
+//		JsonObject json = new JsonObject();
+//		json.addProperty("success", true);
 		
-		return new Gson().toJson(json);
+		List<InnerDTOList> dtoList = new List<InnerDTOList>();
+		dtoList.
+		
+		//return new Gson().toJson(json);
+		return dtoList;
 	}
 
 	// foodApi 조회하기

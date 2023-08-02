@@ -68,7 +68,7 @@
 					<ul class="navbar-nav ms-auto my-2 my-lg-0">
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a></li>
-						<li class="nav-item"><a class="nav-link"
+						<li class="nav-item hidden"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/board/list">Community</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
@@ -129,73 +129,72 @@
 													
 													<!-- 냉장고 목록 -->
 													<div class="box1">
-														<label>
-															<p>냉장고 선택</p> <select name="frg_name-0" id="frgOption-0">
-																<option value="">냉장고 선택</option>
-														</select>
+														<label for="frgOption-0">
+															냉장고 선택
 														</label>
+														<select name="frg_name-0" id="frgOption-0">
+															<option value="">냉장고 선택</option>
+														</select>
 													</div>
 		
 													<!-- 보관 위치 -->
 													<div class="box2">
-														<p>보관상태</p>
-														<label> 
-															<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
+														<label for="foodStateFrozen foodStateCool"> 
+															보관상태
 														</label>
-														<label>
-															<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장 
-														</label> 
+														<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
+														<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장 
 													</div>
 		
 													<!-- 식품명 -->
 													<div class="box3">
-														<label>
-															<p>식품명</p>
-															<div class="box3-1">
-																<div class="box3-2">
-																	<input type="text" name="in_name-0" id="foodNameInput-0"
-																		placeholder="검색 결과가 입력됩니다." disabled />
-																	<div class="box3-3">
-																		<input type="checkbox" 
-																			id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
-																	</div>
-																</div>
-															</div>
+														<label for="foodNameInput-0">
+															식품명
 														</label>
+														<div class="box3-1">
+															<div class="box3-2">
+																<input type="text" name="in_name-0" id="foodNameInput-0"
+																	placeholder="검색 결과가 입력됩니다." disabled />
+															</div>
+															<div class="box3-3">
+																<input type="checkbox" 
+																	id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+															</div>
+														</div>
 													</div>
 		
 													<!-- 유통/소비기한 -->
 													<div class="box4">
-														<label>
-															<p>유통/소비기한</p>
-															<div class="box4-1">
-																<input type="date" name="in_expireDate-0" id="dueDate-0" value="">
-															</div>
+														<label for="dueDate-0">
+															유통/소비기한
 														</label>
+														<div class="box4-1">
+															<input type="date" name="in_expireDate-0" id="dueDate-0" value="">
+														</div>
 													</div>
 		
 													<!-- 식품유형 -->
 													<div class="box5">
-														<label>
-															<p>식품유형</p> <input type="text" name="in_type-0"
-															id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
+														<label for="foodType-0">
+															식품유형 
 														</label>
+														<input type="text" name="in_type-0" id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
 													</div>
 		
 													<!-- 수량 -->
 													<div class="box6">
-														<label>
-															<p>수량</p> <input type="number" name="in_count-0"
-															id="foodCount-0" placeholder="식품 수량 등록">
+														<label for="foodCount-0">
+															수량 
 														</label>
+															<input type="number" name="in_count-0" id="foodCount-0" placeholder="식품 수량 등록">
 													</div>
 		
 													<!-- 제조사명 -->
 													<div class="box7">
-														<label>
-															<p>제조사명</p> <input type="text" name="in_company-0"
-															id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
+														<label for="foodCompany-0">
+															제조사명 
 														</label>
+														<input type="text" name="in_company-0"id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
 													</div>
 													
 												</div>
@@ -210,7 +209,7 @@
 										<div class="addSettingBtn-Finish">
 										<button type="submit" onclick="addFinish(); return false;">
 											<!-- return false가 있어야 button을 눌렀을 때 페이지 넘김이 안 됨 -->
-											<i class="fa-solid fa-thumbs-up"></i>등록 완료
+											등록 완료
 										</button>
 									</div>
 											

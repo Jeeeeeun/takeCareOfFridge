@@ -570,6 +570,10 @@ function addFinish() {
 			            console.log("response.frg_name "+response.frg_name);
 			            alert("성공적으로 등록 완료");
 			            
+			            // 고민 기점 : window.location.href로 해서 innerCtrl로 보낼 건지, 아래처럼 ajax써서 보낼건지..
+			            // innerCtrl로 보낼 때 parameter(frgName)를 받아와야 하는데 어떻게 받지 
+			            // 이걸 받으려면 ajax 써야 하나
+			            
 			            // innerCtrl로 이동하기 위해 다시 $.ajax 호출
 			            $.ajax({
 			                type: "GET",
@@ -578,11 +582,10 @@ function addFinish() {
 			                    frgName: reponse.frg_name // 원하는 값으로 설정
 			                },
 			                success: function (data) {
-			                    // 성공적으로 데이터를 받아왔을 때의 처리
-			                    // 이동할 수도 있고, 데이터 처리 등을 수행할 수도 있습니다.
+			               
 			                },
 			                error: function (err) {
-			                    // 에러 발생시의 처리
+			               
 			                }
 			            });
 			        } else {
