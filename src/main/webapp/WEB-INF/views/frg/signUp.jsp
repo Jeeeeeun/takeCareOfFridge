@@ -74,14 +74,14 @@
 						<input type="text"
 							class="inputBox box2" id="user_id" name="user_id"
 							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkId" type="button">중복확인</button>
+						<button class="duplicateBtn" id="checkId" type="button">중복확인</button> <br>
 						<div class="idErrorMsg hidden" id="idErrorMsg">
 							<span></span>
 						</div>
 						<input type="email" class="inputBox box3" id="user_email"
 							name="user_email" placeholder="EMAIL" required
 							style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button>
+						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button> <br>
 						<div class="emailErrorMsg hidden" id="emailErrorMsg">
 							<span></span>
 						</div>
