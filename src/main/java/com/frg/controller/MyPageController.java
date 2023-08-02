@@ -92,7 +92,7 @@ public class MyPageController {
 	@ResponseBody
 	public UserDTO getUserinfo(HttpSession session) {
 		String userId = (String) session.getAttribute("SESS_ID");
-
+		log.info("유저 아이디 입니다." + userId);
 		UserDTO user = new UserDTO();
 		user.setUser_id(userId);
 
