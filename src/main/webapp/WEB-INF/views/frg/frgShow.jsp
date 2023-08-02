@@ -11,7 +11,7 @@
 		<title>frgShow Page</title>
 
 		<!-- Favicon-->
-		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 
 		<!-- Bootstrap Icons-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -41,8 +41,8 @@
 		<!-- jQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
-	<body id="page-top">
-		<header class="custom-masthead">
+	<body>
+		<header class="custom-masthead vh-100">
 
 			<!-- Navigation-->
 			<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
