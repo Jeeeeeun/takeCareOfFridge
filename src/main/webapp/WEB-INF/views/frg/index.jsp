@@ -11,7 +11,7 @@
 <meta name="author" content="" />
 <title>Index Page</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
