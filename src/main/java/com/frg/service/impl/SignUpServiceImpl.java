@@ -42,12 +42,23 @@ public class SignUpServiceImpl implements SignUpService {
 		int count = mapper.idExist(id); //int count라는 변수 안에 SignUpMapper에 idExist 리턴 값을 받아와서 대입
 		return count > 0; //count 값이 0을 초과한 경우 , id가 중복되었다고 판단. 이때 반환값은 true이다.
 	}
+	
+	@Override
+	public boolean isExistEmail(String email) {
+		int count = mapper.emailExist(email);
+		return count > 0;
+	}
 
 	@Override	//회원가입 입력 관련
 	public boolean registerUser(UserDTO user) {
 		//아이디 중복 확인
 		if(isExistId(user.getUser_id())) {
 			return false;//아이디가 중복되는지의 대한 검사 중복되면 false반환
+		}
+		
+		//이메일 중복 확인
+		if(isExistEmail(user.getUser_email())) {
+			return false;
 		}
 		
 		//비밀번호 정책 검증
@@ -61,5 +72,6 @@ public class SignUpServiceImpl implements SignUpService {
 		
 		return mapper.insertUser(user);
 	}
+
 
 }

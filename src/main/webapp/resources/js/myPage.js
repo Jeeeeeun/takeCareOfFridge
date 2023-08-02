@@ -27,7 +27,9 @@ var frgIndex,
   alertWindow,
   confirmMsg,
   confirmContent,
-  confirmWindow;
+  confirmWindow,
+  confirmYesBtn,
+  confirmNoBtn;
 
 window.onload = function () {
   // DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
@@ -57,6 +59,8 @@ window.onload = function () {
   alertWindow = document.querySelector("#customAlert");
   confirmContent = document.querySelector("#confirmContent");
   confirmWindow = document.querySelector("#customConfirm");
+  confirmYesBtn = document.querySelector("#confirmYesBtn");
+  confirmNoBtn = document.querySelector("#confirmNoBtn");
 
   updateFrg(currentIndex);
   checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
@@ -66,59 +70,26 @@ window.onload = function () {
   warningValue = trfStandard[0].warning_standard;
 
   trfStandardShow(dangerousValue, warningValue);
+
 };
-
-// 사용자 정보 가져오기
-function getUserInfo(){
-    $.ajax({
-        url: `${contextPath}/frg/userInfo`,
-        method: "GET",
-        dataType: "json",
-        success: function(data){
-                $('#name').val(data.user_name);
-                $('#id').val(data.user_id);
-                $('#email').val(data.user_email);
-                $('#pw').val(data.user_pw);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error: ", error);
-            alert("사용자 정보를 불러오는데 실패했습니다."); // 오류가 발생하면 메시지 표시
-        }
-    });
-}
-//사용자 정보 가져온 함수를 불러와서 페이지가 생성되면서 해당 정보를 가져옴
-$(document).ready(function() {
-    getUserInfo();
-});
-
-// SESS_ID 데려오려는 함수
-function getUserId() {
-  return fetch(contextPath + "/frg/getUserId").then(function (response) {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error("사용자 ID를 가져올 수 없었습니다.");
-    }
-  });
-}
 
 // 알림창 띄우기
 function showAlert(alertMsg) {
   alertContent.textContent = alertMsg;
   alertWindow.classList.remove("hidden");
-  alertWindow.classList.add("show");
+  alertWindow.classList.add("bg-opacity-100");
 
   setTimeout(function () {
-    alertWindow.classList.remove("show");
+    alertWindow.classList.remove("bg-opacity-100");
     alertWindow.classList.add("hidden");
-  }, 3000);
+  }, 2500);
 }
 
 // 컨펌창 켜기
 function showConfirm(confirmMsg, yesClicked, noClicked) {
   confirmContent.textContent = confirmMsg;
   confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("show");
+  confirmWindow.classList.add("bg-opacity-100");
 
   confirmYesBtn.onclick = function () {
     // Yes 눌리면 이뤄질 동작들
@@ -141,7 +112,7 @@ function showConfirm(confirmMsg, yesClicked, noClicked) {
 
 // 컨펌창 끄기
 function closeConfirm() {
-  confirmWindow.classList.remove("show");
+  confirmWindow.classList.remove("bg-opacity-100");
   confirmWindow.classList.add("hidden");
 }
 
@@ -156,9 +127,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.setAttribute("checked", ""); // hRadio.checked = true;도 같은 효과를 내지만, 실제로 라디오버튼 요소에 checked 속성을 추가해주진 못함.
-      vRadio.removeAttribute("checked");
-      sRadio.removeAttribute("checked");
+      hRadio.checked = true;
+      vRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -169,9 +140,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.setAttribute("checked", "");
-      sRadio.removeAttribute("checked");
+      vRadio.checked = true;
+      hRadio.checked = false;
+      sRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.position = "relative";
@@ -182,9 +153,9 @@ function updateFrg(i) {
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
       frgShape[0].style.height = "80%";
       frgShape[0].style.width = "auto";
-      hRadio.removeAttribute("checked");
-      vRadio.removeAttribute("checked");
-      sRadio.setAttribute("checked", "");
+      sRadio.checked = true;
+      vRadio.checked = false;
+      hRadio.checked = false;
       frgAstate.style.position = "relative";
       frgAstate.style.fontWeight = "bold";
       frgBstate.style.display = "none";
@@ -224,6 +195,13 @@ function updateFrg(i) {
       bCoolBtn.className = "frgSelected";
       break;
   }
+
+  console.log("냉장고 index: " + frgIndex.value);
+  console.log("냉장고 이름: " + frgName[0].textContent);
+  console.log("냉장고 모양: " + frgListJson[i].frg_shape);
+  console.log("냉장고 A section 보관 상태: " + frgListJson[i].frg_Astate);
+  console.log("냉장고 B section 보관 상태: " + frgListJson[i].frg_Bstate);
+
 }
 
 function prevFrg() {
@@ -837,25 +815,3 @@ function frgDiscardBtnClicked() {
 function removeFrgFromList(frgName) {
   frgListJson = frgListJson.filter((frgListJson) => frgListJson.frg_name !== frgName);
 }
-
-//세션 만료 관련 , 해당 로직은 바꿀것이 없다.
-function checkSession(){
-    $.ajax({
-        url: `${contextPath}/frg/sessionExpire`,
-        method: "GET",
-        dataType: "json",
-        success: function(data){
-            if(data.sessionExpired){            
-                alert("다시 로그인 해주세요.");
-                window.location.href = `${contextPath}/frg/login`;
-            }
-        },
-        error: function(xhr, status, error){
-        	alert("다시 로그인 해주세요.");
-            window.location.href = `${contextPath}/frg/login`;
-            console.error("Error: ", error);
-        }
-    });
-}
-//일정 시간 간격으로 세션 상태 확인 (세션 만료 관련 ajax와 세트)
-setInterval(checkSession, 1000 * 60 * 60 * 24 + 1000); //24:00:01 마다 세션 검토

@@ -38,4 +38,24 @@ public class MyPageMapperTest {
 		
 		assertNotNull(myInfo);
 	}
+	//마이페이지에서 내 정보를 수정하고 그 값이 데이터베이스에 잘 적용되는지 확인
+	@Test @Ignore
+	public void testUpdateMyInfo() {
+		UserDTO dto = new UserDTO();
+		dto.setUser_id("test1");
+		dto.setUser_name("test2");
+		dto.setUser_pw("test123!");
+		dto.setUser_email("test2@com");
+		
+		mapper.updateMyInfo(dto);
+	}
+	
+	@Test @Ignore
+	public void testDelete() {
+		String id = "test1";
+		
+		int result = mapper.deleteUser(id);
+		
+		assertEquals(1, result);
+	}
 }

@@ -9,6 +9,9 @@ public interface SignUpMapper {
 	//데이터 베이스에 사용자가 입력한 아이디가 데이터 베이스에 있다면 1을 반환 없다면 0을 반환
 	//메소드의 매개변수로 (String id)로 받는다. 메소드를 호출할 때 사용자가 입력한 값을 문자열로 저장
 	
+	//회원가입 할때 아이디 중복 확인
+	int emailExist(String email);
+	
 	boolean insertUser(UserDTO user);
 	/*
 	 * 회원가입 리턴값을 boolean으로 한 이유는

@@ -1,44 +1,5 @@
 @charset "UTF-8";
 
-.hidden {
-	display: none;
-}
-
-#customAlert {
-	/* 알림창, 컨펌창 띄울 때 뒷 배경 */
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 5;
-    transition: opacity 0.3s ease-out;
-}
-
-.alert-content {
-  /* 하얀 알림창 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: white;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  width: 40%;
-  height: 20%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  word-break: keep-all;
-  white-space: pre-wrap;
-  z-index: 10;
-  transition: all 0.3s ease-out;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
-}
-
 .custom-masthead {
 	padding-top: 2rem;
 	padding-bottom: calc(10rem - 4.5rem);
@@ -48,38 +9,6 @@
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-size: cover;
-}
-
-.settingBoxContainer {
-	width: 100vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-.settingBoxWrapper {
-	max-height: 5000px;
-	width: 70vw;
-}
-
-.settingBox {
-	margin-top: 3%;
-	display: grid;
-	grid-template-columns: 1fr 3fr;
-	grid-template-rows: 1fr 1.5fr;
-	justify-content: center; /* 수평 가운데 정렬 */
-	align-items: center; /* 수직 가운데 정렬 */
-	gap: 0.5rem;
-	position: relative;
-	width: 60vw;
-	height: 70vh;
-	margin-left: auto;
-	margin-right: auto;
-	font-family: 'MV Boli';
-	font-size: x-large;
-	font-weight: 600;
-	color: rgb(255, 255, 255);
 }
 
 .setting-titleBox {
@@ -238,7 +167,7 @@ input[type="radio"]:checked {
 	height: 6vh;
 }
 
-.btn { /* 개별적인 + 버튼, 완료 버튼 */
+.button { /* 개별적인 + 버튼, 완료 버튼 */
 	background: rgba(255, 255, 255, 0.3);
 	position: relative;
 	display: flex;
@@ -249,7 +178,6 @@ input[type="radio"]:checked {
 	border-radius: 1rem;
 	-moz-border-radius: 1rem;
 	-webkit-border-radius: 1rem;
-	font-family: 'MV Boli';
 	font-size: large;
 	font-weight: 600;
 	color: rgb(255, 255, 255);

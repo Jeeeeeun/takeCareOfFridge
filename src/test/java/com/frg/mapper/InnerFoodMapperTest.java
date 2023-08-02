@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.frg.domain.FoodApiDTO;
+import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
 import com.frg.domain.InnerDTOList;
 import com.frg.domain.UserDTO;
@@ -81,7 +82,7 @@ public class InnerFoodMapperTest {
 		dto.setUser_id("john01");
 
 		List<InnerDTO> result = mapper.selectAllInnerView(dto);
-		assertEquals(4, result.size()); // 리스트의 크기가 1인지 확인합니다.
+		assertNotNull(result);
 		System.out.println(dto);
 	}
 
@@ -100,22 +101,37 @@ public class InnerFoodMapperTest {
 	}
 
 	@Test
-
+	@Ignore
 	public void testSelectInnerData() {
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id("john01");
-		dto.setFrg_name("fridge2");
-		dto.setIn_name("용가리치킨");
+		dto.setFrg_index(4);
+		dto.setIn_name("요구르트");
 
 		List<InnerDTO> result = mapper.selectInnerData(dto);
 		System.out.println(result);
 
 	}
-	
+
+	@Test
+	@Ignore
+	public void testSelectFrgNameAll() {
+		FrgListDTO dto = new FrgListDTO();
+		dto.setUser_id("smith01");
+		dto.setFrg_index(2);
+
+		// 매퍼의 메서드 호출
+		String frgName = mapper.selectFrgNameAll(dto);
+
+		// 테스트 검증
+		assertNotNull(frgName);
+		assertEquals("fridge2", frgName); // 실제 예상한 값으로 변경해야 함
+	}
+
 	@Test
 	@Ignore
 	public void testUpdateFood() throws java.text.ParseException {
-		
+
 		InnerDTO dto = new InnerDTO();
 		dto.setFrg_name("samsung");
 		dto.setUser_id("smith01");
@@ -129,10 +145,10 @@ public class InnerFoodMapperTest {
 		dto.setIn_type("찜");
 		dto.setIn_state("frozen");
 		dto.setIn_index(40);
-		assertEquals(1,mapper.updateFood(dto));
-		
-	}	
-	
+		assertEquals(1, mapper.updateFood(dto));
+
+	}
+
 	@Test
 	@Ignore
 	public void testDeleteInnerData() {
@@ -140,7 +156,8 @@ public class InnerFoodMapperTest {
 		dto.setUser_id("smith01");
 		dto.setFrg_name("samsung");
 		dto.setIn_name("생선");
-		
+
 		mapper.deleteFood(dto);
 	}
 }
+

@@ -89,185 +89,186 @@
 				<p id="green"
 					class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
 			</div>
-		</div>
 
-			<div class="settingBoxWrapper">
 
-				<div class="addSettingBox-All">
+				<div class="settingBoxWrapper">
 
-					<div class="addSettingBox-Left">
-							
-							<div class="addSettingBox-Form">
+					<div class="addSettingBox-All">
 
-								<div class="addSettingBox-Count-Plus">
-									<div class="addSettingBtn-text">
-										<button type="button" id="addFormBtn"
-											onclick="createNewSettingBox();">
-											<i class="fa-solid fa-plus"></i>
-										</button>
-										<button type="button" id="removeFormBtn"
-											onclick="removeChosenSettingBox();" title="아래에서 삭제할 폼을 선택하세요">
-											<i class="fa-solid fa-minus"></i>
-										</button>
+						<div class="addSettingBox-Left">
+
+								
+								<div class="addSettingBox-Form">
+
+									<div class="addSettingBox-Count-Plus">
+										<div class="addSettingBtn-text">
+											<button type="button" id="addFormBtn"
+												onclick="createNewSettingBox();">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button type="button" id="removeFormBtn"
+												onclick="removeChosenSettingBox();" title="아래에서 삭제할 폼을 선택하세요">
+												<i class="fa-solid fa-minus"></i>
+											</button>
+										</div>
+									<p>총 N개 등록 중</p>
 									</div>
-								<p>총 N개 등록 중</p>
-								</div>
-
-								<form action="${pageContext.servletContext.contextPath}/frg/innerAdd/submit"
-									method="post" id="actionForm">
-									
-									<div class="addSettingBox-Form-Scroll">
 	
-										<div class="addSettingBox-Wrapper">
-											
-											<div id="addSettingBoxForm-0">
+									<form action="${pageContext.servletContext.contextPath}/frg/innerAdd/submit"
+										method="post" id="actionForm">
+										
+										<div class="addSettingBox-Form-Scroll">
+		
+											<div class="addSettingBox-Wrapper">
 												
-												<div class="selectedFormToRemove">
-													<input type="checkbox" name="formToRemove" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
-												</div>
-												
-												<!-- 냉장고 목록 -->
-												<div class="box1">
-													<label>
-														<p>냉장고 선택</p> <select name="frg_name-0" id="frgOption-0">
-															<option value="">냉장고 선택</option>
-													</select>
-													</label>
-												</div>
-	
-												<!-- 보관 위치 -->
-												<div class="box2">
-													<p>보관상태</p>
-													<label> 
-														<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
-													</label>
-													<label>
-														<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장 
-													</label> 
-												</div>
-	
-												<!-- 식품명 -->
-												<div class="box3">
-													<label>
-														<p>식품명</p>
-														<div class="box3-1">
-															<div class="box3-2">
-																<input type="text" name="in_name-0" id="foodNameInput-0"
-																	placeholder="검색 결과가 입력됩니다." disabled />
-																<div class="box3-3">
-																	<input type="checkbox" 
-																		id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+												<div id="addSettingBoxForm-0">
+													
+													<div class="selectedFormToRemove">
+														<input type="checkbox" name="formToRemove" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
+													</div>
+													
+													<!-- 냉장고 목록 -->
+													<div class="box1">
+														<label>
+															<p>냉장고 선택</p> <select name="frg_name-0" id="frgOption-0">
+																<option value="">냉장고 선택</option>
+														</select>
+														</label>
+													</div>
+		
+													<!-- 보관 위치 -->
+													<div class="box2">
+														<p>보관상태</p>
+														<label> 
+															<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
+														</label>
+														<label>
+															<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장 
+														</label> 
+													</div>
+		
+													<!-- 식품명 -->
+													<div class="box3">
+														<label>
+															<p>식품명</p>
+															<div class="box3-1">
+																<div class="box3-2">
+																	<input type="text" name="in_name-0" id="foodNameInput-0"
+																		placeholder="검색 결과가 입력됩니다." disabled />
+																	<div class="box3-3">
+																		<input type="checkbox" 
+																			id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+																	</div>
 																</div>
 															</div>
-														</div>
-													</label>
+														</label>
+													</div>
+		
+													<!-- 유통/소비기한 -->
+													<div class="box4">
+														<label>
+															<p>유통/소비기한</p>
+															<div class="box4-1">
+																<input type="date" name="in_expireDate-0" id="dueDate-0" value="">
+															</div>
+														</label>
+													</div>
+		
+													<!-- 식품유형 -->
+													<div class="box5">
+														<label>
+															<p>식품유형</p> <input type="text" name="in_type-0"
+															id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
+														</label>
+													</div>
+		
+													<!-- 수량 -->
+													<div class="box6">
+														<label>
+															<p>수량</p> <input type="number" name="in_count-0"
+															id="foodCount-0" placeholder="식품 수량 등록">
+														</label>
+													</div>
+		
+													<!-- 제조사명 -->
+													<div class="box7">
+														<label>
+															<p>제조사명</p> <input type="text" name="in_company-0"
+															id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
+														</label>
+													</div>
+													
 												</div>
-	
-												<!-- 유통/소비기한 -->
-												<div class="box4">
-													<label>
-														<p>유통/소비기한</p>
-														<div class="box4-1">
-															<input type="date" name="in_expireDate-0" id="dueDate-0" value="">
-														</div>
-													</label>
-												</div>
-	
-												<!-- 식품유형 -->
-												<div class="box5">
-													<label>
-														<p>식품유형</p> <input type="text" name="in_type-0"
-														id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
-													</label>
-												</div>
-	
-												<!-- 수량 -->
-												<div class="box6">
-													<label>
-														<p>수량</p> <input type="number" name="in_count-0"
-														id="foodCount-0" placeholder="식품 수량 등록">
-													</label>
-												</div>
-	
-												<!-- 제조사명 -->
-												<div class="box7">
-													<label>
-														<p>제조사명</p> <input type="text" name="in_company-0"
-														id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
-													</label>
-												</div>
-												
+												<!-- addSettingBoxForm-0 끝 -->
+											
 											</div>
-											<!-- addSettingBoxForm-0 끝 -->
-										
+											<!-- addSettingBox-Wrapper -->
+		
 										</div>
-										<!-- addSettingBox-Wrapper -->
-	
+										<!-- addSettingBox-Form-Scroll -->
+		
+										<div class="addSettingBtn-Finish">
+										<button type="submit" onclick="addFinish(); return false;">
+											<!-- return false가 있어야 button을 눌렀을 때 페이지 넘김이 안 됨 -->
+											<i class="fa-solid fa-thumbs-up"></i>등록 완료
+										</button>
 									</div>
-									<!-- addSettingBox-Form-Scroll -->
-	
-									<div class="addSettingBtn-Finish">
-									<button type="submit" onclick="addFinish(); return false;">
-										<!-- return false가 있어야 button을 눌렀을 때 페이지 넘김이 안 됨 -->
-										<i class="fa-solid fa-thumbs-up"></i>등록 완료
-									</button>
+											
+									</form>
+								
 								</div>
-										
-								</form>
-							
+								<!-- addSettingBox-Form 끝 -->
+
 							</div>
-							<!-- addSettingBox-Form 끝 -->
+							<!-- addSettingBox-Left -->
+				
+						<div class="addSettingBox-Right">
+
+							<div class="addSettingBox-Table">
+
+								<!-- 직접입력하기를 할 경우 생겨날 table -->
+								<div class="tableBox">
+									<div class="searchFood">
+										<p>공공 API를 이용하여 식품을 조회해보세요</p>
+										<div class="searchFood-1">
+											<input type="search" name="searchFood" id="searchInput"
+												placeholder="식품을 검색하세요." autofocus />
+											<button type="button" name="searchFoodBtn" id="searchSubmit"
+												onclick="searchFoodAPI();">검색하기</button>
+										</div>
+										<!-- searchFood-1 끝 -->
+									</div>
+									<!-- searchFood 끝 -->
+									<div class="FoodTableDiv"
+										style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
+										<table id="showFoodTable">
+											<thead>
+												<tr title="조회한 식품을 클릭하면 등록 양식에 식품 정보가 추가돼요">
+													<th>&nbsp;</th>
+													<th>식품명</th>
+													<th>제조사</th>
+													<th>유통/소비기한</th>
+													<th>제품유형</th>
+												</tr>
+											</thead>
+											<tbody id="tbodyTag"></tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+							<!-- addSettingBox-Table 끝 -->
 
 						</div>
-						<!-- addSettingBox-Left -->
-			
-					<div class="addSettingBox-Right">
-
-						<div class="addSettingBox-Table">
-
-							<!-- 직접입력하기를 할 경우 생겨날 table -->
-							<div class="tableBox">
-								<div class="searchFood">
-									<p>공공 API를 이용하여 식품을 조회해보세요</p>
-									<div class="searchFood-1">
-										<input type="search" name="searchFood" id="searchInput"
-											placeholder="식품을 검색하세요." autofocus />
-										<button type="button" name="searchFoodBtn" id="searchSubmit"
-											onclick="searchFoodAPI();">검색하기</button>
-									</div>
-									<!-- searchFood-1 끝 -->
-								</div>
-								<!-- searchFood 끝 -->
-								<div class="FoodTableDiv"
-									style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
-									<table id="showFoodTable">
-										<thead>
-											<tr title="조회한 식품을 클릭하면 등록 양식에 식품 정보가 추가돼요">
-												<th>&nbsp;</th>
-												<th>식품명</th>
-												<th>제조사</th>
-												<th>유통/소비기한</th>
-												<th>제품유형</th>
-											</tr>
-										</thead>
-										<tbody id="tbodyTag"></tbody>
-									</table>
-								</div>
-							</div>
-
-						</div>
-						<!-- addSettingBox-Table 끝 -->
+						<!-- addSettingBox-Right 끝 -->
 
 					</div>
-					<!-- addSettingBox-Right 끝 -->
-
+					<!-- addSettingBox-All 끝 -->
 				</div>
-				<!-- addSettingBox-All 끝 -->
-			</div>
-			<!-- settingBoxWrapper 끝 -->
+				<!-- settingBoxWrapper 끝 -->
 
 			
-		
+		</div>
 
 	</header>
 </body>
