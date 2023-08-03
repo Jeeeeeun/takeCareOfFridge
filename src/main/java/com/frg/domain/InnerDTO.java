@@ -14,15 +14,15 @@ public class InnerDTO {
 	private String user_id;
 	private String frgList;
 	private String frg_name;
-	private int in_index;
-	private int frg_index;
+	private Integer in_index;
+	private Integer frg_index;
 	private String in_name;
-	private int in_count;
+	private Integer in_count;
 	private String in_company;
 	private Date in_expireDate;
 	private String in_type;
 	private String in_state;
 	private String api_fno;
-	private int D_DAY;
+	private Integer D_DAY;
 
 }

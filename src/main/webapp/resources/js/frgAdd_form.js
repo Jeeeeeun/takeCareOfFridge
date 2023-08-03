@@ -21,7 +21,6 @@ window.onload = function() {
 
 }
 
-/* --------------- 알림창, 컨펌창 --------------- */
 // 알림창 띄우기
 function showAlert(alertMsg) {
 	alertContent.textContent = alertMsg;
