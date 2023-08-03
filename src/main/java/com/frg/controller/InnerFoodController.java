@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.InnerDTOList;
 import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
@@ -73,16 +74,20 @@ public class InnerFoodController {
 	// redirect : controller간에 이동할 때
 	// redirect 없으면 , 바로 jsp (view)로 이동
 
-	@PostMapping(value = "/innerAdd/submit", consumes = "application/json")
+	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+		
 		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
 		dto.setUser_id(user_id);
 		inService.registerInnerFood(dto);
 
+		String frgName = dto.getFrg_name(); // InnerDTO를 이용하여 'frg_name' 값을 얻음
+		
 		JsonObject json = new JsonObject();
 		json.addProperty("success", true);
+		json.addProperty("frg_name", frgName); // 'frg_name' 값을 JsonObject에 추가
 
 		return new Gson().toJson(json);
 	}
@@ -101,6 +106,8 @@ public class InnerFoodController {
 	@GetMapping("/innerCtrl")
 	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
 			TrafficDTO trfDto) {
+		
+		log.info("여기1");
 		String user_id = (String) session.getAttribute("SESS_ID");
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);

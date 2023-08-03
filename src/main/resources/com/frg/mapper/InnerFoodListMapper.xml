@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frg.mapper.InnerFoodListMapper">
+
+  	<!-- innerAdd -->
+	<insert id="insertFoodList" parameterType="com.frg.domain.InnerDTOList">
+	    INSERT ALL
+	    <foreach collection="list" item="item" separator=" " index="index" open="" close="SELECT * FROM DUAL">
+	        INTO Inner (
+	            frg_index,
+	            in_index,
+	            in_name,
+	            in_count,
+	            in_expireDate,
+	            in_company,
+	            in_type,
+	            in_state
+	        )
+	        VALUES (
+	            (
+	                SELECT frg_index
+	                FROM FrgList f
+	                WHERE f.frg_name = #{item.frg_name}
+	                AND f.user_index = (
+	                    SELECT user_index
+	                    FROM Users
+	                    WHERE user_id = #{item.user_id}
+	                )
+	            ),
+	            (get_in_index_seq_nextval() + 1), 
+	            #{item.in_name},
+	            #{item.in_count},
+	            TO_DATE(#{item.in_expireDate}, 'YYYY-MM-DD'),
+	            #{item.in_company},
+	            #{item.in_type},
+	            #{item.in_state}
+	        )
+	    </foreach>
+	</insert>
+
+
+
+</mapper>
