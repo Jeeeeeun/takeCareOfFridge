@@ -70,26 +70,26 @@
 						action="<%=request.getContextPath()%>/frg/signUp" method="post">
 						<input type="text" class="inputBox box1" id="user_name"
 							name="user_name" placeholder="NAME" required
-							style="margin-bottom: 20px;"><br> 
+							style="margin-bottom: 20px; border-radius: 20px;"><br> 
 						<input type="text"
 							class="inputBox box2" id="user_id" name="user_id"
-							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkId" type="button">중복확인</button> <br>
+							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px; border-radius: 20px;">
+						<button class="duplicateBtn" id="checkId" type="button" style="border-radius: 20px; ">중복확인</button> <br>
 						<div class="idErrorMsg hidden" id="idErrorMsg">
 							<span></span>
 						</div>
 						<input type="email" class="inputBox box3" id="user_email"
 							name="user_email" placeholder="EMAIL" required
-							style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button> <br>
+							style="margin-bottom: 20px; margin-left:84px; border-radius: 20px;">
+						<button class="duplicateBtn" id="checkEmail" type="button" style="border-radius: 20px;">중복확인</button> <br>
 						<div class="emailErrorMsg hidden" id="emailErrorMsg">
 							<span></span>
 						</div>
 						<input
 							type="password" class="inputBox box4" id="user_pw" name="user_pw"
-							placeholder="PW" required style="margin-bottom: 20px;"> <br>
+							placeholder="PW" required style="margin-bottom: 20px; border-radius: 20px;"> <br>
 						<input type="password" class="inputBox box5" id="verifyPwd"
-							placeholder="PW CHECK" required style="margin-bottom: 20px;">
+							placeholder="PW CHECK" required style="margin-bottom: 20px; border-radius: 20px;">
 						<span class="pwdAlert" id="pwdAlert"
 							style="margin-left: 10px; position: absolute;"></span><br>
 
