@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,9 +49,16 @@ public class InnerFoodController {
 	// innerFoodAdd
 	// localhost:8080/controller/frg/innerAdd
 	@GetMapping("/innerAdd")
-	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
+	public String moveToInnerAdd(RedirectAttributes rttr,HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
 
 		String user_id = (String) session.getAttribute("SESS_ID");
+		if (user_id == null || session == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
 		System.out.println("SESS_ID: " + user_id);
 		UserDTO dto = new UserDTO();
 		dto.setUser_id(user_id);
@@ -78,6 +86,7 @@ public class InnerFoodController {
 	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
 		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
 		String user_id = (String) session.getAttribute("SESS_ID");
+		
 		dto.setUser_id(user_id);
 		inService.registerInnerFood(dto);
 
@@ -99,9 +108,16 @@ public class InnerFoodController {
 	}
 
 	@GetMapping("/innerCtrl")
-	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
+	public String moveToInnerCtrl(RedirectAttributes rttr,@RequestParam("frgName") String frgName, HttpSession session, Model model,
 			TrafficDTO trfDto) {
 		String user_id = (String) session.getAttribute("SESS_ID");
+		if (user_id == null || session == null || frgName == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);
 		dto.setFrg_name(frgName);
