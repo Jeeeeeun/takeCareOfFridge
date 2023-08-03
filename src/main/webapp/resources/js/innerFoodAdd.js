@@ -195,76 +195,74 @@ function createNewSettingBox() {
 	settingBoxNewElement.innerHTML = `
 	  <hr class="horizontalLine" style="border-style: dashed">
 			<div class="selectedFormToRemove">
-				<input type="checkbox" name="formToRemove" id="selectedForm-${formNumber}" onclick="selectedForms();">폼 선택하기
+				<input type="checkbox" name="formToRemove-${formNumber}" id="selectedForm-${formNumber}" onclick="selectedForms();">폼 선택하기
 			</div>
-			
-			<!-- 냉장고 목록 -->
-			<div class="box1">
-				<label>
-					<p>냉장고 선택</p> <select name="frg_name-${formNumber}" id="frgOption-${frgOptionCounter}">
-						<option value="">냉장고 선택</option>
-				</select>
-				</label>
-			</div>
-
-			<!-- 보관 위치 -->
-			<div class="box2">
-				<p>보관 위치</p>
-				<label> <input type="radio" name="in_state-${formNumber}" 
-					id="foodStateFrozen"  value="frozen" checked/>냉동
-				<label> <input type="radio" name="in_state-${formNumber}"
-					id="foodStateFrozen" value="cool" />냉장 
-			</div>
-
-			<!-- 식품명 -->
-			<div class="box3">
-				<label>
-					<p>식품명</p>
-					<div class="box3-1">
-						<div class="box3-2">
-							<input type="text" name="in_name-${formNumber}" id="foodNameInput-${formNumber}"
-								placeholder="검색 결과가 입력됩니다." disabled />
+			<div class="addSettingBoxForm-boxes">
+				<div class="addSettingBoxForm-boxes-arrange">
+					<!-- 냉장고 목록 -->
+					<div class="box1">
+						<label for="frgOption-${formNumber}">
+							냉장고 선택
+						</label>
+						<select name="frg_name-${formNumber}" id="frgOption-${frgOptionCounter}">
+							<option value="">냉장고 선택</option>
+						</select>
+					</div>
+					<!-- 보관 위치 -->
+					<div class="box2">
+						<label for="foodStateFrozen foodStateCool"> 
+							보관상태
+						</label>
+						<div class="box2-1">
+							<input type="radio" name="in_state-${formNumber}" id="foodStateFrozen"  value="frozen" checked/>냉동
+							<input type="radio" name="in_state-${formNumber}" id="foodStateCool" value="cool" />냉장
+						</div> 
+					</div>
+					<!-- 식품명 -->
+					<div class="box3">
+						<label for="foodNameInput-${formNumber}">
+							식품명
+						</label>
+						<div class="box3-1">
+							<div class="box3-2">
+								<input type="text" name="in_name-${formNumber}" id="foodNameInput-${formNumber}"
+									placeholder="검색 결과가 입력됩니다." disabled />
+							</div>
 							<div class="box3-3">
-								<input type="checkbox"
+								<input type="checkbox" 
 									id="checkCustomInput-${formNumber}" onclick="checkCustomOrNot();">직접입력하기
 							</div>
 						</div>
 					</div>
-				</label>
-			</div>
-
-			<!-- 유통/소비기한 -->
-			<div class="box4">
-				<label>
-					<p>유통/소비기한</p>
-					<div class="box4-1">
-						<input type="date" name="in_expireDate-${formNumber}" id="dueDate-${formNumber}" value="">
+					<!-- 유통/소비기한 -->
+					<div class="box4">
+						<label for="dueDate-${formNumber}">
+							유통/소비기한
+						</label>
+					    <input type="date" name="in_expireDate-${formNumber}" id="dueDate-${formNumber}" value="">
 					</div>
-				</label>
-			</div>
-
-			<!-- 식품유형 -->
-			<div class="box5">
-				<label>
-					<p>식품유형</p> <input type="text" name="in_type-${formNumber}"
-					id="foodType-${formNumber}" placeholder="검색 결과가 입력됩니다." disabled>
-				</label>
-			</div>
-
-			<!-- 수량 -->
-			<div class="box6">
-				<label>
-					<p>수량</p> <input type="number" name="in_count-${formNumber}"
-					id="foodCount-${formNumber}" placeholder="식품 수량 등록">
-				</label>
-			</div>
-
-			<!-- 제조사명 -->
-			<div class="box7">
-				<label>
-					<p>제조사명</p> <input type="text" name="in_company-${formNumber}"
-					id="foodCompany-${formNumber}" placeholder="검색 결과가 입력됩니다." disabled>
-				</label>
+					<!-- 식품유형 -->
+					<div class="box5">
+						<label for="foodType-${formNumber}">
+							식품유형 
+						</label>
+						<input type="text" name="in_type-${formNumber}" id="foodType-${formNumber}" placeholder="검색 결과가 입력됩니다." disabled>
+					</div>
+					<!-- 수량 -->
+					<div class="box6">
+						<label for="foodCount-${formNumber}">
+							수량 
+						</label>
+							<input type="number" name="in_count-${formNumber}" id="foodCount-${formNumber}" placeholder="식품 수량 등록">
+					</div>
+					<!-- 제조사명 -->
+					<div class="box7">
+						<label for="foodCompany-${formNumber}">
+							제조사명 
+						</label>
+						<input type="text" name="in_company-${formNumber}" id="foodCompany-${formNumber}" placeholder="검색 결과가 입력됩니다." disabled>
+					</div>
+				</div>
 			</div>
 	  `;
 
@@ -272,72 +270,129 @@ function createNewSettingBox() {
 	
 	//모든 addSettingBoxForm
 	const settingBoxElements = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
+	const addSettingBoxFormBoxes = document.querySelectorAll(".addSettingBoxForm-boxes");
+	const addSettingBoxFormBoxesArrange = document.querySelectorAll(".addSettingBoxForm-boxes-arrange");
+	const selectedFormsToRemove =  document.querySelectorAll(".selectedFormToRemove");
+	const Alllabels = document.querySelectorAll("label");
 	const frgOptionId = document.querySelectorAll(`select[id^="frgOption-"]`);
 	const foodNameInput = document.querySelectorAll(`input[id^="foodNameInput-"]`);
 	const dueDate = document.querySelectorAll(`input[id^="dueDate"]`);
 	const foodType = document.querySelectorAll(`input[id^="foodType"]`);
 	const foodCount = document.querySelectorAll(`input[id^="foodCount"]`);
 	const foodCompany = document.querySelectorAll(`input[id^="foodCompany"]`);
+	const box1 = document.querySelectorAll(".box1");
+	const box2 = document.querySelectorAll(".box2");
+	const box3 = document.querySelectorAll(".box3");
+	const box4 = document.querySelectorAll(".box4");
+	const box5 = document.querySelectorAll(".box5");
+	const box6 = document.querySelectorAll(".box6");
+	const box7 = document.querySelectorAll(".box7");
+	
 	
 	for(let i = 0; i < settingBoxElements.length; i++){
 		settingBoxElements[i].style.position = "relative";
-		settingBoxElements[i].style.width = "inherit";
-		settingBoxElements[i].style.height = "inherit";
-		settingBoxElements[i].style.backgroundColor = "#d3cdcd";
-		settingBoxElements[i].style.padding = "inherit";
-	}
+		settingBoxElements[i].style.width = "100%";
+		settingBoxElements[i].style.height = "100%";
+		settingBoxElements[i].style.backgroundColor = "#ffffff6e";
+		settingBoxElements[i].style.borderRadius = "12px";
+		
+		selectedFormsToRemove[i].style.position="relative";
+		selectedFormsToRemove[i].style.width="96%";
+		selectedFormsToRemove[i].style.height="10%";
+		selectedFormsToRemove[i].style.display="flex";
+		selectedFormsToRemove[i].style.alignItems="center";
+		selectedFormsToRemove[i].style.left="2%";
 
-	for (let i = 0; i < frgOptionId.length; i++) {
-	  frgOptionId[i].style.width = "340px";
-	  frgOptionId[i].style.height = "30px";
-	  frgOptionId[i].style.backgroundColor = "white";
-	  frgOptionId[i].style.border = "0px";
-	}
+		console.log("addSettingBoxFormBoxes",addSettingBoxFormBoxes);
+		addSettingBoxFormBoxes[i].style.position="relative";
+		addSettingBoxFormBoxes[i].style.width="96%";
+		addSettingBoxFormBoxes[i].style.height="88%";
+		addSettingBoxFormBoxes[i].style.margin="0 auto";
 
-	for (let i = 0; i < foodNameInput.length; i++) {
-	  foodNameInput[i].style.width = "340px";
-	  foodNameInput[i].style.height = "30px";
-	  foodNameInput[i].style.backgroundColor = "white";
-	  foodNameInput[i].style.border = "0px";
+		addSettingBoxFormBoxesArrange[i].style.position="relative";
+		addSettingBoxFormBoxesArrange[i].style.width="100%";
+		addSettingBoxFormBoxesArrange[i].style.height="95%";
+		addSettingBoxFormBoxesArrange[i].style.margin="0 auto";
+		addSettingBoxFormBoxesArrange[i].style.top="7%";
+		
+		Alllabels[i].style.width="50%";
+		Alllabels[i].style.marginLeft="4%";
+	
+		frgOptionId[i].style.width="100%";
+		frgOptionId[i].style.height="57%";
+		frgOptionId[i].style.backgroundColor="white";
+		frgOptionId[i].style.border="0px";
+		frgOptionId[i].style.borderRadius="20px";
+		
+		foodNameInput[i].style.width="100%";
+		foodNameInput[i].style.height="57%";
+		foodNameInput[i].style.backgroundColor="white";
+		foodNameInput[i].style.border="0px";
+		foodNameInput[i].style.borderRadius="20px";
+		
+		dueDate[i].style.width="100%";
+		dueDate[i].style.height="57%";
+		dueDate[i].style.backgroundColor="white";
+		dueDate[i].style.border="0px";
+		dueDate[i].style.borderRadius="20px";
+		
+		foodType[i].style.width="100%";
+		foodType[i].style.height="57%";
+		foodType[i].style.backgroundColor="white";
+		foodType[i].style.border="0px";
+		foodType[i].style.borderRadius="20px";
+		
+		foodCount[i].style.width="100%";
+		foodCount[i].style.height="57%";
+		foodCount[i].style.backgroundColor="white";
+		foodCount[i].style.border="0px";
+		foodCount[i].style.borderRadius="20px";
+		
+		foodCompany[i].style.width="100%";
+		foodCompany[i].style.height="57%";
+		foodCompany[i].style.backgroundColor="white";
+		foodCompany[i].style.border="0px";
+		foodCompany[i].style.borderRadius="20px";
+		
+		box1[i].style.position="relative";
+		box1[i].style.width="100%";
+		box1[i].style.position="100%";
+		
+		box2[i].style.position="relative";
+		box2[i].style.width="100%";
+		box2[i].style.position="100%";
+		
+		box3[i].style.position="relative";
+		box3[i].style.width="100%";
+		box3[i].style.position="100%";
+		
+		box4[i].style.position="relative";
+		box4[i].style.width="100%";
+		box4[i].style.position="100%";
+		
+		box5[i].style.position="relative";
+		box5[i].style.width="100%";
+		box5[i].style.position="100%";
+		
+		box6[i].style.position="relative";
+		box6[i].style.width="100%";
+		box6[i].style.position="100%";
+		
+		box7[i].style.position="relative";
+		box7[i].style.width="100%";
+		box7[i].style.position="100%";
+	
 	}
 	
-	for (let i = 0; i < dueDate.length; i++) {
-	  dueDate[i].style.width = "340px";
-	  dueDate[i].style.height = "30px";
-	  dueDate[i].style.backgroundColor = "white";
-	  dueDate[i].style.border = "0px";
-	}
-	
-	for (let i = 0; i < foodType.length; i++) {
-	  foodType[i].style.width = "340px";
-	  foodType[i].style.height = "30px";
-	  foodType[i].style.backgroundColor = "white";
-	  foodType[i].style.border = "0px";
-	}
-	
-	for (let i = 0; i < foodCount.length; i++) {
-	  foodCount[i].style.width = "340px";
-	  foodCount[i].style.height = "30px";
-	  foodCount[i].style.backgroundColor = "white";
-	  foodCount[i].style.border = "0px";
-	}
-	
-	for (let i = 0; i < foodCompany.length; i++) {
-	  foodCompany[i].style.width = "340px";
-	  foodCompany[i].style.height = "30px";
-	  foodCompany[i].style.backgroundColor = "white";
-	  foodCompany[i].style.border = "0px";
-	}
 
-	frgNames.forEach(function (name) {
-	  if (name !== "") {
-	    for (let i = 0; i < frgOptionId.length; i++) {
+	const lastIndex = frgOptionId.length - 1;
+	  frgNames.forEach(function (name) {
+	    if (name !== "") {
 	      const option = document.createElement("option");
 	      option.value = name;
 	      option.textContent = name;
-	      frgOptionId[i].appendChild(option);
+	      frgOptionId[lastIndex].appendChild(option);
 	    }
-	  }
 	});
 
 	const selectedFormToRemove = document.querySelectorAll(`input[id^="selectedForm-"]`);
@@ -358,76 +413,81 @@ function createNewSettingBox() {
 };
 
 function getAddSettingBoxForm(selectedForm){
-	const addSettingBoxForm = selectedForm.closest("div[id^='addSettingBoxForm-']");
+	//selectedForm의 가장 가까운 부모인 addSettingBoxForm을 찾음
+	const addSettingBoxForm = selectedForm.closest(`div[id^='addSettingBoxForm-']`);
+	//찾은 걸 return으로 내보냄
 	return addSettingBoxForm;
 }
 
 /*selectedForms();*/
 function selectedForms(){
 
+	// 폼 선택 div 전부 가져오기
 	const selectedFormElements = document.querySelectorAll(`input[id^="selectedForm-"]`);
-	const selectedAddSettingBoxes = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
+	// 생성돼있는 모든 addSettingBoxForm div가져오기
+	const selectedAddSettingBoxForms = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
+	// 생성돼있는 모든 addSettingBoxForm div를 감싸고 있는 div가져오기
 	const parentAddSettingBoxWrapper = document.querySelector(".addSettingBox-Wrapper");
-	let selectedAddSettingForms = [];
+	// 선택된 addSettingBoxForm을 담을 배열 그릇 준비
+	let selectedAllAddSettingBoxForms = [];
 	
-	for (let i = 0; i < selectedAddSettingBoxes.length; i++) {
-    let selectedForm = selectedFormElements[i];
-    let addSettingBoxForm = getAddSettingBoxForm(selectedForm);
-    if (addSettingBoxForm && addSettingBoxForm.parentNode === parentAddSettingBoxWrapper) {
-      selectedAddSettingForms.push(addSettingBoxForm);
-      addSettingBoxForm.style.backgroundColor = selectedForm.checked ? "lightpink" : "#d3cdcd";
-    }else if(addSettingBoxForm && addSettingBoxForm.parentNode !== parentAddSettingBoxWrapper){
-    	console.log("addSettingBoxForm의 부모 노드가 아니다");
+	//console.log("selectedFormElements",selectedFormElements[0]);
+	
+	for (let i = 0; i < selectedFormElements.length; i++) {
+	    if (selectedFormElements.length >= 1 && selectedAddSettingBoxForms[i] && selectedAddSettingBoxForms[i].parentNode === parentAddSettingBoxWrapper) {
+	    	// 폼 선택 div를 하나씩 조회
+		    let selectedForm = selectedFormElements[i];
+		    //console.log("selectedForm",selectedForm);
+		    // 선택된 폼 div의 부모인 addSettingBoxForm를 찾음
+		    let addSettingBoxForm = getAddSettingBoxForm(selectedForm);
+		    // console.log("addSettingBoxForm",addSettingBoxForm);
+		    
+		    if (selectedForm.checked) {
+                selectedAllAddSettingBoxForms.push(addSettingBoxForm);
+  			    addSettingBoxForm.style.backgroundColor = "#f8f9faad";
+            }else if(!selectedForm.checked){
+            	addSettingBoxForm.style.backgroundColor = "#ffffff6e";
+            }
+  
+	    }else if(selectedFormElements.length >= 1 && selectedAddSettingBoxForms[i] && selectedAddSettingBoxForms[i].parentNode !== parentAddSettingBoxWrapper){
+	    	// addSettingBoxForm은 존재하는데, 그의 부모 노드가 .addSettingBox-Wrapper가 아니면 console로 찍어줘
+	    	console.log("addSettingBoxForm의 부모 노드가 아닙니다");
+	    }
     }
-  }
 
-  	return selectedAddSettingForms;
+	//배열 그릇에 담은 addSettingBoxesForms를 내보내줘
+  	return selectedAllAddSettingBoxForms;
 }
 
 /*removeChosenSettingBox();*/
 function removeChosenSettingBox() {
-  const settingBoxesChosenToRemove = selectedForms();
   const parentAddSettingBoxWrapper = document.querySelector(".addSettingBox-Wrapper");
-  const countToRemove = settingBoxesChosenToRemove.length;
+  const settingBoxesChosenToRemove = selectedForms();
+  const selectedFormElements = document.querySelectorAll('input[id^="selectedForm-"]:checked');
+  const selectedFormElementsCountToRemove = selectedFormElements.length;
 
-  function countSettingBoxesChosenToRemove(countToRemove) {
-    if (countToRemove === 0) {
-      alert("삭제할 폼을 선택하지 않았습니다. 폼을 선택해주세요");
-      return false;
-    } else if (countToRemove >= 1) {
-      return true;
-    }
+  if (selectedFormElementsCountToRemove === 0) {
+    alert("삭제할 폼을 선택하지 않았습니다. 폼을 선택해주세요");
+    return;
   }
 
-  if (!countSettingBoxesChosenToRemove(countToRemove)) {
-    return; // 함수 종료
+  let isAllRemoved = selectedFormElementsCountToRemove === parentAddSettingBoxWrapper.childElementCount;
+  let alertMessage = "선택하신 폼을 삭제하겠습니다.";
+
+  for (let i = 0; i < selectedFormElementsCountToRemove; i++) {
+    const formToRemove = settingBoxesChosenToRemove[i];
+    parentAddSettingBoxWrapper.removeChild(formToRemove);
   }
 
-  for (let i = 0; i < settingBoxesChosenToRemove.length; i++) {
-    const settingBoxToRemove = settingBoxesChosenToRemove[i];
-
-    // 선택한 양식이 선택된 양식들 중 첫번째 양식인지 확인합니다.
-    const isFirstForm = settingBoxToRemove === settingBoxesChosenToRemove[0];
-
-    // 첫번째 양식인 경우, 삭제 대신 양식 초기화를 물어보는 확인 메시지를 표시합니다.
-    if (isFirstForm) {
-      const resetConfirmed = confirm("첫번째 양식은 삭제할 수 없습니다. 양식을 초기화하시겠습니까?");
-      if (resetConfirmed) {
-        // 양식을 초기화합니다.
-        settingBoxToRemove.querySelector(`input[id^="foodNameInput-"]`).value = "";
-        settingBoxToRemove.querySelector(`input[id^="dueDate-"]`).value = "";
-        settingBoxToRemove.querySelector(`input[id^="foodType-"]`).value = "";
-        settingBoxToRemove.querySelector(`input[id^="foodCount-"]`).value = "";
-        settingBoxToRemove.querySelector(`input[id^="foodCompany-"]`).value = "";
-      }
-    } else {
-      // 첫번째 양식이 아닌 경우, 삭제를 진행합니다.
-      if (settingBoxToRemove && settingBoxToRemove.parentNode) {
-        parentAddSettingBoxWrapper.removeChild(settingBoxToRemove);
-      }
-    }
+  if (isAllRemoved) {
+    alertMessage = "모든 폼을 삭제하고 새로운 빈 폼을 추가하겠습니다.";
+    // 새로운 빈 폼을 추가하는 로직을 호출하세요. 예를 들면, addNewForm(); 함수를 호출합니다.
+    createNewSettingBox();
   }
+
+  alert(alertMessage);
 }
+
 
 
 /* checkCustomOrNot(); */
@@ -449,7 +509,7 @@ function checkCustomOrNot() {
     addSettingBoxForm = selectedCheckCustom.closest("div[id^='addSettingBoxForm-']");
     console.log(addSettingBoxForm);
     let isCustomChecked = selectedCheckCustom.checked;
-    const changeBackground = isCustomChecked ? "lightgreen" : "white";
+    const changeBackground = isCustomChecked ? "#fff4d4" : "white";
 
     foodNameInputElements[i].disabled = !isCustomChecked;
     foodTypeElements[i].disabled = !isCustomChecked;
@@ -474,7 +534,7 @@ function checkCustomOrNot() {
 function addFinish() {
 		
 		const addSettingBoxes = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
-		const addSettingBoxesDataList = [];
+		let addSettingBoxesDataList = [];
 		
 		let frgOptionInput, frgStateInput, foodNameInput, dueDateInput, foodTypeInput, foodCountInput, foodCompanyInput;
 		
@@ -512,16 +572,10 @@ function addFinish() {
 		    	let foodType = foodTypeInput.value;
 		    	let foodCount = parseInt(foodCountInput.value);
 		    	let foodCompany = foodCompanyInput.value;
-		    	
-		    	/*
-				console.log('---------------------------');
-				console.log(dueDate);
-		    	console.log("preparedDueDate "+preparedDueDate);
-		    	console.log('---------------------------');*/
 		    	let preparedDueDate = new Date(dueDate);
 		    	
 		    	// 데이터를 서버로 전송하기 위해 객체로 만들기
-				const addSettingBoxesData = {
+				let addSettingBoxesData = {
 					frg_name : frgOption,
 					in_state : frgState,
 					in_name : foodName,
@@ -532,49 +586,14 @@ function addFinish() {
 				};
 				
 				console.log("addSettingBoxesData",addSettingBoxesData);
-				/*
-				console.log('-------------------------------');
-				console.log(JSON.stringify(addSettingBoxesData));
 				
+				console.log('-------------------------------');
 				addSettingBoxesDataList.push(addSettingBoxesData);
 				console.log('-------------------------------');
-				console.log(addSettingBoxesDataList);
-				console.log('-------------------------------');*/
+				console.log("addSettingBoxesDataList",addSettingBoxesDataList);
+				console.log('-------------------------------');
 				
-				$.ajax({
-			    type: "POST",
-			    url: `${contextPath}/frg/innerAdd/submit`,
-			    contentType: "application/json",
-			    data: JSON.stringify(addSettingBoxesData),
-			    dataType: "json",
-			    success: function (response) {
-			        if (response.success) {
-			            alert("성공적으로 등록 완료");
-			            console.log("response.frg_name "+response.frg_name);
-			            
-			            //innerCtrl로 이동하기 위해 다시 $.ajax 호출
-			            let frgNameData = { frgName: response.frg_name };
-			            
-			            $.ajax({
-			                type: "GET",
-			                url: `${contextPath}/frg/innerCtrl`,
-			                data: frgNameData,
-			                dataType: "html",
-			                success: function (data) {
-			               		$('html').html(data);
-			                },
-			                error: function (err) {
-			               		alert("error가 발생했습니다.");
-			                }
-			            });
-			        } else {
-			            alert("등록 실패 : " + response.message);
-			        }
-			    },
-			    error: function (err) {
-			        alert("등록 실패: 서버 내부 오류가 발생했습니다.");
-			    }
-			});
+				
 		        
 		    } else if (  // 비어있는 폼이 있을 경우 등록 불가, 해당 폼으로 자동 스크롤
 		    	frgOptionInput.value === "" ||
@@ -590,6 +609,27 @@ function addFinish() {
 		        break;
 		    }
 		    
+		    
 		}
+		
+	    $.ajax({
+		    type: "POST",
+		    url: `${contextPath}/frg/innerAdd/submit`,
+		    contentType: "application/json",
+		    data: JSON.stringify(addSettingBoxesDataList),
+		    dataType: "json",
+		    success: function (response) {
+		        if (response.success) {
+		            alert("성공적으로 등록 완료");
+		            console.log("response.frg_name "+response.frg_name);
+		            window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
+		        } else {
+		            alert("등록 실패 : " + response.message);
+		        }
+		    },
+		    error: function (err) {
+		        alert("등록 실패: 서버 내부 오류가 발생했습니다.");
+		    }
+		});
 	 		
 	}

@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Login Page</title>
+<title>로그인</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
