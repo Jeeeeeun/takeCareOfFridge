@@ -130,7 +130,6 @@
 														<input type="checkbox" name="formToRemove-0" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
 													</div>
 													
-													
 													<div class="addSettingBoxForm-boxes">
 													
 														<div class="addSettingBoxForm-boxes-arrange">
@@ -238,7 +237,7 @@
 								<!-- 직접입력하기를 할 경우 생겨날 table -->
 								<div class="tableBox">
 									<div class="searchFood">
-										<p>공공 API를 이용하여 식품을 조회해보세요</p>
+										<p class="searchFood-guide">공공 API를 이용하여 식품을 조회해보세요</p>
 										<div class="searchFood-1">
 											<input type="search" name="searchFood" id="searchInput"
 												placeholder="식품을 검색하세요." autofocus />
@@ -248,8 +247,7 @@
 										<!-- searchFood-1 끝 -->
 									</div>
 									<!-- searchFood 끝 -->
-									<div class="FoodTableDiv"
-										style="max-height: 400px; overflow-y: scroll; margin-left: 20px;">
+									<div class="FoodTableDiv">
 										<table id="showFoodTable">
 											<thead>
 												<tr title="조회한 식품을 클릭하면 등록 양식에 식품 정보가 추가돼요">

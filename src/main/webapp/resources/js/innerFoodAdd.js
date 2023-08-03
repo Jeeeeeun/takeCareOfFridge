@@ -423,7 +423,7 @@ function getAddSettingBoxForm(selectedForm){
 function selectedForms(){
 
 	// 폼 선택 div 전부 가져오기
-	const selectedFormElements = document.querySelectorAll(`input[id^="selectedForm-"]:checked`);
+	const selectedFormElements = document.querySelectorAll(`input[id^="selectedForm-"]`);
 	// 생성돼있는 모든 addSettingBoxForm div가져오기
 	const selectedAddSettingBoxForms = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
 	// 생성돼있는 모든 addSettingBoxForm div를 감싸고 있는 div가져오기
@@ -434,24 +434,26 @@ function selectedForms(){
 	//console.log("selectedFormElements",selectedFormElements[0]);
 	
 	for (let i = 0; i < selectedFormElements.length; i++) {
-		
 	    if (selectedFormElements.length >= 1 && selectedAddSettingBoxForms[i] && selectedAddSettingBoxForms[i].parentNode === parentAddSettingBoxWrapper) {
 	    	// 폼 선택 div를 하나씩 조회
 		    let selectedForm = selectedFormElements[i];
-		    console.log("selectedForm",selectedForm);
+		    //console.log("selectedForm",selectedForm);
 		    // 선택된 폼 div의 부모인 addSettingBoxForm를 찾음
 		    let addSettingBoxForm = getAddSettingBoxForm(selectedForm);
-		    console.log("addSettingBoxForm",addSettingBoxForm);
-	    	// addSettingBoxForm이 존재하고, 그의 부모 노트가 .addSettingBox-Wrapper이면
-	    	// 배열 그릇에 addSettingBoxForm을 넣고
-		    selectedAllAddSettingBoxForms.push(addSettingBoxForm);
-		    // 그것의 배경색을 바꿔줘 (checked여부에 따라 바뀜)
-		    addSettingBoxForm.style.backgroundColor = selectedForm.checked ? "#f8f9faad" : "#ffffff6e";
+		    // console.log("addSettingBoxForm",addSettingBoxForm);
+		    
+		    if (selectedForm.checked) {
+                selectedAllAddSettingBoxForms.push(addSettingBoxForm);
+  			    addSettingBoxForm.style.backgroundColor = "#f8f9faad";
+            }else if(!selectedForm.checked){
+            	addSettingBoxForm.style.backgroundColor = "#ffffff6e";
+            }
+  
 	    }else if(selectedFormElements.length >= 1 && selectedAddSettingBoxForms[i] && selectedAddSettingBoxForms[i].parentNode !== parentAddSettingBoxWrapper){
 	    	// addSettingBoxForm은 존재하는데, 그의 부모 노드가 .addSettingBox-Wrapper가 아니면 console로 찍어줘
 	    	console.log("addSettingBoxForm의 부모 노드가 아닙니다");
 	    }
-  }
+    }
 
 	//배열 그릇에 담은 addSettingBoxesForms를 내보내줘
   	return selectedAllAddSettingBoxForms;
