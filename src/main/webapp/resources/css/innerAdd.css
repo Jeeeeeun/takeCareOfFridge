@@ -247,8 +247,15 @@
 
 #selectedForm-0{
 	margin: 5% 3%;
-    width: 5%;
-    height: 35%;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 3px solid #fff;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+#selectedForm-0:checked {
+   background-color: #f4623a;
 }
 
 .box3{
