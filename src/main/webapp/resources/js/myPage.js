@@ -1,120 +1,47 @@
 var currentIndex = 0;
-var frgIndex,
-  frgName,
-  frgShape,
-  checkedRadio,
-  hRadio,
-  vRadio,
-  sRadio,
-  frgAstate,
-  frgBstate,
-  aFrozenBtn,
-  aCoolBtn,
-  bFrozenBtn,
-  bCoolBtn,
-  frgInfoChangeBtn,
-  frgCorrectionEndBtn,
-  dangerousStandard,
-  warningStandard,
-  dangerousValue,
-  warningValue,
-  dangerousSpan,
-  warningSpan,
-  trfCorrectionEndBtn,
-  announcement,
-  alertMsg,
-  alertContent,
-  alertWindow,
-  confirmMsg,
-  confirmContent,
-  confirmWindow,
-  confirmYesBtn,
-  confirmNoBtn;
+var frgIndex, frgName, frgShape, checkedRadio, hRadio, vRadio, sRadio, frgAstate, frgBstate,
+	aFrozenBtn, aCoolBtn, bFrozenBtn, bCoolBtn, frgInfoChangeBtn, frgCorrectionEndBtn,
+	dangerousStandard, warningStandard, dangerousValue, warningValue, dangerousSpan, warningSpan,
+	trfCorrectionEndBtn, announcement;
 
-window.onload = function () {
-  // DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
-  frgIndex = document.querySelector("#frg_index");
-  frgName = document.querySelectorAll(".frg_name");
-  frgShape = document.querySelectorAll(".frg_shape");
-  hRadio = document.querySelector("#hRadio");
-  vRadio = document.querySelector("#vRadio");
-  sRadio = document.querySelector("#sRadio");
-  frgAstate = document.querySelector("#myFrgAstate");
-  frgBstate = document.querySelector("#myFrgBstate");
-  aFrozenBtn = document.querySelector("#frgAfrozenBtn");
-  aCoolBtn = document.querySelector("#frgAcoolBtn");
-  bFrozenBtn = document.querySelector("#frgBfrozenBtn");
-  bCoolBtn = document.querySelector("#frgBcoolBtn");
-  frgInfoChangeBtn = document.querySelector("#frgInfoChange");
-  frgCorrectionEndBtn = document.querySelector("#frgInfoCorrectionEndBtn");
-  trfChangeBtn = document.querySelector("#standardChange");
-  standardWrapper = document.querySelector("#standards-wrapper");
-  dangerousStandard = document.querySelector("#dangerousStandard");
-  warningStandard = document.querySelector("#warningStandard");
-  dangerousSpan = document.querySelector("#dangerousSpan");
-  warningSpan = document.querySelector("#warningSpan");
-  trfCorrectionEndBtn = document.querySelector("#trfCorrectionEndBtn");
-  announcement = document.querySelector("#announcement");
-  alertContent = document.querySelector("#alertContent");
-  alertWindow = document.querySelector("#customAlert");
-  confirmContent = document.querySelector("#confirmContent");
-  confirmWindow = document.querySelector("#customConfirm");
-  confirmYesBtn = document.querySelector("#confirmYesBtn");
-  confirmNoBtn = document.querySelector("#confirmNoBtn");
+document.addEventListener("DOMContentLoaded", () => {
+	// DOM 객체 위에서 선언해둔 거 이렇게 onload 안에서 초기화시키면 여러 함수에서 전역변수처럼 쓸 수 있음.
+	frgIndex = document.querySelector("#frg_index");
+	frgName = document.querySelectorAll(".frg_name");
+	frgShape = document.querySelectorAll(".frg_shape");
 
-  updateFrg(currentIndex);
-  checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
+	hRadio = document.querySelector("#hRadio");
+	vRadio = document.querySelector("#vRadio");
+	sRadio = document.querySelector("#sRadio");
 
-  // 첫 렌더링 시에는 값 지정
-  dangerousValue = trfStandard[0].dangerous_standard;
-  warningValue = trfStandard[0].warning_standard;
+	frgAstate = document.querySelector("#myFrgAstate");
+	frgBstate = document.querySelector("#myFrgBstate");
+	aFrozenBtn = document.querySelector("#frgAfrozenBtn");
+	aCoolBtn = document.querySelector("#frgAcoolBtn");
+	bFrozenBtn = document.querySelector("#frgBfrozenBtn");
+	bCoolBtn = document.querySelector("#frgBcoolBtn");
 
-  trfStandardShow(dangerousValue, warningValue);
-
-};
-
-// 알림창 띄우기
-function showAlert(alertMsg) {
-  alertContent.textContent = alertMsg;
-  alertWindow.classList.remove("hidden");
-  alertWindow.classList.add("bg-opacity-100");
-
-  setTimeout(function () {
-    alertWindow.classList.remove("bg-opacity-100");
-    alertWindow.classList.add("hidden");
-  }, 2500);
-}
-
-// 컨펌창 켜기
-function showConfirm(confirmMsg, yesClicked, noClicked) {
-  confirmContent.textContent = confirmMsg;
-  confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("bg-opacity-100");
-
-  confirmYesBtn.onclick = function () {
-    // Yes 눌리면 이뤄질 동작들
-    if (yesClicked) {
-      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-
-  confirmNoBtn.onclick = function () {
-    // No 눌리면 이뤄질 동작들
-    if (noClicked) {
-      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-}
-
-// 컨펌창 끄기
-function closeConfirm() {
-  confirmWindow.classList.remove("bg-opacity-100");
-  confirmWindow.classList.add("hidden");
-}
+	frgInfoChangeBtn = document.querySelector("#frgInfoChange");
+	frgCorrectionEndBtn = document.querySelector("#frgInfoCorrectionEndBtn");
+	
+	trfChangeBtn = document.querySelector("#standardChange");
+	standardWrapper = document.querySelector("#standards-wrapper");
+	dangerousStandard = document.querySelector("#dangerousStandard");
+	warningStandard = document.querySelector("#warningStandard");
+	dangerousSpan = document.querySelector("#dangerousSpan");
+	warningSpan = document.querySelector("#warningSpan");
+	trfCorrectionEndBtn = document.querySelector("#trfCorrectionEndBtn");
+	announcement = document.querySelector("#announcement");
+	
+	updateFrg(currentIndex);
+	checkedRadio = document.querySelector('input[name="frg_shape"]:checked'); // 순서 중요
+	
+	// 첫 렌더링 시에는 값 지정
+	dangerousValue = trfStandard[0].dangerous_standard;
+	warningValue = trfStandard[0].warning_standard;
+	
+	trfStandardShow(dangerousValue, warningValue);
+});
 
 // 처음 렌더링 될 때, 또는 냉장고 정보 바꾸는 화살표 prev(◀)든 next(▶)든 눌리면 실행될 함수
 function updateFrg(i) {
@@ -122,42 +49,33 @@ function updateFrg(i) {
   frgName[0].textContent = frgListJson[i].frg_name;
   frgName[1].value = frgListJson[i].frg_name;
 
+  frgShape[0].style.height = "80%";
+  frgShape[0].style.width = "auto";
+
+  frgAstate.style.position = "relative";
+  frgAstate.style.fontWeight = "bold";
+  frgBstate.style.position = "relative";
+  frgBstate.style.fontWeight = "bold";
+  frgBstate.style.display = "flex";
+
   switch (frgListJson[i].frg_shape) {
     case "H":
       frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
-      frgShape[0].style.height = "80%";
-      frgShape[0].style.width = "auto";
       hRadio.checked = true;
       vRadio.checked = false;
       sRadio.checked = false;
-      frgAstate.style.position = "relative";
-      frgAstate.style.fontWeight = "bold";
-      frgBstate.style.position = "relative";
-      frgBstate.style.fontWeight = "bold";
-      frgBstate.style.display = "flex";
       break;
     case "V":
       frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
-      frgShape[0].style.height = "80%";
-      frgShape[0].style.width = "auto";
       vRadio.checked = true;
       hRadio.checked = false;
       sRadio.checked = false;
-      frgAstate.style.position = "relative";
-      frgAstate.style.fontWeight = "bold";
-      frgBstate.style.position = "relative";
-      frgBstate.style.fontWeight = "bold";
-      frgBstate.style.display = "flex";
       break;
     case "S":
       frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
-      frgShape[0].style.height = "80%";
-      frgShape[0].style.width = "auto";
       sRadio.checked = true;
       vRadio.checked = false;
       hRadio.checked = false;
-      frgAstate.style.position = "relative";
-      frgAstate.style.fontWeight = "bold";
       frgBstate.style.display = "none";
       bFrozenBtn.removeAttribute("selected");
       bCoolBtn.removeAttribute("selected");
@@ -195,13 +113,6 @@ function updateFrg(i) {
       bCoolBtn.className = "frgSelected";
       break;
   }
-
-  console.log("냉장고 index: " + frgIndex.value);
-  console.log("냉장고 이름: " + frgName[0].textContent);
-  console.log("냉장고 모양: " + frgListJson[i].frg_shape);
-  console.log("냉장고 A section 보관 상태: " + frgListJson[i].frg_Astate);
-  console.log("냉장고 B section 보관 상태: " + frgListJson[i].frg_Bstate);
-
 }
 
 function prevFrg() {
@@ -212,36 +123,7 @@ function prevFrg() {
     // 앞 일련번호로 냉장고 정보 바꿔줘
     currentIndex--;
     updateFrg(currentIndex);
-
-    // 모든 냉장고 정보 수정될 수 있게 read-only 해제 돼 있으면
-    if (
-      !(
-        frgName[1].disabled &&
-        hRadio.disabled &&
-        vRadio.disabled &&
-        sRadio.disabled &&
-        aFrozenBtn.disabled &&
-        aCoolBtn.disabled &&
-        bFrozenBtn.disabled &&
-        bCoolBtn.disabled
-      )
-    ) {
-      // 해제된 정보들 칸 다시 read-only로 만들어줘.
-      frgName[1].disabled = true;
-      hRadio.disabled = true;
-      vRadio.disabled = true;
-      sRadio.disabled = true;
-      aFrozenBtn.disabled = true;
-      aCoolBtn.disabled = true;
-      bFrozenBtn.disabled = true;
-      bCoolBtn.disabled = true;
-
-      // 수정 완료 버튼 숨겨줘.
-      frgCorrectionEndBtn.style.display = "none";
-
-      // 수정하기 버튼 숨겼던 거 다시 드러내줘.
-      frgInfoChangeBtn.style.display = "flex";
-    }
+	frgInfosDisabled();
   }
 }
 
@@ -251,37 +133,40 @@ function nextFrg() {
     // 뒷 일련번호로 냉장고 정보 바꿔줘
     currentIndex++;
     updateFrg(currentIndex);
-
-    // 모든 냉장고 정보 수정될 수 있게 read-only 해제 돼있으면
-    if (
-      !(
-        frgName[1].disabled &&
-        hRadio.disabled &&
-        vRadio.disabled &&
-        sRadio.disabled &&
-        aFrozenBtn.disabled &&
-        aCoolBtn.disabled &&
-        bFrozenBtn.disabled &&
-        bCoolBtn.disabled
-      )
-    ) {
-      // 해제된 정보들 칸 다시 read-only로 만들어줘.
-      frgName[1].disabled = true;
-      hRadio.disabled = true;
-      vRadio.disabled = true;
-      sRadio.disabled = true;
-      aFrozenBtn.disabled = true;
-      aCoolBtn.disabled = true;
-      bFrozenBtn.disabled = true;
-      bCoolBtn.disabled = true;
-
-      // 수정 완료 버튼 숨겨줘.
-      frgCorrectionEndBtn.style.display = "none";
-
-      // 수정하기 버튼 숨겼던 거 다시 드러내줘.
-      frgInfoChangeBtn.style.display = "flex";
-    }
+	frgInfosDisabled();
   }
+}
+
+function frgInfosDisabled() {
+	// 모든 냉장고 정보 수정될 수 있게 read-only 해제 돼 있으면
+	if (
+			!(
+				frgName[1].disabled &&
+				hRadio.disabled &&
+				vRadio.disabled &&
+				sRadio.disabled &&
+				aFrozenBtn.disabled &&
+				aCoolBtn.disabled &&
+				bFrozenBtn.disabled &&
+				bCoolBtn.disabled
+			)
+		) {
+			// 해제된 정보들 칸 다시 read-only로 만들어줘.
+			frgName[1].disabled = true;
+			hRadio.disabled = true;
+			vRadio.disabled = true;
+			sRadio.disabled = true;
+			aFrozenBtn.disabled = true;
+			aCoolBtn.disabled = true;
+			bFrozenBtn.disabled = true;
+			bCoolBtn.disabled = true;
+
+			// 수정 완료 버튼 숨겨줘.
+			frgCorrectionEndBtn.style.display = "none";
+
+			// 수정하기 버튼 숨겼던 거 다시 드러내줘.
+			frgInfoChangeBtn.style.display = "flex";
+		}
 }
 
 // 신호등 기준 값 보여주기, 화면 처음 렌더링 될 때
