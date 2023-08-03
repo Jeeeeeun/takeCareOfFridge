@@ -23,6 +23,8 @@
 
 		<!-- Core theme CSS (includes Bootstrap)-->
 		<link href="${ pageContext.servletContext.contextPath }/resources/css/styles.css" rel="stylesheet" />
+
+		<!-- External Custom CSS StyleSheet -->
 		<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/frgAdd.css" />
 		<style>
     		#plusIcon:hover {
@@ -33,7 +35,8 @@
 		<!-- FontAwesome CDN -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-		<script src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
+		<!-- JavaScript External Links -->
+		<script src="${ pageContext.servletContext.contextPath }/resources/js/alertAndConfirm.js"></script>
 	</head>
 	<body id="page-top">
 		<header class="custom-masthead">
@@ -46,26 +49,41 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarResponsive">
 						<ul class="navbar-nav ms-auto my-2 my-lg-0">
-							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
-								onclick="noFrg();">Community</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.servletContext.contextPath }/frg/frgAdd"
-								onclick="noFrg();"><i class="fa-solid fa-circle-user"></i></a></li>
+							<li class="nav-item">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd">
+									MyFridge
+								</a>
+							</li>
+							<li class="nav-item hidden">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();">
+									Community
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/logout">
+									Logout
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd" onclick="noFrg();">
+									<i class="fa-solid fa-circle-user"></i>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
 			<div class="d-flex flex-row position-relative mt-6 w-100 h-100">
-				<div id="trafficLight"
-					class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
-					<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].red}</p>
-					<p id="yellow" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].yellow}</p>
-					<p id="green" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">${trafficLight[0].green}</p>
+				<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+					<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].red}
+					</p>
+					<p id="yellow" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].yellow}
+					</p>
+					<p id="green" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].green}
+					</p>
 				</div>
 				<div class="bg-white-30 rounded-4 d-flex justify-content-sm-center align-items-center w-20 h-80 mx-auto" style="transform: translateY(20%);">
 					<a href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" title="냉장고 추가하러 가기">

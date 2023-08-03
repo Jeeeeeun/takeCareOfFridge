@@ -7,7 +7,7 @@
   position: absolute;
   left: 2%;
   top: 10%;
-  width: 30%;
+  width: 48%; /* 게시글 영역 숨기면서 30% -> 48%로 늘림 */
   height: 7%;
   border-radius: 0.75rem;
   -moz-border-radius: 0.75rem;
@@ -26,7 +26,7 @@
   position: absolute;
   left: 2%;
   top: 20%;
-  width: 30%;
+  width: 48%; /* 게시글 영역 숨기면서 30% -> 48%로 늘림 */
   height: 78%;
   border-radius: 0.75rem;
   -moz-border-radius: 0.75rem;
@@ -223,7 +223,7 @@
 }
 
 .myPageContentBox1 input{
-  border: <!--0.5px dashed #eee;--> none;
+  border: none;
   /* border 스타일 넣은 이유: 이 위치에 input 요소가 있음을 보여주기 위해서 임시로 만듦.
 	실제로 로직이랑 연결하고 나서는 border: none;으로 바꾸기 */
   background-color: transparent;
@@ -239,6 +239,7 @@
   position: absolute;
   bottom: 4%;
   border: none;
+  border-radius: 1rem;
   -moz-border-radius: 1rem;
   -webkit-border-radius: 1rem;
   color: #604c3f;
@@ -408,9 +409,9 @@
   /* 나의 냉장고 보기 제목 박스 */
   background: #d6c2b4;
   position: absolute;
-  left: 68%;
+  left: 51%;  /* 게시글 영역 숨기면서 68% -> 48%로 이동 */
   top: 10%;
-  width: 30%;
+  width: 48%;  /* 게시글 영역 숨기면서 30% -> 48%로 늘림 */
   height: 7%;
   border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -426,9 +427,9 @@
   /* 나의 냉장고 보기 내용 박스 */
   background: #f4eee6;
   position: absolute;
-  left: 68%;
+  left: 51%;  /* 게시글 영역 숨기면서 68% -> 48%로 이동 */
   top: 20%;
-  width: 30%;
+  width: 48%; /* 게시글 영역 숨기면서 30% -> 48%로 늘림 */
   height: 78%;
   border-radius: 1rem;
   -moz-border-radius: 1rem;
