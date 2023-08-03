@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
-import com.frg.domain.InnerDTOList;
 import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
@@ -76,21 +77,27 @@ public class InnerFoodController {
 
 	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	public ResponseEntity<String> registerInnerFood(HttpSession session, @RequestBody List<InnerDTO> dtoList) throws Exception {
 		
-		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
-		String user_id = (String) session.getAttribute("SESS_ID");
-		dto.setUser_id(user_id);
-		inService.registerInnerFood(dto);
+	    String user_id = (String) session.getAttribute("SESS_ID");
+	    String frgName = null;
 
-		String frgName = dto.getFrg_name(); // InnerDTO를 이용하여 'frg_name' 값을 얻음
-		
-		JsonObject json = new JsonObject();
-		json.addProperty("success", true);
-		json.addProperty("frg_name", frgName); // 'frg_name' 값을 JsonObject에 추가
+	    // List<InnerDTO>를 반복하여 개별 InnerDTO 객체를 처리합니다.
+	    for (InnerDTO dto : dtoList) {
+	        dto.setUser_id(user_id);
+	        inService.registerInnerFood(dto);
+	        
+	        // frgName 값을 설정합니다. 이미 설정된 경우, 이전 값을 덮어씁니다.
+	        frgName = dto.getFrg_name();
+	    }
 
-		return new Gson().toJson(json);
+	    JsonObject json = new JsonObject();
+	    json.addProperty("success", true);
+	    json.addProperty("frg_name", frgName); // 마지막으로 설정된 'frg_name' 값을 JsonObject에 추가.
+
+	    return new ResponseEntity<>(new Gson().toJson(json), HttpStatus.OK);
 	}
+
 
 	// foodApi 조회하기
 	// @RequestMapping(value= "/search", method = RequestMethod.GET)

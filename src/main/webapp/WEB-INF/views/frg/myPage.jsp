@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>myPage</title>
+<title>my Page</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
 	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.svg" />

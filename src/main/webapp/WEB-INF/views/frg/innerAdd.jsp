@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Inner Add Page</title>
+<title>식품 정보 등록</title>
 	
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
@@ -127,82 +127,84 @@
 												<div id="addSettingBoxForm-0">
 													
 													<div class="selectedFormToRemove">
-														<input type="checkbox" name="formToRemove" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
+														<input type="checkbox" name="formToRemove-0" id="selectedForm-0" onclick="selectedForms();">폼 선택하기
 													</div>
 													
 													
 													<div class="addSettingBoxForm-boxes">
 													
-														<!-- 냉장고 목록 -->
-														<div class="box1">
-															<label for="frgOption-0">
-																냉장고 선택
-															</label>
-															<select name="frg_name-0" id="frgOption-0">
-																<option value="">냉장고 선택</option>
-															</select>
-														</div>
-			
-														<!-- 보관 위치 -->
-														<div class="box2">
-															<label for="foodStateFrozen foodStateCool"> 
-																보관상태
-															</label>
-															<div class="box2-1">
-																<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
-																<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장
-															</div> 
-														</div>
-			
-														<!-- 식품명 -->
-														<div class="box3">
-															<label for="foodNameInput-0">
-																식품명
-															</label>
-															<div class="box3-1">
-																<div class="box3-2">
-																	<input type="text" name="in_name-0" id="foodNameInput-0"
-																		placeholder="검색 결과가 입력됩니다." disabled />
-																</div>
-																<div class="box3-3">
-																	<input type="checkbox" 
-																		id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+														<div class="addSettingBoxForm-boxes-arrange">
+															
+															<!-- 냉장고 목록 -->
+															<div class="box1">
+																<label for="frgOption-0">
+																	냉장고 선택
+																</label>
+																<select name="frg_name-0" id="frgOption-0">
+																	<option value="">냉장고 선택</option>
+																</select>
+															</div>
+				
+															<!-- 보관 위치 -->
+															<div class="box2">
+																<label for="foodStateFrozen foodStateCool"> 
+																	보관상태
+																</label>
+																<div class="box2-1">
+																	<input type="radio" name="in_state-0" id="foodStateFrozen"  value="frozen" checked/>냉동
+																	<input type="radio" name="in_state-0" id="foodStateCool" value="cool" />냉장
+																</div> 
+															</div>
+				
+															<!-- 식품명 -->
+															<div class="box3">
+																<label for="foodNameInput-0">
+																	식품명
+																</label>
+																<div class="box3-1">
+																	<div class="box3-2">
+																		<input type="text" name="in_name-0" id="foodNameInput-0"
+																			placeholder="검색 결과가 입력됩니다." disabled />
+																	</div>
+																	<div class="box3-3">
+																		<input type="checkbox" 
+																			id="checkCustomInput-0" onclick="checkCustomOrNot();">직접입력하기
+																	</div>
 																</div>
 															</div>
+				
+															<!-- 유통/소비기한 -->
+															<div class="box4">
+																<label for="dueDate-0">
+																	유통/소비기한
+																</label>
+															    <input type="date" name="in_expireDate-0" id="dueDate-0" value="">
+															</div>
+				
+															<!-- 식품유형 -->
+															<div class="box5">
+																<label for="foodType-0">
+																	식품유형 
+																</label>
+																<input type="text" name="in_type-0" id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
+															</div>
+				
+															<!-- 수량 -->
+															<div class="box6">
+																<label for="foodCount-0">
+																	수량 
+																</label>
+																	<input type="number" name="in_count-0" id="foodCount-0" placeholder="식품 수량 등록">
+															</div>
+				
+															<!-- 제조사명 -->
+															<div class="box7">
+																<label for="foodCompany-0">
+																	제조사명 
+																</label>
+																<input type="text" name="in_company-0"id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
+															</div>
 														</div>
-			
-														<!-- 유통/소비기한 -->
-														<div class="box4">
-															<label for="dueDate-0">
-																유통/소비기한
-															</label>
-														    <input type="date" name="in_expireDate-0" id="dueDate-0" value="">
-														</div>
-			
-														<!-- 식품유형 -->
-														<div class="box5">
-															<label for="foodType-0">
-																식품유형 
-															</label>
-															<input type="text" name="in_type-0" id="foodType-0" placeholder="검색 결과가 입력됩니다." disabled>
-														</div>
-			
-														<!-- 수량 -->
-														<div class="box6">
-															<label for="foodCount-0">
-																수량 
-															</label>
-																<input type="number" name="in_count-0" id="foodCount-0" placeholder="식품 수량 등록">
-														</div>
-			
-														<!-- 제조사명 -->
-														<div class="box7">
-															<label for="foodCompany-0">
-																제조사명 
-															</label>
-															<input type="text" name="in_company-0"id="foodCompany-0" placeholder="검색 결과가 입력됩니다." disabled>
-														</div>
-													
 													</div>
 													
 												</div>
