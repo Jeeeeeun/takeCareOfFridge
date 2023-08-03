@@ -17,7 +17,7 @@ function checkPwdMatch() { //함수 선언, 비밀번호 일치 여부 확인
         submitButton.disabled = true; // 일치하지 않으면 버튼 비활성화
     }else{ // 그렇지 않으면 알림에 일치 표시
         pwdAlert.innerHTML = "일치";
-        pwdAlert.style.color = "green";
+        pwdAlert.style.color = "#35FF03";
         submitButton.disabled = false; //일치하면 버튼 활성화
     }
 }
@@ -75,7 +75,7 @@ $(document).ready(function() {
                 } else {
                     msgSpan.text("※ 사용 가능한  아이디입니다.");
                     msgDiv.show();
-                    msgDiv.css("color","green");
+                    msgDiv.css("color","#35FF03");
                     msgDiv.removeClass("hidden");
 
                     $("#user_id").css("margin-bottom", "0px");
@@ -121,7 +121,7 @@ $(document).ready(function() {
                 } else {
                     msgEmailSpan.text("※ 사용 가능한 이메일입니다.");
                     msgEmailDiv.show();
-                    msgEmailDiv.css("color","green");
+                    msgEmailDiv.css("color","#35FF03");
                     msgEmailDiv.removeClass("hidden");
 
                     $("#user_email").css("margin-bottom", "0px");
