@@ -26,8 +26,7 @@
 		<!-- Core theme CSS (includes Bootstrap)-->
 		<link href="${pageContext.servletContext.contextPath}/resources/css/styles.css" rel="stylesheet" />
 
-		<!-- External Custom CSS StyleSheet -->
-		<!-- <link rel="stylesheet" href="../resources/css/innerCtrl.css"> -->
+		<!-- Internal Custom CSS StyleSheet -->
 		<style>
 			.stateBtn:hover {
 				background-color: rgba(255, 255, 255, 0.2);

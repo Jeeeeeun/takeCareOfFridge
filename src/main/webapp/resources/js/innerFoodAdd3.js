@@ -1,11 +1,3 @@
-console.log("lo2g");
-
-// 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow;
-
-
-
-
 // 페이지 로딩되자마자, DOM 객체 캐치
 window.onload = function () {
 	alertContent = document.querySelector("#alertContent");
@@ -43,17 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		addOptionsToFrgList(frgOptionList, frgNames);
 
 	});
-	// 알림창 띄우기
-	function showAlert(alertMsg) {
-		alertContent.textContent = alertMsg;
-		alertWindow.classList.remove("hidden");
-		alertWindow.classList.add("show");
 
-		setTimeout(function () {
-			alertWindow.classList.remove("show");
-			alertWindow.classList.add("hidden");
-		}, 2500);
-	}
 
 	/* searchFoodAPI(); */
 	function searchFoodAPI() {
@@ -77,14 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				//검색창에 아무것도 입력하지 않은 상태에서 검색하기를 눌렀을 때의 일
 				const searchInput = document.querySelector("#searchInput");
 				if (searchInput.value === "") {
-					alert("식품명을 입력하지 않았습니다. 식품명을 검색하세요 ^^");
+					alertMsg = "식품명을 입력하지 않았습니다. 식품명을 검색하세요 ^^";
+					showAlert(alertMsg);
 					return;
 				}
 
 				if (data.length == 1) {
-					alert(data.api_name + "을 성공적으로 조회했습니다. 확인을 눌러주세요.");
+					alertMsg = data.api_name + "을 성공적으로 조회했습니다. 확인을 눌러주세요.";
+					showAlert(alertMsg);
 				} else if (data.length > 1) {
-					alert("총 " + data.length + "개의 동일제품이 검색되었습니다. \n 하단 표에서 원하는 제품을 선택하세요.");
+					alertMsg = "총 " + data.length + "개의 동일제품이 검색되었습니다. \n 하단 표에서 원하는 제품을 선택하세요.";
+					showAlert(alertMsg);
 				}
 
 
@@ -188,9 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			error: function (data, err) {
 				if (data.length == 0) {
-					alert("검색하신 " + data + "는(은) 없는 제품입니다. 직접 입력하여 등록하세요");
+					alertMsg = "검색하신 " + data + "는(은) 없는 제품입니다. 직접 입력하여 등록하세요";
+					showAlert(alertMsg);
 				} else {
-					console.log('알 수 없는 이유로 식품 조회에 실패했습니다. 재시도하세요.');
+					alertMsg = '알 수 없는 이유로 식품 조회에 실패했습니다. 재시도하세요.';
+					showAlert(alertMsg);
 					console.log(data);
 					console.log(err);
 				}
@@ -237,7 +224,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 
 				if (emptyInputs.length > 0) {
-					alert('다음 항목이 누락되었습니다:\n' + missingFields);
+					alertMsg = '다음 항목이 누락되었습니다:\n' + missingFields;
+					showAlert(alertMsg);
 
 					// 첫 번째 비어 있는 input에 자동 포커스 설정
 					emptyInputs[0].focus();
@@ -588,12 +576,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			const selectedFormElementsCountToRemove = selectedFormElements.length;
 
 			if (selectedFormElementsCountToRemove === 0) {
-				alert("삭제할 폼을 선택하지 않았습니다. 폼을 선택해주세요");
+				alertMsg = "삭제할 폼을 선택하지 않았습니다. 폼을 선택해주세요";
+				showAlert(alertMsg);
 				return;
 			}
 
 			let isAllRemoved = selectedFormElementsCountToRemove === parentAddSettingBoxWrapper.childElementCount;
-			let alertMessage = "선택하신 폼을 삭제하겠습니다.";
+			alertMsg = "선택하신 폼을 삭제하겠습니다.";
 
 			for (let i = 0; i < selectedFormElementsCountToRemove; i++) {
 				const formToRemove = settingBoxesChosenToRemove[i];
@@ -607,7 +596,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				createNewSettingBox();
 			}
 
-			alert(alertMessage);
+			showAlert(alertMsg);
 
 			if (document.getElementById("totalFormsCount")) {
 				document.getElementById("totalFormsCount").innerText = formCount;
@@ -696,7 +685,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						formDataFilled = true;
 					}*/
 
-					alert(formCount + "개의 식품정보를 등록하겠습니다.");
+					alertMsg = formCount + "개의 식품정보를 등록하겠습니다.";
+					showAlert(alertMsg);
 
 					let frgOption = frgOptionInput.value;
 					let frgState = frgStateInput.value;
@@ -738,15 +728,18 @@ document.addEventListener('DOMContentLoaded', function () {
 					dataType: "json",
 					success: function (response) {
 						if (response.success) {
-							alert(formCount + "개의 식품을 성공적으로 등록했습니다. 식품 조회 페이지로 이동합니다.");
+							alertMsg = formCount + "개의 식품을 성공적으로 등록했습니다. 식품 조회 페이지로 이동합니다.";
+							showAlert(alertMsg);
 							console.log("response.frg_name " + response.frg_name);
 							window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
 						} else {
-							alert("등록 실패 : " + response.message);
+							alertMsg = "등록 실패 : " + response.message;
+							showAlert(alertMsg);
 						}
 					},
 					error: function (err) {
-						alert("등록 실패: 서버 내부 오류가 발생했습니다.");
+						alertMsg = "등록 실패: 서버 내부 오류가 발생했습니다.";
+						showAlert(alertMsg);
 					}
 				});
 
