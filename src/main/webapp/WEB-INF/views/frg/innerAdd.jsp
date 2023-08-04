@@ -114,7 +114,7 @@
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</div>
-									<p>총 N개 등록 중</p>
+									<p>총 0개 등록 중</p>
 									</div>
 	
 									<form action="${pageContext.servletContext.contextPath}/frg/innerAdd/submit"

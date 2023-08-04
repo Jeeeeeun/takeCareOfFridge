@@ -160,7 +160,7 @@ let formNumber = 1;
 let frgOptionCounter = 1;
 let frgStateCounter = 1; 
 /* createNewSettingBox(); */
-function createNewSettingBox() {
+function createNewSettingBox() { //추가 하는 함수
 
 	/*
 	1. +를 눌렀을 때, form이 비어있는지 아닌지 확인 후 
@@ -460,7 +460,7 @@ function selectedForms(){
 }
 
 /*removeChosenSettingBox();*/
-function removeChosenSettingBox() {
+function removeChosenSettingBox() { // 삭제하는 함수
   const parentAddSettingBoxWrapper = document.querySelector(".addSettingBox-Wrapper");
   const settingBoxesChosenToRemove = selectedForms();
   const selectedFormElements = document.querySelectorAll('input[id^="selectedForm-"]:checked');
@@ -477,6 +477,8 @@ function removeChosenSettingBox() {
   for (let i = 0; i < selectedFormElementsCountToRemove; i++) {
     const formToRemove = settingBoxesChosenToRemove[i];
     parentAddSettingBoxWrapper.removeChild(formToRemove);
+
+	formCounter --;
   }
 
   if (isAllRemoved) {
