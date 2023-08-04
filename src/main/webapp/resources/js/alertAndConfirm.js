@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 알림창 띄우기
-function showAlert(alertMsg) {
+function showAlert(alertMsg, target = null) { // 이곳을 function showAlert(alertMsg, target) { 라고 쓰고
     alertContent.textContent = alertMsg;
     alertWindow.classList.remove("hidden");
     alertWindow.classList.add("bg-opacity-100");
@@ -19,7 +19,12 @@ function showAlert(alertMsg) {
     setTimeout(function () {
         alertWindow.classList.remove("bg-opacity-100");
         alertWindow.classList.add("hidden");
+
+        if (target) { // 이곳을 if (target ?? false) { 라고 써도 결과는 똑같음
+            location.href = target.getAttribute("href");
+        }
     }, 2500);
+    // target이라는 매개변수 없이도 호출 가능한 함수임.
 }
 
 // 컨펌창 켜기
@@ -53,10 +58,12 @@ function closeConfirm() {
     confirmWindow.classList.add("hidden");
 }
 
-function noLog(){
-    alert("로그인부터 하세요!");
+function noLog(e){
+    alertMsg = "로그인부터 하세요!";
+    showAlert(alertMsg, e.currentTarget);
 }
 
-function noFrg() {
-    alert("냉장고 생성을 먼저 하세요!");
+function noFrg(e) {
+    alertMsg = "냉장고 생성을 먼저 하세요!";
+    showAlert(alertMsg, e.currentTarget);
 }
