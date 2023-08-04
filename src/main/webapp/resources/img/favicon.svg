@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_레이어_2" data-name="레이어 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.58 113.39">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c9caca;
+      }
+
+      .cls-2 {
+        fill: #e7613b;
+        font-family: H2gtrE, HYGothic-Extra;
+        font-size: 59.44px;
+      }
+    </style>
+  </defs>
+  <g id="formback">
+    <g>
+      <rect class="cls-1" x="22.91" width="36.85" height="113.39"/>
+      <rect class="cls-1" x="65.43" width="36.85" height="113.39"/>
+      <text class="cls-2" transform="translate(21.4 100.76) rotate(-24.8) scale(.81 1)"><tspan x="0" y="0">FRG</tspan></text>
+    </g>
+  </g>
+</svg>

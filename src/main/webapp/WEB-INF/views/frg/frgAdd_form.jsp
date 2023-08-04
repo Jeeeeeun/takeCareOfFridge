@@ -7,10 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>frgAddForm Page</title>
+		<title>frgAdd Form</title>
 	
 		<!-- Favicon-->
-		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 	
 		<!-- Bootstrap Icons-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
@@ -36,12 +36,11 @@
 			const contextPath = "${pageContext.servletContext.contextPath}";
 		</script>
 
-		<!-- JavaScript External Links -->
-		<script src="${ pageContext.servletContext.contextPath }/resources/js/frgAdd_form.js"></script>
-		<script src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
-
 		<!-- jQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" ></script>
+
+		<!-- JavaScript External Links -->
+		<script src="${ pageContext.servletContext.contextPath }/resources/js/frgAdd_form.js"></script>
 
 	</head>
 	<body>
@@ -61,7 +60,7 @@
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a>
 								</li>
-								<li class="nav-item">
+								<li class="nav-item hidden">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">Community</a>
 								</li>
 								<li class="nav-item">

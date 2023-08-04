@@ -7,11 +7,14 @@ import org.apache.ibatis.annotations.Param;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
+import com.frg.domain.InnerDTOList;
 import com.frg.domain.UserDTO;
 
 public interface InnerFoodMapper {
-
-	void insertFood(InnerDTO dto);
+	
+	void insertFoodList(InnerDTOList dtoList);
+	
+	void insertInnerFood(InnerDTO dto);
 
 	List<String> selectFrgName(UserDTO user_id);
 

@@ -23,7 +23,7 @@ public class InnerFoodServiceImpl implements InnerFoodService {
 
 	@Override
 	public void registerInnerFood(InnerDTO dto) {
-		mapper.insertFood(dto);
+		mapper.insertInnerFood(dto);
 	}
 
 	@Override

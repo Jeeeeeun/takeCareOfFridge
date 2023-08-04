@@ -337,9 +337,8 @@ tfoot,
 tr,
 td,
 th {
-  border-color: inherit;
+  border-color: white;
   border-style: solid;
-  border-width: 0;
 }
 
 label {
@@ -1774,7 +1773,7 @@ progress {
   vertical-align: inherit;
 }
 .table > thead {
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 
 .table-group-divider {
@@ -12690,3 +12689,4 @@ header.custom-masthead h1, header.custom-masthead .h1 {
 #portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
 }
+

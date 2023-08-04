@@ -8,9 +8,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>SignUP Page</title>
+<title>Sign UP</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -32,6 +32,18 @@
      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
 </script>
 <script src="${pageContext.servletContext.contextPath }/resources/js/signUp.js"></script>
+<style>
+	.inputBox::placeholder{
+		font-size: 15px;
+		transform: translate(10px, -3px);
+	}
+	.duplicateBtn{
+		border-radius: 20px; 
+		margin-left: 10px;
+		margin-bottom: 6px;
+		font-size: 12px;
+	}
+</style>
 </head>
 <body id="page-top">
 	<!-- Navigation-->
@@ -64,38 +76,38 @@
 					<hr class="divider" />
 				</div>
 				<div class="registerBox">
-					<div class="loginTitle">SignUp</div>
+					<div class="loginTitle fs-1 text-white">Sign Up</div>
 					<hr class="horizonLine">
 					<form id="registerForm"
 						action="<%=request.getContextPath()%>/frg/signUp" method="post">
-						<input type="text" class="inputBox box1" id="user_name"
+						<input type="text" class="inputBox box1 h4" id="user_name"
 							name="user_name" placeholder="NAME" required
-							style="margin-bottom: 20px;"><br> 
+							style="margin-bottom: 20px; border-radius: 20px;"><br> 
 						<input type="text"
-							class="inputBox box2" id="user_id" name="user_id"
-							placeholder="ID" required style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkId" type="button">중복확인</button>
+							class="inputBox box2 h4" id="user_id" name="user_id"
+							placeholder="ID" required style="margin-bottom: 20px; margin-left:86px; border-radius: 20px;">
+						<button class="duplicateBtn btn btn-primary" id="checkId" type="button">중복확인</button> <br>
 						<div class="idErrorMsg hidden" id="idErrorMsg">
 							<span></span>
 						</div>
-						<input type="email" class="inputBox box3" id="user_email"
+						<input type="email" class="inputBox box3 h4" id="user_email"
 							name="user_email" placeholder="EMAIL" required
-							style="margin-bottom: 20px; margin-left:84px;">
-						<button class="duplicateBtn" id="checkEmail" type="button">중복확인</button>
+							style="margin-bottom: 20px; margin-left:86px; border-radius: 20px;">
+						<button class="duplicateBtn btn btn-primary" id="checkEmail" type="button">중복확인</button> <br>
 						<div class="emailErrorMsg hidden" id="emailErrorMsg">
 							<span></span>
 						</div>
 						<input
-							type="password" class="inputBox box4" id="user_pw" name="user_pw"
-							placeholder="PW" required style="margin-bottom: 20px;"> <br>
-						<input type="password" class="inputBox box5" id="verifyPwd"
-							placeholder="PW CHECK" required style="margin-bottom: 20px;">
+							type="password" class="inputBox box4 h4" id="user_pw" name="user_pw"
+							placeholder="PW" required style="margin-bottom: 20px; border-radius: 20px;"> <br>
+						<input type="password" class="inputBox box5 h4" id="verifyPwd"
+							placeholder="PW CHECK" required style="margin-bottom: 20px; border-radius: 20px;">
 						<span class="pwdAlert" id="pwdAlert"
-							style="margin-left: 10px; position: absolute;"></span><br>
+							style="margin-left: 10px; margin-top: 8px; position: absolute; "></span><br>
 
-						<button type="submit" class="signUpBtn" id="submitButton" disabled>회원가입하기</button>
+						<button type="submit" class="signUpBtn btn btn-success" id="submitButton" style="border-radius: 20px;" disabled>회원가입하기</button>
 						<!-- 회원가입 버튼 이걸 추가해서 첫 버튼 비활성화 하기 disabled
-							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게 끔 만들기
+							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게끔 만들기
 						 -->
 					</form>
 				</div>

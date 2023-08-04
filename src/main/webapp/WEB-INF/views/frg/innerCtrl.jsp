@@ -11,7 +11,7 @@
 		<title>식품 정보 조회</title>
 
 		<!-- Favicon-->
-		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 
 		<!-- Bootstrap Icons-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -663,7 +663,7 @@
 							</div>
 							<div class="w-100 h-85 postion-relative d-flex flex-column bg-white-30 rounded-4 overflowY-auto flex-sm-grow-1">
 								<!-- wholeFoodListBox -->
-								<table id="foodTable" class="w-95 table-fixed mx-auto mt-1">
+								<table id="foodTable" class="w-95 border-none table-fixed mx-auto mt-1">
 									<thead class="w-100 h-5">
 										<tr class="w-100 h-100 rounded-4 border-05 border-white border-dashed border-opacity-25">
 											<th class="tableHead w-5 h-100 position-sticky top-025r bg-white-70 transition-bgColor transition-duration-03 transition-timing-ease z-2 rounded-start-4 p-2">

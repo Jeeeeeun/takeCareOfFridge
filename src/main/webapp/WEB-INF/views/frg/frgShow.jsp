@@ -8,10 +8,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>frgShow Page</title>
+		<title>냉장고 조회</title>
 
 		<!-- Favicon-->
-		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 
 		<!-- Bootstrap Icons-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -31,18 +31,20 @@
 		<!-- FontAwesome CDN -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		
-		<!-- custom Javascript -->
+		<!-- JavaScript global variable -->
 		<script type="text/javascript">
 			const contextPath = '${pageContext.servletContext.contextPath}';
 			const frgListJson = <c:out value="${frgListJson}" escapeXml="false"/>;
 		</script>
+
+		<!-- JavaScript External Links -->
 		<script src="${pageContext.servletContext.contextPath}/resources/js/frgShow.js"></script>
 
 		<!-- jQuery CDN -->
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" ></script>
 	</head>
-	<body id="page-top">
-		<header class="custom-masthead">
+	<body>
+		<header class="custom-masthead vh-100">
 
 			<!-- Navigation-->
 			<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -58,7 +60,7 @@
 									MyFridge
 								</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item hidden">
 								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">
 									Community
 								</a>
