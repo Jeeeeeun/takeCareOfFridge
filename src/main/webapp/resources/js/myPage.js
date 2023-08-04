@@ -1,5 +1,5 @@
 var currentIndex = 0;
-var frgIndex, frgName, frgShape, checkedRadio, hRadio, vRadio, sRadio, frgAstate, frgBstate,
+var frgIndex, frgName, frgShape, checkedRadio, hRadio, vRadio, sRadio, frgAstate, frgBstate, prev, next,
 	aFrozenBtn, aCoolBtn, bFrozenBtn, bCoolBtn, frgInfoChangeBtn, frgCorrectionEndBtn,
 	dangerousStandard, warningStandard, dangerousValue, warningValue, dangerousSpan, warningSpan,
 	trfCorrectionEndBtn, announcement;
@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	frgIndex = document.querySelector("#frg_index");
 	frgName = document.querySelectorAll(".frg_name");
 	frgShape = document.querySelectorAll(".frg_shape");
+	
+	prev = document.querySelector("#prev");
+	next = document.querySelector("#next");
 
 	hRadio = document.querySelector("#hRadio");
 	vRadio = document.querySelector("#vRadio");
@@ -47,9 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateFrg(i) {
 	frgIndex.value = frgListJson[i].frg_index;
 	frgName[0].value = frgListJson[i].frg_name;
-	
-	//frgShape[0].style.height = "80%";
-	//frgShape[0].style.width = "auto";
 	
 	frgAstate.style.position = "relative";
 	frgAstate.style.fontWeight = "bold";
@@ -111,6 +111,22 @@ function updateFrg(i) {
 			bFrozenBtn.className = "frgNotSelected";
 			bCoolBtn.className = "frgSelected";
 			break;
+	}
+	
+	if (i === 0) {
+		prev.classList.remove("text-white");
+		prev.classList.add("text-transparent");
+	} else if (i > 0 && i < frgListJson.length -1) {
+		if (prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		} else if (next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
+	} else if (i === frgListJson.length - 1) {
+		next.classList.remove("text-white");
+		next.classList.add("text-transparent");
 	}
 }
 

@@ -225,7 +225,7 @@
 						<div class="d-grid grid-col-2-1 grid-row-2-10 w-100 h-100">
 							<div id="fridgeInfoContentBox" class="d-flex flex-column justify-content-sm-center position-relative w-95 h-35 mx-auto mt-1">
 								<div class="fridgeShapeBox w-100 h-55 d-flex justify-content-sm-between align-items-sm-center bg-white-30 rounded-4 position-relative rounded-4 mt-4">
-								<button id="prev" class="bg-transparent border-none text-white ms-3 fs-5" onclick="prevFrg()">
+									<button id="prev" class="bg-transparent border-none text-white ms-3 fs-5" onclick="prevFrg()">
 										<i class="fa-solid fa-caret-left"></i>
 									</button>
 									<img class="frg_shape h-80" />
