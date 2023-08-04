@@ -12,6 +12,8 @@ import com.frg.domain.UserDTO;
 
 public interface InnerFoodMapper {
 	
+	void insertFoodList(InnerDTOList dtoList);
+	
 	void insertInnerFood(InnerDTO dto);
 
 	List<String> selectFrgName(UserDTO user_id);

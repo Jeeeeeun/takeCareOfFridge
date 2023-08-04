@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Login Page</title>
+<title>로그인</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
@@ -30,6 +30,12 @@
 <link href="../resources/css/styles.css" rel="stylesheet" />
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/login.js"></script>
+<style>
+	.inputBox::placeholder{
+		font-size: 15px;
+		transform: translate(10px, -3px);
+	}
+</style>
 </head>
 <body id="page-top">
 	<!-- Navigation-->
@@ -63,17 +69,17 @@
 				</div>
 				<div class="col-lg-8 align-self-baseline">
 					<div class="loginBox">
-						<div class="loginTitle">Login</div>
+						<div class="loginTitle fs-1 text-white">Login</div>
 						<hr class="horizonLine">
 						<form
 							action="${ pageContext.servletContext.contextPath }/frg/login"
 							method="post">
-							<input type="text" id="user_id" name="user_id" class="inputBox"
-								placeholder="ID" style="margin-bottom: 20px;"><br>
+							<input type="text" id="user_id" name="user_id" class="inputBox h4"
+								placeholder="ID" required style="margin-bottom: 20px; border-radius: 20px;"><br>
 							<input type="password" id="user_pw" name="user_pw"
-								class="inputBox" placeholder="PW" style="margin-bottom: 20px;">
+								class="inputBox h4" placeholder="PW" required style="margin-bottom: 20px; border-radius: 20px;">
 							<div class="box-submit">
-								<input type="submit" class="loginBtn" value="로그인하기"
+								<input type="submit" class="loginBtn btn btn-success" style="border-radius: 20px;" value="로그인하기"
 									onclick="return login();">
 							</div>
 						</form>

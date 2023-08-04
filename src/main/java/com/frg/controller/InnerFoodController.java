@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frg.domain.FoodApiDTO;
 import com.frg.domain.FrgListDTO;
 import com.frg.domain.InnerDTO;
-import com.frg.domain.InnerDTOList;
 import com.frg.domain.TrafficDTO;
 import com.frg.domain.UserDTO;
 import com.frg.service.InnerFoodService;
@@ -49,9 +51,16 @@ public class InnerFoodController {
 	// innerFoodAdd
 	// localhost:8080/controller/frg/innerAdd
 	@GetMapping("/innerAdd")
-	public String moveToInnerAdd(HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
+	public String moveToInnerAdd(RedirectAttributes rttr,HttpSession session, Model model, TrafficDTO trfDto) throws JsonProcessingException {
 
 		String user_id = (String) session.getAttribute("SESS_ID");
+		if (user_id == null || session == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
 		System.out.println("SESS_ID: " + user_id);
 		UserDTO dto = new UserDTO();
 		dto.setUser_id(user_id);
@@ -76,21 +85,28 @@ public class InnerFoodController {
 
 	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String registerInnerFood(HttpSession session, @RequestBody InnerDTO dto) throws Exception {
+	public ResponseEntity<String> registerInnerFood(HttpSession session, @RequestBody List<InnerDTO> dtoList) throws Exception {
 		
-		// RequestBody를 선언해서 json데이터를 객체로 매핑한다.
-		String user_id = (String) session.getAttribute("SESS_ID");
-		dto.setUser_id(user_id);
-		inService.registerInnerFood(dto);
 
-		String frgName = dto.getFrg_name(); // InnerDTO를 이용하여 'frg_name' 값을 얻음
-		
-		JsonObject json = new JsonObject();
-		json.addProperty("success", true);
-		json.addProperty("frg_name", frgName); // 'frg_name' 값을 JsonObject에 추가
+	    String user_id = (String) session.getAttribute("SESS_ID");
+	    String frgName = null;
 
-		return new Gson().toJson(json);
+	    // List<InnerDTO>를 반복하여 개별 InnerDTO 객체를 처리합니다.
+	    for (InnerDTO dto : dtoList) {
+	        dto.setUser_id(user_id);
+	        inService.registerInnerFood(dto);
+	        
+	        // frgName 값을 설정합니다. 이미 설정된 경우, 이전 값을 덮어씁니다.
+	        frgName = dto.getFrg_name();
+	    }
+
+	    JsonObject json = new JsonObject();
+	    json.addProperty("success", true);
+	    json.addProperty("frg_name", frgName); // 마지막으로 설정된 'frg_name' 값을 JsonObject에 추가.
+
+	    return new ResponseEntity<>(new Gson().toJson(json), HttpStatus.OK);
 	}
+
 
 	// foodApi 조회하기
 	// @RequestMapping(value= "/search", method = RequestMethod.GET)
@@ -104,11 +120,18 @@ public class InnerFoodController {
 	}
 
 	@GetMapping("/innerCtrl")
-	public String moveToInnerCtrl(@RequestParam("frgName") String frgName, HttpSession session, Model model,
+	public String moveToInnerCtrl(RedirectAttributes rttr,@RequestParam("frgName") String frgName, HttpSession session, Model model,
 			TrafficDTO trfDto) {
 		
 		log.info("여기1");
 		String user_id = (String) session.getAttribute("SESS_ID");
+		if (user_id == null || session == null || frgName == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
 		InnerDTO dto = new InnerDTO();
 		dto.setUser_id(user_id);
 		dto.setFrg_name(frgName);

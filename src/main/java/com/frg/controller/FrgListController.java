@@ -43,26 +43,42 @@ public class FrgListController {
 	private TrafficService trfService;
 
 	@GetMapping("/frgAdd")
-	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto) {
+	public String frgAddPage(HttpSession session, Model model, TrafficDTO trfDto , RedirectAttributes rttr) {
 		log.info("frgAdd");
 
 		String userId = (String) session.getAttribute("SESS_ID");
 
 		trfDto.setUser_id(userId);
-		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
+		if (userId == null || session == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
 
+		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 
 		return "/frg/frgAdd";
 	}
 
 	@GetMapping("/frgAdd_form")
-	public String frgAddFormPage(HttpSession session, Model model, TrafficDTO trfDto) {
+	public String frgAddFormPage(HttpSession session, Model model, TrafficDTO trfDto , RedirectAttributes rttr) {
 		log.info("frgAdd_form");
 
 		String userId = (String) session.getAttribute("SESS_ID");
 
 		trfDto.setUser_id(userId);
+		
+		if (userId == null || session == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
+		
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 
@@ -70,20 +86,28 @@ public class FrgListController {
 	}
 
 	@GetMapping("/frgShow")
-	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto) {
+	public String frgShowPage(HttpSession session, Model model, TrafficDTO trfDto, FrgListDTO frgDto , RedirectAttributes rttr) {
 		log.info("frgShow");
 		System.out.println(session);
 	
 		String userId = (String) session.getAttribute("SESS_ID");
 		System.out.println("SESS_ID: " + userId);
 	
+		if (userId == null || session == null) { //세션 만료 또는 세션없이 외부 접속했을때 처리
+			log.info("여기 도착합니다.");
+			String msg = "로그인이 필요한 기능입니다. 로그인을 해주세요.";
+			rttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/frg/login";
+		}
+		
 		trfDto.setUser_id(userId);
 		List<Integer> trafficLight = trfService.getTrafficLight(trfDto);
 		model.addAttribute("trafficLight", trafficLight);
 	
 		frgDto.setUser_id(userId);
 		List<FrgListDTO> frgList = frgService.getFrgList(frgDto);
-	
+		
 		// Gson 사용하여 frgList를 JSON 형태로 변환
 		Gson gson = new Gson();
 		String frgListJson = gson.toJson(frgList);

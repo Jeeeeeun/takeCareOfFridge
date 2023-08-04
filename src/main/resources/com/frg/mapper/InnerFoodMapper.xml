@@ -43,10 +43,15 @@
 		u.user_id = #{user_id}
 	</select>
 
-	<select id="selectFoodAPI"
-		resultType="com.frg.domain.FoodApiDTO">
-		SELECT * FROM foodAPI WHERE api_name=#{api_name}
+	<select id="selectFoodAPI" resultType="com.frg.domain.FoodApiDTO">
+	  SELECT * FROM foodAPI
+	  <where>
+	    <if test="api_name != null">
+	      api_name LIKE '%' || #{api_name} || '%'
+	    </if>
+	  </where>
 	</select>
+
 
 	<!-- innerCtrl -->
 	<select id="selectAllInnerView"
