@@ -581,7 +581,7 @@
 								MyFridge
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item hidden">
 							<a class="nav-link" href="${pageContext.servletContext.contextPath}/board/list">
 								Community
 							</a>
@@ -663,9 +663,9 @@
 							</div>
 							<div class="w-100 h-85 postion-relative d-flex flex-column bg-white-30 rounded-4 overflowY-auto flex-sm-grow-1">
 								<!-- wholeFoodListBox -->
-								<table id="foodTable" class="w-95 border-none table-fixed mx-auto mt-1">
-									<thead class="w-100 h-5">
-										<tr class="w-100 h-100 rounded-4 border-05 border-white border-dashed border-opacity-25">
+								<table id="foodTable" class="w-95 border-none border-transparent table-fixed mx-auto mt-1">
+									<thead class="w-100 h-5 border-none border-transparent">
+										<tr class="w-100 h-100 rounded-4 border-none border-transparent border-opacity-25">
 											<th class="tableHead w-5 h-100 position-sticky top-025r bg-white-70 transition-bgColor transition-duration-03 transition-timing-ease z-2 rounded-start-4 p-2">
 												<span class="circleColor black_circle width-4 height-4 rounded-circle d-sm-block justify-content-sm-center align-items-sm-center mx-auto"></span>
 											</th>
@@ -675,22 +675,22 @@
 											<th class="tableHead w-25 h-100 position-sticky top-025r bg-white-70 transition-bgColor transition-duration-03 transition-timing-ease z-2 rounded-end-4 text-center p-2">보관 상태</th>
 										</tr>
 									</thead>
-									<tbody id="tableBody" class="w-100 h-95 overflowX-hidden overflowY-auto">
+									<tbody id="tableBody" class="w-100 h-95 border-none border-transparent overflowX-hidden overflowY-auto">
 										<c:forEach var="item" items="${ dataList }">
 											<tr class="w-100 h-100 position-relative z-1" onclick="handleRowClick('${ item.in_name }', '${ item.in_expireDate }', '${ item.d_DAY }', '${ item.in_state }', ${item.frg_index});">
-												<td class="w-5 h-100 rounded-start-4 text-center border-05 border-white border-dashed border-opacity-25 p-2">
+												<td class="w-5 h-100 rounded-start-4 text-center p-2">
 													<span class="circleColor width-4 height-4 rounded-circle d-sm-block justify-content-sm-center align-items-sm-center mx-auto" ddayData="${ item.d_DAY }"></span>
 												</td>
-												<td class="w-20 h-100 text-center border-05 border-white border-dashed border-opacity-25 p-2">
+												<td class="w-20 h-100 text-center p-2">
 													${ item.in_name }
 												</td>
-												<td class="w-30 h-100 text-center border-05 border-white border-dashed border-opacity-25 p-2">
+												<td class="w-30 h-100 text-center p-2">
 													<fmt:formatDate value="${ item.in_expireDate }" pattern="yyyy-MM-dd" />
 												</td>
-												<td class="w-20 h-100 text-center border-05 border-white border-dashed border-opacity-25 p-2">
+												<td class="w-20 h-100 text-center p-2">
 													${item.d_DAY}
 												</td>
-												<td class="w-25 h-100 text-center rounded-end-4 border-05 border-white border-dashed border-opacity-25 p-2" data-in-state="${item.in_state}">
+												<td class="w-25 h-100 text-center rounded-end-4" data-in-state="${item.in_state}">
 													<c:choose>
 														<c:when test="${ item.in_state == 'frozen'}">
 															냉동

@@ -26,6 +26,9 @@
 
 			<!-- FontAwesome CDN -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+			<!-- JavaScript External Links -->
+			<script src="${pageContext.servletContext.contextPath}/resources/js/alertAndConfirm.js"></script>
 		</head>
 		<body id="page-top">
 			<!-- Navigation-->
@@ -46,12 +49,12 @@
 						%>
 								<ul class="navbar-nav ms-auto my-2 my-lg-0">
 									<li class="nav-item">
-										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="noLog();">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="event.preventDefault(); noLog(event);">
 											MyFridge
 										</a>
 									</li>
 									<li class="nav-item hidden">
-										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="noLog();">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="event.preventDefault(); noLog(event);">
 											Community
 										</a>
 									</li>
@@ -95,15 +98,26 @@
 							} else { 
 						%>
 								<ul class="navbar-nav ms-auto my-2 my-lg-0">
-									<li class="nav-item"><a class="nav-link"
-										href="<%=request.getContextPath()%>/frg/frgAdd">MyFridge</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="<%=request.getContextPath()%>/frg/frgAdd" onclick="noFrg();">Community</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="<%=request.getContextPath()%>/frg/logout">Logout</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="<%=request.getContextPath()%>/frg/frgAdd" onclick="noFrg();"><i
-											class="fa-solid fa-circle-user"></i></a></li>
+									<li class="nav-item">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/frgAdd">
+											MyFridge
+										</a>
+									</li>
+									<li class="nav-item hidden">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/frgAdd" onclick="event.preventDefault(); noFrg(event);">
+											Community
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/logout">
+											Logout
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/frgAdd" onclick="event.preventDefault(); noFrg(event);">
+											<i class="fa-solid fa-circle-user"></i>
+										</a>
+									</li>
 								</ul>
 						<%
 							}
@@ -111,6 +125,26 @@
 					</div>
 				</div>
 			</nav>
+			<div id="customAlert" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+				<!-- 알림창 -->
+				<div class="d-flex align-items-sm-center justify-content-sm-center text-center bg-white py-2 rounded-3 w-40 h-20 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+					<p id="alertContent" class="m-auto fs-5">알림창!</p>
+				</div>
+			</div>
+			<div id="customConfirm" class="hidden position-fixed top-0 start-0 w-100 h-100 bg-black-50 z-5 transition-opacity transition-duration-03 transition-timing-easeOut">
+				<!-- 컨펌창 -->
+				<div class="w-35 h-20 d-flex flex-column align-items-sm-center justify-content-sm-center text-center bg-white p-3 rounded-3 position-absolute top-50 start-50 translate-middle text-keepAll text-prewrap z-10 transition-all transition-duration-03 transition-timing-easeOut shadow-forAlert">
+					<p id="confirmContent" class="my-4 mx-auto fs-5">컨펌창!</p>
+					<div class="w-100 h-50 d-flex flex-row justify-content-sm-end align-items-sm-center mx-3 my-0">
+						<button id="confirmYesBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-primary text-center rounded-3 mx-2 py-3">
+							Yes
+						</button>
+						<button id="confirmNoBtn" class="w-10 h-25 btn d-flex justify-content-sm-end align-items-sm-center btn-secondary rounded-3 mx-2 py-3">
+							No
+						</button>
+					</div>
+				</div>
+			</div>
 			<!-- Masthead-->
 			<header class="masthead">
 				<div class="container px-4 px-lg-5 h-100">
@@ -153,45 +187,45 @@
 							</div>
 							<table class="w-100 border-none d-flex flex-column justify-content-sm-center align-items-sm-center mb-5">
 								<tr>
-									<th class="p-3 text-center text-white-75">이름</th>
-									<th class="p-3 text-center text-white-75">Github Address</th>
-									<th class="p-3 text-center text-white-75">Contact(E-mail)</th>
+									<th class="border-05 border-white border-solid p-3 text-center text-white-75">이름</th>
+									<th class="border-05 border-white border-solid p-3 text-center text-white-75">Github Address</th>
+									<th class="border-05 border-white border-solid p-3 text-center text-white-75">Contact(E-mail)</th>
 								</tr>
 								<tr>
-									<td class="p-3 text-center text-white-75">안진수</td>
-									<td class="p-3 text-center text-white-75" title="클릭 시 이동합니다.">
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">안진수</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75" title="클릭 시 이동합니다.">
 										<a class="text-white-75 text-decoration-none" href="https://github.com/geulsol">
 											https://github.com/geulsol
 										</a>
 									</td>
-									<td class="p-3 text-center text-white-75">wlstn3365@naver.com</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">wlstn3365@naver.com</td>
 								</tr>
 								<tr>
-									<td class="p-3 text-center text-white-75">김지은</td>
-									<td class="p-3 text-center text-white-75" title="클릭 시 이동합니다.">
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">김지은</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75" title="클릭 시 이동합니다.">
 										<a class="text-white-75 text-decoration-none" href="https://github.com/Jeeeeeun">
 											https://github.com/Jeeeeeun
 										</a>
 									</td>
-									<td class="p-3 text-center text-white-75">ryan43778@gmail.com</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">ryan43778@gmail.com</td>
 								</tr>
 								<tr>
-									<td class="p-3 text-center text-white-75">이혁</td>
-									<td class="p-3 text-center text-white-75" title="클릭 시 이동합니다.">
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">이혁</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75" title="클릭 시 이동합니다.">
 										<a class="text-white-75 text-decoration-none" href="https://github.com/hyeeok">
 											https://github.com/hyeeok
 										</a>
 									</td>
-									<td class="p-3 text-center text-white-75">dlgur57@gmail.com</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">dlgur57@gmail.com</td>
 								</tr>
 								<tr>
-									<td class="p-3 text-center text-white-75">김현</td>
-									<td class="p-3 text-center text-white-75" title="클릭 시 이동합니다.">
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">김현</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75" title="클릭 시 이동합니다.">
 										<a class="text-white-75 text-decoration-none" href="https://github.com/ican0422">
 											https://github.com/ican0422
 										</a>
 									</td>
-									<td class="p-3 text-center text-white-75">ican0422@gmail.com</td>
+									<td class="border-05 border-white border-solid p-3 text-center text-white-75">ican0422@gmail.com</td>
 								</tr>
 							</table>
 							<a class="btn btn-light btn-xl d-flex justify-content-sm-center align-items-sm-center w-30 mx-auto" href="#usedTools">

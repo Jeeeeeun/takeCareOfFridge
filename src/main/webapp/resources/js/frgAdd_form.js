@@ -2,67 +2,16 @@
 let idCounter = 0;
 
 // 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn, settingBoxElement, trashIcon;
+let settingBoxElement, trashIcon;
 
 // 페이지 로딩되자마자, DOM 객체 캐치
-window.onload = function() {
-	alertContent = document.querySelector("#alertContent");
-	alertWindow = document.querySelector("#customAlert");
-	confirmContent = document.querySelector("#confirmContent");
-	confirmWindow = document.querySelector("#customConfirm");
-	confirmYesBtn = document.querySelector("#confirmYesBtn");
-	confirmNoBtn = document.querySelector("#confirmNoBtn");
-
+document.addEventListener("DOMContentLoaded", () => {
 	const firstSettingBox = document.querySelector('.settingBox');
 	const firstFormTrashIcon = firstSettingBox.querySelector('#trashIcon_0');
 	firstFormTrashIcon.addEventListener("click", () => {
 		removeSettingBoxById(0);
-	})
-
-}
-
-// 알림창 띄우기
-function showAlert(alertMsg) {
-	alertContent.textContent = alertMsg;
-	alertWindow.classList.remove("hidden");
-	alertWindow.classList.add("show");
-	
-	setTimeout(function () {
-		alertWindow.classList.remove("show");
-		alertWindow.classList.add("hidden");
-	}, 2500);
-}
-
-// 컨펌창 켜기
-function showConfirm(confirmMsg, yesClicked, noClicked) {
-  confirmContent.textContent = confirmMsg;
-  confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("bg-opacity-100");
-
-  confirmYesBtn.onclick = function () {
-    // Yes 눌리면 이뤄질 동작들
-    if (yesClicked) {
-      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-
-  confirmNoBtn.onclick = function () {
-    // No 눌리면 이뤄질 동작들
-    if (noClicked) {
-      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-}
-
-// 컨펌창 끄기
-function closeConfirm() {
-  confirmWindow.classList.remove("bg-opacity-100");
-  confirmWindow.classList.add("hidden");
-}
+	});
+});
 
 /* --------------- 냉장고 등록 form (settingBox) 생성 관련 --------------- */
 
