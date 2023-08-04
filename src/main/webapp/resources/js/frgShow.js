@@ -24,10 +24,14 @@ function updateFrg(i) {
 		case "H":
 			frgShapeImg.src = contextPath + "/resources/img/hFrg.svg";
 			frgState.style.flexDirection = "column";
+			frgAstate.style.display = "flex";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "100%";
 			frgAstate.style.height = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
+			frgBstate.style.display = "flex";
+			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "100%";
 			frgBstate.style.height = "50%";
 			frgBstate.style.textAlign = "right";
@@ -37,9 +41,13 @@ function updateFrg(i) {
          case "V":
 			frgShapeImg.src = contextPath + "/resources/img/vFrg.svg";
 			frgState.style.flexDirection = "row";
+			frgAstate.style.display = "flex";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
+			frgBstate.style.display = "flex";
+			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "50%";
 			frgBstate.style.textAlign = "right";
 			break;
@@ -47,6 +55,7 @@ function updateFrg(i) {
          case "S":
 			frgShapeImg.src = contextPath + "/resources/img/sFrg.svg";
 			frgState.style.flexDirection = "row";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "100%";
 			frgAstate.style.height = "100%";
 			frgAstate.style.textAlign = "right";

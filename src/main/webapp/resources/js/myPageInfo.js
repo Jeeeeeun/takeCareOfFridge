@@ -1,9 +1,9 @@
 var alertMsg,
 alertContent,
-alertWindow
+alertWindow;
 
 /*-----------------------------------------------------------------------------------------------*/
-//비빌번호 실시간 검토
+//비밀번호 실시간 검토
 function checkPasswordMatch() {
     var pw = document.getElementById('pw');
     var pwCheck = document.getElementById('pwCheck');
@@ -117,10 +117,11 @@ $(document).ready(function () {
       var submitButton = $("#submitButton");
       var userData = $(".userData");
       var userPw = $("#pw");
+      var userPwCheck = $("#pwCheck");
 
 
       if (submitButton.text() === "수정하기") {
-        $("#checkEmail").css("display", "inline-block"); //이메일 중복 확인 버튼 , 수정하기 누르면 생긴다.
+        $("#checkEmail").css("display", "flex"); //이메일 중복 확인 버튼 , 수정하기 누르면 생긴다.
           userData.each(function () {
               if (this.id !== "id") {
                   $(this).prop("disabled", false);
@@ -128,11 +129,10 @@ $(document).ready(function () {
           });
           submitButton.text("완료");
           userPw.val("");
+          userPwCheck.css("display", "flex");
       } else {
-        console.log("여기");
         console.log(emailChanged);
         if(emailChanged && !isEmailBtn){
-          console.log("여기여기");
           alertMsg = "이메일 중복확인을 해주세요.";
           showAlert(alertMsg);
           return;
