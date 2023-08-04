@@ -249,7 +249,7 @@ function trfStandardBtnClicked() {
 
 	const announce = document.createElement("pre");
 	// pre: 사전에 서식이 지정된(preformatted) 텍스트 태그를 말함.
-	
+
 	announce.textContent = mention;
 	
 	announce.style.color = "red";
@@ -328,9 +328,6 @@ function trfCorrectionEnd() {
 					// 만약 <pre> 태그가 있으면
 					announcement.removeChild(announcePre); // 없애줘
 				}
-			
-				// 안내 문구 없을 때 확보해둔 공간 회복
-				announcement.style.height = "14%";
 			
 				setTimeout(function () {
 					// 시간차 두고 알림창 띄우기
