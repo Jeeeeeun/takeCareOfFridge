@@ -246,6 +246,7 @@ $(document).ready(function () {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(data),
+        dataType:"json",
         success: function(response){
           console.log("여기8");
           if (response) {

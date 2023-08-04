@@ -8,9 +8,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>로그인</title>
+<title>비밀번호 찾기</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
+<link rel="icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.svg" />
 <!-- Bootstrap Icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -28,12 +28,24 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.0.js" 
+integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
+crossorigin="anonymous"></script>
+<script>window.contextPath = '${pageContext.servletContext.contextPath}';</script>
 <script
-	src="${ pageContext.servletContext.contextPath }/resources/js/login.js"></script>
+	src="${ pageContext.servletContext.contextPath }/resources/js/findPwd.js"></script>
+<!-- jQuery CDN -->
+
 <style>
 	.inputBox::placeholder{
 		font-size: 15px;
 		transform: translate(10px, -3px);
+	}
+	.duplicateBtn{
+		border-radius: 20px; 
+		margin-left: 10px;
+		margin-bottom: 6px;
+		font-size: 12px;
 	}
 </style>
 </head>
@@ -53,7 +65,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ms-auto my-2 my-lg-0">
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/frg/signUp">SignUp</a></li>
+						href="<%=request.getContextPath()%>/frg/login">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -69,22 +81,33 @@
 				</div>
 				<div class="col-lg-8 align-self-baseline">
 					<div class="loginBox">
-						<div class="loginTitle fs-1 text-white">Login</div>
+						<div class="loginTitle fs-1 text-white">Find Password</div>
 						<hr class="horizonLine">
 						<form
-							action="${ pageContext.servletContext.contextPath }/frg/login"
-							method="post">
-							<input type="text" id="user_id" name="user_id" class="inputBox h4"
-								placeholder="ID" required style="margin-bottom: 20px; border-radius: 20px;"><br>
-							<input type="password" id="user_pw" name="user_pw"
-								class="inputBox h4" placeholder="PW" required style="margin-bottom: 20px; border-radius: 20px;">
-							<div class="box-submit">
-								<input type="submit" class="loginBtn btn btn-success" style="border-radius: 20px;" value="로그인하기"
-									onclick="return login();">
+							action="<%=request.getContextPath()%>/frg/findPwd" method="post">
+							<input type="text" id="user_email" name="user_email" class="inputBox h4"
+								placeholder="EMAIL" required style="margin-bottom: 20px; margin-left:86px; border-radius: 20px;">
+							<button class="duplicateBtn btn btn-primary" id="checkEmail" type="button">인증 확인</button> <br>
+							<div class="emailErrorMsg hidden" id="emailErrorMsg">
+								<span></span>
 							</div>
+							<input type="text" id="certification_number" name="certification_number" class="inputBox h4"
+								placeholder="Crtification_Number" required style="margin-bottom: 20px; margin-left:60px; border-radius: 20px;">
+								<button class="duplicateBtn btn btn-primary" id="checkCode" type="button">확인</button> <br>
+							<div class="codeErrorMsg hidden" id="codeErrorMsg">
+								<span></span>
+							</div>
+							<input type="password" id="user_pw" name="user_pw" class="inputBox h4"
+								placeholder="PW" required style="margin-bottom: 20px; border-radius: 20px;" disabled><br>
+							<input type="password" id="verifyPwd" name="verifyPwd"
+								class="inputBox h4" placeholder="PW CHECK" required style="margin-bottom: 20px; border-radius: 20px;" disabled>
+								<span class="pwdAlert" id="pwdAlert"
+								style="margin-left: 10px; margin-top: 8px; position: absolute; "></span><br>
+							
 						</form>
-						<button type="submit" class="findPwdBtn btn text-white" id="findSubmitButton" style="border-radius: 20px;" >
-					<a href="${ pageContext.servletContext.contextPath }/frg/findPwd" class="text-white text-decoration-none">비밀번호 찾기</a></button>
+						<div class="box-submit">
+								<button type="button" class="signUpBtn btn btn-success" id="submitButton" style="border-radius: 20px;" disabled>변경하기</button>
+							</div>
 					</div>
 				</div>
 			</div>

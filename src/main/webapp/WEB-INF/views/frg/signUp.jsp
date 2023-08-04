@@ -105,11 +105,13 @@
 						<span class="pwdAlert" id="pwdAlert"
 							style="margin-left: 10px; margin-top: 8px; position: absolute; "></span><br>
 
-						<button type="submit" class="signUpBtn btn btn-success" id="submitButton" style="border-radius: 20px;" disabled>회원가입하기</button>
+						<button type="submit" class="signUpBtn btn btn-success my-2" id="submitButton" style="border-radius: 20px;" disabled>회원가입하기</button><br>
+						
 						<!-- 회원가입 버튼 이걸 추가해서 첫 버튼 비활성화 하기 disabled
 							테스트 끝난 후 추가한 후 회원가입 로직에 따라 입력이 다 된다면 이 버튼을 활성화 하게끔 만들기
 						 -->
 					</form>
+					
 				</div>
 			</div>
 		</div>
