@@ -239,28 +239,25 @@ function trfStandardBtnClicked() {
 	trfCorrectionEndBtn.classList.remove("hidden");
 	trfCorrectionEndBtn.classList.add("d-flex");
 	
-	// 안내 문구 없을 때 벌려놓은 공간 일시적으로 좁힘
-	//announcement.style.height = "2%";
-	
 	// 두 개의 세로 기준선 아래로 안내 문구 등장
 	// (작성하는 숫자는 D-Day 개념입니다. D-10은 유통기한 10일 남음 => -10 작성)
 	// (반드시 위쪽(dangerous) 숫자가 아래쪽(warning) 숫자보다 큰 정수여야 합니다.)
-	let mention = `작성 예시1) -10: 유통/소비기한 10일 남음\n작성 예시2) +5: 유통/소비기한 5일 지남\n★ 위쪽 숫자(위험 판단 기준)가 아래쪽 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
+	let mention = `작성 예시1) -10: 유통/소비기한 10일 남음\n`
+	mention += `작성 예시2) +5: 유통/소비기한 5일 지남\n`;
+	mention += `<i class="fa-solid fa-star" style="color: #ffdb00;"></i>`;
+	mention += ` 위쪽 숫자(위험 판단 기준)가 아래쪽 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
 
 	const announce = document.createElement("pre");
 	// pre: 사전에 서식이 지정된(preformatted) 텍스트 태그를 말함.
 
-	announce.textContent = mention;
-	
-	announce.style.color = "red";
+	announce.innerHTML = mention;	
+	announce.style.color = "white";
 	announce.style.fontSize = "60%";
-	//announce.style.margin = 0;
 	announce.style.position = "relative";
 	announce.style.margin = "0 3%";
 	
 	announcement.appendChild(announce);
 	
-	// input 태그들의 위치, 너비 일시적인 조정
 	
 	// 위험 기준 input 태그 조작
 	dangerousStandard.value = dangerousValue;

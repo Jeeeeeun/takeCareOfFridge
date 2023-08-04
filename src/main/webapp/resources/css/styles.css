@@ -9737,6 +9737,11 @@ none
 	background-color: rgba(var(--bs-black-rgb), 0.5) !important;
 }
 
+.bg-white-10 {
+	--bs-bg-opacity: 0.1;
+	background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
 .bg-white-30 {
   --bs-bg-opacity: 0.3;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
