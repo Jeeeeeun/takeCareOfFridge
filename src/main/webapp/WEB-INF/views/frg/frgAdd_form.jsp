@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>frgAdd Form</title>
+		<title>냉장고 등록</title>
 	
 		<!-- Favicon-->
 		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
@@ -40,6 +40,7 @@
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous" ></script>
 
 		<!-- JavaScript External Links -->
+		<script src="${pageContext.servletContext.contextPath}/resources/js/alertAndConfirm.js"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/js/frgAdd_form.js"></script>
 
 	</head>
@@ -193,7 +194,9 @@
 					<button type="button" class="button" onclick="plusBtnClicked()" title="냉장고 하나 더 추가하기">
 						<i class="fa-solid fa-plus"></i>
 					</button>
-					<button type="submit" class="button" title="냉장고 등록 완료하기">완료</button>
+					<button type="submit" class="button" title="냉장고 등록 완료하기" onclick="event.preventDefault(); submitBtnClicked(event)">
+						완료
+					</button>
 				</div>
 			</form>
 		</div>

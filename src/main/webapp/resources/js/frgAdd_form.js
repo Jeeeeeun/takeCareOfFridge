@@ -2,67 +2,16 @@
 let idCounter = 0;
 
 // 전역변수로 사용할 변수 선언
-let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn, settingBoxElement, trashIcon;
+let settingBoxElement, trashIcon;
 
 // 페이지 로딩되자마자, DOM 객체 캐치
-window.onload = function() {
-	alertContent = document.querySelector("#alertContent");
-	alertWindow = document.querySelector("#customAlert");
-	confirmContent = document.querySelector("#confirmContent");
-	confirmWindow = document.querySelector("#customConfirm");
-	confirmYesBtn = document.querySelector("#confirmYesBtn");
-	confirmNoBtn = document.querySelector("#confirmNoBtn");
-
+document.addEventListener("DOMContentLoaded", () => {
 	const firstSettingBox = document.querySelector('.settingBox');
 	const firstFormTrashIcon = firstSettingBox.querySelector('#trashIcon_0');
 	firstFormTrashIcon.addEventListener("click", () => {
 		removeSettingBoxById(0);
-	})
-
-}
-
-// 알림창 띄우기
-function showAlert(alertMsg) {
-	alertContent.textContent = alertMsg;
-	alertWindow.classList.remove("hidden");
-	alertWindow.classList.add("show");
-	
-	setTimeout(function () {
-		alertWindow.classList.remove("show");
-		alertWindow.classList.add("hidden");
-	}, 2500);
-}
-
-// 컨펌창 켜기
-function showConfirm(confirmMsg, yesClicked, noClicked) {
-  confirmContent.textContent = confirmMsg;
-  confirmWindow.classList.remove("hidden");
-  confirmWindow.classList.add("bg-opacity-100");
-
-  confirmYesBtn.onclick = function () {
-    // Yes 눌리면 이뤄질 동작들
-    if (yesClicked) {
-      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-
-  confirmNoBtn.onclick = function () {
-    // No 눌리면 이뤄질 동작들
-    if (noClicked) {
-      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-    }
-    // 컨펌창 끄기
-    closeConfirm();
-  };
-}
-
-// 컨펌창 끄기
-function closeConfirm() {
-  confirmWindow.classList.remove("bg-opacity-100");
-  confirmWindow.classList.add("hidden");
-}
+	});
+});
 
 /* --------------- 냉장고 등록 form (settingBox) 생성 관련 --------------- */
 
@@ -438,12 +387,13 @@ function checkAllGroupsOfFrgNames(numberOfSettingBoxes) {
 // 냉장고 보관 상태 버튼 체크 돼 있지?
 // (single 냉장고에서는 Bstate 없고, horizon이든 vertical이든 Astate가 체크돼 있으면 Bstate는 자동으로 선택되니까 A만 검사하자)
 function checkFrgStateBtnSelected(idNum) {
-	const fridgeAstate = document.querySelector(`button[name="frg_Astate_${idNum}"]`);
+	const fridgeAstate = document.querySelectorAll(`button[name="frg_Astate_${idNum}"]`);
+	
+	// frgAstate 버튼 두 개 중 하나라도 선택되어 있지?
+	const isSelected = Array.from(fridgeAstate).some(button => button.classList.contains('selected'));
 
-	if (fridgeAstate) {
-		if (!fridgeAstate.classList.contains('selected')) {
-			return fridgeAstate; // 냉장고 상태 버튼 선택된 게 없으면 그 요소를 반환
-		}
+	if (!isSelected) {
+		return fridgeAstate[0]; // 냉장고 상태 버튼 선택된 게 없으면 그 첫 번째 요소를 반환
 	}
     return null; // 냉장고 상태 버튼 선택돼 있거나 그 idNum에 해당하는 frgAstate 버튼이 없으면 null 반환
 }
@@ -733,7 +683,9 @@ function completeSubmittingForm(numberOfSettingBoxes, settingBoxes) {
 							success: function (response) { // 요청이 성공적으로 수행되면 실행될 콜백 함수
 								alertMsg = "냉장고 등록이 완료되었습니다.";
 								showAlert(alertMsg);
-								window.location.href = `${contextPath}/frg/frgShow`;
+								setTimeout(function() {
+							        window.location.href = `${contextPath}/frg/frgShow`;
+							    }, 2500);
 							},
 							error: function (err) { // 요청에 실패하면 실행될 콜백 함수
 								alertMsg = "냉장고 등록에 실패했습니다.";
@@ -775,7 +727,8 @@ function completeSubmittingForm(numberOfSettingBoxes, settingBoxes) {
 
 		firstEmptyInfo.element.focus(); // 빈 곳으로 focus 가자.
 			
-		window.scrollIntoView({ // 그 위치로 자동 스크롤
+		window.scrollTo({ // 그 위치로 자동 스크롤
+			top: firstEmptyInfo.element.offsetTop,
 			behavior: 'smooth'
 		});
 	}

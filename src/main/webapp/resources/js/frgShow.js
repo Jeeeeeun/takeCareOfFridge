@@ -1,5 +1,5 @@
 var currentIndex = 0;
-var frgName, frgNameContent, frgShapeImg, frgState, frgAstate, frgBstate;
+var frgName, frgNameContent, frgShapeImg, frgState, frgAstate, frgBstate, prev, next;
 
 window.onload = function () {
     frgName = document.getElementById("frg_name");
@@ -7,6 +7,9 @@ window.onload = function () {
 	frgState = document.getElementById("frg_state");
     frgAstate = document.getElementById("frg_Astate");
     frgBstate = document.getElementById("frg_Bstate");
+    
+    prev = document.querySelector("#prev");
+	next = document.querySelector("#next");
     
     frgShapeImg.onload = function() {
     	frgState.style.width = frgShapeImg.offsetWidth + "px";
@@ -24,10 +27,14 @@ function updateFrg(i) {
 		case "H":
 			frgShapeImg.src = contextPath + "/resources/img/hFrg.svg";
 			frgState.style.flexDirection = "column";
+			frgAstate.style.display = "flex";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "100%";
 			frgAstate.style.height = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
+			frgBstate.style.display = "flex";
+			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "100%";
 			frgBstate.style.height = "50%";
 			frgBstate.style.textAlign = "right";
@@ -37,9 +44,13 @@ function updateFrg(i) {
          case "V":
 			frgShapeImg.src = contextPath + "/resources/img/vFrg.svg";
 			frgState.style.flexDirection = "row";
+			frgAstate.style.display = "flex";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
+			frgBstate.style.display = "flex";
+			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "50%";
 			frgBstate.style.textAlign = "right";
 			break;
@@ -47,6 +58,7 @@ function updateFrg(i) {
          case "S":
 			frgShapeImg.src = contextPath + "/resources/img/sFrg.svg";
 			frgState.style.flexDirection = "row";
+			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "100%";
 			frgAstate.style.height = "100%";
 			frgAstate.style.textAlign = "right";
@@ -79,6 +91,22 @@ function updateFrg(i) {
 			frgBstate.textContent = "냉동";
 			frgBstate.style.color = "white";
 			break;
+	}
+	
+	if (i === 0) {
+		prev.classList.remove("text-white");
+		prev.classList.add("text-transparent");
+	} else if (i > 0 && i < frgListJson.length -1) {
+		if (prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		} else if (next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
+	} else if (i === frgListJson.length - 1) {
+		next.classList.remove("text-white");
+		next.classList.add("text-transparent");
 	}
 }
 

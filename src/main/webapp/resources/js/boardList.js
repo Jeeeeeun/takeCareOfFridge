@@ -1,4 +1,4 @@
-let alertMsg, alertContent, alertWindow, searchForm, searchInput, inputSearchType, inputDateType, searchBtn, searchText, searchDate, posts, plusBtn, likeNumDisplay, fullHeart, emptyHeart, addLikeData, cancelLikeData, fullHeartTemplate, emptyHeartTemplate, newFullHeart, newEmptyHeart, likeNum;
+let alertMsg, alertContent, alertWindow, searchForm, searchInput, inputSearchType, inputDateType, searchBtn, searchText, searchDate, posts, plusBtn, likeNumDisplay, fullHeart, emptyHeart, addLikeData, cancelLikeData, fullHeartTemplate, emptyHeartTemplate, newFullHeart, newEmptyHeart, likeNumDisplays;
 
 window.onload = function () { 
     alertContent = document.querySelector("#alertContent"); 
