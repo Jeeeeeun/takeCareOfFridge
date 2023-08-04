@@ -35,9 +35,6 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/mainAlert.js"></script>
-<script>
-	showMsg ('${msg}'); // 로그인 안하고 주소로 접근했을때 뜨는 에러메세지
-</script>
 </head>
 <body id="page-top">
 	<!-- Navigation-->

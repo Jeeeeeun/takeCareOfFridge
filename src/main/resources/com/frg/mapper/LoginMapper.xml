@@ -18,4 +18,5 @@
 	  resultType="int">
 	  SELECT COUNT(1) FROM frgList WHERE user_index = (SELECT user_index FROM users WHERE user_id = #{user_id})
 	  </select>
+	  
   </mapper>

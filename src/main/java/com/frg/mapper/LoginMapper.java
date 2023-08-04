@@ -10,4 +10,7 @@ public interface LoginMapper {
 	List<UserDTO> selectUserByIdAndPwd(UserDTO dto);
 	
 	int selectClassUser(UserDTO dto);
+	
+	int selectUserIdOk(UserDTO dto);
+	
 }

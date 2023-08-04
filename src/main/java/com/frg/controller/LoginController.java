@@ -26,50 +26,48 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class LoginController {
 
-	@Autowired
-	LoginService service;
+   @Autowired
+   LoginService service;
 
-	@GetMapping(value = "/login")
-	public String getLogin() {
-		return "/frg/login";
-	}
+   @GetMapping(value = "/login")
+   public String getLogin() {
+      return "/frg/login";
+   }
 
-	public static final int LOGIN_SECCESS = 1;
+   public static final int LOGIN_SECCESS = 1;
 
-	@PostMapping(value = "/login")
-	public String postLogin(HttpServletRequest request, Model model) {
-		UserDTO dto = new UserDTO();
-		dto.setUser_id(request.getParameter("user_id"));
-		dto.setUser_pw(SHAEncodeUtil.encodeSha(request.getParameter("user_pw")));
+   @PostMapping(value = "/login")
+   public String postLogin(HttpServletRequest request, Model model) {
+      UserDTO dto = new UserDTO();
+      dto.setUser_id(request.getParameter("user_id"));
+      dto.setUser_pw(SHAEncodeUtil.encodeSha(request.getParameter("user_pw")));
 
-		int loginAuth = service.getCountUser(dto);
-		if (loginAuth == LOGIN_SECCESS) {
-			// session binding
-			service.getUserByIdAndPwd(dto);
+      int loginAuth = service.getCountUser(dto);
+      if (loginAuth == LOGIN_SECCESS) {
+         // session binding
+         service.getUserByIdAndPwd(dto);
 
-			int loginClass = service.getClassUser(dto);
-			if (loginClass != 0) {
-				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
-				log.info("frgListShow");
-				return "redirect:/frg/frgShow";
-			} else {
-				SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
-				log.info("frgListAdd");
-				return "redirect:/frg/frgAdd";
-			}
-		} else {
-			// 로그인 실패
-			// 로그인 ;
-			model.addAttribute("errorMsg", "로그인 실패했습니다!");
-	        log.info("실패");            
-	        return "/frg/login";
-		}
-	}
-	
-	@GetMapping("/getUserId")
-	@ResponseBody
-	public ResponseEntity<String> getUserId(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-	    String userId = SessionUtil.getSessionUserId(request);
-	    return ResponseEntity.ok().body(userId);
-	}
+         int loginClass = service.getClassUser(dto);
+         if (loginClass != 0) {
+            SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "Y");
+            log.info("frgListShow");
+            return "redirect:/frg/frgShow";
+         } else {
+            SessionUtil.setSessionAttributes(request, dto.getUser_id(), true, "N");
+            log.info("frgListAdd");
+            return "redirect:/frg/frgAdd";
+         }
+      } else {
+         // 로그인 실패
+           log.info("실패");            
+           return "redirect:/frg/login";
+      }
+   }
+   
+   @GetMapping("/getUserId")
+   @ResponseBody
+   public ResponseEntity<String> getUserId(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+       String userId = SessionUtil.getSessionUserId(request);
+       return ResponseEntity.ok().body(userId);
+   }
 }

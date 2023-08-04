@@ -51,7 +51,7 @@ public class LoginServiceTest {
 	@Ignore
 	public void testGetClassUser() {
 		UserDTO dto = new UserDTO();
-		dto.setUser_id("whatever");
+		dto.setUser_id("whatever");  //냉장고가 없는 사람 아이
 		
 		assertEquals(0, service.getClassUser(dto));
 		System.out.println(dto);
