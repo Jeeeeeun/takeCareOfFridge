@@ -31,8 +31,10 @@
 				font-size: 15px;
 				transform: translate(10px, -3px);
 			}
+			.findPwdLink{
+				border-radius: 20px;
+			}
 		</style>
-
 		<!-- JavaScript External Links -->
 		<script src="${ pageContext.servletContext.contextPath }/resources/js/login.js"></script>
 	</head>
@@ -78,6 +80,7 @@
 									<input type="submit" class="loginBtn btn btn-success" style="border-radius: 20px;" value="로그인하기" onclick="return login();">
 								</div>
 							</form>
+							<a class="findPwdLink btn text-white text-decoration-none mt-2" href="${pageContext.servletContext.contextPath }/frg/findPwd">비밀번호 찾기</a>
 						</div>
 					</div>
 				</div>
