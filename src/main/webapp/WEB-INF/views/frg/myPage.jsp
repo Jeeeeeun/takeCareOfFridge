@@ -264,7 +264,7 @@
 											</button>
 										</div>
 									</div>
-									<div id="myFrgBstate" class="bg-white-30 rounded-4 d-flex justify-content-sm-between align-items-sm-center p-2 my-1">
+									<div id="myFrgBstate" class="d-flex bg-white-30 rounded-4 d-flex justify-content-sm-between align-items-sm-center p-2 my-1">
 										<div id="fridgeBtitleBox" class="w-50 ms-2">B칸 상태</div>
 										<div class="w-50 d-flex flex-row justify-content-sm-between align-items-sm-center me-5">
 											<button type="button" id="frgBfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>

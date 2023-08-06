@@ -63,19 +63,30 @@ function updateFrg(i) {
 			hRadio.checked = true;
 			vRadio.checked = false;
 			sRadio.checked = false;
+			if (frgBstate.classList.contains("hidden")) {
+				frgBstate.classList.remove("hidden");
+				frgBstate.classList.add("d-flex");
+			}
 			break;
 		case "V":
 			frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
 			vRadio.checked = true;
 			hRadio.checked = false;
 			sRadio.checked = false;
+			if (frgBstate.classList.contains("hidden")) {
+				frgBstate.classList.remove("hidden");
+				frgBstate.classList.add("d-flex");
+			}
 			break;
 		case "S":
 			frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
 			sRadio.checked = true;
 			vRadio.checked = false;
 			hRadio.checked = false;
-			frgBstate.style.display = "none";
+			if (frgBstate.classList.contains("d-flex")) {
+				frgBstate.classList.remove("d-flex");
+				frgBstate.classList.add("hidden");
+			}
 			bFrozenBtn.removeAttribute("selected");
 			bCoolBtn.removeAttribute("selected");
 			break;
