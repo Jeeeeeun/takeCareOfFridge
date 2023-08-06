@@ -14,6 +14,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.30</org.slf4j-version>
 		<!-- <org.slf4j-version>1.6.6</org.slf4j-version> -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- war build 시 인코딩 오류 때문에 한 줄 추가 -->
 	</properties>
 	<dependencies>
 		<!-- Spring -->
