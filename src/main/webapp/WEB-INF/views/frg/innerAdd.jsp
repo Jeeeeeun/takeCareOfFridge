@@ -248,7 +248,7 @@
 									<div class="searchFood-1">
 										<input type="search" name="searchFood" id="searchInput"
 											placeholder="식품을 검색하세요." autofocus />
-										<button type="button" name="searchFoodBtn" id="searchSubmit"
+										<button type="button" name="searchFoodBtn" id="searchSubmit" title="검색하기를 눌러주세요"
 											onclick="searchFoodAPI();">검색하기</button>
 									</div>
 									<!-- searchFood-1 끝 -->
