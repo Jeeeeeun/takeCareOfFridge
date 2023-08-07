@@ -127,6 +127,10 @@ function updateFrg(i) {
 	if (i === 0) {
 		prev.classList.remove("text-white");
 		prev.classList.add("text-transparent");
+		if(next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
 	} else if (i > 0 && i < frgListJson.length -1) {
 		if (prev.classList.contains("text-transparent")) {
 			prev.classList.remove("text-transparent");
@@ -138,6 +142,10 @@ function updateFrg(i) {
 	} else if (i === frgListJson.length - 1) {
 		next.classList.remove("text-white");
 		next.classList.add("text-transparent");
+		if(prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		}
 	}
 }
 
