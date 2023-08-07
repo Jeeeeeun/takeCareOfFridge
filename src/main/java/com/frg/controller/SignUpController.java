@@ -60,7 +60,7 @@ public class SignUpController {
 	}
 	
 	@GetMapping(value = "/signUp")
-	public String getLogin() {
+	public String getSignUp() {
 		return "/frg/signUp";
 	}
 }

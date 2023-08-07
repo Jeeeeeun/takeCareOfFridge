@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>myPage</title>
+		<title>MYPAGE</title>
 
 		<!-- Favicon-->
 		<link rel="icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.svg" />
@@ -106,18 +106,18 @@
 			<div class="vw-95 h-100 d-grid d-grid-row-09-90 d-grid-col-30-70 gap-3 mx-auto">
 				<div class="d-grid grid-row-1-1 grid-col-1-1 justify-content-sm-center align-items-sm-center rounded-4 bg-white-30 text-white text-center fw-bold">가입 정보 확인</div>
 				<div class="vh-80 d-grid grid-row-2-10 grid-col-1-1 rounded-4 bg-white-30 align-items-sm-start">
-					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-black fs-6 mx-auto my-2">
-						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0">Name</p>
+					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-white fs-6 mx-auto my-2">
+						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0 ps-2">Name</p>
 						<div class="w-0 h-60 border-05 border-white border-solid d-flex align-items-sm-center position-relative z-2"></div>
 						<input type="text" class="userData h-100 border-none bg-transparent position-relative ms-4" id="name" disabled />
 					</div>
-					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-black fs-6 mx-auto my-2">
-						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0">ID</p>
+					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-white fs-6 mx-auto my-2">
+						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0 ps-2">ID</p>
 						<div class="w-0 h-60 border-05 border-white border-solid d-flex align-items-sm-center position-relative z-2"></div>
 						<input type="text" class="userData h-100 border-none bg-transparent position-relative ms-4" id="id" disabled />
 					</div>
-					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-black fs-6 mx-auto my-2">
-						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0">Email</p>
+					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-white fs-6 mx-auto my-2">
+						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0 ps-2">Email</p>
 						<div class="w-0 h-60 border-05 border-white border-solid d-flex align-items-sm-center position-relative z-2"></div>
 						<input type="email" class="userData h-100 border-none bg-transparent position-relative ms-4" id="email" disabled />
 						<button class="duplicateBtn rounded-4 bg-white-30" id="checkEmail" type="button" style="width: 25%; height: 50%; font-size: 80%; text-align: center; align-items: center; margin-right: 3%; display: none;">
@@ -127,21 +127,25 @@
 					<div class="emailErrorMsg hidden" id="emailErrorMsg">
 						<span></span>
 					</div>
-					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-black fs-6 mx-auto my-2">
-						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0">PW</p>
+					<div class="w-95 h-50 d-flex flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-white fs-6 mx-auto my-2">
+						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0 ps-2">PW</p>
 						<div class="w-0 h-60 border-05 border-white border-solid d-flex align-items-sm-center position-relative z-2"></div>
 						<input type="password" class="userData h-100 border-none bg-transparent position-relative ms-4" id="pw" title="암호화된 비밀번호" disabled />
 					</div>
-					<div class="w-95 h-50 flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-black fs-6 mx-auto my-2" id="pwCheck" style="display: none;">
-						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0">PW Check</p>
+					<div class="w-95 h-50 flex-row align-items-sm-center rounded-4 bg-white-30 z-1 text-white fs-6 mx-auto my-2" id="pwdCheck" style="display: none;">
+						<p class="w-25 h-100 d-flex align-items-sm-center text-center fw-semibold mx-2 my-0 ps-2">PW Check</p>
 						<div class="w-0 h-60 border-05 border-white border-solid d-flex align-items-sm-center position-relative z-2"></div>
 						<input type="password" class="userData h-100 border-none bg-transparent position-relative ms-4" id="pwCheck" disabled />
-						<div id="pwdAlert" style="margin-left: -85px; margin-top: 20px">
+						<div id="pwdAlert" style="font-size: 0.8rem;">
 							<span></span>
 						</div>
 					</div>
-					<button class="modifyMyInfoBtn w-20 h-50 d-flex justify-content-sm-center align-items-sm-center bg-white-30 position-relative rounded-4 text-black fs-7 mx-auto" id="submitButton">수정하기</button>
-					<button class="userDeleteBtn d-flex justify-content-sm-center align-items-sm-center position-relative border-none bg-transparent rounded-4 text-black fs-7 z-1" id="deleteBtn">회원탈퇴</button>
+					<button type="button" class="modifyMyInfoBtn w-20 h-50 d-flex justify-content-sm-center align-items-sm-center bg-white-30 border-none position-relative rounded-4 text-black fs-7 mx-auto" id="submitButton">
+						수정하기
+					</button>
+					<button type="button" class="userDeleteBtn d-flex justify-content-sm-center align-items-sm-center position-relative border-none bg-transparent rounded-4 text-black fs-7 z-1" id="deleteBtn">
+						회원탈퇴
+					</button>
 				</div>
 
 
@@ -195,7 +199,7 @@
 										</div>
 									</div>
 									<div class="w-100 h-10 d-flex flex-row justify-content-sm-center align-items-sm-center position-relative top-mi5"><!-- 수정완료 버튼 -->
-										<button type="button" id="trfCorrectionEndBtn" class="w-30 h-50 hidden bg-white-30 border-none text-black justify-content-sm-center align-items-sm-center position-relative bg-white-30 fw-semibold rounded-4 p-2 mt-2" onclick="trfCorrectionEnd()">
+										<button type="button" id="trfCorrectionEndBtn" class="w-30 h-50 hidden bg-white-30 border-none text-black justify-content-sm-center align-items-sm-center position-relative bg-white-30 fw-semibold rounded-4 p-2 mt-2 mb-1" onclick="trfCorrectionEnd()">
 											수정 완료
 										</button>
 									</div>
@@ -221,7 +225,7 @@
 						<div class="d-grid grid-col-2-1 grid-row-2-10 w-100 h-100">
 							<div id="fridgeInfoContentBox" class="d-flex flex-column justify-content-sm-center position-relative w-95 h-35 mx-auto mt-1">
 								<div class="fridgeShapeBox w-100 h-55 d-flex justify-content-sm-between align-items-sm-center bg-white-30 rounded-4 position-relative rounded-4 mt-4">
-								<button id="prev" class="bg-transparent border-none text-white ms-3 fs-5" onclick="prevFrg()">
+									<button id="prev" class="bg-transparent border-none text-white ms-3 fs-5" onclick="prevFrg()">
 										<i class="fa-solid fa-caret-left"></i>
 									</button>
 									<img class="frg_shape h-80" />
@@ -232,12 +236,12 @@
 								<form action="${ pageContext.servletContext.contextPath }/frg/frgInfoChange" method="post" id="frgInfoRight" class="w-100 h-100 d-flex flex-column flex-grow-1 flex-basis-90 text-black bg-white-30 rounded-4 box-border-size p-2 mt-2">
 									<input type="hidden" id="frg_index" /> <!-- 서버로 값을 넘기기 위해 값을 가져오기는 하지만 화면에는 필요치 않아서 숨겨놓은 데이터 -->
 									<div class="fridgeName d-flex flex-row align-items-sm-center position-relative bg-white-30 fw-littlebold rounded-4 p-2 my-1">
-										<b>냉장고 이름</b>
+										<b class="ms-2">냉장고 이름</b>
 										<div class="w-0 h-60 d-flex align-items-sm-center border-solid border-white border-1 position-relative start-10 mx-3 z-2"></div>
 										<input type="text" class="frg_name d-flex align-items-sm-center position-relative bg-transparent border-none" disabled />
 									</div>
 									<div class="frg_shape bg-white-30 rounded-4 p-2 my-1">
-										<b>냉장고 모양</b><br>
+										<b class="ms-2 mb-1">냉장고 모양</b><br>
 										<div class="radio_group w-100 d-inline-flex justify-content-sm-around align-items-sm-center flex-wrap">
 											<input type="radio" name="frg_shape" id="hRadio" value="H" class="width-5 height-5" onclick="radioBtnClicked(event)" disabled />
 											<label for="hRadio">가로형</label>
@@ -250,8 +254,8 @@
 										</div>
 									</div>
 									<div id="myFrgAstate" class="bg-white-30 rounded-4 d-flex justify-content-sm-between align-items-sm-center p-2 my-1">
-										<div id="fridgeAtitleBox" class="w-50">A칸 상태</div>
-										<div class="w-50 d-flex flex-row justify-content-sm-between align-items-sm-center">
+										<div id="fridgeAtitleBox" class="w-50 ms-2">A칸 상태</div>
+										<div class="w-50 d-flex flex-row justify-content-sm-between align-items-sm-center me-5">
 											<button type="button" id="frgAfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>
 												냉동
 											</button>
@@ -260,9 +264,9 @@
 											</button>
 										</div>
 									</div>
-									<div id="myFrgBstate" class="bg-white-30 rounded-4 d-flex justify-content-sm-between align-items-sm-center p-2 my-1">
-										<div id="fridgeBtitleBox" class="w-50">B칸 상태</div>
-										<div class="w-50 d-flex flex-row justify-content-sm-between align-items-sm-center">
+									<div id="myFrgBstate" class="d-flex bg-white-30 rounded-4 d-flex justify-content-sm-between align-items-sm-center p-2 my-1">
+										<div id="fridgeBtitleBox" class="w-50 ms-2">B칸 상태</div>
+										<div class="w-50 d-flex flex-row justify-content-sm-between align-items-sm-center me-5">
 											<button type="button" id="frgBfrozenBtn" value="frozen" onclick="frgStateBtnClicked(event)" disabled>
 												냉동
 											</button>

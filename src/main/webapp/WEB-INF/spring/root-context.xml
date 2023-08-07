@@ -40,7 +40,7 @@
 		<!-- sqlSessionFactory.setDataSource(dataSource); 와 같은 말 -->
 		<!-- property는 set~~와 같은 거 -->
 	</bean>
-
+	
 	<!-- scan을 통해서 미리 객체를 생성한다 -->
 	<context:component-scan base-package="com.frg.util"></context:component-scan>
 	<!-- test Scan -->

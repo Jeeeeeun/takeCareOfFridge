@@ -9642,6 +9642,11 @@ none
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-transparent {
+	--bs-text-opacity: 0;
+	color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-body {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important;
@@ -9735,6 +9740,11 @@ none
 
 .bg-black-50 {
 	background-color: rgba(var(--bs-black-rgb), 0.5) !important;
+}
+
+.bg-white-10 {
+	--bs-bg-opacity: 0.1;
+	background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-white-30 {

@@ -1,5 +1,5 @@
 var currentIndex = 0;
-var frgName, frgNameContent, frgShapeImg, frgState, frgAstate, frgBstate;
+var frgName, frgNameContent, frgShapeImg, frgState, frgAstate, frgBstate, prev, next;
 
 window.onload = function () {
     frgName = document.getElementById("frg_name");
@@ -7,6 +7,9 @@ window.onload = function () {
 	frgState = document.getElementById("frg_state");
     frgAstate = document.getElementById("frg_Astate");
     frgBstate = document.getElementById("frg_Bstate");
+    
+    prev = document.querySelector("#prev");
+	next = document.querySelector("#next");
     
     frgShapeImg.onload = function() {
     	frgState.style.width = frgShapeImg.offsetWidth + "px";
@@ -88,6 +91,22 @@ function updateFrg(i) {
 			frgBstate.textContent = "냉동";
 			frgBstate.style.color = "white";
 			break;
+	}
+	
+	if (i === 0) {
+		prev.classList.remove("text-white");
+		prev.classList.add("text-transparent");
+	} else if (i > 0 && i < frgListJson.length -1) {
+		if (prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		} else if (next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
+	} else if (i === frgListJson.length - 1) {
+		next.classList.remove("text-white");
+		next.classList.add("text-transparent");
 	}
 }
 
