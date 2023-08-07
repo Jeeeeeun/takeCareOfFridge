@@ -59,11 +59,6 @@
 									MyFridge
 								</a>
 							</li>
-							<li class="nav-item hidden">
-								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">
-									Community
-								</a>
-							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/logout">
 									Logout
@@ -95,8 +90,8 @@
 						<button class="bg-transparent d-flex justify-content-sm-center align-items-center w-100 h-100 mx-0 my-0 border-transparent"  title="냉장고 속 식품 보러 가기" onclick="goIntoFrg('${pageContext.servletContext.contextPath}/frg/innerCtrl');">
 							<img id="frg_shape" class="w-100 h-100 z-1 border-transparent position-relative" style="object-fit: cover;">
 							<div id="frg_state" class="d-flex position-absolute z-2">
-								<p id="frg_Astate" class="position-relative fw-semibold m-0"></p>
-								<p id="frg_Bstate" class="position-relative fw-semibold m-0"></p>
+								<p id="frg_Astate" class="d-flex position-relative fw-semibold m-0"></p>
+								<p id="frg_Bstate" class="d-flex position-relative fw-semibold m-0"></p>
 							</div>
 						</button>
 						<div class="ctrlInfos bg-transparent border-transparent">

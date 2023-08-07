@@ -55,7 +55,11 @@ function updateFrg(i) {
 	frgAstate.style.fontWeight = "bold";
 	frgBstate.style.position = "relative";
 	frgBstate.style.fontWeight = "bold";
-	frgBstate.style.display = "flex";
+
+	if(frgBstate.classList.contains("hidden")) {
+		frgBstate.classList.remove("hidden");
+		frgBstate.classList.add("d-flex");
+	}
 	
 	switch (frgListJson[i].frg_shape) {
 		case "H":
@@ -462,7 +466,7 @@ function radioBtnClicked(e) {
 		switch (clickedRadio.value) {
 			case "H":
 				frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
-				frgBstate.style.display = "flex";
+				
 
 				if (aFrozenBtn.getAttribute("selected") !== null) {
 					bCoolBtn.setAttribute("selected", "");
@@ -475,10 +479,16 @@ function radioBtnClicked(e) {
 					bFrozenBtn.setAttribute("selected", "");
 					bFrozenBtn.className = "frgSelected";
 				}
+
+				if(frgBstate.classList.contains("hidden")) {
+					frgBstate.classList.remove("hidden");
+					frgBstate.classList.add("d-flex");
+				}
+				
 				break;
 			case "V":
 				frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
-				frgBstate.style.display = "flex";
+				
 		
 				if (aFrozenBtn.getAttribute("selected") !== null) {
 					bCoolBtn.setAttribute("selected", "");
@@ -491,12 +501,25 @@ function radioBtnClicked(e) {
 					bFrozenBtn.setAttribute("selected", "");
 					bFrozenBtn.className = "frgSelected";
 				}
+				
+				if(frgBstate.classList.contains("hidden")) {
+					frgBstate.classList.remove("hidden");
+					frgBstate.classList.add("d-flex");
+				}
+				
 				break;
 			case "S":
 				frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
-				frgBstate.style.display = "none";
+				
+				
 				bFrozenBtn.removeAttribute("selected");
 				bCoolBtn.removeAttribute("selected");
+
+				if(frgBstate.classList.contains("d-flex")) {
+					frgBstate.classList.remove("d-flex");
+					frgBstate.classList.add("hidden");
+				}
+
 				break;
 		}
 	}
@@ -605,7 +628,10 @@ function frgCorrectionEnd() {
 				sRadio.checked = true;
 				vRadio.checked = false;
 				hRadio.checked = false;
-				frgBstate.style.display = "none";
+				if(frgBstate.classList.contains("d-flex")) {
+					frgBstate.classList.remove("d-flex");
+					frgBstate.classList.add("hidden");
+				}
 				break;
 			}
 		

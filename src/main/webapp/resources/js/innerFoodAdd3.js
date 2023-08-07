@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 
 				if (data.length == 1) {
-					alertMsg = data.api_name + "을 성공적으로 조회했습니다. 확인을 눌러주세요.";
+					alertMsg = data.length + "개의 식품을 성공적으로 조회했습니다.";
 					showAlert(alertMsg);
 				} else if (data.length > 1) {
 					alertMsg = "총 " + data.length + "개의 동일제품이 검색되었습니다. \n 하단 표에서 원하는 제품을 선택하세요.";
