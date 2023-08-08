@@ -284,16 +284,16 @@ function trfStandardBtnClicked() {
 	let mention = `작성 예시1) -10: 유통/소비기한 10일 남음\n`
 	mention += `작성 예시2) +5: 유통/소비기한 5일 지남\n`;
 	mention += `<i class="fa-solid fa-star" style="color: #ffdb00;"></i>`;
-	mention += ` 위쪽 숫자(위험 판단 기준)가 아래쪽 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
+	mention += ` 윗 숫자(위험 판단 기준)가 아래 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
 
 	const announce = document.createElement("pre");
 	// pre: 사전에 서식이 지정된(preformatted) 텍스트 태그를 말함.
 
 	announce.innerHTML = mention;	
 	announce.style.color = "white";
-	announce.style.fontSize = "60%";
+	announce.style.fontSize = "63%";
 	announce.style.position = "relative";
-	announce.style.margin = "0 3%";
+	announce.style.margin = "0 2%";
 	
 	announcement.appendChild(announce);
 	
@@ -365,11 +365,11 @@ function trfCorrectionEnd() {
 					announcement.removeChild(announcePre); // 없애줘
 				}
 			
-				setTimeout(function () {
-					// 시간차 두고 알림창 띄우기
-					alertMsg = "냉장고 속 식품 보관 관리 기준이 변경되었습니다.";
-					showAlert(alertMsg);
-				}, 100);
+				alertMsg = "냉장고 속 식품 보관 관리 기준이 변경되었습니다.";
+				showAlert(alertMsg);
+				setTimeout(() => {
+				    location.reload(); // 화면 새로 고침 코드
+				}, 2000);
 			},
 			error: function (err) {
 				alertMsg = "냉장고 식품 보관 관리 기준 변경에 실패했습니다.";
