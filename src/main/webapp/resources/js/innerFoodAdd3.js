@@ -695,6 +695,8 @@ document.addEventListener('DOMContentLoaded', function () {
                   in_count: foodCount,
                   in_company: foodCompany
                }
+               
+               addSettingBoxesDataList.push(addSettingBoxesData);
 
             } else if(
                frgOptionInput.value == "" ||
@@ -709,8 +711,9 @@ document.addEventListener('DOMContentLoaded', function () {
                showAlert(alertMsg);
                return ;
             }
-
-            $.ajax({
+         }
+         
+         $.ajax({
                type: "POST",
                url: `${contextPath}/frg/innerAdd/submit`,
                contentType: "application/json",
@@ -721,7 +724,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      alertMsg = formCount + "개의 식품을 성공적으로 등록했습니다. 식품 조회 페이지로 이동합니다.";
                      showAlert(alertMsg);
 				     setTimeout(function() {
-                     	window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
+                     	window.location.href = `${contextPath}/frg/innerCtrl?frgName=${frgOptionInput.value}`;
 					 }, 2500);
                   } else {
                      alertMsg = "등록 실패 : " + response.message;
@@ -733,8 +736,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   showAlert(alertMsg);
                }
             });
-
-         }
       }
    
 
