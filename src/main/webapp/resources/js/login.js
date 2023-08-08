@@ -14,8 +14,8 @@ function login() {
 }
 
 function showMsg(msg){
-	if(msg != null && msg !=''){
-		alert(msg);
-	}
-	
+   if(msg != null && msg !=''){
+      alert(msg);
+   }
+   
 }

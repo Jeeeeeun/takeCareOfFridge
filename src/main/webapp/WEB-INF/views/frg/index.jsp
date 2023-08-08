@@ -8,7 +8,6 @@
 			<meta name="description" content="" />
 			<meta name="author" content="" />
 			<title>HOME</title>
-
 			<!-- Favicon-->
 			<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 

@@ -80,7 +80,7 @@
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a>
 								</li>
-								<li class="nav-item">
+								<li class="nav-item hidden">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" onclick="noFrg();">Community</a>
 								</li>
 								<li class="nav-item">

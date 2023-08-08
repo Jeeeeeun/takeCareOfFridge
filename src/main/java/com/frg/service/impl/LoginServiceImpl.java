@@ -29,4 +29,5 @@ public class LoginServiceImpl implements LoginService {
 	public int getClassUser(UserDTO dto) {
 		return mapper.selectClassUser(dto);
 	}
+	
 }

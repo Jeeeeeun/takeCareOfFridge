@@ -55,7 +55,11 @@ function updateFrg(i) {
 	frgAstate.style.fontWeight = "bold";
 	frgBstate.style.position = "relative";
 	frgBstate.style.fontWeight = "bold";
-	frgBstate.style.display = "flex";
+
+	if(frgBstate.classList.contains("hidden")) {
+		frgBstate.classList.remove("hidden");
+		frgBstate.classList.add("d-flex");
+	}
 	
 	switch (frgListJson[i].frg_shape) {
 		case "H":
@@ -127,6 +131,10 @@ function updateFrg(i) {
 	if (i === 0) {
 		prev.classList.remove("text-white");
 		prev.classList.add("text-transparent");
+		if(next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
 	} else if (i > 0 && i < frgListJson.length -1) {
 		if (prev.classList.contains("text-transparent")) {
 			prev.classList.remove("text-transparent");
@@ -138,6 +146,10 @@ function updateFrg(i) {
 	} else if (i === frgListJson.length - 1) {
 		next.classList.remove("text-white");
 		next.classList.add("text-transparent");
+		if(prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		}
 	}
 }
 
@@ -454,7 +466,7 @@ function radioBtnClicked(e) {
 		switch (clickedRadio.value) {
 			case "H":
 				frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
-				frgBstate.style.display = "flex";
+				
 
 				if (aFrozenBtn.getAttribute("selected") !== null) {
 					bCoolBtn.setAttribute("selected", "");
@@ -467,10 +479,16 @@ function radioBtnClicked(e) {
 					bFrozenBtn.setAttribute("selected", "");
 					bFrozenBtn.className = "frgSelected";
 				}
+
+				if(frgBstate.classList.contains("hidden")) {
+					frgBstate.classList.remove("hidden");
+					frgBstate.classList.add("d-flex");
+				}
+				
 				break;
 			case "V":
 				frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
-				frgBstate.style.display = "flex";
+				
 		
 				if (aFrozenBtn.getAttribute("selected") !== null) {
 					bCoolBtn.setAttribute("selected", "");
@@ -483,12 +501,25 @@ function radioBtnClicked(e) {
 					bFrozenBtn.setAttribute("selected", "");
 					bFrozenBtn.className = "frgSelected";
 				}
+				
+				if(frgBstate.classList.contains("hidden")) {
+					frgBstate.classList.remove("hidden");
+					frgBstate.classList.add("d-flex");
+				}
+				
 				break;
 			case "S":
 				frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
-				frgBstate.style.display = "none";
+				
+				
 				bFrozenBtn.removeAttribute("selected");
 				bCoolBtn.removeAttribute("selected");
+
+				if(frgBstate.classList.contains("d-flex")) {
+					frgBstate.classList.remove("d-flex");
+					frgBstate.classList.add("hidden");
+				}
+
 				break;
 		}
 	}
@@ -597,7 +628,10 @@ function frgCorrectionEnd() {
 				sRadio.checked = true;
 				vRadio.checked = false;
 				hRadio.checked = false;
-				frgBstate.style.display = "none";
+				if(frgBstate.classList.contains("d-flex")) {
+					frgBstate.classList.remove("d-flex");
+					frgBstate.classList.add("hidden");
+				}
 				break;
 			}
 		

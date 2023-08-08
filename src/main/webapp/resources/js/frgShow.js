@@ -27,13 +27,23 @@ function updateFrg(i) {
 		case "H":
 			frgShapeImg.src = contextPath + "/resources/img/hFrg.svg";
 			frgState.style.flexDirection = "column";
-			frgAstate.style.display = "flex";
+			
+			if (frgAstate.classList.contains("hidden")) {
+				frgAstate.classList.remove("hidden");
+				frgAstate.classList.add("d-flex");
+			}
+			
 			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "100%";
 			frgAstate.style.height = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
-			frgBstate.style.display = "flex";
+			
+			if (frgBstate.classList.contains("hidden")) {
+				frgBstate.classList.remove("hidden");
+				frgBstate.classList.add("d-flex");
+			}
+			
 			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "100%";
 			frgBstate.style.height = "50%";
@@ -44,12 +54,24 @@ function updateFrg(i) {
          case "V":
 			frgShapeImg.src = contextPath + "/resources/img/vFrg.svg";
 			frgState.style.flexDirection = "row";
-			frgAstate.style.display = "flex";
+
+			
+			if (frgAstate.classList.contains("hidden")) {
+				frgAstate.classList.remove("hidden");
+				frgAstate.classList.add("d-flex");
+			}
+			
 			frgAstate.style.justifyContent = "flex-end";
 			frgAstate.style.width = "50%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
-			frgBstate.style.display = "flex";
+
+			
+			if (frgBstate.classList.contains("hidden")) {
+				frgBstate.classList.remove("hidden");
+				frgBstate.classList.add("d-flex");
+			}
+			
 			frgBstate.style.justifyContent = "flex-end";
 			frgBstate.style.width = "50%";
 			frgBstate.style.textAlign = "right";
@@ -63,7 +85,13 @@ function updateFrg(i) {
 			frgAstate.style.height = "100%";
 			frgAstate.style.textAlign = "right";
 			frgAstate.style.paddingRight = "4%";
-			frgBstate.style.display = "none";
+			
+			
+			if (frgBstate.classList.contains("d-flex")) {
+				frgBstate.classList.remove("d-flex");
+				frgBstate.classList.add("hidden");
+			}
+			
 			break;
     }
 	
@@ -93,9 +121,13 @@ function updateFrg(i) {
 			break;
 	}
 	
-	if (i === 0) {
+		if (i === 0) {
 		prev.classList.remove("text-white");
 		prev.classList.add("text-transparent");
+		if(next.classList.contains("text-transparent")) {
+			next.classList.remove("text-transparent");
+			next.classList.add("text-white");
+		}
 	} else if (i > 0 && i < frgListJson.length -1) {
 		if (prev.classList.contains("text-transparent")) {
 			prev.classList.remove("text-transparent");
@@ -107,6 +139,10 @@ function updateFrg(i) {
 	} else if (i === frgListJson.length - 1) {
 		next.classList.remove("text-white");
 		next.classList.add("text-transparent");
+		if(prev.classList.contains("text-transparent")) {
+			prev.classList.remove("text-transparent");
+			prev.classList.add("text-white");
+		}
 	}
 }
 
