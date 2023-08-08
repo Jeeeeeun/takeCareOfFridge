@@ -59,6 +59,11 @@
 											Login
 										</a>
 									</li>
+									<li class="nav-item hidden">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="event.preventDefault(); noLog(event);">
+											Community
+										</a>
+									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="<%=request.getContextPath()%>/frg/signUp">
 											SignUp

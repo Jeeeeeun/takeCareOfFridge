@@ -64,6 +64,11 @@
 									MyFridge
 								</a>
 							</li>
+							<li class="nav-item hidden">
+								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">
+									Community
+								</a>
+							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/logout">
 									Logout
