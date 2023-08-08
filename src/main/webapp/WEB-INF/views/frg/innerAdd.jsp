@@ -52,12 +52,14 @@
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous"></script>
 
-<script>
+<script type="text/javascript">
 	window.contextPath = "${pageContext.servletContext.contextPath}";
 	//frgNames 데이터를 JavaScript 변수에 할당
 	const frgNames = ${frgNamesJson};
 </script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodAdd.js"></script>
+<script type="text/javascript" 
+	src="${pageContext.servletContext.contextPath}/resources/js/innerFoodAdd3.js">
+</script>
 </head>
 <body id="page-top">
 
@@ -114,7 +116,6 @@
 				<div class="addSettingBox-All">
 
 					<div class="addSettingBox-Left">
-
 
 						<div class="addSettingBox-Form">
 

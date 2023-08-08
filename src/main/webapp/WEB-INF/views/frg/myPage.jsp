@@ -48,7 +48,7 @@
 		<script src="${pageContext.servletContext.contextPath}/resources/js/myPageInfo.js"></script>
 	</head>
 	<body>
-		<header class="masthead  overflowX-hidden">
+		<header class="masthead overflowY-hidden overflowX-hidden">
 			<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
 				<div class="container px-4 px-lg-5">
 					<a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/frg/index">
