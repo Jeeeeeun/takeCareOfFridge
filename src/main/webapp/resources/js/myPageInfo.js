@@ -83,13 +83,17 @@ function checkSession(){
             if(data.sessionExpired){
                 alertMsg = "다시 로그인 해주세요.";
                 showAlert(alertMsg);
-                window.location.href = `${contextPath}/frg/login`;
+                setTimeout(() => {
+	                window.location.href = `${contextPath}/frg/login`;                
+                }, 2000);
             }
         },
         error: function(xhr, status, error){
         	alertMsg = "다시 로그인 해주세요.";
             showAlert(alertMsg);
-            window.location.href = `${contextPath}/frg/login`;
+            setTimeout(() => {
+	            window.location.href = `${contextPath}/frg/login`;        
+            }, 2000);
             console.error("Error: ", error);
         }
     });
@@ -241,7 +245,6 @@ $(document).ready(function () {
                       change_email: isChanged,
                       user_pw: $("#pw").val()
                     };
-      console.log("여기7");
       $.ajax({
         url: `${contextPath}/frg/updateInfo`,
         type: "POST",
@@ -249,22 +252,17 @@ $(document).ready(function () {
         data: JSON.stringify(data),
         dataType:"json",
         success: function(response){
-          console.log("여기8");
           if (response) {
           alertMsg = "사용자 정보 업데이트를 성공했습니다.";
           showAlert(alertMsg);
           setTimeout(function() {
             location.reload(); // 2초 뒤에 페이지 새로 고침 실행
           }, 2000); //2초 새로고침 지연 시간
-          console.log("여기9");
         }
       },
         error: function (resources, status, error) {
         alertMsg = "오류가 발생했습니다. 업데이트 실패";
         showAlert(alertMsg);
-        console.log("여기10");
-        console.log(data);
-        console.log("JSON 데이터" + JSON.stringify(data));
       },
     });
   }
@@ -273,33 +271,36 @@ $(document).ready(function () {
 //회원탈퇴
 $(document).ready(function() {
     $("#deleteBtn").click(function(){
-      console.log("여기1");
-      if(confirm("정말로 회원탈퇴를 하시겠습니까?")){
-        $.ajax({
-          url: `${contextPath}/frg/deleteUser`,
-          type: "GET",
-          dataType: "json",
-          success: function(response){
-            console.log("여기 2");
-            var msg = response.Msg;
-            console.log("response" + response);
-            console.log("메세지" + msg);
-            alert(msg);
-            console.log("여기 3");
-            if(msg === "회원 탈퇴 성공"){
-                console.log("여기 4");
-              location.href = `${contextPath}/frg/index`;
-            } else {
-                console.log("여기 5");
-              location.href = `${contextPath}/frg/myPage`;
+      confirmMsg = "정말로 회원탈퇴를 하시겠습니까?";
+      showConfirm(
+        confirmMsg,
+        () => {
+          $.ajax({
+            url: `${contextPath}/frg/deleteUser`,
+            type: "GET",
+            dataType: "json",
+            success: function(response){
+              showAlert(response.Msg);
+              if(msg === "회원 탈퇴 성공"){
+                setTimeout(() => {
+                  location.href = `${contextPath}/frg/index`;
+                }, 2000);
+              } else {
+                location.href = `${contextPath}/frg/myPage`;
+              }
+            },
+            error: function() {
+              alertMsg = "회원탈퇴중 오류가 발생했습니다.";
+              showAlert(alertMsg);
+              setTimeout(() => {
+                location.href = `${contextPath}/frg/index`;
+              }, 2000);
             }
-          },
-          error: function() {
-            console.log("여기 6");
-            alert("회원탈퇴중 오류가 발생했습니다.");
-            location.href = `${contextPath}/frg/index`;
-          }
-        });
-      }
+          });
+        },
+        () => {
+          return;
+        }
+      );
     });
   });

@@ -429,7 +429,8 @@
 					        };
 				    },
 					error: function() {
-						console.error('서버연결실패');
+						// 에러 발생 시의 코드
+						console.error('Failed to get food info from the server.');
 					}
 				});
 				
@@ -599,8 +600,7 @@
 								<div class="w-30 h-100 d-flex flex-column justify-content-sm-center align-items-sm-center my-auto px-3 py-2">
 									<!-- currentFrg -->
 									<label class="w-80 h-50" for="frgSelect">냉장고 선택</label>
-									<select class="w-100 h-50 bg-transparent border-05 border-white border-dashed border-opacity-50 rounded-4 px-3 py-1" 
-									id="frgSelect" onchange="changeFrg(this.value, '${ pageContext.servletContext.contextPath }/frg/innerCtrl');">
+									<select class="w-100 h-50 bg-transparent border-05 border-white border-dashed border-opacity-50 rounded-4 px-3 py-1" id="frgSelect" onchange="changeFrg(this.value, '${ pageContext.servletContext.contextPath }/frg/innerCtrl');">
 										<option value="all">전체</option>
 										<c:forEach var="name" items="${ frgNames }">
 											<option value="${name}" <c:if test="${ frgName eq name }">selected</c:if>>

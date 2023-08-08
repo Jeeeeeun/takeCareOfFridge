@@ -61,9 +61,6 @@
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgShow">MyFridge</a>
 								</li>
-								<li class="nav-item hidden">
-									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">Community</a>
-								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a>
 								</li>
@@ -79,9 +76,6 @@
 							<ul class="navbar-nav ms-auto my-2 my-lg-0">
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd">MyFridge</a>
-								</li>
-								<li class="nav-item hidden">
-									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/frgAdd_form" onclick="noFrg();">Community</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="${ pageContext.servletContext.contextPath }/frg/logout">Logout</a>

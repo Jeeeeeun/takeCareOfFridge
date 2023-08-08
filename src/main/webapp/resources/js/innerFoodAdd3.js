@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
    let frgStateCounter = 1;
    let formCount = 1;
    /* createNewSettingBox(); */
-   function createNewSettingBox() {
+function createNewSettingBox() {
 
       /*
       1. +를 눌렀을 때, form이 비어있는지 아닌지 확인 후 
@@ -395,6 +395,16 @@ document.addEventListener('DOMContentLoaded', function () {
          addSettingBoxFormBoxesArrange[i].style.margin = "0 auto";
          addSettingBoxFormBoxesArrange[i].style.top = "7%";
 
+       selectedFormInputs[i].style.margin="5% 3%";
+       selectedFormInputs[i].style.appearance= "none";
+       selectedFormInputs[i].style.border= "3px solid white";
+       selectedFormInputs[i].style.width= "1.25rem";
+       selectedFormInputs[i].style.height= "1.25rem";
+       
+       if(selectedFormInputs[i].checked){
+           selectedFormInputs[i].style.backgroundColor= "#f4623a6e";
+       }
+      
          Alllabels[i].style.width = "50%";
          Alllabels[i].style.marginLeft = "4%";
 
@@ -447,43 +457,25 @@ document.addEventListener('DOMContentLoaded', function () {
          box2and1[i].style.display = "flex";
          box2and1[i].style.alignItems = "center";
 
-/*
-         // 냉동 및 냉장 라디오 버튼 상태에 따라 배경색 변경
-         for (let i = 0; i < foodStateFrozen.length; i++) {
-            // 초기 배경색 설정
-            setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-            setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
+         box3[i].style.position = "relative";
+         box3[i].style.width = "100%";
+         box3[i].style.position = "100%";
 
-            // 라디오 버튼 상태 변경 감지 및 배경색 변경
-            foodStateFrozen[i].addEventListener("change", function () {
-               setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-               setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
-            });
+         box4[i].style.position = "relative";
+         box4[i].style.width = "100%";
+         box4[i].style.position = "100%";
 
-            foodStateCool[i].addEventListener("change", function () {
-               setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-               setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
-            });*/
+         box5[i].style.position = "relative";
+         box5[i].style.width = "100%";
+         box5[i].style.position = "100%";
 
-            box3[i].style.position = "relative";
-            box3[i].style.width = "100%";
-            box3[i].style.position = "100%";
+         box6[i].style.position = "relative";
+         box6[i].style.width = "100%";
+         box6[i].style.position = "100%";
 
-            box4[i].style.position = "relative";
-            box4[i].style.width = "100%";
-            box4[i].style.position = "100%";
-
-            box5[i].style.position = "relative";
-            box5[i].style.width = "100%";
-            box5[i].style.position = "100%";
-
-            box6[i].style.position = "relative";
-            box6[i].style.width = "100%";
-            box6[i].style.position = "100%";
-
-            box7[i].style.position = "relative";
-            box7[i].style.width = "100%";
-            box7[i].style.position = "100%";
+         box7[i].style.position = "relative";
+         box7[i].style.width = "100%";
+         box7[i].style.position = "100%";
 
          }
 
@@ -737,5 +729,3 @@ document.addEventListener('DOMContentLoaded', function () {
                }
             });
       }
-   
-
