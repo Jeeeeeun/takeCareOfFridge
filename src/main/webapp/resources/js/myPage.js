@@ -722,6 +722,10 @@ function frgCorrectionEnd() {
 				
 					alertMsg = "냉장고 정보가 성공적으로 변경되었습니다.";
 					showAlert(alertMsg);
+					
+					setTimeout(() => {
+				    	location.reload(); // 화면 새로 고침 코드
+					}, 2000);
 				},
 				error: function (err) {
 					alertMsg = "냉장고 정보 변경에 실패했습니다.";
