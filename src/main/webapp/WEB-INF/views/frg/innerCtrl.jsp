@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<title>식품 정보 조회</title>
+		<title>식품 조회</title>
 
 		<!-- Favicon-->
 		<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
@@ -26,8 +26,7 @@
 		<!-- Core theme CSS (includes Bootstrap)-->
 		<link href="${pageContext.servletContext.contextPath}/resources/css/styles.css" rel="stylesheet" />
 
-		<!-- External Custom CSS StyleSheet -->
-		<!-- <link rel="stylesheet" href="../resources/css/innerCtrl.css"> -->
+		<!-- Internal Custom CSS StyleSheet -->
 		<style>
 			.stateBtn:hover {
 				background-color: rgba(255, 255, 255, 0.2);
@@ -67,6 +66,10 @@
 			input[type="radio"]:checked {
 				background-color: #f4623a;
 			}
+			
+			#detailInfoItemBox_d_DAY::placeholder {
+				color: #eee;
+			}
 		</style>
 
 		<!-- FontAwesome CDN -->
@@ -78,10 +81,10 @@
 		</script>
 
 		<!-- JavaScript External Links -->
-		<script src="${pageContext.servletContext.contextPath}/resources/js/innerFoodCtrl.js"></script>
+		<script src="${pageContext.servletContext.contextPath}/resources/js/alertAndConfirm.js"></script>
+		
+		<!-- JavaScript Internal Codes -->
 		<script type="text/javascript">
-			// 전역변수로 사용할 변수 선언
-			let alertMsg, alertContent, alertWindow, confirmMsg, confirmContent, confirmWindow, confirmYesBtn, confirmNoBtn;
 			
 			// 식품 등록 버튼 눌렀을 때
 			function addBtnClicked() {
@@ -117,49 +120,6 @@
 						}
 					});
 				}
-			}
-			
-			// 알림창 띄우기
-			function showAlert(alertMsg) {
-				alertContent.textContent = alertMsg;
-				alertWindow.classList.remove("hidden");
-				alertWindow.classList.add("bg-opacity-100");
-				
-				setTimeout(function () {
-					alertWindow.classList.remove("bg-opacity-100");
-					alertWindow.classList.add("hidden");
-				}, 2500);
-			}
-			
-			// 컨펌창 켜기
-			function showConfirm(confirmMsg, yesClicked, noClicked) {
-			  confirmContent.textContent = confirmMsg;
-			  confirmWindow.classList.remove("hidden");
-			  confirmWindow.classList.add("bg-opacity-100");
-
-			  confirmYesBtn.onclick = function () {
-			    // Yes 눌리면 이뤄질 동작들
-			    if (yesClicked) {
-			      yesClicked(); // showConfirm 함수가 실행된 곳에서 전달한 yes 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-			    }
-			    // 컨펌창 끄기
-			    closeConfirm();
-			  };
-
-			  confirmNoBtn.onclick = function () {
-			    // No 눌리면 이뤄질 동작들
-			    if (noClicked) {
-			      noClicked(); // showConfirm 함수가 실행된 곳에서 전달한 no 버튼 클릭시 실행될 익명의 콜백함수가 여기서 실행된다는 뜻
-			    }
-			    // 컨펌창 끄기
-			    closeConfirm();
-			  };
-			}
-			
-			// 컨펌창 끄기
-			function closeConfirm() {
-			  confirmWindow.classList.remove("bg-opacity-100");
-			  confirmWindow.classList.add("hidden");
 			}
 			
 			document.addEventListener("DOMContentLoaded", function () {
@@ -617,16 +577,15 @@
 			</div>
 			<div class="w-100 vh-80 d-flex flex-row">
 				<!-- 신호등 + 전체 -->
-				<div id="trafficLight" class="w-7 h-30 mx-2 py-1 d-flex flex-column justify-content-sm-around bg-traffic">
-					<!-- 신호등 -->
-					<p class="w-100 mb-0 d-flex justify-content-sm-center fs-3 fw-bold text-white-75">
-						${ trafficLight[0].red }
+				<div id="trafficLight" class="bg-traffic mx-2 d-flex flex-column justify-content-sm-around py-1">
+					<p id="red" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].red}
 					</p>
-					<p class="w-100 mb-0 d-flex justify-content-sm-center fs-3 fw-bold text-white-75">
-						${ trafficLight[0].yellow }
+					<p id="yellow" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].yellow}
 					</p>
-					<p class="w-100 mb-0 d-flex justify-content-sm-center fs-3 fw-bold text-white-75">
-						${ trafficLight[0].green }
+					<p id="green" class="d-flex justify-content-sm-center w-100 fs-3 text-white-75 fw-bold mb-0">
+						${trafficLight[0].green}
 					</p>
 				</div>
 				<div class="w-90 h-100 bottom-0">
@@ -718,7 +677,7 @@
 										<label for="indexValue">식품 번호</label>
 										<input id="indexValue" type="number" />
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-1 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-1 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
     									<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_frg_name">보관 냉장고</label>
     									<div id="frgSelectContainer" class="w-70 h-80 mx-1">
        										<select id="detailInfoItemBox_frg_name" class="w-70 h-100 bg-transparent border-05 border-white border-dashed border-opacity-50 rounded-4 px-3 py-1" disabled>
@@ -729,11 +688,11 @@
         									</select>
    									    </div>
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_name">식품명</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="text" id="detailInfoItemBox_in_name" disabled />
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="">보관 상태</label>
 										<div class="w-70 h-100 position-relative d-flex flex-row justify-content-sm-around align-items-sm-center">
 											<div class="w-50 h-100 d-flex flex-row align-items-sm-center my-auto">
@@ -746,24 +705,24 @@
 											</div>
 										</div>
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_company">제조사명</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="text" id="detailInfoItemBox_in_company" disabled />
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_expireDate">유통/소비기한</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="date" id="detailInfoItemBox_in_expireDate" disabled />
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_d_DAY">D-Day</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="number" id="detailInfoItemBox_d_DAY" disabled />
 										<span></span>
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_count">수량</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="number" id="detailInfoItemBox_in_count" disabled />
 									</div>
-									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 rounded-4 mx-auto my-1 py-2">
+									<div class="w-100 h-10 d-flex flex-row align-items-sm-center border-05 border-dashed border-white border-opacity-10 bg-white-10 rounded-4 mx-auto my-1 py-2">
 										<label class="w-30 h-80 text-white fw-bold mx-2 px-2" for="detailInfoItemBox_in_type">식품 유형</label>
 										<input class="w-70 h-80 text-white bg-transparent border-none mx-1" type="text" id="detailInfoItemBox_in_type" disabled />
 									</div>

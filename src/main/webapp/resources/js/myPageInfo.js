@@ -9,8 +9,10 @@ function checkPasswordMatch() {
     var pwCheck = document.getElementById('pwCheck');
     var pwdAlert = document.getElementById('pwdAlert');
   
+    console.log(pwCheck);
+
     if (pw.value === pwCheck.value) {
-        pwdAlert.style.color = 'green';
+        pwdAlert.style.color = '#35FF03';
         pwdAlert.innerHTML = '일치';
     } else if(pw.value === "" || pwCheck.value === "") {
         pwdAlert.innerHTML = '';
@@ -117,10 +119,9 @@ $(document).ready(function () {
       var submitButton = $("#submitButton");
       var userData = $(".userData");
       var userPw = $("#pw");
-      var userPwCheck = $("#pwCheck");
+      var userPwCheck = $("#pwdCheck");
 
-
-      if (submitButton.text() === "수정하기") {
+      if (submitButton.text().trim() === "수정하기") {
         $("#checkEmail").css("display", "flex"); //이메일 중복 확인 버튼 , 수정하기 누르면 생긴다.
           userData.each(function () {
               if (this.id !== "id") {
@@ -165,8 +166,6 @@ $(document).ready(function () {
         msgEmailDiv.css("color","red");
         msgEmailDiv.removeClass("hidden");
 
-        $("#emailErrorMsg").css("margin-bottom", "23%");
-
         return;
       }
       //ajax 입력값이 변경되면 서버에 ajax요청 전송
@@ -180,18 +179,20 @@ $(document).ready(function () {
             msgEmailSpan.text("※ 이미 사용 중인 이메일입니다.");
             msgEmailDiv.show();
             msgEmailDiv.css("color","red");
+            msgEmailDiv.css("font-size", "80%");
+            msgEmailDiv.css("top", "-50%");
+            msgEmailDiv.css("padding-left", "5%");
             msgEmailDiv.removeClass("hidden");
-
-            $("#emailErrorMsg").css("margin-bottom", "23%");
             
 
           } else {
             msgEmailSpan.text("※ 사용 가능한 이메일입니다.");
             msgEmailDiv.show();
-            msgEmailDiv.css("color","green");
+            msgEmailDiv.css("color","#35FF03");
+            msgEmailDiv.css("font-size", "80%");
+            msgEmailDiv.css("top", "-50%");
+            msgEmailDiv.css("padding-left", "5%");
             msgEmailDiv.removeClass("hidden");
-
-            $("#emailErrorMsg").css("margin-bottom", "23%");
 
             isEmailBtn = true;//이메일 중복 확인 버튼 여부
           }
@@ -246,6 +247,7 @@ $(document).ready(function () {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(data),
+        dataType:"json",
         success: function(response){
           console.log("여기8");
           if (response) {
