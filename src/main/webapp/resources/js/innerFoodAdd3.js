@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (data.length == 1) {
-               alertMsg = data.api_name + "을 성공적으로 조회했습니다. 확인을 눌러주세요.";
+               alertMsg = data.length + "개의 식품을 성공적으로 조회했습니다.";
                showAlert(alertMsg);
             } else if (data.length > 1) {
                alertMsg = "총 " + data.length + "개의 동일제품이 검색되었습니다. \n 하단 표에서 원하는 제품을 선택하세요.";
@@ -653,8 +653,6 @@ document.addEventListener('DOMContentLoaded', function () {
          const addSettingBoxes = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
          let addSettingBoxesDataList = [];
          let frgOptionInput, frgStateInput, foodNameInput, dueDateInput, foodTypeInput, foodCountInput, foodCompanyInput;
-         //let shouldSubmit = true;
-         //let formDataFilled = false;
 
          for (let i = 0; i < addSettingBoxes.length; i++) {
             frgOptionInput = addSettingBoxes[i].querySelector(`select[name^="frg_name-"]`);
@@ -665,14 +663,6 @@ document.addEventListener('DOMContentLoaded', function () {
             foodCountInput = addSettingBoxes[i].querySelector(`input[name^="in_count-"]`);
             foodCompanyInput = addSettingBoxes[i].querySelector(`input[name^="in_company-"]`);
 
-            console.log("frgOptionInput.value : " + frgOptionInput.value);
-            console.log("frgStateInput.value : " + frgStateInput.value);
-            console.log("foodNameInput.value : " + foodNameInput.value);
-            console.log("dueDateInput.value : " + dueDateInput.value);
-            console.log("foodTypeInput.value : " + foodTypeInput.value);
-            console.log("foodCountInput.value : " + foodCountInput.value);
-            console.log("foodCompanyInput.value : " + foodCompanyInput.value);
-
             if ( //폼이 비어있지 않으면 데이터를 서버로 보내기
                frgOptionInput.value !== "" &&
                frgStateInput &&
@@ -682,11 +672,6 @@ document.addEventListener('DOMContentLoaded', function () {
                foodCountInput.value !== "" &&
                foodCompanyInput.value !== ""
             ) {
-
-               /*폼의 내용이 처음으로 다 작성된 순간에만 아래 alert를 띄움
-               if (!formDataFilled) {
-                  formDataFilled = true;
-               }*/
 
                alertMsg = formCount + "개의 식품정보를 등록하겠습니다.";
                showAlert(alertMsg);
@@ -711,16 +696,18 @@ document.addEventListener('DOMContentLoaded', function () {
                   in_company: foodCompany
                }
 
-               console.log("addSettingBoxesData", addSettingBoxesData);
-
-               console.log('-------------------------------');
-               addSettingBoxesDataList.push(addSettingBoxesData);
-               console.log('-------------------------------');
-               console.log("addSettingBoxesDataList", addSettingBoxesDataList);
-               console.log('-------------------------------');
-
-               shouldSubmit = true;
-
+            } else if(
+               frgOptionInput.value == "" ||
+               frgStateInput &&
+               foodNameInput.value == "" ||
+               dueDateInput.value == "" ||
+               foodTypeInput.value == "" ||
+               foodCountInput.value == "" ||
+               foodCompanyInput.value == ""
+            ){
+               alertMsg = "비어있는 폼을 기입해주세요.";
+               showAlert(alertMsg);
+               return ;
             }
 
             $.ajax({
@@ -733,8 +720,9 @@ document.addEventListener('DOMContentLoaded', function () {
                   if (response.success) {
                      alertMsg = formCount + "개의 식품을 성공적으로 등록했습니다. 식품 조회 페이지로 이동합니다.";
                      showAlert(alertMsg);
-                     console.log("response.frg_name " + response.frg_name);
-                     window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
+				     setTimeout(function() {
+                     	window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
+					 }, 2500);
                   } else {
                      alertMsg = "등록 실패 : " + response.message;
                      showAlert(alertMsg);
