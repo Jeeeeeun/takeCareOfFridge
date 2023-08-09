@@ -36,6 +36,11 @@
 		<!-- JavaScript External Links -->
 		<script src="${pageContext.servletContext.contextPath}/resources/js/alertAndConfirm.js"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/js/login.js"></script>
+		
+		<!-- JavaScript Internal Codes -->
+		<script>
+			alert('${msg}');
+		</script>
 	</head>
 	<body id="page-top">
 		<!-- Navigation-->
