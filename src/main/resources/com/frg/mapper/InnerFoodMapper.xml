@@ -53,7 +53,7 @@
 	</select>
 
 
-	<!-- innerCtrl -->
+	<!-- innerCtrl  : 냉장고 drop box 전체 선택 -->
 	<select id="selectAllInnerView"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name,
@@ -69,16 +69,7 @@
 		#{user_id}
 	</select>
 	
-	<select id="selectFrgNameAll"
-		resultType="string">
-		SELECT frgList.frg_name
-		FROM users
-		JOIN frgList ON
-		users.user_index = frgList.user_index
-		WHERE users.user_id = #{user_id}
-		AND frgList.frg_index = #{frg_index}
-	</select>
-
+	<!-- innerCtrl  : 냉장고 drop box 부분 선택 -->
 	<select id="selectPartInnerView"
 		resultType="com.frg.domain.InnerDTO">
 		SELECT i.in_name
@@ -96,6 +87,16 @@
 		FROM
 		frgList f
 		WHERE f.frg_name = #{frg_name} )
+	</select>
+	
+	<select id="selectFrgNameAll"
+		resultType="string">
+		SELECT frgList.frg_name
+		FROM users
+		JOIN frgList ON
+		users.user_index = frgList.user_index
+		WHERE users.user_id = #{user_id}
+		AND frgList.frg_index = #{frg_index}
 	</select>
 
 	<select id="selectInnerData"

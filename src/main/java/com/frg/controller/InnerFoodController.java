@@ -86,7 +86,6 @@ public class InnerFoodController {
 	@PostMapping(value = "/innerAdd/submit", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public ResponseEntity<String> registerInnerFood(HttpSession session, @RequestBody List<InnerDTO> dtoList) throws Exception {
-		
 
 	    String user_id = (String) session.getAttribute("SESS_ID");
 	    String frgName = null;

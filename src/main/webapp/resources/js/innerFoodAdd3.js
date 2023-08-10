@@ -89,35 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
            
              `   );
 
-               /*
-               const RadioBtnsInTableRows = document.querySelectorAll(`input[class="${divClass}"]`);
-               for (let i = 0; i < RadioBtnsInTableRows.length; i++) {
-                  RadioBtnsInTableRows[i].style.margin = "1% 1%";
-                  RadioBtnsInTableRows[i].style.borde = "1px solid rgb(255, 255, 255)";
-                  RadioBtnsInTableRows[i].style.width = "1rem";
-                  RadioBtnsInTableRows[i].style.height = "1rem";
-                  // 배경색 초기 설정 (선택된 체크박스에만 배경색을 설정합니다.)
-                  if (RadioBtnsInTableRows[i].checked) {
-                     RadioBtnsInTableRows[i].style.backgroundColor = "#f4623a6e";
-                  } else {
-                     RadioBtnsInTableRows[i].style.backgroundColor = "";
-                  }
-
-                  // 라디오 버튼 클릭 이벤트 리스너
-                  RadioBtnsInTableRows[i].addEventListener("change", function () {
-                     // 모든 라디오 버튼을 검색하여 배경색을 초기화합니다.
-                     for (let j = 0; j < RadioBtnsInTableRows.length; j++) {
-                        RadioBtnsInTableRows[j].style.backgroundColor = "";
-                     }
-
-                     // 현재 클릭한 라디오 버튼의 배경색을 변경합니다.
-                     if (RadioBtnsInTableRows[i].checked) {
-                        RadioBtnsInTableRows[i].style.backgroundColor = "#f4623a6e";
-                     } else {
-                        RadioBtnsInTableRows[i].style.backgroundColor = "";
-                     }
-                  });
-               }*/
 
                // 선택된 divClass를 가진 input 요소에 대한 이벤트 처리
                $('input.' + divClass).on('change', function () {
@@ -395,6 +366,16 @@ document.addEventListener('DOMContentLoaded', function () {
          addSettingBoxFormBoxesArrange[i].style.margin = "0 auto";
          addSettingBoxFormBoxesArrange[i].style.top = "7%";
 
+		 selectedFormInputs[i].style.margin="5% 3%";
+		 selectedFormInputs[i].style.appearance= "none";
+		 selectedFormInputs[i].style.border= "3px solid white";
+		 selectedFormInputs[i].style.width= "1.25rem";
+		 selectedFormInputs[i].style.height= "1.25rem";
+		 
+		 if(selectedFormInputs[i].checked){
+		 	 selectedFormInputs[i].style.backgroundColor= "#f4623a6e";
+		 }
+		
          Alllabels[i].style.width = "50%";
          Alllabels[i].style.marginLeft = "4%";
 
@@ -447,43 +428,25 @@ document.addEventListener('DOMContentLoaded', function () {
          box2and1[i].style.display = "flex";
          box2and1[i].style.alignItems = "center";
 
-/*
-         // 냉동 및 냉장 라디오 버튼 상태에 따라 배경색 변경
-         for (let i = 0; i < foodStateFrozen.length; i++) {
-            // 초기 배경색 설정
-            setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-            setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
+         box3[i].style.position = "relative";
+         box3[i].style.width = "100%";
+         box3[i].style.position = "100%";
 
-            // 라디오 버튼 상태 변경 감지 및 배경색 변경
-            foodStateFrozen[i].addEventListener("change", function () {
-               setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-               setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
-            });
+         box4[i].style.position = "relative";
+         box4[i].style.width = "100%";
+         box4[i].style.position = "100%";
 
-            foodStateCool[i].addEventListener("change", function () {
-               setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
-               setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
-            });*/
+         box5[i].style.position = "relative";
+         box5[i].style.width = "100%";
+         box5[i].style.position = "100%";
 
-            box3[i].style.position = "relative";
-            box3[i].style.width = "100%";
-            box3[i].style.position = "100%";
+         box6[i].style.position = "relative";
+         box6[i].style.width = "100%";
+         box6[i].style.position = "100%";
 
-            box4[i].style.position = "relative";
-            box4[i].style.width = "100%";
-            box4[i].style.position = "100%";
-
-            box5[i].style.position = "relative";
-            box5[i].style.width = "100%";
-            box5[i].style.position = "100%";
-
-            box6[i].style.position = "relative";
-            box6[i].style.width = "100%";
-            box6[i].style.position = "100%";
-
-            box7[i].style.position = "relative";
-            box7[i].style.width = "100%";
-            box7[i].style.position = "100%";
+         box7[i].style.position = "relative";
+         box7[i].style.width = "100%";
+         box7[i].style.position = "100%";
 
          }
 
@@ -695,6 +658,8 @@ document.addEventListener('DOMContentLoaded', function () {
                   in_count: foodCount,
                   in_company: foodCompany
                }
+               
+               addSettingBoxesDataList.push(addSettingBoxesData);
 
             } else if(
                frgOptionInput.value == "" ||
@@ -710,7 +675,9 @@ document.addEventListener('DOMContentLoaded', function () {
                return ;
             }
 
-            $.ajax({
+         }
+         
+         $.ajax({
                type: "POST",
                url: `${contextPath}/frg/innerAdd/submit`,
                contentType: "application/json",
@@ -733,8 +700,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   showAlert(alertMsg);
                }
             });
-
-         }
       }
    
 
