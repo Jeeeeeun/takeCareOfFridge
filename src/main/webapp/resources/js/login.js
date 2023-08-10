@@ -3,19 +3,21 @@ function login() {
     var pw = document.getElementById("user_pw").value;
     
     if (id === "") {
-        alert("아이디를 입력하세요.");
+        alertMsg = "아이디를 입력하세요.";
+        showAlert(alertMsg);
         return false;
     }
     
     if (pw === "") {
-        alert("비밀번호를 입력하세요.");
+        alertMsg = "비밀번호를 입력하세요.";
+        showAlert(alertMsg);
         return false;
     }
 }
 
 function showMsg(msg){
-   if(msg != null && msg !=''){
-      alert(msg);
-   }
-   
+	if(msg != null && msg !=''){
+		alertMsg = msg;
+		showAlert(alertMsg);
+	}
 }

@@ -284,16 +284,16 @@ function trfStandardBtnClicked() {
 	let mention = `작성 예시1) -10: 유통/소비기한 10일 남음\n`
 	mention += `작성 예시2) +5: 유통/소비기한 5일 지남\n`;
 	mention += `<i class="fa-solid fa-star" style="color: #ffdb00;"></i>`;
-	mention += ` 위쪽 숫자(위험 판단 기준)가 아래쪽 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
+	mention += ` 윗 숫자(위험 판단 기준)가 아래 숫자(경고 판단 기준)보다 큰 숫자여야 합니다.`;
 
 	const announce = document.createElement("pre");
 	// pre: 사전에 서식이 지정된(preformatted) 텍스트 태그를 말함.
 
 	announce.innerHTML = mention;	
 	announce.style.color = "white";
-	announce.style.fontSize = "60%";
+	announce.style.fontSize = "63%";
 	announce.style.position = "relative";
-	announce.style.margin = "0 3%";
+	announce.style.margin = "0 2%";
 	
 	announcement.appendChild(announce);
 	
@@ -365,11 +365,11 @@ function trfCorrectionEnd() {
 					announcement.removeChild(announcePre); // 없애줘
 				}
 			
-				setTimeout(function () {
-					// 시간차 두고 알림창 띄우기
-					alertMsg = "냉장고 속 식품 보관 관리 기준이 변경되었습니다.";
-					showAlert(alertMsg);
-				}, 100);
+				alertMsg = "냉장고 속 식품 보관 관리 기준이 변경되었습니다.";
+				showAlert(alertMsg);
+				setTimeout(() => {
+				    location.reload(); // 화면 새로 고침 코드
+				}, 2000);
 			},
 			error: function (err) {
 				alertMsg = "냉장고 식품 보관 관리 기준 변경에 실패했습니다.";
@@ -413,6 +413,34 @@ function trfCorrectionEnd() {
 	.catch(function (error) {
 		console.error("사용자 ID를 얻는 데 실패했습니다:", error);
 	});
+}
+
+/* --------------- 한 명의 회원에게는 똑같은 이름의 냉장고를 만들 수 없게 하기 위한 중복 방지 검사 --------------- */
+
+// 기존에 있는 냉장고 이름들을 가져오는 함수 (중복 확인 목적)
+function getExistingFrgNames(user_Id) {
+	return fetch(`${contextPath}/frg/getFrgNames?user_id=${user_Id}`)
+	.then((response) => {
+		if (response.ok) {
+			return response.json();
+		} else {
+			throw new Error("냉장고 이름 목록을 가져오는 데 실패했습니다.");
+		}
+	});
+}
+
+// 냉장고 이름 중복 확인
+function checkFrgNameDuplication(newFrgNames, existingFrgNames) {
+	const duplicatedNames = newFrgNames.filter((name) => {
+		return existingFrgNames.includes(name);
+	});
+	
+	if (duplicatedNames.length > 0) { // 겹치는 이름이 한 개라도 있으면
+		alertMsg = `${duplicatedNames.join(', ')}(이)라는 냉장고 이름이 이미 존재합니다.`;
+		showAlert(alertMsg);
+		return false;
+	}
+	return true;
 }
 
 function frgInfoChangeBtnClicked() {
@@ -584,128 +612,143 @@ function frgCorrectionEnd() {
 	// 냉장고 정보 수정 완료 버튼 클릭하면
 	
 	// SESS_ID를 가져오는 함수를 호출
-	getUserId()
+	 getUserId()
 	.then(function (userId) {
-		// jsp에서 값 가져와서 updatedFrgdata라는 변수의 JSON 형태로 저장
-		const updatedFrgData = {
-			user_id: userId,
-			frg_index: parseInt(frgIndex.value),
-			frg_name: frgName[0].value,
-			frg_shape: checkedRadio.value,
-			frg_Astate: frgAstate.querySelector("button[selected]").value,
-			frg_Bstate:
-				checkedRadio.value === "S"
-				? null
-				: frgBstate.querySelector("button[selected]").value,
-		};
+		return Promise.all([userId, getExistingFrgNames(userId)]);
+	})
+	.then(function (results) {
+		const userId = results[0];
+		const existingFrgNames = results[1];
 		
-		// 혹시 frg_name 비어있지는 않은지 확인
-		if (frgName[0] === null || frgName[0].value === "") {
-			alertMsg = "냉장고 이름을 올바르게 입력하세요.";
-			showAlert(alertMsg);
-			frgName[0].focus();
-			return;
-		}
+		var newFrgName = frgName[0].value;
+		var isNotDuplicated = checkFrgNameDuplication([newFrgName], existingFrgNames);
+
+		if (!isNotDuplicated) return;	
 		
-		// 다시 렌더링해서 보여줄 데이터 지정
-		frgName[0].value = updatedFrgData.frg_name;
+			// jsp에서 값 가져와서 updatedFrgdata라는 변수의 JSON 형태로 저장
+			const updatedFrgData = {
+				user_id: userId,
+				frg_index: parseInt(frgIndex.value),
+				frg_name: frgName[0].value,
+				frg_shape: checkedRadio.value,
+				frg_Astate: frgAstate.querySelector("button[selected]").value,
+				frg_Bstate:
+					checkedRadio.value === "S"
+					? null
+					: frgBstate.querySelector("button[selected]").value,
+			};
 		
-		switch (updatedFrgData.frg_shape) {
-			case "H":
-				frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
-				hRadio.checked = true;
-				vRadio.checked = false;
-				sRadio.checked = false;
-				break;
-			case "V":
-				frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
-				vRadio.checked = true;
-				hRadio.checked = false;
-				sRadio.checked = false;
-				break;
-			case "S":
-				frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
-				sRadio.checked = true;
-				vRadio.checked = false;
-				hRadio.checked = false;
-				if(frgBstate.classList.contains("d-flex")) {
-					frgBstate.classList.remove("d-flex");
-					frgBstate.classList.add("hidden");
-				}
-				break;
+			// 혹시 frg_name 비어있지는 않은지 확인
+			if (frgName[0] === null || frgName[0].value === "") {
+				alertMsg = "냉장고 이름을 올바르게 입력하세요.";
+				showAlert(alertMsg);
+				frgName[0].focus();
+				return;
 			}
 		
-		switch (updatedFrgData.frg_Astate) {
-			case "frozen":
-				aFrozenBtn.setAttribute("selected", "");
-				aCoolBtn.removeAttribute("selected");
-				aFrozenBtn.className = "frgSelected";
-				aCoolBtn.className = "frgNotSelected";
-				break;
-			case "cool":
-				aFrozenBtn.removeAttribute("selected");
-				aCoolBtn.setAttribute("selected", "");
-				aFrozenBtn.className = "frgNotSelected";
-				aCoolBtn.className = "frgSelected";
-          	break;
-		}
-		
-		switch (updatedFrgData.frg_Bstate) {
-			case "frozen":
-				bFrozenBtn.setAttribute("selected", "");
-				bCoolBtn.removeAttribute("selected");
-				bFrozenBtn.className = "frgSelected";
-				bCoolBtn.className = "frgNotSelected";
-				break;
-			case "cool":
-				bFrozenBtn.removeAttribute("selected");
-				bCoolBtn.setAttribute("selected", "");
-				bFrozenBtn.className = "frgNotSelected";
-				bCoolBtn.className = "frgSelected";
-				break;
-		}
-		
-		// ajax으로 값 넘기기
-		$.ajax({
-			type: "POST",
-			url: `${contextPath}/frg/frgInfoChange`,
-			contentType: "application/json",
-			data: JSON.stringify(updatedFrgData),
-			dataType: "json",
-			success: function (response) {
-				// 숨겨졌던 수정하기 버튼 등장
-				frgInfoChangeBtn.classList.remove("hidden");
-				frgInfoChangeBtn.classList.add("flex");
+			// 다시 렌더링해서 보여줄 데이터 지정
+			frgName[0].value = updatedFrgData.frg_name;
 			
-				// 드러나 있던 수정 완료 버튼 숨김
-				frgCorrectionEndBtn.classList.remove("d-flex");
-				frgCorrectionEndBtn.classList.add("hidden");
-			
-				alertMsg = "냉장고 정보가 성공적으로 변경되었습니다.";
-				showAlert(alertMsg);
-			},
-			error: function (err) {
-				alertMsg = "냉장고 정보 변경에 실패했습니다.";
-				showAlert(alertMsg);
-				if (err.status === 404) {
-					alertMsg = "요청한 페이지를 찾을 수 없습니다.";
-					showAlert(alertMsg);
-					return;
-				} else if (err.status === 500) {
-					alertMsg = "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
-					showAlert(alertMsg);
-					return;
-				} else {
-					alertMsg = "error가 발생했습니다. " + err;
-					showAlert(alertMsg);
-					return;
+			switch (updatedFrgData.frg_shape) {
+				case "H":
+					frgShape[0].src = window.contextPath + "/resources/img/hFrgLabel.svg";
+					hRadio.checked = true;
+					vRadio.checked = false;
+					sRadio.checked = false;
+					break;
+				case "V":
+					frgShape[0].src = window.contextPath + "/resources/img/vFrgLabel.svg";
+					vRadio.checked = true;
+					hRadio.checked = false;
+					sRadio.checked = false;
+					break;
+				case "S":
+					frgShape[0].src = window.contextPath + "/resources/img/sFrgLabel.svg";
+					sRadio.checked = true;
+					vRadio.checked = false;
+					hRadio.checked = false;
+					if(frgBstate.classList.contains("d-flex")) {
+						frgBstate.classList.remove("d-flex");
+						frgBstate.classList.add("hidden");
+					}
+					break;
 				}
-			},
+			
+			switch (updatedFrgData.frg_Astate) {
+				case "frozen":
+					aFrozenBtn.setAttribute("selected", "");
+					aCoolBtn.removeAttribute("selected");
+					aFrozenBtn.className = "frgSelected";
+					aCoolBtn.className = "frgNotSelected";
+					break;
+				case "cool":
+					aFrozenBtn.removeAttribute("selected");
+					aCoolBtn.setAttribute("selected", "");
+					aFrozenBtn.className = "frgNotSelected";
+					aCoolBtn.className = "frgSelected";
+				break;
+			}
+			
+			switch (updatedFrgData.frg_Bstate) {
+				case "frozen":
+					bFrozenBtn.setAttribute("selected", "");
+					bCoolBtn.removeAttribute("selected");
+					bFrozenBtn.className = "frgSelected";
+					bCoolBtn.className = "frgNotSelected";
+					break;
+				case "cool":
+					bFrozenBtn.removeAttribute("selected");
+					bCoolBtn.setAttribute("selected", "");
+					bFrozenBtn.className = "frgNotSelected";
+					bCoolBtn.className = "frgSelected";
+					break;
+			}
+		
+			// ajax으로 값 넘기기
+			$.ajax({
+				type: "POST",
+				url: `${contextPath}/frg/frgInfoChange`,
+				contentType: "application/json",
+				data: JSON.stringify(updatedFrgData),
+				dataType: "json",
+				success: function (response) {
+					// 숨겨졌던 수정하기 버튼 등장
+					frgInfoChangeBtn.classList.remove("hidden");
+					frgInfoChangeBtn.classList.add("flex");
+				
+					// 드러나 있던 수정 완료 버튼 숨김
+					frgCorrectionEndBtn.classList.remove("d-flex");
+					frgCorrectionEndBtn.classList.add("hidden");
+				
+					alertMsg = "냉장고 정보가 성공적으로 변경되었습니다.";
+					showAlert(alertMsg);
+					
+					setTimeout(() => {
+				    	location.reload(); // 화면 새로 고침 코드
+					}, 2000);
+				},
+				error: function (err) {
+					alertMsg = "냉장고 정보 변경에 실패했습니다.";
+					showAlert(alertMsg);
+					if (err.status === 404) {
+						alertMsg = "요청한 페이지를 찾을 수 없습니다.";
+						showAlert(alertMsg);
+						return;
+					} else if (err.status === 500) {
+						alertMsg = "서버 내부 오류가 발생했습니다. 관리자에게 문의하세요.";
+						showAlert(alertMsg);
+						return;
+					} else {
+						alertMsg = "error가 발생했습니다. " + err;
+						showAlert(alertMsg);
+						return;
+					}
+				},
+			});	
+		})
+		.catch(function (error) {
+			console.error("사용자 ID를 가져오거나 냉장고 이름 검증 중 오류가 발생했습니다:", error);
 		});
-	})
-    .catch(function (error) {
-		console.error("사용자 ID를 얻는 데 실패했습니다:", error);
-	});
 }
 
 function frgDiscardBtnClicked() {
@@ -749,10 +792,10 @@ function frgDiscardBtnClicked() {
 						} else { // 남은 냉장고가 하나도 없다면
 							alertMsg = "등록된 냉장고가 없습니다. 잠시 후 냉장고 등록 페이지로 이동합니다.";
 							showAlert(alertMsg);
-							// 3.5초 후 냉장고 추가 페이지로 이동
+							// 3초 후 냉장고 추가 페이지로 이동
 							setTimeout(function () {
 								window.location.href = `${contextPath}/frg/frgAdd`;
-							}, 3500);
+							}, 3000);
 						}
 					},
 					error: (err) => {

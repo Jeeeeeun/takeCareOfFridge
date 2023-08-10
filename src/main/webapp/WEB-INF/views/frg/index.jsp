@@ -8,6 +8,7 @@
 			<meta name="description" content="" />
 			<meta name="author" content="" />
 			<title>HOME</title>
+
 			<!-- Favicon-->
 			<link rel="icon" type="image/x-icon" href="../resources/img/favicon.svg" />
 
@@ -23,7 +24,7 @@
 			
 			<!-- Core theme CSS (includes Bootstrap)-->
 			<link href="${pageContext.servletContext.contextPath }/resources/css/styles.css" rel="stylesheet" />
-
+			
 			<!-- FontAwesome CDN -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -53,14 +54,14 @@
 											MyFridge
 										</a>
 									</li>
-									<li class="nav-item hidden">
-										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="event.preventDefault(); noLog(event);">
-											Community
-										</a>
-									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login">
 											Login
+										</a>
+									</li>
+									<li class="nav-item hidden">
+										<a class="nav-link" href="<%=request.getContextPath()%>/frg/login" onclick="event.preventDefault(); noLog(event);">
+											Community
 										</a>
 									</li>
 									<li class="nav-item">
