@@ -106,36 +106,24 @@ document.addEventListener('DOMContentLoaded', function () {
                      console.log(apiCompany);
                      console.log(apiType);
 
-                     const addSettingBoxForm = document.querySelectorAll('div[id^="addSettingBoxForm-"]');
+                     const addSettingBoxForm = document.querySelectorAll(`div[id^="addSettingBoxForm-"]`);
                      console.log("addSettingBoxForm.length : " + addSettingBoxForm.length);
-
-                     let chosenFormToSetValues;
-                     function findEmptyAddSettingForm(addSettingBoxForm) {
-                        for (let i = 0; i < addSettingBoxForm.length; i++) {
-                           if (addSettingBoxForm[i].querySelector(`input[id^="foodNameInput-"]`).value === "") {
-                              console.log("here");
-                              chosenFormToSetValues = addSettingBoxForm[i];
-                              console.log("chosenFormToSetValues : " + chosenFormToSetValues);
-                              break;
-                           }
-                        }
-                        return chosenFormToSetValues;
-                     }
-
-                     chosenFormToSetValues = findEmptyAddSettingForm(addSettingBoxForm);
-
-                     if (chosenFormToSetValues) {
+                     
+                     const lastAddSettingBoxForm = addSettingBoxForm[addSettingBoxForm.length - 1];
+                     console.log("lastAddSettingBoxForm",lastAddSettingBoxForm );
+                     
+                     if (lastAddSettingBoxForm) {
                         // 변수에 할당된 값으로 각각의 input 태그의 value 값 설정
-                        chosenFormToSetValues.querySelector(`input[id^="foodNameInput-"]`).value = apiName;
-                        chosenFormToSetValues.querySelector(`input[id^="foodNameInput-"]`).disabled = true;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodNameInput-"]`).value = apiName;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodNameInput-"]`).disabled = true;
 
-                        chosenFormToSetValues.querySelector(`input[id^="foodCompany-"]`).value = apiCompany;
-                        chosenFormToSetValues.querySelector(`input[id^="foodCompany-"]`).disabled = true;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodCompany-"]`).value = apiCompany;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodCompany-"]`).disabled = true;
 
-                        chosenFormToSetValues.querySelector(`input[id^="foodType-"]`).value = apiType;
-                        chosenFormToSetValues.querySelector(`input[id^="foodType-"]`).disabled = true;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodType-"]`).value = apiType;
+                        lastAddSettingBoxForm.querySelector(`input[id^="foodType-"]`).disabled = true;
                      }
-
+                     
 
                   }
                });
@@ -359,7 +347,7 @@ function createNewSettingBox() {
                setBackgroundColorBasedOnCheckedStatus(selectedFormInputs[i]);
             });
          }
-
+         
          addSettingBoxFormBoxesArrange[i].style.position = "relative";
          addSettingBoxFormBoxesArrange[i].style.width = "100%";
          addSettingBoxFormBoxesArrange[i].style.height = "95%";
@@ -372,9 +360,33 @@ function createNewSettingBox() {
 		 selectedFormInputs[i].style.width= "1.25rem";
 		 selectedFormInputs[i].style.height= "1.25rem";
 		 
-		 if(selectedFormInputs[i].checked){
-		 	 selectedFormInputs[i].style.backgroundColor= "#f4623a6e";
-		 }
+		foodStateFrozen[i].style.margin="5% 3%";
+		foodStateFrozen[i].style.appearance="none";
+		foodStateFrozen[i].style.border="1px solid rgb(255, 255, 255)";
+		foodStateFrozen[i].style.width="1.25rem";
+		foodStateFrozen[i].style.height="1.25rem";
+		
+		for (let i = 0; i < foodStateFrozen.length; i++) {
+            setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
+
+            foodStateFrozen[i].addEventListener("change", function () {
+               setBackgroundColorBasedOnCheckedStatus(foodStateFrozen[i]);
+            });
+         }
+		
+		foodStateCool[i].style.margin="5% 3%";
+		foodStateCool[i].style.appearance="none";
+		foodStateCool[i].style.border="1px solid rgb(255, 255, 255)";
+		foodStateCool[i].style.width="1.25rem";
+		foodStateCool[i].style.height="1.25rem";
+		
+		for (let i = 0; i < foodStateCool.length; i++) {
+            setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
+
+            foodStateCool[i].addEventListener("change", function () {
+               setBackgroundColorBasedOnCheckedStatus(foodStateCool[i]);
+            });
+         }
 		
          Alllabels[i].style.width = "50%";
          Alllabels[i].style.marginLeft = "4%";
@@ -672,6 +684,9 @@ function createNewSettingBox() {
             ){
                alertMsg = "비어있는 폼을 기입해주세요.";
                showAlert(alertMsg);
+               
+               
+               
                return ;
             }
          }
