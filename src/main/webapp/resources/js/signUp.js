@@ -145,13 +145,16 @@ $(document).ready(function() {
 
         if(isIdChecked === null || isIdChecked !== true){
             e.preventDefault();
-            alert("아이디 중복확인 해주세요.");
+            alertMsg = "아이디 중복확인 해주세요.";
+            showAlert(alertMsg);
         } else if(!pwdPattern.test(pwd)){
             e.preventDefault();
-            alert("비밀번호는 최소 8자리 이상이며, 최소 하나의 대소문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.");
+            alertMsg = "비밀번호는 최소 8자리 이상이며, 최소 하나의 대소문자, 숫자, 특수문자(@$!%*#?&)를 포함해야 합니다.";
+            showAlert(alertMsg);
         } else if(isEmailChecked === null || isEmailChecked !== true){
             e.preventDefault();
-            alert("이메일 중복확인 해주세요.");
+            alertMsg = "이메일 중복확인 해주세요.";
+            showAlert(alertMsg);
         }
     });
 });

@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
    let frgStateCounter = 1;
    let formCount = 1;
    /* createNewSettingBox(); */
-   function createNewSettingBox() {
+function createNewSettingBox() {
 
       /*
       1. +를 눌렀을 때, form이 비어있는지 아닌지 확인 후 
@@ -674,7 +674,6 @@ document.addEventListener('DOMContentLoaded', function () {
                showAlert(alertMsg);
                return ;
             }
-
          }
          
          $.ajax({
@@ -688,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      alertMsg = formCount + "개의 식품을 성공적으로 등록했습니다. 식품 조회 페이지로 이동합니다.";
                      showAlert(alertMsg);
 				     setTimeout(function() {
-                     	window.location.href = `${contextPath}/frg/innerCtrl?frgName=${response.frg_name}`;
+                     	window.location.href = `${contextPath}/frg/innerCtrl?frgName=${frgOptionInput.value}`;
 					 }, 2500);
                   } else {
                      alertMsg = "등록 실패 : " + response.message;
